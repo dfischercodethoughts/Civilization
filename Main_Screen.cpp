@@ -114,7 +114,9 @@ void Main_Screen::process_click(Coordinate click) {
      }//game has no current unit, so select the tile and unit clicked on
      else {
          game.set_active_tile(*game.get_map().get_tile_from_click(click));
-         game.set_active_unit(*game.get_map().get_tile_from_click(click)->get_unit());
+         if (game.get_active_tile_const()->has_unit()) {
+             game.set_active_unit(*game.get_map().get_tile_from_click(click)->get_unit());
+         }
      }
 }
 

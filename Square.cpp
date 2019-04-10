@@ -36,7 +36,7 @@ center(cnt)
     width = w;
     msg = mesg;
     visible = vis;
-    xoff =  -msg.size()/2;
+    xoff =  -msg.size()*4;
     yoff = 0;
 }
 
@@ -104,7 +104,7 @@ void Square::set_text_color(Color newc) {
 
 void Square::set_message(std::string newm) {
     msg = newm;
-    xoff = -msg.size()/2;
+    xoff = -msg.size()*4;
 }
 
 void Square::set_x_offset(int newxoff) {
@@ -149,7 +149,7 @@ void Square::draw() {
 
         //draw message
         glColor3f(text_color.get_red(), text_color.get_green(), text_color.get_blue());
-        glRasterPos2i(center.x + xoff, center.y + yoff);
+        glRasterPos2i(center.x +xoff, center.y + yoff+5);
         for (char c : msg) {
             glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
         }

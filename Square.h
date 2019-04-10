@@ -35,7 +35,7 @@ public:
      */
     Square();
     Square(Coordinate cnt, Color fill, int h, int w, bool vis);
-    Square(Coordinate cnt, Color text, Color fill, int h, int w, std::string msg, bool vis);
+    Square(Coordinate cnt, Color fill, Color text, int h, int w, std::string msg, bool vis);
 
     Coordinate get_center() const;
     int get_height() const;

@@ -22,14 +22,14 @@ void Start_Screen::init(int h, int w) {
     set_screen_height(h);
     set_screen_width(w);
     set_center(Coordinate(w/2,h/2));
-    new_game = Square(Coordinate(width/2,height/2-150),Colors::WHITE,Colors::BLACK,100,150,"New Game",true);
-    exit_game = Square(Coordinate(width/2,height/2+150),Colors::WHITE,Colors::BLACK,100,150,"Exit Game",true);
-    load_game = Square(Coordinate(width/2,height/2),Colors::WHITE,Colors::BLACK,100,150,"Load Game",true);
+    new_game = Square(Coordinate(width/2,3*height/8),Colors::BLUE,Colors::BLACK,100,150,"New Game",true);
+    exit_game = Square(Coordinate(width/2,5*height/8),Colors::BLUE,Colors::BLACK,100,150,"Exit Game",true);
+    load_game = Square(Coordinate(width/2,height/2),Colors::BLUE,Colors::BLACK,100,150,"Load Game",true);
 }
 
 void Start_Screen::draw() {
     Square(Coordinate(width/2,height/2),Colors::GREEN,height,width,true).draw();
-    Square(Coordinate(width/2,7*height/8),Colors::BLACK,Colors::GREEN,height/10,width/5,"CIVILIZATION",true).draw();
+    Square(Coordinate(width/2,height/8),Colors::GREEN,Colors::BLACK,height/10,width/5,"CIVILIZATION",true).draw();
     new_game.draw();
     exit_game.draw();
     load_game.draw();
