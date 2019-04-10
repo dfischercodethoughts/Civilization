@@ -306,7 +306,7 @@ void Unit::draw() {
 }
 
 void Unit::draw_on_tile(Square base) {
-    glColor3i(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
+    glColor3f(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
     glRasterPos2i(base.get_center().x+base.get_width()/8,base.get_center().y - 3*base.get_height()/8);
     std::string line = "U: " + unit_type_to_string(get_unit_type());
     for (char c : line) {
@@ -315,42 +315,42 @@ void Unit::draw_on_tile(Square base) {
 }
 
 void Unit::draw_on_viewport(Square base) {
-    glColor3i(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
+    glColor3f(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
     glRasterPos2i(base.get_center().x-3*base.get_width()/8,base.get_center().y - 3*base.get_height()/8);
     std::string line = "TYPE: " + unit_type_to_string(get_unit_type());
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
-    glColor3i(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
+    glColor3f(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
     glRasterPos2i(base.get_center().x-3*base.get_width()/8,base.get_center().y - base.get_height()/8);
     line = "OWNER: " + Civilization_Name::civ_name_to_string(get_owner());
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
-    glColor3i(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
+    glColor3f(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
     glRasterPos2i(base.get_center().x-3*base.get_width()/8,base.get_center().y + base.get_height()/8);
     line = "MOVEMENT LEFT: " + std::to_string(get_current_movement());
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
-    glColor3i(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
+    glColor3f(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
     glRasterPos2i(base.get_center().x-3*base.get_width()/8,base.get_center().y + 3*base.get_height()/8);
     line = "MAX MOVEMENT: " + std::to_string(get_max_movement(get_unit_type()));
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
-    glColor3i(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
+    glColor3f(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
     glRasterPos2i(base.get_center().x+base.get_width()/8,base.get_center().y -3* base.get_height()/8);
     line = "HEALTH LEFT: " + std::to_string(get_current_health());
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
-    glColor3i(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
+    glColor3f(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
     glRasterPos2i(base.get_center().x+base.get_width()/8,base.get_center().y - base.get_height()/8);
     line = "MAX HEALTH: " + std::to_string(get_max_health());
     for (char c : line) {

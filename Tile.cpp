@@ -146,7 +146,7 @@ void Tile::draw() {
     if (visible) {
         Square(get_center(),get_text_color(),get_fill(),get_height(),get_width(),get_message(),true).draw();
         std::string line = "T: ";
-        glColor3i(this->get_text_color().get_red(),this->get_text_color().get_green(),this->get_text_color().get_blue());
+        glColor3f(this->get_text_color().get_red(),this->get_text_color().get_green(),this->get_text_color().get_blue());
         glRasterPos2i(this->get_center().x-(3*this->get_width()/8),this->get_center().y-this->get_height()/3);
         line += Tile_Terrain::terrain_to_string(this->get_terrain());
         for (char c: line) {
@@ -177,21 +177,21 @@ void Tile::draw() {
 void Tile::draw_on_viewport(Square viewport_base) {
     viewport_base.draw();
     std::string line = "";
-    glColor3i(get_text_color().get_red(),get_text_color().get_green(),get_text_color().get_blue());
+    glColor3f(get_text_color().get_red(),get_text_color().get_green(),get_text_color().get_blue());
     glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y-viewport_base.get_height()/8);
     line += "TERRAIN TYPE: " + Tile_Terrain::terrain_to_string(terrain);
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
-    glColor3i(get_text_color().get_red(),get_text_color().get_green(),get_text_color().get_blue());
+    glColor3f(get_text_color().get_red(),get_text_color().get_green(),get_text_color().get_blue());
     glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y+viewport_base.get_height()/8);
     line = "RESOURCE TYPE: " + Tile_Resource::resource_to_string(resource);
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
-    glColor3i(get_text_color().get_red(),get_text_color().get_green(),get_text_color().get_blue());
+    glColor3f(get_text_color().get_red(),get_text_color().get_green(),get_text_color().get_blue());
     glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y+3*viewport_base.get_height()/8);
     line = "MOVEMENT COST: "+std::to_string(Tile_Terrain::get_movement_cost(terrain));
     for (char c : line) {

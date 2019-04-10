@@ -62,7 +62,7 @@ public:
     Unit * get_unit();
     void set_unit(Unit & newu);
 
-    void draw() override;
+    void draw();
 
     void draw_on_viewport( Square viewport_base) override;
 

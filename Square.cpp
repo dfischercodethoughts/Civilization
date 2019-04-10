@@ -36,7 +36,7 @@ center(cnt)
     width = w;
     msg = mesg;
     visible = vis;
-    xoff = 0;
+    xoff =  -msg.size()/2;
     yoff = 0;
 }
 
@@ -104,6 +104,7 @@ void Square::set_text_color(Color newc) {
 
 void Square::set_message(std::string newm) {
     msg = newm;
+    xoff = -msg.size()/2;
 }
 
 void Square::set_x_offset(int newxoff) {
@@ -127,30 +128,31 @@ void Square::hide() {
 }
 
 bool Square::check_click(Coordinate click) {
-    if (click.x > (center.x-width/2) & click.x < (center.x + width/2) &
-        click.y > (center.y-height/2) & click.y < (center.y + height/2)) {
+    if (click.x > (center.x-width/2) && click.x < (center.x + width/2) &&
+        click.y > (center.y-height/2) && click.y < (center.y + height/2)) {
         return true;
     }
     return false;
 }
 
 void Square::draw() {
-    int xoff = msg.size()/2;
-    glColor3i(fill.get_red(),fill.get_green(),fill.get_blue());
-    glBegin(GL_QUADS);
-    //top left
-    glVertex2i(center.x-width/2,center.y-height/2);
-    glVertex2i(center.x+width/2,center.y-height/2);
-    //bottom right
-    glVertex2i(center.x+width/2,center.y+height/2);
-    glVertex2i(center.x-width/2,center.y+height/2);
-    glEnd();
+    if (visible) {
+        glColor3f(fill.get_red(), fill.get_green(), fill.get_blue());
+        glBegin(GL_QUADS);
+        //top left
+        glVertex2i(center.x - width / 2, center.y - height / 2);
+        glVertex2i(center.x + width / 2, center.y - height / 2);
+        //bottom right
+        glVertex2i(center.x + width / 2, center.y + height / 2);
+        glVertex2i(center.x - width / 2, center.y + height / 2);
+        glEnd();
 
-    //draw message
-    glColor3i(text_color.get_red(),text_color.get_green(),text_color.get_blue());
-    glRasterPos2i(center.x+xoff,center.y+yoff);
-    for (char c : msg) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
+        //draw message
+        glColor3f(text_color.get_red(), text_color.get_green(), text_color.get_blue());
+        glRasterPos2i(center.x + xoff, center.y + yoff);
+        for (char c : msg) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+        }
     }
 }
 

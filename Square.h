@@ -60,7 +60,7 @@ public:
 
     bool check_click(Coordinate click);
 
-    virtual void draw();
+    void draw();
 
     ~Square();
 

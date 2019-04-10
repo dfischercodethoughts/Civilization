@@ -38,7 +38,7 @@ void End_Screen::init(bool won, int h, int w) {
 
 void End_Screen::draw() {
     //end screen has green background
-    glColor3i(50,200,30);
+    glColor3f(50,200,30);
     glBegin(GL_QUADS);
     glVertex2i(0,0);
     glVertex2i(this->get_screen_width(),0);
@@ -49,7 +49,8 @@ void End_Screen::draw() {
     return_to_start.draw();
     exit.draw();
 
-    glColor3i(255,255,50);
+    //and white text
+    glColor3f(255,255,50);
     glRasterPos2i(get_center().x,get_center().y-100);
     for (char c : message) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);

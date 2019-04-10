@@ -15,7 +15,7 @@ void init() {
     height = 1066;
     Tile::init_id();
 
-    dm = (new Draw_Manager(width,height,8,8));
+    dm = (new Draw_Manager(height,width,8,8));
 
     //do map things to game here
 }

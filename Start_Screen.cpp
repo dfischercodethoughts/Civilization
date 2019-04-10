@@ -28,8 +28,8 @@ void Start_Screen::init(int h, int w) {
 }
 
 void Start_Screen::draw() {
-    //Square(Coordinate(width/2,height/2),{150,10,100},height,width,true).draw();
-
+    Square(Coordinate(width/2,height/2),Colors::GREEN,height,width,true).draw();
+    Square(Coordinate(width/2,7*height/8),Colors::BLACK,Colors::GREEN,height/10,width/5,"CIVILIZATION",true).draw();
     new_game.draw();
     exit_game.draw();
     load_game.draw();
