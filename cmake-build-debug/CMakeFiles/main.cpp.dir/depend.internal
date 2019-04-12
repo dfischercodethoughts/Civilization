@@ -836,9 +836,11 @@ CMakeFiles/main.cpp.dir/Main_Screen.cpp.o
  C:/Program Files/Common Files/freeglut/include/GL/freeglut_std.h
  C:/Program Files/Common Files/freeglut/include/GL/glut.h
 CMakeFiles/main.cpp.dir/Map.cpp.o
+ /cygdrive/c/Users/david/CLionProjects/civ_v2/Civilization.h
  /cygdrive/c/Users/david/CLionProjects/civ_v2/Civilization_Name.h
  /cygdrive/c/Users/david/CLionProjects/civ_v2/Color.h
  /cygdrive/c/Users/david/CLionProjects/civ_v2/Coordinate.h
+ /cygdrive/c/Users/david/CLionProjects/civ_v2/Game.h
  /cygdrive/c/Users/david/CLionProjects/civ_v2/Map.cpp
  /cygdrive/c/Users/david/CLionProjects/civ_v2/Map.h
  /cygdrive/c/Users/david/CLionProjects/civ_v2/Piece.h
@@ -846,6 +848,8 @@ CMakeFiles/main.cpp.dir/Map.cpp.o
  /cygdrive/c/Users/david/CLionProjects/civ_v2/Tile.h
  /cygdrive/c/Users/david/CLionProjects/civ_v2/Tile_Resource.h
  /cygdrive/c/Users/david/CLionProjects/civ_v2/Tile_Terrain.h
+ /cygdrive/c/Users/david/CLionProjects/civ_v2/Turn_Manager.h
+ /cygdrive/c/Users/david/CLionProjects/civ_v2/Turn_Phase.h
  /cygdrive/c/Users/david/CLionProjects/civ_v2/Unit.h
  /cygdrive/c/Users/david/CLionProjects/civ_v2/Validator.h
  /usr/include/w32api/GL/gl.h

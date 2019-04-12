@@ -835,9 +835,11 @@ CMakeFiles/main.cpp.dir/Main_Screen.cpp.o: /usr/include/w32api/wtypesbase.h
 CMakeFiles/main.cpp.dir/Main_Screen.cpp.o: C:/Program\ Files/Common\ Files/freeglut/include/GL/freeglut_std.h
 CMakeFiles/main.cpp.dir/Main_Screen.cpp.o: C:/Program\ Files/Common\ Files/freeglut/include/GL/glut.h
 
+CMakeFiles/main.cpp.dir/Map.cpp.o: ../Civilization.h
 CMakeFiles/main.cpp.dir/Map.cpp.o: ../Civilization_Name.h
 CMakeFiles/main.cpp.dir/Map.cpp.o: ../Color.h
 CMakeFiles/main.cpp.dir/Map.cpp.o: ../Coordinate.h
+CMakeFiles/main.cpp.dir/Map.cpp.o: ../Game.h
 CMakeFiles/main.cpp.dir/Map.cpp.o: ../Map.cpp
 CMakeFiles/main.cpp.dir/Map.cpp.o: ../Map.h
 CMakeFiles/main.cpp.dir/Map.cpp.o: ../Piece.h
@@ -845,6 +847,8 @@ CMakeFiles/main.cpp.dir/Map.cpp.o: ../Square.h
 CMakeFiles/main.cpp.dir/Map.cpp.o: ../Tile.h
 CMakeFiles/main.cpp.dir/Map.cpp.o: ../Tile_Resource.h
 CMakeFiles/main.cpp.dir/Map.cpp.o: ../Tile_Terrain.h
+CMakeFiles/main.cpp.dir/Map.cpp.o: ../Turn_Manager.h
+CMakeFiles/main.cpp.dir/Map.cpp.o: ../Turn_Phase.h
 CMakeFiles/main.cpp.dir/Map.cpp.o: ../Unit.h
 CMakeFiles/main.cpp.dir/Map.cpp.o: ../Validator.h
 CMakeFiles/main.cpp.dir/Map.cpp.o: /usr/include/w32api/GL/gl.h
