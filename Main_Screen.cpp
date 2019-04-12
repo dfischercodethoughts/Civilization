@@ -7,9 +7,13 @@
 #include "Main_Screen.h"
 Main_Screen::Main_Screen() {
     game = Game();
+
     next_turn = Square();
+
     game_view_port = Square();
+
     piece_view_port = Square();
+
     tile_view_port = Square();
 }
 
@@ -25,23 +29,33 @@ void Main_Screen::init(int h, int w,int x, int y) {
     set_screen_height(h);
     set_screen_width(w);
     set_center({w/2,h/2});
+
     game = Game(3*w/4,3*h/4,x,y);
+
     next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/5,"Next Turn",true);
+
+    next_phase = Square();//TODO::create a next phase button
+
     game_view_port = Square({5*w/8,7*h/8},Colors::WHITE,3*h/16,w/8,false);
+
     piece_view_port = Square({w/2,6*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"Unit Info",true);
     piece_view_port.set_y_offset(-3*h/16);
+
     tile_view_port = Square({w/4,7*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"TILE INFO",true);
     tile_view_port.set_y_offset(-3*h/16);
 }
 
 void Main_Screen::draw() {
     game_view_port.draw();
+
     game.get_map().draw();//tiles have references to units, and will draw if visible
+
     next_turn.draw();
 
     if (game.has_active_unit()) {
         game.get_active_unit()->draw_on_viewport(piece_view_port);
     }
+
     if (game.has_active_tile()) {
         game.get_active_tile()->draw_on_viewport(tile_view_port);
     }
@@ -64,6 +78,7 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
     return Screen::RETURN_TO_GAME;
 
     //todo: implement next phase button, build button, buy button,
+    //tell main game to tell the screen to do stuff
 }
 
 void Main_Screen::process_click(Coordinate click) {

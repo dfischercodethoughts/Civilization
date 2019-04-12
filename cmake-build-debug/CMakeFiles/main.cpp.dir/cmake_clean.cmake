@@ -23,8 +23,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/main.cpp.dir/Validator.cpp.o"
   "CMakeFiles/main.cpp.dir/main.cpp.o"
   "main.cpp.pdb"
-  "main.cpp.exe"
-  "libmain.cpp.dll.a"
+  "main.cpp"
 )
 
 # Per-language clean rules from dependency scanning.

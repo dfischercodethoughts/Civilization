@@ -63,6 +63,9 @@ Coordinate Map::get_vector_coordinates_from_click(Coordinate click) {
     return to_ret;
 }
 
+//x is up and down
+//y is left to right
+//should influence underlying tile
 Tile * Map::get_tile_from_vector_coordinates(Coordinate coord) {
     if (coord.x  >= 0 && coord.y >= 0 && coord.y < tiles[0].size() && coord.x < tiles.size()) {
         return &tiles[coord.x][coord.y];

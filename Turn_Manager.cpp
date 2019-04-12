@@ -1,5 +1,10 @@
 #include "Turn_Manager.h"
-
+/*TODO:: possibly combine turn manager and turn phase
+    include logic to change the viewport with Main_Screen::process_click(Coordinate click)
+    or Main_Screen::check_click(Coordinate click)
+    return the value of turn phase enum to decide what the view port displays
+    ie. move shows unit info when clicked on, BUILD phase only displays buildings that can be built
+*/
 Turn_Manager::Turn_Manager() {
     count = 0;
     current_phase = Turn_Phase::MOVE;

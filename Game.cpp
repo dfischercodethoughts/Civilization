@@ -144,10 +144,11 @@ void Game::set_phase(Turn_Phase::names newphase) {
 
 void Game::next_turn() {
     manager.set_current_phase(Turn_Phase::AI_TURN);
-    ai.refresh();
-    play_ai();
+    //ai.refresh();
+    //play_ai();
     player.refresh();
     manager.set_current_phase(Turn_Phase::MOVE);
+    //manager.next_turn();
 }
 
 Coordinate Game::get_unit_location_coordinates(Unit & u) {
