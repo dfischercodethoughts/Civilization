@@ -21,7 +21,6 @@ void Map::hide_map() {
 Map::Map(int h, int w, int numx, int numy):
 Square(Coordinate(w/2,h/2),Color(150,150,25),Color(0,0,0),h,w,"",true)
 {
-    Tile::init_id();
     int tile_width = w/numx;
     int tile_height = h/numy;
     int count = 0;
@@ -247,10 +246,10 @@ void Map::draw() const {
 
 Map & Map::operator=(const Map & cp ) {
     if (cp.tiles.size() > 0) {
-        for (int i = 0; i < cp.tiles.size() - 1; i++) {
+        for (int i = 0; i < cp.tiles.size(); i++) {
             //temporary vector of tiles
             std::vector<Tile> * tmp = new std::vector<Tile>();
-            for (int j = 0; j < cp.tiles[0].size() - 1; j++) {//this assumes square grid...
+            for (int j = 0; j < cp.tiles[0].size(); j++) {//this assumes square grid...
                 tmp->emplace_back(cp.tiles[i][j]);
             }
             tiles.emplace_back(*tmp);
@@ -270,5 +269,4 @@ Map & Map::operator=(const Map & cp ) {
 
 Map::~Map() {
     tiles.clear();
-    Tile::init_id();
 }

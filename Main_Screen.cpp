@@ -27,11 +27,11 @@ void Main_Screen::init(int h, int w,int x, int y) {
     set_center({w/2,h/2});
     game = Game(3*w/4,3*h/4,x,y);
     next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/5,"Next Turn",true);
-    game_view_port = Square({3*w/8,3*h/8},Colors::WHITE,6*h/8,6*w/8,false);
-    piece_view_port = Square({w/2,h},Colors::WHITE,Colors::BLACK,h/4,w/5,"Unit Info",true);
-    piece_view_port.set_y_offset(-h/8);
-    tile_view_port = Square({w/4,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/5,"TILE INFO",true);
-    tile_view_port.set_y_offset(-h/8);
+    game_view_port = Square({5*w/8,7*h/8},Colors::WHITE,3*h/16,w/8,false);
+    piece_view_port = Square({w/2,6*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"Unit Info",true);
+    piece_view_port.set_y_offset(-3*h/16);
+    tile_view_port = Square({w/4,7*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"TILE INFO",true);
+    tile_view_port.set_y_offset(-3*h/16);
 }
 
 void Main_Screen::draw() {

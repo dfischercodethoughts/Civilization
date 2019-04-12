@@ -13,7 +13,6 @@ static Draw_Manager *dm = nullptr;
 void init() {
     width = 1600;
     height = 1066;
-    Tile::init_id();
 
     dm = (new Draw_Manager(height,width,8,8));
 
