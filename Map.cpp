@@ -3,6 +3,7 @@
 //
 
 #include "Map.h"
+#include "Game.h"
 
 void Map::make_visible(std::vector<Tile *> &to) {
     for (Tile * tl :to) {
@@ -33,6 +34,21 @@ Square(Coordinate(w/2,h/2),Color(150,150,25),Color(0,0,0),h,w,"",true)
     }
 }
 
+Map::Map(int h, int w, int numx, int numy,int xoff, int yoff):
+        Square(Coordinate(w/2,h/2),Color(150,150,25),Color(0,0,0),h,w,"",true)
+{
+    int tile_width = w/numx;
+    int tile_height = h/numy;
+    int count = 0;
+    for (int i = 0; i < numx; i++) {
+        tiles.emplace_back( std::vector<Tile>());
+        for (int j = 0; j < numy; j++) {
+            count +=1;
+            tiles[i].emplace_back( Tile({i*tile_width+tile_width/2+xoff,j*tile_height+tile_height/2+yoff},tile_height,tile_width,Color(255,255,255),Color(0,0,0),Tile_Terrain::GRASSLAND,Tile_Resource::WHEAT,count));
+        }
+    }
+}
+
 Map::Map()
 {
     tiles = std::vector<std::vector<Tile>>();
@@ -41,8 +57,8 @@ Map::Map()
 Coordinate Map::get_vector_coordinates_from_click(Coordinate click) {
     Coordinate to_ret(0,0);
     if (click.x > 0 && click. x < this->get_width() && click.y > 0 && click.y < this->get_height()) {
-        to_ret.x = click.x / Tile::TILE_WIDTH;
-        to_ret.y = click.y/Tile::TILE_HEIGHT;
+        to_ret.x = (click.x-Game::MAP_X_OFF) / Tile::TILE_WIDTH;
+        to_ret.y = (click.y/-Game::MAP_Y_OFF)/Tile::TILE_HEIGHT;
     }
     return to_ret;
 }

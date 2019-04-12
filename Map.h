@@ -19,6 +19,7 @@ private:
 public:
 
     Map(int h, int w, int numx, int numy);
+    Map(int h, int w, int numx, int numy,int xoff, int yoff);
     Map();
 
     Coordinate get_vector_coordinates_from_click(Coordinate click);

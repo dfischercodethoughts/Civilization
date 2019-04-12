@@ -40,7 +40,7 @@ Game::Game() {
 }
 
 Game::Game(int width, int height, int vecw, int vech) {
-    map = Map(height,width,vecw,vech);
+    map = Map(height,width,vecw,vech,MAP_X_OFF,MAP_Y_OFF);
     player = Civilization("Westeros",false);
     Unit player_start(map.get_tile_from_vector_coordinates(Coordinate(0,0))->get_id(),player.get_name(),Unit::WARRIOR);
     player.add_unit(&player_start,*map.get_tile_from_vector_coordinates(Coordinate(0,0)));

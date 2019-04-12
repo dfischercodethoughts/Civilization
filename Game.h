@@ -30,7 +30,11 @@ private:
     //justmoves units for now - will attack if can, otherwise moves randomly
     void play_ai();
 
+
 public:
+    const static int MAP_X_OFF = 10;
+    const static int MAP_Y_OFF = 210;
+
     Game();
     Game(int width, int height, int vecw, int vech);
 

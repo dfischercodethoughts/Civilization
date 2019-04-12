@@ -179,7 +179,7 @@ void Tile::draw() const {
     //     R: resource
     //     U: unit_type
     if (is_visible()) {
-        Square(get_center(),Colors::WHITE,Colors::BLACK,get_height(),get_width(),get_message(),true).draw();
+        Square(get_center(),Colors::WHITE,Colors::BLACK,get_height(),get_width(),"",true).draw();
         std::string line = "T: ";
         glColor3f(this->get_text_color().get_red(),this->get_text_color().get_green(),this->get_text_color().get_blue());
         glRasterPos2i(this->get_center().x-(3*this->get_width()/8),this->get_center().y-this->get_height()/3);
