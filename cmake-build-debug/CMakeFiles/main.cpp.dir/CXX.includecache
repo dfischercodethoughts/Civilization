@@ -6,15 +6,31 @@
 
 #IncludeRegexTransform: 
 
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Civilization_Name.h
+string
+-
+
 /cygdrive/c/Users/david/CLionProjects/civ_v2/Color.h
 
 /cygdrive/c/Users/david/CLionProjects/civ_v2/Coordinate.h
 
-/cygdrive/c/Users/david/CLionProjects/civ_v2/Screen.h
-Square.h
-/cygdrive/c/Users/david/CLionProjects/civ_v2/Square.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Map.cpp
+Map.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Map.h
+
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Map.h
+Tile.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Tile.h
 vector
 -
+set
+-
+
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Piece.h
+Square.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Square.h
+Validator.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Validator.h
 
 /cygdrive/c/Users/david/CLionProjects/civ_v2/Square.h
 Color.h
@@ -28,13 +44,39 @@ GLUT/glut.h
 GL/glut.h
 -
 
-/cygdrive/c/Users/david/CLionProjects/civ_v2/Start_Screen.cpp
-Start_Screen.h
-/cygdrive/c/Users/david/CLionProjects/civ_v2/Start_Screen.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Tile.h
+Tile_Terrain.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Tile_Terrain.h
+Tile_Resource.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Tile_Resource.h
+Piece.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Piece.h
+memory
+-
+Unit.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Unit.h
 
-/cygdrive/c/Users/david/CLionProjects/civ_v2/Start_Screen.h
-Screen.h
-/cygdrive/c/Users/david/CLionProjects/civ_v2/Screen.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Tile_Resource.h
+string
+-
+
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Tile_Terrain.h
+string
+-
+algorithm
+-
+
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Unit.h
+Piece.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Piece.h
+Civilization_Name.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Civilization_Name.h
+memory
+-
+
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Validator.h
+string
+-
 
 /usr/include/w32api/GL/gl.h
 windows.h

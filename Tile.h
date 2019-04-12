@@ -23,8 +23,6 @@ private:
 
     Unit * unit;
 
-    bool visible;
-
 public:
     static int num_tiles;
 
@@ -49,6 +47,7 @@ public:
     void init(Tile_Terrain::names ter, Tile_Resource::names res, Unit * newu,bool visible,int id);
 
     static int get_num_tiles();
+    static void increment_num_tiles();
     static void init_id();//called in map class
 
     Tile_Terrain::names get_terrain() const;
@@ -62,7 +61,7 @@ public:
     Unit * get_unit();
     void set_unit(Unit & newu);
 
-    void draw();
+    void draw() const override;
 
     void draw_on_viewport( Square viewport_base) override;
 

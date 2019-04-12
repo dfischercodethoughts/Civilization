@@ -13,7 +13,7 @@ class Map : public Square {
 private:
     std::vector<std::vector<Tile>> tiles;
 
-    void make_visible(std::vector<Tile *>);
+    void make_visible(std::vector<Tile *>&);
     void hide_map();
 
 public:
@@ -24,6 +24,7 @@ public:
     Coordinate get_vector_coordinates_from_click(Coordinate click);
 
     Tile * get_tile_from_vector_coordinates(Coordinate coord);
+    const Tile * get_const_tile_from_vector_coordinates(Coordinate coord) const;
     Tile * get_tile_from_click(Coordinate click);
     //assume id is good
     Tile * get_tile_from_id(int id);
@@ -41,7 +42,10 @@ public:
     //more than two coordinates away from tile unit is on
     void reveal(std::vector<Unit *> units);
 
-    void draw();
+    void draw() const override;
+
+    //operators
+    Map & operator=(Map const & cp);
 
     ~Map();
 };
