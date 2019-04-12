@@ -3,105 +3,133 @@
 //
 
 #include "Tile.h"
-int Tile::num_tiles;
+
+int Tile::num_tiles = 0;
 
 Tile::Tile():
 Piece(Piece::TILE)
 {
-    init(Tile_Terrain::DEFAULT,Tile_Resource::DEFAULT,nullptr,true);
+    num_tiles++;
+    init(Tile_Terrain::DEFAULT,Tile_Resource::DEFAULT,nullptr,false);
 }
 
 Tile::Tile(Tile *cp):
 Piece(cp->get_center(),cp->get_height(),cp->get_width(),cp->get_fill(),cp->get_text_color(),Piece::TILE)
 {
-    init(cp->get_terrain(),cp->get_resource(),cp->get_const_unit(),true);
+    num_tiles++;
+    init(cp->get_terrain(),cp->get_resource(),cp->get_const_unit(),false,cp->get_id());
 }
 
 Tile::Tile(const Tile & cp):
 Piece(cp.get_center(),cp.get_height(),cp.get_width(),cp.get_fill(),cp.get_text_color(),Piece::TILE)
-        {
-    init(cp.get_terrain(),cp.get_resource(),cp.get_const_unit(),true);
+{
+    num_tiles++;
+    init(cp.get_terrain(),cp.get_resource(),cp.get_const_unit(),false,cp.get_id());
 }
 
 Tile::Tile(std::unique_ptr<Tile> cp):
 Piece(Piece::TILE)
 {
-    init(cp->get_terrain(),cp->get_resource(),cp->get_const_unit(),true);
+    num_tiles++;
+    init(cp->get_terrain(),cp->get_resource(),cp->get_const_unit(),false,cp->get_id());
 }
 
 Tile::Tile(std::string ter, std::string res):
 Piece(Piece::TILE)
 {
-    init(Tile_Terrain::string_to_terrain(ter),Tile_Resource::string_to_resource(res),nullptr,true);
+    num_tiles++;
+    init(Tile_Terrain::string_to_terrain(ter),Tile_Resource::string_to_resource(res),nullptr,false);
 }
 
 Tile::Tile(Tile_Terrain::names ter,Tile_Resource::names res):
 Piece(Piece::TILE)
 {
-    init(ter,res,nullptr,true);
+    num_tiles++;
+    init(ter,res,nullptr,false);
 }
 
 Tile::Tile(std::string ter, std::string res, Unit & u):
 Piece(u.get_center(),u.get_height(),u.get_width(),u.get_fill(),u.get_text_color(),Piece::TILE){
-    init(Tile_Terrain::string_to_terrain(ter),Tile_Resource::string_to_resource(res),&u,true);
+    num_tiles++;
+    init(Tile_Terrain::string_to_terrain(ter),Tile_Resource::string_to_resource(res),&u,false);
 }
 
 Tile::Tile(Tile_Terrain::names ter,Tile_Resource::names res, Unit & u):
 Piece(u.get_center(),u.get_height(),u.get_width(),u.get_fill(),u.get_text_color(),Piece::TILE) {
-    init(ter,res,unit,true);
+    num_tiles++;
+    init(ter,res,unit,false);
 }
 
 Tile::Tile(Tile_Terrain::names nm):
 Piece(Piece::TILE)
 {
-    init(nm,Tile_Resource::DEFAULT,nullptr,true);
+    num_tiles++;
+    init(nm,Tile_Resource::DEFAULT,nullptr,false);
 }
 
 Tile::Tile(std::string ter, std::string res, std::shared_ptr<Unit> & u):
 Piece(u->get_center(),u->get_height(),u->get_width(),u->get_fill(),u->get_text_color(),Piece::TILE)
 {
-    init(Tile_Terrain::string_to_terrain(ter),Tile_Resource::string_to_resource(res),&*u,true);
+    num_tiles++;
+    init(Tile_Terrain::string_to_terrain(ter),Tile_Resource::string_to_resource(res),&*u,false);
 }
 
 Tile::Tile(Tile_Terrain::names ter,Tile_Resource::names res, std::shared_ptr<Unit> & u):
 Piece(u->get_center(),u->get_height(),u->get_width(),u->get_fill(),u->get_text_color(),Piece::TILE) {
-    init(ter,res,&*u,true);
+    num_tiles++;
+    init(ter,res,&*u,false);
 }
 
 Tile::Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::names ter,Tile_Resource::names res):
 Piece(cnt,h,w,fill,text,Piece::TILE)
 {
-    init(ter,res,nullptr,true);
+    num_tiles++;
+    init(ter,res,nullptr,false);
 }
 
 Tile::Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::names ter,Tile_Resource::names res,int i):
         Piece(cnt,h,w,fill,text,Piece::TILE)
 {
-    init(ter,res,nullptr,true,i);
+    num_tiles++;
+    init(ter,res,nullptr,false);
 }
 
 void Tile::init(Tile_Terrain::names ter, Tile_Resource::names res, Unit * u, bool vis) {
     terrain = ter;
     resource = res;
     unit = &*u;
-    visible = vis;
-    id = num_tiles++;
+    if(vis) {
+        this->reveal();
+    }
+    else {
+        this->hide();
+    }
+    id = get_num_tiles();
 }
 
 void Tile::init(Tile_Terrain::names ter, Tile_Resource::names res, Unit * u, bool vis, int i) {
     terrain = ter;
     resource = res;
     unit = &*u;
-    visible = vis;
+    if(vis) {
+        this->reveal();
+    }
+    else {
+        this->hide();
+    }
     id = i;
 }
 
 int Tile::get_num_tiles() {
-    return num_tiles;
+    return Tile::num_tiles;
+}
+
+void Tile::increment_num_tiles() {
+    Tile::num_tiles = Tile::num_tiles+1;
 }
 
 void Tile::init_id() {
-    num_tiles = 0;
+    Tile::num_tiles = 0;
 }
 
 Tile_Terrain::names Tile::get_terrain() const {
@@ -139,11 +167,11 @@ void Tile::set_unit(Unit &newu) {
     unit = &newu;
 }
 
-void Tile::draw() {
+void Tile::draw() const {
     //draw T: terrain
     //     R: resource
     //     U: unit_type
-    if (visible) {
+    if (is_visible()) {
         Square(get_center(),get_text_color(),get_fill(),get_height(),get_width(),get_message(),true).draw();
         std::string line = "T: ";
         glColor3f(this->get_text_color().get_red(),this->get_text_color().get_green(),this->get_text_color().get_blue());
@@ -162,7 +190,7 @@ void Tile::draw() {
         if (this->has_unit()) {
             glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8),
                           this->get_center().y + this->get_height() / 3);
-            line = "U: " + Unit::unit_type_to_string(this->get_unit()->get_unit_type());
+            line = "U: " + Unit::unit_type_to_string(this->get_const_unit()->get_unit_type());
             for (char c: line) {
                 glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
             }
@@ -200,19 +228,20 @@ void Tile::draw_on_viewport(Square viewport_base) {
 }
 
 Tile & Tile::operator=(const Tile & rhs) {
-    id = rhs.get_id();
     set_center(rhs.get_center());
     set_height(rhs.get_height());
     set_width(rhs.get_width());
     set_text_color(rhs.get_text_color());
     set_fill(rhs.get_fill());
     set_message(rhs.get_message());
-    init(rhs.get_terrain(),rhs.get_resource(),rhs.get_const_unit(),true);
+    init(rhs.get_terrain(),rhs.get_resource(),rhs.get_const_unit(),rhs.is_visible(),rhs.get_id());
     return *this;
 }
 
+
+
 bool Tile::operator==(Tile const & rhs) const {
-    if ((get_center() == rhs.get_center()) & (terrain == rhs.get_terrain()) &
+    if ((get_center() == rhs.get_center()) && (terrain == rhs.get_terrain()) &&
             (resource == rhs.get_resource())) {
         return true;
     }
@@ -229,6 +258,6 @@ Tile::~Tile() {
     resource = Tile_Resource::DEFAULT;
 
     unit = nullptr;
-    visible = true;
+    reveal();
     num_tiles--;
 }

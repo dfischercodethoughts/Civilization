@@ -16,20 +16,20 @@ Pause_Screen::Pause_Screen(int h, int w) {
 }
 
 void Pause_Screen::init(int h, int w) {
-    return_to_start = Square({w/2,h/4},{0,0,0},{0,255,0},h/4,w/2,"RETURN TO START", true);
-    return_to_game = Square({w/2,h/2},{0,0,0},{0,255,0},h/4,w/2,"RETURN TO GAME", true);
-    exit = Square({w/2,3*h/4},{0,0,0},{0,255,0},h/4,w/2,"EXIT GAME", true);
+    return_to_start = Square({w/2,3*h/8},Colors::RED,Colors::BLACK,h/8,w/4,"RETURN TO START", true);
+    return_to_game = Square({w/2,h/2},Colors::RED,Colors::BLACK,h/8,w/4,"RETURN TO GAME", true);
+    exit = Square({w/2,5*h/8},Colors::RED,Colors::BLACK,h/8,w/4,"EXIT GAME", true);
     message = "PAUSE SCREEN";
 }
 
 void Pause_Screen::draw() {
-    Square(return_to_game.get_center(),{100,255,0},return_to_game.get_center().y * 2,return_to_game.get_center().x * 2,true);
+    Square(return_to_game.get_center(),Colors::WHITE,return_to_game.get_center().y * 2,return_to_game.get_center().x * 2,true);
 
     return_to_game.draw();
     return_to_start.draw();
     exit.draw();
 
-    glColor3i(0,0,0);
+    glColor3f(0,0,0);
     glRasterPos2i(return_to_start.get_center().x,return_to_start.get_center().y/2);
     for (char c : message) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);

@@ -160,6 +160,23 @@ int Draw_Manager::process_click(Coordinate click) {
             }
             break;
         }
+
+        case (Screen::PAUSE_SCREEN) : {
+            Screen::menu_options  ch = pause.check_click(click);
+            switch(ch) {
+                case (Screen::RETURN_TO_GAME) : {
+                    set_screen(Screen::MAIN_GAME);
+                    break;
+                }
+                case ( Screen::EXIT_GAME) : {
+                    return -1;
+                }
+                case ( Screen::LOAD_GAME) : {
+                    //todo:implement load game logic
+                    break;
+                }
+            }
+        }
     }
 }
 

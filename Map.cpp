@@ -4,8 +4,8 @@
 
 #include "Map.h"
 
-void Map::make_visible(std::vector<Tile *> to) {
-    for (Tile * tl : to) {
+void Map::make_visible(std::vector<Tile *> &to) {
+    for (Tile * tl :to) {
         tl->reveal();
     }
 }
@@ -26,13 +26,11 @@ Square(Coordinate(w/2,h/2),Color(150,150,25),Color(0,0,0),h,w,"",true)
     int tile_height = h/numy;
     int count = 0;
     for (int i = 0; i < numx; i++) {
-        std::vector<Tile> *temp = new std::vector<Tile>();
+        tiles.emplace_back( std::vector<Tile>());
         for (int j = 0; j < numy; j++) {
-            Tile tmtile = Tile({i*tile_height+tile_height/2,j*tile_width+tile_width/2},tile_height,tile_width,Color(255,255,255),Color(0,0,0),Tile_Terrain::GRASSLAND,Tile_Resource::WHEAT,count);
-            temp->emplace_back(tmtile);
-            count++;
+            count +=1;
+            tiles[i].emplace_back( Tile({i*tile_width+tile_width/2,j*tile_height+tile_height/2},tile_height,tile_width,Color(255,255,255),Color(0,0,0),Tile_Terrain::GRASSLAND,Tile_Resource::WHEAT,count));
         }
-        tiles.emplace_back(*temp);
     }
 }
 
@@ -56,6 +54,14 @@ Tile * Map::get_tile_from_vector_coordinates(Coordinate coord) {
     }
     return nullptr;
 }
+
+const Tile * Map::get_const_tile_from_vector_coordinates(Coordinate coord) const {
+    if (coord.x  >= 0 && coord.y >= 0 && coord.y < tiles[0].size() && coord.x < tiles.size()) {
+        return &tiles[coord.x][coord.y];
+    }
+    return nullptr;
+}
+
 
 Tile * Map::get_tile_from_click(Coordinate click) {
     if (click.x < this->get_width() && click.y < this->get_height()) {
@@ -231,14 +237,38 @@ void Map::reveal(std::vector<Unit *> units) {
 
 }
 
-void Map::draw() {
-    for (std::vector<Tile> list : tiles) {
-        for (Tile t : list) {
+void Map::draw() const {
+    for (std::vector<Tile> const & list : tiles) {
+        for (Tile const & t : list) {
             t.draw();
         }
     }
 }
 
+Map & Map::operator=(const Map & cp ) {
+    if (cp.tiles.size() > 0) {
+        for (int i = 0; i < cp.tiles.size() - 1; i++) {
+            //temporary vector of tiles
+            std::vector<Tile> * tmp = new std::vector<Tile>();
+            for (int j = 0; j < cp.tiles[0].size() - 1; j++) {//this assumes square grid...
+                tmp->emplace_back(cp.tiles[i][j]);
+            }
+            tiles.emplace_back(*tmp);
+        }
+    }
+    this->set_center(cp.get_center());
+    set_height(cp.get_height());
+    set_width(cp.get_width());
+    set_fill(cp.get_fill());
+    set_message(cp.get_message());
+    set_text_color(cp.get_text_color());
+    set_x_offset(cp.get_x_offset());
+    set_y_offset(cp.get_y_offset());
+
+
+}
+
 Map::~Map() {
     tiles.clear();
+    Tile::init_id();
 }

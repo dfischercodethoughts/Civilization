@@ -97,10 +97,12 @@ void cursor(int x, int y) {
 // button will be GLUT_LEFT_BUTTON or GLUT_RIGHT_BUTTON
 // state will be GLUT_UP or GLUT_DOWN
 void mouse(int button, int state, int x, int y) {
-    int res = dm->process_click(Coordinate(x,y));
-    if (res == -1) {
-        glutDestroyWindow(wd);
-        exit(0);
+    if (state == GLUT_UP) {
+        int res = dm->process_click(Coordinate(x, y));
+        if (res == -1) {
+            glutDestroyWindow(wd);
+            exit(0);
+        }
     }
 
     glutPostRedisplay();

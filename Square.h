@@ -43,7 +43,7 @@ public:
     Color get_fill() const;
     Color get_text_color() const;
     std::string get_message() const;
-    bool is_visible();
+    bool is_visible() const;
     int get_x_offset() const;
     int get_y_offset() const;
 
@@ -60,7 +60,7 @@ public:
 
     bool check_click(Coordinate click);
 
-    void draw();
+    virtual void draw() const;
 
     ~Square();
 

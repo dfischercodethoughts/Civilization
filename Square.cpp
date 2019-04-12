@@ -64,7 +64,7 @@ std::string Square::get_message() const {
     return msg;
 }
 
-bool Square::is_visible() {
+bool Square::is_visible() const {
     return visible;
 }
 
@@ -135,7 +135,7 @@ bool Square::check_click(Coordinate click) {
     return false;
 }
 
-void Square::draw() {
+void Square::draw() const {
     if (visible) {
         glColor3f(fill.get_red(), fill.get_green(), fill.get_blue());
         glBegin(GL_QUADS);
