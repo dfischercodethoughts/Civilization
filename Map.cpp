@@ -247,12 +247,12 @@ void Map::draw() const {
 Map & Map::operator=(const Map & cp ) {
     if (cp.tiles.size() > 0) {
         for (int i = 0; i < cp.tiles.size(); i++) {
-            //temporary vector of tiles
-            std::vector<Tile> * tmp = new std::vector<Tile>();
+            tiles.emplace_back(std::vector<Tile>());
+
             for (int j = 0; j < cp.tiles[0].size(); j++) {//this assumes square grid...
-                tmp->emplace_back(cp.tiles[i][j]);
+                Tile tmp = Tile(cp.tiles[i][j]);
+                tiles[i].emplace_back(&tmp);
             }
-            tiles.emplace_back(*tmp);
         }
     }
     this->set_center(cp.get_center());

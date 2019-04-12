@@ -17,21 +17,21 @@ Tile::Tile(Tile *cp):
 Piece(cp->get_center(),cp->get_height(),cp->get_width(),cp->get_fill(),cp->get_text_color(),Piece::TILE)
 {
     num_tiles++;
-    init(cp->get_terrain(),cp->get_resource(),cp->get_const_unit(),false,cp->get_id());
+    init(cp->get_terrain(),cp->get_resource(),cp->get_const_unit(),cp->is_visible(),cp->get_id());
 }
 
 Tile::Tile(const Tile & cp):
 Piece(cp.get_center(),cp.get_height(),cp.get_width(),cp.get_fill(),cp.get_text_color(),Piece::TILE)
 {
     num_tiles++;
-    init(cp.get_terrain(),cp.get_resource(),cp.get_const_unit(),false,cp.get_id());
+    init(cp.get_terrain(),cp.get_resource(),cp.get_const_unit(),cp.is_visible(),cp.get_id());
 }
 
 Tile::Tile(std::unique_ptr<Tile> cp):
 Piece(Piece::TILE)
 {
     num_tiles++;
-    init(cp->get_terrain(),cp->get_resource(),cp->get_const_unit(),false,cp->get_id());
+    init(cp->get_terrain(),cp->get_resource(),cp->get_const_unit(),cp->is_visible(),cp->get_id());
 }
 
 Tile::Tile(std::string ter, std::string res):
@@ -92,6 +92,13 @@ Tile::Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::n
 {
     num_tiles++;
     init(ter,res,nullptr,false);
+}
+
+Tile::Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::names ter,Tile_Resource::names res,bool vis):
+        Piece(cnt,h,w,fill,text,Piece::TILE)
+{
+    num_tiles++;
+    init(ter,res,nullptr,vis);
 }
 
 void Tile::init(Tile_Terrain::names ter, Tile_Resource::names res, Unit * u, bool vis) {
@@ -172,7 +179,7 @@ void Tile::draw() const {
     //     R: resource
     //     U: unit_type
     if (is_visible()) {
-        Square(get_center(),get_text_color(),get_fill(),get_height(),get_width(),get_message(),true).draw();
+        Square(get_center(),Colors::WHITE,Colors::BLACK,get_height(),get_width(),get_message(),true).draw();
         std::string line = "T: ";
         glColor3f(this->get_text_color().get_red(),this->get_text_color().get_green(),this->get_text_color().get_blue());
         glRasterPos2i(this->get_center().x-(3*this->get_width()/8),this->get_center().y-this->get_height()/3);
@@ -190,13 +197,15 @@ void Tile::draw() const {
         if (this->has_unit()) {
             glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8),
                           this->get_center().y + this->get_height() / 3);
-            line = "U: " + Unit::unit_type_to_string(this->get_const_unit()->get_unit_type());
+
+            Unit::Unit_Type type = get_const_unit()->get_unit_type();
+            line = "U: " + Unit::unit_type_to_string(type);
             for (char c: line) {
                 glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
             }
         }
     }
-    //if not visible print white square
+    //if not visible print black square
     else {
         Square(get_center(),Colors::BLACK,Colors::WHITE,get_height(),get_width(),"INVISIBLE",true).draw();
     }

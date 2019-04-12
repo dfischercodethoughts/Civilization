@@ -35,9 +35,10 @@ void Main_Screen::init(int h, int w,int x, int y) {
 }
 
 void Main_Screen::draw() {
+    game_view_port.draw();
     game.get_map().draw();//tiles have references to units, and will draw if visible
     next_turn.draw();
-    game_view_port.draw();
+
     if (game.has_active_unit()) {
         game.get_active_unit()->draw_on_viewport(piece_view_port);
     }
@@ -114,8 +115,10 @@ void Main_Screen::process_click(Coordinate click) {
      }//game has no current unit, so select the tile and unit clicked on
      else {
          game.set_active_tile(*game.get_map().get_tile_from_click(click));
+         tile_view_port.reveal();
          if (game.get_active_tile_const()->has_unit()) {
              game.set_active_unit(*game.get_map().get_tile_from_click(click)->get_unit());
+            piece_view_port.reveal();
          }
      }
 }

@@ -6,6 +6,18 @@
 
 #IncludeRegexTransform: 
 
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Civilization.cpp
+Civilization.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Civilization.h
+
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Civilization.h
+Tile.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Tile.h
+vector
+-
+Map.h
+/cygdrive/c/Users/david/CLionProjects/civ_v2/Map.h
+
 /cygdrive/c/Users/david/CLionProjects/civ_v2/Civilization_Name.h
 string
 -
@@ -13,10 +25,6 @@ string
 /cygdrive/c/Users/david/CLionProjects/civ_v2/Color.h
 
 /cygdrive/c/Users/david/CLionProjects/civ_v2/Coordinate.h
-
-/cygdrive/c/Users/david/CLionProjects/civ_v2/Map.cpp
-Map.h
-/cygdrive/c/Users/david/CLionProjects/civ_v2/Map.h
 
 /cygdrive/c/Users/david/CLionProjects/civ_v2/Map.h
 Tile.h

@@ -55,9 +55,10 @@ bool Civilization::is_ai() const {
 
 bool Civilization::add_unit(Unit* newu, Tile & place) {
     if (place.get_unit() == nullptr) {
-        newu->set_center(place.get_center());
-        units.emplace_back(&*newu);
-        place.set_unit(*newu);
+        Unit *to_add  =  new Unit(newu);
+        to_add->set_center(place.get_center());
+        units.emplace_back(&*to_add);
+        place.set_unit(*to_add);
         return true;
     }
     else {

@@ -41,6 +41,7 @@ public:
     Tile(Tile_Terrain::names ter,Tile_Resource::names res, std::shared_ptr<Unit> & unt);
     Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::names ter,Tile_Resource::names res);
     Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::names ter,Tile_Resource::names res,int id);
+    Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::names ter,Tile_Resource::names res,bool vis);
 
 
     void init(Tile_Terrain::names ter, Tile_Resource::names res, Unit * newu,bool visible);
