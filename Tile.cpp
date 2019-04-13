@@ -174,6 +174,10 @@ void Tile::set_unit(Unit &newu) {
     unit = &newu;
 }
 
+void Tile::set_unit(Unit *newu) {
+    unit = &*newu;
+}
+
 void Tile::draw() const {
     //draw T: terrain
     //     R: resource
@@ -181,13 +185,14 @@ void Tile::draw() const {
     if (is_visible()) {
         Square(get_center(),Colors::WHITE,Colors::BLACK,get_height(),get_width(),"",true).draw();
         std::string line = "T: ";
-        glColor3f(this->get_text_color().get_red(),this->get_text_color().get_green(),this->get_text_color().get_blue());
+        glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
         glRasterPos2i(this->get_center().x-(3*this->get_width()/8),this->get_center().y-this->get_height()/3);
         line += Tile_Terrain::terrain_to_string(this->get_terrain());
         for (char c: line) {
             glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
         }
 
+        glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
         glRasterPos2i(this->get_center().x-(3*this->get_width()/8),this->get_center().y);
         line ="R: " + Tile_Resource::resource_to_string(this->get_resource());
         for (char c: line) {
@@ -195,6 +200,7 @@ void Tile::draw() const {
         }
 
         if (this->has_unit()) {
+            glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
             glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8),
                           this->get_center().y + this->get_height() / 3);
 
@@ -215,20 +221,20 @@ void Tile::draw_on_viewport(Square viewport_base) {
     viewport_base.draw();
     std::string line = "";
     glColor3f(get_text_color().get_red(),get_text_color().get_green(),get_text_color().get_blue());
-    glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y-viewport_base.get_height()/8);
+    glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y-3*viewport_base.get_height()/8);
     line += "TERRAIN TYPE: " + Tile_Terrain::terrain_to_string(terrain);
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
     glColor3f(get_text_color().get_red(),get_text_color().get_green(),get_text_color().get_blue());
-    glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y+viewport_base.get_height()/8);
+    glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y);
     line = "RESOURCE TYPE: " + Tile_Resource::resource_to_string(resource);
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
-    glColor3f(get_text_color().get_red(),get_text_color().get_green(),get_text_color().get_blue());
+    glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
     glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y+3*viewport_base.get_height()/8);
     line = "MOVEMENT COST: "+std::to_string(Tile_Terrain::get_movement_cost(terrain));
     for (char c : line) {
@@ -246,7 +252,6 @@ Tile & Tile::operator=(const Tile & rhs) {
     init(rhs.get_terrain(),rhs.get_resource(),rhs.get_const_unit(),rhs.is_visible(),rhs.get_id());
     return *this;
 }
-
 
 
 bool Tile::operator==(Tile const & rhs) const {

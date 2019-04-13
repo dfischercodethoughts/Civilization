@@ -23,11 +23,22 @@ private:
 public:
     /**
      * unit list must be initialized outside of civ constructor
+     * default constructor defaults gold prod food to zero. Sets name to Civilization_Name::NONE
      */
     Civilization();
+    /**
+     *
+     * @param nm name of civ (defaults to NONE if invalid)
+     * @param start tile that civ should start on
+     * @param is_ai is this civ computer or player controlled?
+     */
     Civilization(std::string nm, std::shared_ptr<Tile> start, bool is_ai);
     Civilization(std::string nm, bool is_ai);
 
+    /**
+     * returns civilization name
+     * @return
+     */
     Civilization_Name::Names get_name() const;
     std::string get_name_str() const;
 
@@ -36,7 +47,16 @@ public:
     int get_food() const;
 
     bool is_ai() const;
-    //bug i think
+    /**
+     * IF no unit already on tiles place...
+     * creates a unit of the specified type and adds it to the civilizations unit vector
+     * makes the place tile set its unit to the new unit, return true
+     * ELSE
+     * return false
+     * @param type of unit to produce
+     * @param place to start unit
+     * @return success or failure
+     */
     bool add_unit(Unit::Unit_Type type,Tile& place);
     bool add_unit(Unit*un,Tile& place);
 
@@ -49,6 +69,8 @@ public:
      */
 
     bool move_unit(Map& map,Unit& to_move, Tile& move_to);
+    bool move_unit(Map * map, Unit * to_move, Tile * move_to);
+    bool move_unit(Map * map, int fromid, int toid);
 
     //refresh at end of turn
     void refresh();

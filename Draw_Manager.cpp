@@ -13,7 +13,7 @@ Draw_Manager::Draw_Manager() {
 }
 
 Draw_Manager::Draw_Manager(int h, int w, int vech, int vecw) {
-
+    //todo: change main screen piece and tile view panels to correct place
     start.init(h,w);
     main.init(h,w,vech,vecw);
     pause.init(h,w);

@@ -82,7 +82,6 @@ bool Civilization::add_unit(Unit::Unit_Type type, Tile & place) {
 
 }
 
-
 std::vector<Unit *> Civilization::get_units() {
     std::vector<Unit*> to_ret;
     for (Unit &u : units) {
@@ -100,13 +99,68 @@ std::vector<Unit *> Civilization::get_units_const()  const{
 }
 
 bool Civilization::move_unit(Map & map, Unit & to_move, Tile & move_to) {
-    Tile & tile = *map.get_tile_from_click(to_move.get_center());
-    std::vector<Tile *> tiles = map.get_tiles_within_range(&tile,to_move.get_current_movement());
-    for (int i = 0 ; i < tiles.size()-1;i++) {
-        if ((*tiles[i]) == move_to) {
-            to_move.set_location(tiles[i]->get_id());
-        }
+ //   std::vector<Tile *> tiles = map.get_tiles_within_range(&tile,to_move.get_current_movement());
+  //  for (int i = 0 ; i < tiles.size()-1;i++) {
+    //    if ((*tiles[i]) == move_to) {
+    Tile * move_from = map.get_tile_from_click(to_move.get_center());
+    to_move.use_movement(Tile_Terrain::get_movement_cost(move_to.get_terrain()));
+    to_move.set_location(move_to.get_id());
+    to_move.set_center(move_to.get_center());
+    move_to.set_unit(to_move);
+    move_from->clear_unit();
+    return true;
+    //    }
+   // }
+}
+
+bool Civilization::move_unit(Map * map, Unit * to_move, Tile * move_to) {
+    ;
+    //   std::vector<Tile *> tiles = map.get_tiles_within_range(&tile,to_move.get_current_movement());
+    //  for (int i = 0 ; i < tiles.size()-1;i++) {
+    //    if ((*tiles[i]) == move_to) {
+    Tile * move_from = map->get_tile_from_click(to_move->get_center());
+    to_move->use_movement(Tile_Terrain::get_movement_cost(move_to->get_terrain()));
+    to_move->set_location(move_to->get_id());
+    to_move->set_center(move_to->get_center());
+    move_to->set_unit(*to_move);
+    move_from->clear_unit();
+    return true;
+    //    }
+    // }
+}
+
+bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
+    ;
+    //   std::vector<Tile *> tiles = map.get_tiles_within_range(&tile,to_move.get_current_movement());
+    //  for (int i = 0 ; i < tiles.size()-1;i++) {
+    //    if ((*tiles[i]) == move_to) {
+
+    Tile * move_from = map->get_tile_from_id(tilefrom);
+    Tile * move_to = map->get_tile_from_id(tileto);
+    if (move_from->has_unit()&&map->is_adjacent(*move_from,*move_to) && move_to->has_unit() && move_to ->get_unit()->get_owner() != Civilization_Name::WESTEROS) {
+        //todo : cause damage
+        return true;
     }
+    else if (move_from->has_unit()&&map->is_adjacent(*move_from,*move_to) && move_to->has_unit()) {
+        //do nothing if player unit on square
+        return false;
+    }
+    else if (move_from->has_unit()&&map->is_adjacent(*move_from,*move_to)) {
+
+        Unit * to_move = move_from->get_unit();
+        to_move->use_movement(Tile_Terrain::get_movement_cost(move_to->get_terrain()));
+        to_move->set_location(move_to->get_id());
+        to_move->set_center(move_to->get_center());
+        move_to->set_unit(to_move);
+        move_from->clear_unit();
+        move_from->draw();
+        move_to->draw();
+
+        return true;
+    }
+    return false;
+    //    }
+    // }
 }
 
 void Civilization::refresh() {

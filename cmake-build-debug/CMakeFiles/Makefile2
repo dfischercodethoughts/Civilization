@@ -65,39 +65,39 @@ CMAKE_SOURCE_DIR = /cygdrive/c/Users/david/CLionProjects/civ_v2
 CMAKE_BINARY_DIR = /cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug
 
 #=============================================================================
-# Target rules for target CMakeFiles/main.cpp.dir
+# Target rules for target CMakeFiles/testing.cpp.dir
 
 # All Build rule for target.
-CMakeFiles/main.cpp.dir/all:
-	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/depend
-	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24 "Built target main.cpp"
-.PHONY : CMakeFiles/main.cpp.dir/all
+CMakeFiles/testing.cpp.dir/all:
+	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/depend
+	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 "Built target testing.cpp"
+.PHONY : CMakeFiles/testing.cpp.dir/all
 
 # Include target in all.
-all: CMakeFiles/main.cpp.dir/all
+all: CMakeFiles/testing.cpp.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/main.cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/CMakeFiles 24
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/main.cpp.dir/all
+CMakeFiles/testing.cpp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/CMakeFiles 21
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/testing.cpp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/main.cpp.dir/rule
+.PHONY : CMakeFiles/testing.cpp.dir/rule
 
 # Convenience name for target.
-main.cpp: CMakeFiles/main.cpp.dir/rule
+testing.cpp: CMakeFiles/testing.cpp.dir/rule
 
-.PHONY : main.cpp
-
-# clean rule for target.
-CMakeFiles/main.cpp.dir/clean:
-	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/clean
-.PHONY : CMakeFiles/main.cpp.dir/clean
+.PHONY : testing.cpp
 
 # clean rule for target.
-clean: CMakeFiles/main.cpp.dir/clean
+CMakeFiles/testing.cpp.dir/clean:
+	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/clean
+.PHONY : CMakeFiles/testing.cpp.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/testing.cpp.dir/clean
 
 .PHONY : clean
 

@@ -32,8 +32,8 @@ private:
 
 
 public:
-    const static int MAP_X_OFF = 10;
-    const static int MAP_Y_OFF = 210;
+    const static int MAP_X_OFF = 25;
+    const static int MAP_Y_OFF = 25;
 
     Game();
     Game(int width, int height, int vecw, int vech);
@@ -59,7 +59,9 @@ public:
     void clear_active_tile();
     void clear_active_unit();
 
-    void move_active_unit(Tile & to_move_to);
+    void reveal_unit(Unit * to_rev);
+
+    bool move_active_unit(Tile & to_move_to);
 
     Map & get_map();
     const Map & get_map_const() const;

@@ -27,10 +27,12 @@ void Main_Screen::init(int h, int w,int x, int y) {
     set_center({w/2,h/2});
     game = Game(3*w/4,3*h/4,x,y);
     next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/5,"Next Turn",true);
-    game_view_port = Square({5*w/8,7*h/8},Colors::WHITE,3*h/16,w/8,false);
-    piece_view_port = Square({w/2,6*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"Unit Info",true);
+    next_turn.set_x_offset(-25);
+    next_turn.set_y_offset(-25);
+    game_view_port = Square({3*w/8,3*h/8},Colors::WHITE,3*h/4,3*w/4,false);
+    piece_view_port = Square({7*w/8,1*h/8},Colors::WHITE,Colors::BLACK,2*h/8,w/4,"Unit Info",true);
     piece_view_port.set_y_offset(-3*h/16);
-    tile_view_port = Square({w/4,7*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"TILE INFO",true);
+    tile_view_port = Square({7*w/8,4*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"TILE INFO",true);
     tile_view_port.set_y_offset(-3*h/16);
 }
 
@@ -78,10 +80,10 @@ void Main_Screen::process_click(Coordinate click) {
              if (unit->get_unit_type() == Unit::ARCHER) {
                  //get tile and get tiles available to move to with a range of 2
                  if (tile_clicked->has_unit()) {
-                     std::vector<Tile *> tiles_in_range = game.get_map().get_tiles_within_range(
+                     std::vector<Tile *>* tiles_in_range = game.get_map().get_tiles_within_range(
                              game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id()), 3);
-                     for (int i = 0; i < tiles_in_range.size(); i++) {
-                         if (*tiles_in_range[i] == *tile_clicked) {
+                     for (int i = 0; i < tiles_in_range->size(); i++) {
+                         if (*((*tiles_in_range)[i]) == *tile_clicked) {
                              //cause archer damage on unit
                              tile_clicked->get_unit()->cause_damage(Unit::ARCHER);
                              break;
@@ -96,21 +98,32 @@ void Main_Screen::process_click(Coordinate click) {
              else {
                  //only do stuff if tile selected is right next to tile of unit
                  if (game.get_map().is_adjacent(*tile_clicked,*game.get_map().get_tile_from_id(unit->get_location_id()))) {
-                     if (tile_clicked->has_unit()) {
+                     if (tile_clicked->has_unit() && tile_clicked->get_unit()->get_owner() != Civilization_Name::WESTEROS) {
                          tile_clicked->get_unit()->cause_damage(unit->get_unit_type());
                          unit->cause_damage(tile_clicked->get_unit()->get_unit_type());
                      }
                      else {
-                         game.get_active_tile()->clear_unit();
-                         tile_clicked->set_unit(*unit);
-                         unit->set_location(tile_clicked->get_id());
+                         //set unit to new tile
+                         if (game.move_active_unit(*tile_clicked)) {
+                             //reveal the tiles around the units new location
+                             game.reveal_unit(&*game.get_active_unit());
+                             //clear unit from active tile
+                             game.get_active_tile()->clear_unit();
+                             //redraw active tile
+                             game.get_active_tile()->draw();
+                             game.clear_active_unit();
+                             game.clear_active_tile();
+                         }
+
                      }
                  }
              }
          }
          else {//current unit has no movement left, so clear the selection
              game.clear_active_tile();
+             tile_view_port.hide();
              game.clear_active_unit();
+             piece_view_port.hide();
          }
      }//game has no current unit, so select the tile and unit clicked on
      else {

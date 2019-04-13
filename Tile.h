@@ -14,8 +14,6 @@
 
 class Tile : public Piece {
 private:
-
-
     int id;
 
     Tile_Terrain::names terrain;
@@ -61,6 +59,7 @@ public:
     Unit * get_const_unit() const;
     Unit * get_unit();
     void set_unit(Unit & newu);
+    void set_unit(Unit * newu);
 
     void draw() const override;
 

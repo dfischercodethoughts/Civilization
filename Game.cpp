@@ -10,8 +10,8 @@ void Game::play_ai() {
         bool moved=  false;
         int unit_id = unit->get_location_id();
         Tile * start_tile = map.get_tile_from_id(unit_id);
-        std::vector<Tile *> possible_moves = map.get_tiles_within_range(start_tile,unit->get_current_movement());
-        for (Tile *tile : possible_moves) {
+        std::vector<Tile *>* possible_moves = map.get_tiles_within_range(start_tile,unit->get_current_movement());
+        for (Tile *tile : *possible_moves) {
             if (tile->get_unit() != nullptr & tile->get_unit()->get_owner()!= Civilization_Name::WESTEROS) {
                 set_active_unit(*unit);
                 move_active_unit(*tile);
@@ -23,9 +23,9 @@ void Game::play_ai() {
         if (!moved) {
             unsigned time_stamp = std::chrono::system_clock::now().time_since_epoch().count();
             std::mt19937 generator(time_stamp);
-            int ind_to_move = generator() % (possible_moves.size() - 1);
+            int ind_to_move = generator() % (possible_moves->size() - 1);
             set_active_unit(*unit);
-            move_active_unit(*possible_moves[ind_to_move]);
+            move_active_unit(*(*possible_moves)[ind_to_move]);
         }
     }
 }
@@ -118,16 +118,17 @@ void Game::clear_active_unit() {
     active_unit = nullptr;
 }
 
-void Game::move_active_unit(Tile &to_move_to) {
-    if (to_move_to.get_unit() != nullptr & to_move_to.get_unit()->get_owner() != Civilization_Name::WESTEROS) {
-        Unit * unit = to_move_to.get_unit();
-        unit->cause_damage(active_unit->get_unit_type());
-        //todo: implement unit move before attack
+void Game::reveal_unit(Unit * to_rev) {
+    map.reveal_unit(to_rev);
+
+}
+
+bool Game::move_active_unit(Tile &to_move_to) {
+    if (player.move_unit(&map,active_unit->get_location_id(),to_move_to.get_id())) {
+        reveal_unit(to_move_to.get_unit());
+        return true;
     }
-    else {
-        to_move_to.set_unit(*active_unit);
-        active_unit->set_location(to_move_to.get_id());
-    }
+    return false;
 }
 
 Map & Game::get_map() {

@@ -54,13 +54,19 @@ Map::Map()
     tiles = std::vector<std::vector<Tile>>();
 }
 
+std::vector<std::vector<Tile>> * Map::get_tiles() {
+    return &tiles;
+}
+
 Coordinate Map::get_vector_coordinates_from_click(Coordinate click) {
-    Coordinate to_ret(0,0);
-    if (click.x > 0 && click. x < this->get_width() && click.y > 0 && click.y < this->get_height()) {
-        to_ret.x = (click.x-Game::MAP_X_OFF) / Tile::TILE_WIDTH;
-        to_ret.y = (click.y/-Game::MAP_Y_OFF)/Tile::TILE_HEIGHT;
+    for (int x = 0; x < tiles.size();x++) {
+        for (int y = 0; y < tiles[0].size();y++) {
+            if (tiles[x][y].check_click(click)) {
+                return Coordinate(x,y);
+            }
+        }
     }
-    return to_ret;
+    return {0,0};
 }
 
 Tile * Map::get_tile_from_vector_coordinates(Coordinate coord) {
@@ -223,11 +229,11 @@ std::vector<Tile *>& Map::get_tiles_driver(std::vector<Tile*> &cur_list,Tile & s
     return cur_list;
 }
 
-std::vector<Tile *> Map::get_tiles_within_range(Tile * start, int movement) {
-    std::vector<Tile*> to_ret = std::vector<Tile*>();
-    to_ret= get_tiles_driver(to_ret,*start,movement);
-    //remove_duplicates(to_ret);
-    return to_ret;
+std::vector<Tile *>* Map::get_tiles_within_range(Tile * start, int movement) {
+    auto ret = new std::vector<Tile*>();
+    ret = &get_tiles_driver(*ret,*start,movement);
+   // remove_duplicates(to_ret);
+    return ret;
 }
 
 bool Map::is_adjacent(Tile & first, Tile & second){
@@ -245,11 +251,16 @@ bool Map::is_adjacent(Tile & first, Tile & second){
 void Map::reveal(std::vector<Unit *> units) {
     hide_map();
     for (int  i = 0; i < units.size();i++) {
-        std::vector<Tile * > visible_tiles =std::vector<Tile *>();
+        std::vector<Tile * >* visible_tiles = new std::vector<Tile *>();
         visible_tiles = get_tiles_within_range(get_tile_from_id(units[i]->get_location_id()),Unit::get_max_movement(units[i]->get_unit_type()));
-        make_visible(visible_tiles);
+        make_visible(*visible_tiles);
     }
 
+}
+
+void Map::reveal_unit(Unit * unit) {
+    std::vector<Tile *>* rev = get_tiles_within_range(get_tile_from_id(unit->get_location_id()),unit->get_current_movement());
+    make_visible(*rev);
 }
 
 void Map::draw() const {
