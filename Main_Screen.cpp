@@ -3,20 +3,13 @@
 
 // Created by david on 4/3/2019.
 //
-#include "Game.h"
+
 #include "Main_Screen.h"
-#include <iostream>
 Main_Screen::Main_Screen() {
     game = Game();
-
     next_turn = Square();
-
-    next_phase = Square();
-
     game_view_port = Square();
-
     piece_view_port = Square();
-
     tile_view_port = Square();
 }
 
@@ -32,37 +25,31 @@ void Main_Screen::init(int h, int w,int x, int y) {
     set_screen_height(h);
     set_screen_width(w);
     set_center({w/2,h/2});
-
     game = Game(3*w/4,3*h/4,x,y);
 
+    next_phase = Square({7*w/8,22*h/32},Colors::WHITE,Colors::BLACK,h/12,w/5, "NEXT PHASE",true);//TODO::create a next phase button, update button text with the turn we are on
+
+
     next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/5,"Next Turn",true);
-
-    //TODO:: get name of the phase to show up on the screen
-    next_phase = Square({7*w/8,22*h/32},Colors::WHITE,Colors::BLACK,h/12,w/5, game.get_phase(),true);//TODO::create a next phase button, update button text with the turn we are on
-    //reference the Tile::draw
-
-    game_view_port = Square({5*w/8,7*h/8},Colors::WHITE,3*h/16,w/8,false);
-
-    piece_view_port = Square({w/2,6*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"Unit Info",true);
+    next_turn.set_x_offset(-25);
+    next_turn.set_y_offset(-25);
+    game_view_port = Square({3*w/8,3*h/8},Colors::WHITE,3*h/4,3*w/4,false);
+    piece_view_port = Square({7*w/8,1*h/8},Colors::WHITE,Colors::BLACK,2*h/8,w/4,"Unit Info",true);
     piece_view_port.set_y_offset(-3*h/16);
-
-    tile_view_port = Square({w/4,7*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"TILE INFO",true);
+    tile_view_port = Square({7*w/8,4*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"TILE INFO",true);
     tile_view_port.set_y_offset(-3*h/16);
 }
 
 void Main_Screen::draw() {
     game_view_port.draw();
-
     game.get_map().draw();//tiles have references to units, and will draw if visible
-
     next_turn.draw();
-
     next_phase.draw();
+    game.phase_on_button(next_phase);
 
     if (game.has_active_unit()) {
         game.get_active_unit()->draw_on_viewport(piece_view_port);
     }
-
     if (game.has_active_tile()) {
         game.get_active_tile()->draw_on_viewport(tile_view_port);
     }
@@ -83,13 +70,10 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
 
     }else if(next_phase.check_click(click)){
         game.next_phase();
-        std::cout << "phase click ";
-
     }
     return Screen::RETURN_TO_GAME;
 
     //todo: implement next phase button, build button, buy button,
-    //tell main game to tell the screen to do stuff
 }
 
 void Main_Screen::process_click(Coordinate click) {
@@ -104,10 +88,10 @@ void Main_Screen::process_click(Coordinate click) {
              if (unit->get_unit_type() == Unit::ARCHER) {
                  //get tile and get tiles available to move to with a range of 2
                  if (tile_clicked->has_unit()) {
-                     std::vector<Tile *> tiles_in_range = game.get_map().get_tiles_within_range(
+                     std::vector<Tile *>* tiles_in_range = game.get_map().get_tiles_within_range(
                              game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id()), 3);
-                     for (int i = 0; i < tiles_in_range.size(); i++) {
-                         if (*tiles_in_range[i] == *tile_clicked) {
+                     for (int i = 0; i < tiles_in_range->size(); i++) {
+                         if (*((*tiles_in_range)[i]) == *tile_clicked) {
                              //cause archer damage on unit
                              tile_clicked->get_unit()->cause_damage(Unit::ARCHER);
                              break;
@@ -122,21 +106,32 @@ void Main_Screen::process_click(Coordinate click) {
              else {
                  //only do stuff if tile selected is right next to tile of unit
                  if (game.get_map().is_adjacent(*tile_clicked,*game.get_map().get_tile_from_id(unit->get_location_id()))) {
-                     if (tile_clicked->has_unit()) {
+                     if (tile_clicked->has_unit() && tile_clicked->get_unit()->get_owner() != Civilization_Name::WESTEROS) {
                          tile_clicked->get_unit()->cause_damage(unit->get_unit_type());
                          unit->cause_damage(tile_clicked->get_unit()->get_unit_type());
                      }
                      else {
-                         game.get_active_tile()->clear_unit();
-                         tile_clicked->set_unit(*unit);
-                         unit->set_location(tile_clicked->get_id());
+                         //set unit to new tile
+                         if (game.move_active_unit(*tile_clicked)) {
+                             //reveal the tiles around the units new location
+                            // game.reveal_unit(game.get_active_unit());
+                             //clear unit from active tile
+                             game.get_active_tile()->clear_unit();
+                             //redraw active tile
+                             game.get_active_tile()->draw();
+                             game.clear_active_unit();
+                             game.clear_active_tile();
+                         }
+
                      }
                  }
              }
          }
          else {//current unit has no movement left, so clear the selection
              game.clear_active_tile();
+             tile_view_port.hide();
              game.clear_active_unit();
+             piece_view_port.hide();
          }
      }//game has no current unit, so select the tile and unit clicked on
      else {

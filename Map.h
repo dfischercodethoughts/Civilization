@@ -22,6 +22,8 @@ public:
     Map(int h, int w, int numx, int numy,int xoff, int yoff);
     Map();
 
+    std::vector<std::vector<Tile>> * get_tiles();
+
     Coordinate get_vector_coordinates_from_click(Coordinate click);
 
     Tile * get_tile_from_vector_coordinates(Coordinate coord);
@@ -35,13 +37,14 @@ public:
     std::vector<Tile &> & get_tiles_driver(std::vector<std::unique_ptr<Tile>> & cur_list, Tile &cur_tile, int move_left);
     std::vector<Tile *> & get_tiles_driver(std::vector<Tile*> & cur_list, Tile & cur_tile, int move_left);
 
-    std::vector<Tile *> get_tiles_within_range(Tile *start, int movement);
+    std::vector<Tile *>* get_tiles_within_range(Tile *start, int movement);
 
     bool is_adjacent(Tile & first, Tile & second);
 
     //todo:implement map reveal method - sets tile visible to false if tile
     //more than two coordinates away from tile unit is on
     void reveal(std::vector<Unit *> units);
+    void reveal_unit(Unit * unit);
 
     void draw() const override;
 

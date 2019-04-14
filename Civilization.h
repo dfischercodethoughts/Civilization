@@ -23,11 +23,22 @@ private:
 public:
     /**
      * unit list must be initialized outside of civ constructor
+     * default constructor defaults gold prod food to zero. Sets name to Civilization_Name::NONE
      */
     Civilization();
+    /**
+     *
+     * @param nm name of civ (defaults to NONE if invalid)
+     * @param start tile that civ should start on
+     * @param is_ai is this civ computer or player controlled?
+     */
     Civilization(std::string nm, std::shared_ptr<Tile> start, bool is_ai);
     Civilization(std::string nm, bool is_ai);
 
+    /**
+     * returns civilization name
+     * @return
+     */
     Civilization_Name::Names get_name() const;
     std::string get_name_str() const;
 
@@ -36,10 +47,21 @@ public:
     int get_food() const;
 
     bool is_ai() const;
-    //bug i think
-    bool add_unit(Unit::Unit_Type type,Tile& place);
+    /**
+     * adds a unit to the civ's unit list. Initializes units list if size is zero
+     * @param type of unit to produce
+     * @param place to start unit
+     * @return success or failure
+     */
+    //bool add_unit(Unit un,Tile& place);
+    bool add_unit(Unit&un,Tile& place);
     bool add_unit(Unit*un,Tile& place);
+    bool add_unit(Unit::Unit_Type type,Tile& place);
 
+    Unit * get_unit(Civilization_Name::Names owner, int tileid);
+    Unit * get_unit_const(Civilization_Name::Names owner, int tileid) const;
+    Unit * get_unit(Civilization_Name::Names owner, Tile & loc);
+    Unit * get_unit_const(Civilization_Name::Names owner, Tile & loc) const;
     std::vector<Unit *> get_units();
     //const version for copy operator
     std::vector<Unit *> get_units_const() const;
@@ -49,6 +71,8 @@ public:
      */
 
     bool move_unit(Map& map,Unit& to_move, Tile& move_to);
+    bool move_unit(Map * map, Unit * to_move, Tile * move_to);
+    bool move_unit(Map * map, int fromid, int toid);
 
     //refresh at end of turn
     void refresh();

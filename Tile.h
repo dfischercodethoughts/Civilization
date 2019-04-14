@@ -14,8 +14,6 @@
 
 class Tile : public Piece {
 private:
-
-
     int id;
 
     Tile_Terrain::names terrain;
@@ -30,6 +28,7 @@ public:
     //inits piece type to tile; increments num tiles and sets id to numtiles
     Tile();
     explicit Tile(Tile * copy);
+    Tile(const Tile * cp);
     Tile(const Tile & cp);
     explicit Tile(std::unique_ptr<Tile> tile);
     Tile(std::string ter, std::string res);
@@ -61,6 +60,7 @@ public:
     Unit * get_const_unit() const;
     Unit * get_unit();
     void set_unit(Unit & newu);
+    void set_unit(Unit * newu);
 
     void draw() const override;
 

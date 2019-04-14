@@ -366,33 +366,6 @@ Map.cpp.s:
 	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Map.cpp.s
 .PHONY : Map.cpp.s
 
-Menu_Option.o: Menu_Option.cpp.o
-
-.PHONY : Menu_Option.o
-
-# target to build an object file
-Menu_Option.cpp.o:
-	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Menu_Option.cpp.o
-.PHONY : Menu_Option.cpp.o
-
-Menu_Option.i: Menu_Option.cpp.i
-
-.PHONY : Menu_Option.i
-
-# target to preprocess a source file
-Menu_Option.cpp.i:
-	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Menu_Option.cpp.i
-.PHONY : Menu_Option.cpp.i
-
-Menu_Option.s: Menu_Option.cpp.s
-
-.PHONY : Menu_Option.s
-
-# target to generate assembly for a file
-Menu_Option.cpp.s:
-	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Menu_Option.cpp.s
-.PHONY : Menu_Option.cpp.s
-
 Pause_Screen.o: Pause_Screen.cpp.o
 
 .PHONY : Pause_Screen.o
@@ -636,33 +609,6 @@ Turn_Manager.cpp.s:
 	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Turn_Manager.cpp.s
 .PHONY : Turn_Manager.cpp.s
 
-Turn_Phase.o: Turn_Phase.cpp.o
-
-.PHONY : Turn_Phase.o
-
-# target to build an object file
-Turn_Phase.cpp.o:
-	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Turn_Phase.cpp.o
-.PHONY : Turn_Phase.cpp.o
-
-Turn_Phase.i: Turn_Phase.cpp.i
-
-.PHONY : Turn_Phase.i
-
-# target to preprocess a source file
-Turn_Phase.cpp.i:
-	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Turn_Phase.cpp.i
-.PHONY : Turn_Phase.cpp.i
-
-Turn_Phase.s: Turn_Phase.cpp.s
-
-.PHONY : Turn_Phase.s
-
-# target to generate assembly for a file
-Turn_Phase.cpp.s:
-	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Turn_Phase.cpp.s
-.PHONY : Turn_Phase.cpp.s
-
 Unit.o: Unit.cpp.o
 
 .PHONY : Unit.o
@@ -689,33 +635,6 @@ Unit.s: Unit.cpp.s
 Unit.cpp.s:
 	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Unit.cpp.s
 .PHONY : Unit.cpp.s
-
-Validator.o: Validator.cpp.o
-
-.PHONY : Validator.o
-
-# target to build an object file
-Validator.cpp.o:
-	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Validator.cpp.o
-.PHONY : Validator.cpp.o
-
-Validator.i: Validator.cpp.i
-
-.PHONY : Validator.i
-
-# target to preprocess a source file
-Validator.cpp.i:
-	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Validator.cpp.i
-.PHONY : Validator.cpp.i
-
-Validator.s: Validator.cpp.s
-
-.PHONY : Validator.s
-
-# target to generate assembly for a file
-Validator.cpp.s:
-	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Validator.cpp.s
-.PHONY : Validator.cpp.s
 
 main.o: main.cpp.o
 
@@ -780,9 +699,6 @@ help:
 	@echo "... Map.o"
 	@echo "... Map.i"
 	@echo "... Map.s"
-	@echo "... Menu_Option.o"
-	@echo "... Menu_Option.i"
-	@echo "... Menu_Option.s"
 	@echo "... Pause_Screen.o"
 	@echo "... Pause_Screen.i"
 	@echo "... Pause_Screen.s"
@@ -810,15 +726,9 @@ help:
 	@echo "... Turn_Manager.o"
 	@echo "... Turn_Manager.i"
 	@echo "... Turn_Manager.s"
-	@echo "... Turn_Phase.o"
-	@echo "... Turn_Phase.i"
-	@echo "... Turn_Phase.s"
 	@echo "... Unit.o"
 	@echo "... Unit.i"
 	@echo "... Unit.s"
-	@echo "... Validator.o"
-	@echo "... Validator.i"
-	@echo "... Validator.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
