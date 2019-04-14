@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named testing.cpp
+# Target rules for targets named main.cpp
 
 # Build rule for target.
-testing.cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testing.cpp
-.PHONY : testing.cpp
+main.cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 main.cpp
+.PHONY : main.cpp
 
 # fast build rule for target.
-testing.cpp/fast:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/build
-.PHONY : testing.cpp/fast
+main.cpp/fast:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/build
+.PHONY : main.cpp/fast
 
 Civilization.o: Civilization.cpp.o
 
@@ -129,7 +129,7 @@ Civilization.o: Civilization.cpp.o
 
 # target to build an object file
 Civilization.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Civilization.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Civilization.cpp.o
 .PHONY : Civilization.cpp.o
 
 Civilization.i: Civilization.cpp.i
@@ -138,7 +138,7 @@ Civilization.i: Civilization.cpp.i
 
 # target to preprocess a source file
 Civilization.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Civilization.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Civilization.cpp.i
 .PHONY : Civilization.cpp.i
 
 Civilization.s: Civilization.cpp.s
@@ -147,7 +147,7 @@ Civilization.s: Civilization.cpp.s
 
 # target to generate assembly for a file
 Civilization.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Civilization.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Civilization.cpp.s
 .PHONY : Civilization.cpp.s
 
 Civilization_Name.o: Civilization_Name.cpp.o
@@ -156,7 +156,7 @@ Civilization_Name.o: Civilization_Name.cpp.o
 
 # target to build an object file
 Civilization_Name.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Civilization_Name.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Civilization_Name.cpp.o
 .PHONY : Civilization_Name.cpp.o
 
 Civilization_Name.i: Civilization_Name.cpp.i
@@ -165,7 +165,7 @@ Civilization_Name.i: Civilization_Name.cpp.i
 
 # target to preprocess a source file
 Civilization_Name.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Civilization_Name.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Civilization_Name.cpp.i
 .PHONY : Civilization_Name.cpp.i
 
 Civilization_Name.s: Civilization_Name.cpp.s
@@ -174,7 +174,7 @@ Civilization_Name.s: Civilization_Name.cpp.s
 
 # target to generate assembly for a file
 Civilization_Name.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Civilization_Name.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Civilization_Name.cpp.s
 .PHONY : Civilization_Name.cpp.s
 
 Color.o: Color.cpp.o
@@ -183,7 +183,7 @@ Color.o: Color.cpp.o
 
 # target to build an object file
 Color.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Color.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Color.cpp.o
 .PHONY : Color.cpp.o
 
 Color.i: Color.cpp.i
@@ -192,7 +192,7 @@ Color.i: Color.cpp.i
 
 # target to preprocess a source file
 Color.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Color.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Color.cpp.i
 .PHONY : Color.cpp.i
 
 Color.s: Color.cpp.s
@@ -201,7 +201,7 @@ Color.s: Color.cpp.s
 
 # target to generate assembly for a file
 Color.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Color.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Color.cpp.s
 .PHONY : Color.cpp.s
 
 Coordinate.o: Coordinate.cpp.o
@@ -210,7 +210,7 @@ Coordinate.o: Coordinate.cpp.o
 
 # target to build an object file
 Coordinate.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Coordinate.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Coordinate.cpp.o
 .PHONY : Coordinate.cpp.o
 
 Coordinate.i: Coordinate.cpp.i
@@ -219,7 +219,7 @@ Coordinate.i: Coordinate.cpp.i
 
 # target to preprocess a source file
 Coordinate.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Coordinate.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Coordinate.cpp.i
 .PHONY : Coordinate.cpp.i
 
 Coordinate.s: Coordinate.cpp.s
@@ -228,7 +228,7 @@ Coordinate.s: Coordinate.cpp.s
 
 # target to generate assembly for a file
 Coordinate.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Coordinate.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Coordinate.cpp.s
 .PHONY : Coordinate.cpp.s
 
 Draw_Manager.o: Draw_Manager.cpp.o
@@ -237,7 +237,7 @@ Draw_Manager.o: Draw_Manager.cpp.o
 
 # target to build an object file
 Draw_Manager.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Draw_Manager.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Draw_Manager.cpp.o
 .PHONY : Draw_Manager.cpp.o
 
 Draw_Manager.i: Draw_Manager.cpp.i
@@ -246,7 +246,7 @@ Draw_Manager.i: Draw_Manager.cpp.i
 
 # target to preprocess a source file
 Draw_Manager.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Draw_Manager.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Draw_Manager.cpp.i
 .PHONY : Draw_Manager.cpp.i
 
 Draw_Manager.s: Draw_Manager.cpp.s
@@ -255,7 +255,7 @@ Draw_Manager.s: Draw_Manager.cpp.s
 
 # target to generate assembly for a file
 Draw_Manager.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Draw_Manager.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Draw_Manager.cpp.s
 .PHONY : Draw_Manager.cpp.s
 
 End_Screen.o: End_Screen.cpp.o
@@ -264,7 +264,7 @@ End_Screen.o: End_Screen.cpp.o
 
 # target to build an object file
 End_Screen.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/End_Screen.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/End_Screen.cpp.o
 .PHONY : End_Screen.cpp.o
 
 End_Screen.i: End_Screen.cpp.i
@@ -273,7 +273,7 @@ End_Screen.i: End_Screen.cpp.i
 
 # target to preprocess a source file
 End_Screen.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/End_Screen.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/End_Screen.cpp.i
 .PHONY : End_Screen.cpp.i
 
 End_Screen.s: End_Screen.cpp.s
@@ -282,7 +282,7 @@ End_Screen.s: End_Screen.cpp.s
 
 # target to generate assembly for a file
 End_Screen.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/End_Screen.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/End_Screen.cpp.s
 .PHONY : End_Screen.cpp.s
 
 Game.o: Game.cpp.o
@@ -291,7 +291,7 @@ Game.o: Game.cpp.o
 
 # target to build an object file
 Game.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Game.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Game.cpp.o
 .PHONY : Game.cpp.o
 
 Game.i: Game.cpp.i
@@ -300,7 +300,7 @@ Game.i: Game.cpp.i
 
 # target to preprocess a source file
 Game.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Game.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Game.cpp.i
 .PHONY : Game.cpp.i
 
 Game.s: Game.cpp.s
@@ -309,7 +309,7 @@ Game.s: Game.cpp.s
 
 # target to generate assembly for a file
 Game.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Game.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Game.cpp.s
 .PHONY : Game.cpp.s
 
 Main_Screen.o: Main_Screen.cpp.o
@@ -318,7 +318,7 @@ Main_Screen.o: Main_Screen.cpp.o
 
 # target to build an object file
 Main_Screen.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Main_Screen.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Main_Screen.cpp.o
 .PHONY : Main_Screen.cpp.o
 
 Main_Screen.i: Main_Screen.cpp.i
@@ -327,7 +327,7 @@ Main_Screen.i: Main_Screen.cpp.i
 
 # target to preprocess a source file
 Main_Screen.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Main_Screen.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Main_Screen.cpp.i
 .PHONY : Main_Screen.cpp.i
 
 Main_Screen.s: Main_Screen.cpp.s
@@ -336,7 +336,7 @@ Main_Screen.s: Main_Screen.cpp.s
 
 # target to generate assembly for a file
 Main_Screen.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Main_Screen.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Main_Screen.cpp.s
 .PHONY : Main_Screen.cpp.s
 
 Map.o: Map.cpp.o
@@ -345,7 +345,7 @@ Map.o: Map.cpp.o
 
 # target to build an object file
 Map.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Map.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Map.cpp.o
 .PHONY : Map.cpp.o
 
 Map.i: Map.cpp.i
@@ -354,7 +354,7 @@ Map.i: Map.cpp.i
 
 # target to preprocess a source file
 Map.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Map.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Map.cpp.i
 .PHONY : Map.cpp.i
 
 Map.s: Map.cpp.s
@@ -363,7 +363,7 @@ Map.s: Map.cpp.s
 
 # target to generate assembly for a file
 Map.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Map.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Map.cpp.s
 .PHONY : Map.cpp.s
 
 Pause_Screen.o: Pause_Screen.cpp.o
@@ -372,7 +372,7 @@ Pause_Screen.o: Pause_Screen.cpp.o
 
 # target to build an object file
 Pause_Screen.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Pause_Screen.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Pause_Screen.cpp.o
 .PHONY : Pause_Screen.cpp.o
 
 Pause_Screen.i: Pause_Screen.cpp.i
@@ -381,7 +381,7 @@ Pause_Screen.i: Pause_Screen.cpp.i
 
 # target to preprocess a source file
 Pause_Screen.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Pause_Screen.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Pause_Screen.cpp.i
 .PHONY : Pause_Screen.cpp.i
 
 Pause_Screen.s: Pause_Screen.cpp.s
@@ -390,7 +390,7 @@ Pause_Screen.s: Pause_Screen.cpp.s
 
 # target to generate assembly for a file
 Pause_Screen.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Pause_Screen.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Pause_Screen.cpp.s
 .PHONY : Pause_Screen.cpp.s
 
 Piece.o: Piece.cpp.o
@@ -399,7 +399,7 @@ Piece.o: Piece.cpp.o
 
 # target to build an object file
 Piece.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Piece.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Piece.cpp.o
 .PHONY : Piece.cpp.o
 
 Piece.i: Piece.cpp.i
@@ -408,7 +408,7 @@ Piece.i: Piece.cpp.i
 
 # target to preprocess a source file
 Piece.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Piece.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Piece.cpp.i
 .PHONY : Piece.cpp.i
 
 Piece.s: Piece.cpp.s
@@ -417,7 +417,7 @@ Piece.s: Piece.cpp.s
 
 # target to generate assembly for a file
 Piece.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Piece.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Piece.cpp.s
 .PHONY : Piece.cpp.s
 
 Screen.o: Screen.cpp.o
@@ -426,7 +426,7 @@ Screen.o: Screen.cpp.o
 
 # target to build an object file
 Screen.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Screen.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Screen.cpp.o
 .PHONY : Screen.cpp.o
 
 Screen.i: Screen.cpp.i
@@ -435,7 +435,7 @@ Screen.i: Screen.cpp.i
 
 # target to preprocess a source file
 Screen.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Screen.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Screen.cpp.i
 .PHONY : Screen.cpp.i
 
 Screen.s: Screen.cpp.s
@@ -444,7 +444,7 @@ Screen.s: Screen.cpp.s
 
 # target to generate assembly for a file
 Screen.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Screen.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Screen.cpp.s
 .PHONY : Screen.cpp.s
 
 Square.o: Square.cpp.o
@@ -453,7 +453,7 @@ Square.o: Square.cpp.o
 
 # target to build an object file
 Square.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Square.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Square.cpp.o
 .PHONY : Square.cpp.o
 
 Square.i: Square.cpp.i
@@ -462,7 +462,7 @@ Square.i: Square.cpp.i
 
 # target to preprocess a source file
 Square.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Square.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Square.cpp.i
 .PHONY : Square.cpp.i
 
 Square.s: Square.cpp.s
@@ -471,7 +471,7 @@ Square.s: Square.cpp.s
 
 # target to generate assembly for a file
 Square.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Square.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Square.cpp.s
 .PHONY : Square.cpp.s
 
 Start_Screen.o: Start_Screen.cpp.o
@@ -480,7 +480,7 @@ Start_Screen.o: Start_Screen.cpp.o
 
 # target to build an object file
 Start_Screen.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Start_Screen.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Start_Screen.cpp.o
 .PHONY : Start_Screen.cpp.o
 
 Start_Screen.i: Start_Screen.cpp.i
@@ -489,7 +489,7 @@ Start_Screen.i: Start_Screen.cpp.i
 
 # target to preprocess a source file
 Start_Screen.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Start_Screen.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Start_Screen.cpp.i
 .PHONY : Start_Screen.cpp.i
 
 Start_Screen.s: Start_Screen.cpp.s
@@ -498,7 +498,7 @@ Start_Screen.s: Start_Screen.cpp.s
 
 # target to generate assembly for a file
 Start_Screen.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Start_Screen.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Start_Screen.cpp.s
 .PHONY : Start_Screen.cpp.s
 
 Tile.o: Tile.cpp.o
@@ -507,7 +507,7 @@ Tile.o: Tile.cpp.o
 
 # target to build an object file
 Tile.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Tile.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Tile.cpp.o
 .PHONY : Tile.cpp.o
 
 Tile.i: Tile.cpp.i
@@ -516,7 +516,7 @@ Tile.i: Tile.cpp.i
 
 # target to preprocess a source file
 Tile.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Tile.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Tile.cpp.i
 .PHONY : Tile.cpp.i
 
 Tile.s: Tile.cpp.s
@@ -525,7 +525,7 @@ Tile.s: Tile.cpp.s
 
 # target to generate assembly for a file
 Tile.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Tile.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Tile.cpp.s
 .PHONY : Tile.cpp.s
 
 Tile_Resource.o: Tile_Resource.cpp.o
@@ -534,7 +534,7 @@ Tile_Resource.o: Tile_Resource.cpp.o
 
 # target to build an object file
 Tile_Resource.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Tile_Resource.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Tile_Resource.cpp.o
 .PHONY : Tile_Resource.cpp.o
 
 Tile_Resource.i: Tile_Resource.cpp.i
@@ -543,7 +543,7 @@ Tile_Resource.i: Tile_Resource.cpp.i
 
 # target to preprocess a source file
 Tile_Resource.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Tile_Resource.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Tile_Resource.cpp.i
 .PHONY : Tile_Resource.cpp.i
 
 Tile_Resource.s: Tile_Resource.cpp.s
@@ -552,7 +552,7 @@ Tile_Resource.s: Tile_Resource.cpp.s
 
 # target to generate assembly for a file
 Tile_Resource.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Tile_Resource.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Tile_Resource.cpp.s
 .PHONY : Tile_Resource.cpp.s
 
 Tile_Terrain.o: Tile_Terrain.cpp.o
@@ -561,7 +561,7 @@ Tile_Terrain.o: Tile_Terrain.cpp.o
 
 # target to build an object file
 Tile_Terrain.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Tile_Terrain.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Tile_Terrain.cpp.o
 .PHONY : Tile_Terrain.cpp.o
 
 Tile_Terrain.i: Tile_Terrain.cpp.i
@@ -570,7 +570,7 @@ Tile_Terrain.i: Tile_Terrain.cpp.i
 
 # target to preprocess a source file
 Tile_Terrain.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Tile_Terrain.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Tile_Terrain.cpp.i
 .PHONY : Tile_Terrain.cpp.i
 
 Tile_Terrain.s: Tile_Terrain.cpp.s
@@ -579,7 +579,7 @@ Tile_Terrain.s: Tile_Terrain.cpp.s
 
 # target to generate assembly for a file
 Tile_Terrain.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Tile_Terrain.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Tile_Terrain.cpp.s
 .PHONY : Tile_Terrain.cpp.s
 
 Turn_Manager.o: Turn_Manager.cpp.o
@@ -588,7 +588,7 @@ Turn_Manager.o: Turn_Manager.cpp.o
 
 # target to build an object file
 Turn_Manager.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Turn_Manager.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Turn_Manager.cpp.o
 .PHONY : Turn_Manager.cpp.o
 
 Turn_Manager.i: Turn_Manager.cpp.i
@@ -597,7 +597,7 @@ Turn_Manager.i: Turn_Manager.cpp.i
 
 # target to preprocess a source file
 Turn_Manager.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Turn_Manager.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Turn_Manager.cpp.i
 .PHONY : Turn_Manager.cpp.i
 
 Turn_Manager.s: Turn_Manager.cpp.s
@@ -606,7 +606,7 @@ Turn_Manager.s: Turn_Manager.cpp.s
 
 # target to generate assembly for a file
 Turn_Manager.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Turn_Manager.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Turn_Manager.cpp.s
 .PHONY : Turn_Manager.cpp.s
 
 Unit.o: Unit.cpp.o
@@ -615,7 +615,7 @@ Unit.o: Unit.cpp.o
 
 # target to build an object file
 Unit.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Unit.cpp.o
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Unit.cpp.o
 .PHONY : Unit.cpp.o
 
 Unit.i: Unit.cpp.i
@@ -624,7 +624,7 @@ Unit.i: Unit.cpp.i
 
 # target to preprocess a source file
 Unit.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Unit.cpp.i
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Unit.cpp.i
 .PHONY : Unit.cpp.i
 
 Unit.s: Unit.cpp.s
@@ -633,35 +633,35 @@ Unit.s: Unit.cpp.s
 
 # target to generate assembly for a file
 Unit.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/Unit.cpp.s
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Unit.cpp.s
 .PHONY : Unit.cpp.s
 
-testing.o: testing.cpp.o
+main.o: main.cpp.o
 
-.PHONY : testing.o
+.PHONY : main.o
 
 # target to build an object file
-testing.cpp.o:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/testing.cpp.o
-.PHONY : testing.cpp.o
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/main.cpp.o
+.PHONY : main.cpp.o
 
-testing.i: testing.cpp.i
+main.i: main.cpp.i
 
-.PHONY : testing.i
+.PHONY : main.i
 
 # target to preprocess a source file
-testing.cpp.i:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/testing.cpp.i
-.PHONY : testing.cpp.i
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/main.cpp.i
+.PHONY : main.cpp.i
 
-testing.s: testing.cpp.s
+main.s: main.cpp.s
 
-.PHONY : testing.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-testing.cpp.s:
-	$(MAKE) -f CMakeFiles/testing.cpp.dir/build.make CMakeFiles/testing.cpp.dir/testing.cpp.s
-.PHONY : testing.cpp.s
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/main.cpp.s
+.PHONY : main.cpp.s
 
 # Help Target
 help:
@@ -670,7 +670,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... testing.cpp"
+	@echo "... main.cpp"
 	@echo "... edit_cache"
 	@echo "... Civilization.o"
 	@echo "... Civilization.i"
@@ -729,9 +729,9 @@ help:
 	@echo "... Unit.o"
 	@echo "... Unit.i"
 	@echo "... Unit.s"
-	@echo "... testing.o"
-	@echo "... testing.i"
-	@echo "... testing.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 .PHONY : help
 
 

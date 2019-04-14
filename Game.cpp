@@ -132,6 +132,7 @@ void Game::reveal_unit(std::unique_ptr<Unit>& to_rev) {
 bool Game::move_active_unit(Tile &to_move_to) {
     if (player.move_unit(&map,active_unit->get_location_id(),to_move_to.get_id())) {
         reveal_unit(to_move_to.get_unit());
+        active_unit->use_movement(Tile_Terrain::get_movement_cost(to_move_to.get_terrain()));
         return true;
     }
     return false;

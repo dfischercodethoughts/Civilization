@@ -229,9 +229,9 @@ Unit::Unit(Unit const & cp) {
     tile_id = cp.get_location_id();
     unit_type = cp.get_unit_type();
     owner  = cp.get_owner();
-    full_heal();
+    health = cp.get_current_health();
     set_damage();
-    reset_movement();
+    movement = cp.get_current_movement();
 }
 
 Unit::Unit(Unit const * cpy) {
@@ -242,9 +242,9 @@ Unit::Unit(Unit const * cpy) {
     tile_id = cpy->get_location_id();
     unit_type = cpy->get_unit_type();
     owner = cpy->get_owner();
-    full_heal();
+    health = cpy->get_current_health();
     set_damage();
-    reset_movement();
+    movement = cpy->get_current_movement();
 }
 
 int Unit::get_location_id() const {
@@ -397,7 +397,7 @@ Unit & Unit::operator=(Unit const &rhs) {
     set_x_offset(rhs.get_x_offset());
     owner = rhs.get_owner();
     unit_type = rhs.unit_type;
-    reset_movement();
+    movement = rhs.get_current_movement();
     reset_health();
     set_damage();
     set_location(rhs.get_location_id());

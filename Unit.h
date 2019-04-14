@@ -81,10 +81,10 @@ public:
     /**
      * extra functions
      */
-    //draws
+    //draw functions
     void draw();
     void draw_on_tile(Square base);
-    void draw_on_viewport(Square viewport_base);
+    void draw_on_viewport(Square viewport_base) override;
 
     /**
      *  switches on attacker and deals damage accordingly

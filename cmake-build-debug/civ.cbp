@@ -27,8 +27,8 @@
 					<DistClean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="testing.cpp">
-				<Option output="/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/testing.cpp.exe" prefix_auto="0" extension_auto="0"/>
+			<Target title="main.cpp">
+				<Option output="/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/main.cpp.exe" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -44,14 +44,14 @@
 					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/../../../../lib/../include/w32api"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/Makefile&quot;  VERBOSE=1 testing.cpp"/>
+					<Build command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/Makefile&quot;  VERBOSE=1 main.cpp"/>
 					<CompileFile command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="testing.cpp/fast">
-				<Option output="/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/testing.cpp.exe" prefix_auto="0" extension_auto="0"/>
+			<Target title="main.cpp/fast">
+				<Option output="/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/main.cpp.exe" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -67,7 +67,7 @@
 					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/../../../../lib/../include/w32api"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/Makefile&quot;  VERBOSE=1 testing.cpp/fast"/>
+					<Build command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/Makefile&quot;  VERBOSE=1 main.cpp/fast"/>
 					<CompileFile command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -85,121 +85,124 @@
 			</Target>
 		</Build>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Civilization.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Civilization.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Civilization_Name.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Civilization_Name.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Color.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Color.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Coordinate.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Coordinate.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Draw_Manager.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Draw_Manager.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/End_Screen.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/End_Screen.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Game.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Game.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Main_Screen.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Main_Screen.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Map.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Map.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Pause_Screen.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Pause_Screen.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Piece.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Piece.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Screen.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Screen.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Square.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Square.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Start_Screen.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Start_Screen.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Tile.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Tile.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Tile_Resource.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Tile_Resource.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Tile_Terrain.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Tile_Terrain.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Turn_Manager.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Turn_Manager.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Unit.cpp">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Unit.h">
-			<Option target="testing.cpp"/>
+			<Option target="main.cpp"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/testing.cpp">
-			<Option target="testing.cpp"/>
+		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/main.cpp">
+			<Option target="main.cpp"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/main.h">
+			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
