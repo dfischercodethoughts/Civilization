@@ -78,49 +78,7 @@ int Draw_Manager::process_click(Coordinate click) {
         case (Screen::MAIN_GAME) : {
             main.check_click(click);
             break;
-            /**
-            switch (choice) {
-                case (Main_Screen::NEXT_TURN): {
-                    Game * temp_game = main.get_game();
-                    temp_game -> set_phase(Turn_Phase::AI_TURN);
-                    temp_game->next_turn();
-                    temp_game->set_phase(Turn_Phase::MOVE);
-                    break;
-                }
-                case (Main_Screen::SELECT_TILE) : {
 
-                    Game* temp_game = main.get_game();
-                    Tile * temp_tile = &*temp_game->get_map().get_tile_from_click(click);
-                    //if a player unit on the tile, select the unit
-                    //todo:fix line
-                    std::unique_ptr<Unit> temp = std::make_unique<Unit>(temp_tile->get_unit());
-                    if (temp_tile->get_unit()->get_unit_type() != Unit::NONE & temp_tile->get_unit()->get_owner()==Civilization_Name::WESTEROS) {
-                        temp_game->set_active_unit(*temp.get());
-                    }
-                    //if a unit is selected and can move
-                    else if (temp_game->get_active_unit()!=nullptr & (temp_game->get_active_unit()->get_current_movement() > 0)) {
-                        //if there is not a friendly unit on the tile, move there
-                        if (temp_tile->get_unit()->get_unit_type() != Unit::NONE & temp_tile->get_unit()->get_owner()!=Civilization_Name::WESTEROS) {
-                            //attack handled in game
-                            temp_game->move_active_unit(*temp_tile);
-                        }
-                        //no unit on the tile, move there
-                        else if (temp_tile->get_unit()->get_unit_type()== Unit::NONE) {
-                            temp_game->move_active_unit(*temp_tile);
-                        }
-                        temp_game->clear_active_unit();
-                    }
-                    //a unit is selected and cant move
-                    else if (temp_game->get_active_unit()!=nullptr) {
-                        temp_game->clear_active_unit();
-                    }
-                    //otherwise, select this tile
-                    else {
-                        temp_game -> set_active_tile(*temp_tile);
-                    }
-                    break;
-                }
-                */
         }
                 /**
                  * build functionality to come

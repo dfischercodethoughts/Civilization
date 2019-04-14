@@ -106,7 +106,7 @@ void Main_Screen::process_click(Coordinate click) {
                          //set unit to new tile
                          if (game.move_active_unit(*tile_clicked)) {
                              //reveal the tiles around the units new location
-                             game.reveal_unit(&*game.get_active_unit());
+                             game.reveal_unit(game.get_active_unit());
                              //clear unit from active tile
                              game.get_active_tile()->clear_unit();
                              //redraw active tile

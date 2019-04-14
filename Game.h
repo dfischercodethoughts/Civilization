@@ -60,6 +60,7 @@ public:
     void clear_active_unit();
 
     void reveal_unit(Unit * to_rev);
+    void reveal_unit(std::unique_ptr<Unit>& to_rev);
 
     bool move_active_unit(Tile & to_move_to);
 

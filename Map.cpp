@@ -111,7 +111,7 @@ Tile * Map::get_tile_from_id(int id) {
 }
 
 void Map::remove_duplicates(std::vector<Tile *> & list) {
-    // potentially more efficient?
+    // potentially more efficient implementation possible
     std::set<Tile*> unique_set;
     for (int i = 0; i < list.size()-1;i++) {
         unique_set.emplace(&*list[i]);
@@ -138,28 +138,28 @@ std::vector<Tile *>& Map::get_tiles_driver(std::vector<Tile*> &cur_list,Tile & s
         Tile * btm_rt = get_tile_from_vector_coordinates({vec.x+1,vec.y-1});
 
         if(btm_lf != nullptr) {
-            cur_list = get_tiles_driver(cur_list, *btm_lf, move_left - Tile_Terrain::get_movement_cost(start.get_terrain()));
+            get_tiles_driver(cur_list, *btm_lf, move_left - Tile_Terrain::get_movement_cost(start.get_terrain()));
         }
         if (left != nullptr) {
-            cur_list = get_tiles_driver(cur_list, *left, move_left - Tile_Terrain::get_movement_cost(start.get_terrain()));
+            get_tiles_driver(cur_list, *left, move_left - Tile_Terrain::get_movement_cost(start.get_terrain()));
         }
         if (top_lf != nullptr) {
-            cur_list = get_tiles_driver(cur_list,*top_lf,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
+            get_tiles_driver(cur_list,*top_lf,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
         }
         if (btm != nullptr) {
-            cur_list = get_tiles_driver(cur_list,*btm,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
+            get_tiles_driver(cur_list,*btm,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
         }
         if (top != nullptr) {
-            cur_list = get_tiles_driver(cur_list,*top,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
+            get_tiles_driver(cur_list,*top,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
         }
         if (top_rt != nullptr) {
-            cur_list = get_tiles_driver(cur_list,*top_rt,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
+            get_tiles_driver(cur_list,*top_rt,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
         }
         if (rt != nullptr) {
-            cur_list= get_tiles_driver(cur_list,*rt,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
+            get_tiles_driver(cur_list,*rt,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
         }
         if (btm_rt != nullptr) {
-            cur_list = get_tiles_driver(cur_list,*btm_rt,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
+            get_tiles_driver(cur_list,*btm_rt,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
         }
 /** old logic
         if (vec. x > 0 && vec.y > 0) {
@@ -231,7 +231,7 @@ std::vector<Tile *>& Map::get_tiles_driver(std::vector<Tile*> &cur_list,Tile & s
 
 std::vector<Tile *>* Map::get_tiles_within_range(Tile * start, int movement) {
     auto ret = new std::vector<Tile*>();
-    ret = &get_tiles_driver(*ret,*start,movement);
+    auto holder = &get_tiles_driver(*ret,*start,movement);
    // remove_duplicates(to_ret);
     return ret;
 }
@@ -259,7 +259,7 @@ void Map::reveal(std::vector<Unit *> units) {
 }
 
 void Map::reveal_unit(Unit * unit) {
-    std::vector<Tile *>* rev = get_tiles_within_range(get_tile_from_id(unit->get_location_id()),unit->get_current_movement());
+    std::vector<Tile *>* rev = get_tiles_within_range(get_tile_from_id(unit->get_location_id()),unit->get_max_movement(unit->get_unit_type()));
     make_visible(*rev);
 }
 
