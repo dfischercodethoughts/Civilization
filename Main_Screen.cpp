@@ -41,6 +41,8 @@ void Main_Screen::init(int h, int w,int x, int y) {
 }
 
 void Main_Screen::draw() {
+    //TODO:: build draw boxes for other phases
+
     game_view_port.draw();
     game.get_map().draw();//tiles have references to units, and will draw if visible
     next_turn.draw();
@@ -82,58 +84,65 @@ void Main_Screen::process_click(Coordinate click) {
      * if tile clicked on next to tile of active unit, move there
      */
      if (game.get_active_unit() != nullptr) {
-         Unit * unit = &*game.get_active_unit();
-         Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
-         if(unit->get_current_movement() > 0) {
-             if (unit->get_unit_type() == Unit::ARCHER) {
-                 //get tile and get tiles available to move to with a range of 2
-                 if (tile_clicked->has_unit()) {
-                     std::vector<Tile *>* tiles_in_range = game.get_map().get_tiles_within_range(
-                             game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id()), 3);
-                     for (int i = 0; i < tiles_in_range->size(); i++) {
-                         if (*((*tiles_in_range)[i]) == *tile_clicked) {
-                             //cause archer damage on unit
-                             tile_clicked->get_unit()->cause_damage(Unit::ARCHER);
-                             break;
+         //only go through this stuff if it's the move phase
+         //TODO::fix error where view port only displays tiles to the left and right of it
+         if (game.get_phase() == "MOVE") {
+             Unit *unit = &*game.get_active_unit();
+             Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
+             if (unit->get_current_movement() > 0) {
+                 if (unit->get_unit_type() == Unit::ARCHER) {
+                     //get tile and get tiles available to move to with a range of 2
+                     if (tile_clicked->has_unit()) {
+                         std::vector<Tile *> *tiles_in_range = game.get_map().get_tiles_within_range(
+                                 game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id()), 3);
+                         for (int i = 0; i < tiles_in_range->size(); i++) {
+                             if (*((*tiles_in_range)[i]) == *tile_clicked) {
+                                 //cause archer damage on unit
+                                 tile_clicked->get_unit()->cause_damage(Unit::ARCHER);
+                                 break;
+                             }
+                         }
+                     }
+
+                 } else if (unit->get_unit_type() == Unit::BOAT) {//is a non archer unit
+                     //implement boat move/attack
+                 } else {
+                     //only do stuff if tile selected is right next to tile of unit
+                     if (game.get_map().is_adjacent(*tile_clicked,
+                                                    *game.get_map().get_tile_from_id(unit->get_location_id()))) {
+                         if (tile_clicked->has_unit() &&
+                             tile_clicked->get_unit()->get_owner() != Civilization_Name::WESTEROS) {
+                             tile_clicked->get_unit()->cause_damage(unit->get_unit_type());
+                             unit->cause_damage(tile_clicked->get_unit()->get_unit_type());
+                         } else {
+                             //set unit to new tile
+                             if (game.move_active_unit(*tile_clicked)) {
+                                 //reveal the tiles around the units new location
+                                 // game.reveal_unit(game.get_active_unit());
+                                 //clear unit from active tile
+                                 game.get_active_tile()->clear_unit();
+                                 //redraw active tile
+                                 game.get_active_tile()->draw();
+                                 game.clear_active_unit();
+                                 game.clear_active_tile();
+                             }
+
                          }
                      }
                  }
-
+             } else {//current unit has no movement left, so clear the selection
+                 game.clear_active_tile();
+                 tile_view_port.hide();
+                 game.clear_active_unit();
+                 piece_view_port.hide();
              }
-             else if (unit->get_unit_type() == Unit::BOAT) {//is a non archer unit
-                 //implement boat move/attack
-             }
-             else {
-                 //only do stuff if tile selected is right next to tile of unit
-                 if (game.get_map().is_adjacent(*tile_clicked,*game.get_map().get_tile_from_id(unit->get_location_id()))) {
-                     if (tile_clicked->has_unit() && tile_clicked->get_unit()->get_owner() != Civilization_Name::WESTEROS) {
-                         tile_clicked->get_unit()->cause_damage(unit->get_unit_type());
-                         unit->cause_damage(tile_clicked->get_unit()->get_unit_type());
-                     }
-                     else {
-                         //set unit to new tile
-                         if (game.move_active_unit(*tile_clicked)) {
-                             //reveal the tiles around the units new location
-                            // game.reveal_unit(game.get_active_unit());
-                             //clear unit from active tile
-                             game.get_active_tile()->clear_unit();
-                             //redraw active tile
-                             game.get_active_tile()->draw();
-                             game.clear_active_unit();
-                             game.clear_active_tile();
-                         }
-
-                     }
-                 }
-             }
-         }
-         else {//current unit has no movement left, so clear the selection
+         }else {//had to copy this for checking the phase to make it work correctly
              game.clear_active_tile();
              tile_view_port.hide();
              game.clear_active_unit();
              piece_view_port.hide();
          }
-     }//game has no current unit, so select the tile and unit clicked on
+     }
      else {
          game.set_active_tile(*game.get_map().get_tile_from_click(click));
          tile_view_port.reveal();
