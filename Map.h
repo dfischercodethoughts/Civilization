@@ -41,8 +41,11 @@ public:
 
     bool is_adjacent(Tile & first, Tile & second);
 
-    //todo:implement map reveal method - sets tile visible to false if tile
-    //more than two coordinates away from tile unit is on
+    /**
+     * reveal method takes a unit or vector of units (which calls reveal unit on each unit in vector)
+     * 
+     * @param units
+     */
     void reveal(std::vector<Unit *> units);
     void reveal_unit(Unit * unit);
 

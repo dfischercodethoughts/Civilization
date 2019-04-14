@@ -35,6 +35,8 @@ public:
     void draw() override;
     names get_type() const override;
 
+    void clear_active();
+
     menu_options check_click(Coordinate click) override;
 
     void process_click(Coordinate click);

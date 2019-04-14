@@ -53,6 +53,11 @@ Screen::names Main_Screen::get_type() const {
     return Screen::MAIN_GAME;
 }
 
+void Main_Screen::clear_active() {
+    game.clear_active_tile();
+    game.clear_active_unit();
+}
+
 Screen::menu_options Main_Screen::check_click(Coordinate click) {
     if (game_view_port.check_click(click)) {
         //process click on a tile
@@ -73,7 +78,7 @@ void Main_Screen::process_click(Coordinate click) {
      * if a unit is selected, either the tile clicked on is in range or out of range
      * if tile clicked on next to tile of active unit, move there
      */
-     if (game.get_active_unit() != nullptr) {
+     if (game.get_active_unit() != nullptr && game.get_active_unit()->get_owner() == Civilization_Name::WESTEROS) {
          Unit * unit = &*game.get_active_unit();
          Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
          if(unit->get_current_movement() > 0) {
@@ -98,24 +103,21 @@ void Main_Screen::process_click(Coordinate click) {
              else {
                  //only do stuff if tile selected is right next to tile of unit
                  if (game.get_map().is_adjacent(*tile_clicked,*game.get_map().get_tile_from_id(unit->get_location_id()))) {
-                     if (tile_clicked->has_unit() && tile_clicked->get_unit()->get_owner() != Civilization_Name::WESTEROS) {
-                         tile_clicked->get_unit()->cause_damage(unit->get_unit_type());
-                         unit->cause_damage(tile_clicked->get_unit()->get_unit_type());
-                     }
-                     else {
-                         //set unit to new tile
-                         if (game.move_active_unit(*tile_clicked)) {
-                             //reveal the tiles around the units new location
-                            // game.reveal_unit(game.get_active_unit());
-                             //clear unit from active tile
-                             game.get_active_tile()->clear_unit();
-                             //redraw active tile
-                             game.get_active_tile()->draw();
-                             game.clear_active_unit();
-                             game.clear_active_tile();
-                         }
+                     //cause damage if
 
+                     //move unit to new tile... Causes damage if unit of opposing civ on tile
+                     if (game.move_active_unit(*tile_clicked)) {
+                         //reveal the tiles around the units new location
+                        // game.reveal_unit(game.get_active_unit());
+                         //clear unit from active tile
+                         game.get_active_tile()->clear_unit();
+                         //redraw active tile
+                         game.get_active_tile()->draw();
+                         game.clear_active_unit();
+                         game.clear_active_tile();
                      }
+
+
                  }
              }
          }
@@ -125,7 +127,7 @@ void Main_Screen::process_click(Coordinate click) {
              game.clear_active_unit();
              piece_view_port.hide();
          }
-     }//game has no current unit, so select the tile and unit clicked on
+     }//game has no current unit (or cur unit is ai unit), so select the tile and unit clicked on
      else {
          game.set_active_tile(*game.get_map().get_tile_from_click(click));
          tile_view_port.reveal();

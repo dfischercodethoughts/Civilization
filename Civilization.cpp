@@ -209,26 +209,36 @@ bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
 
     Tile * move_from = map->get_tile_from_id(tilefrom);
     Tile * move_to = map->get_tile_from_id(tileto);
-    if (move_from->has_unit()&&map->is_adjacent(*move_from,*move_to) && move_to->has_unit() && move_to ->get_unit()->get_owner() != Civilization_Name::WESTEROS) {
-        //todo : cause damage
-        return true;
-    }
-    else if (move_from->has_unit()&&map->is_adjacent(*move_from,*move_to) && move_to->has_unit()) {
-        //do nothing if player unit on square
-        return false;
-    }
-    else if (move_from->has_unit()&&map->is_adjacent(*move_from,*move_to)) {
+    if (move_from->has_unit()) {
+        Unit *to_move = get_unit(Civilization_Name::WESTEROS, tilefrom);
+        if (move_from->has_unit() && map->is_adjacent(*move_from, *move_to) && move_to->has_unit() &&
+            move_to->get_unit()->get_owner() != Civilization_Name::WESTEROS) {
+            //todo : cause damage
+            move_to->get_unit()->cause_damage(to_move->get_unit_type());
+            //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::process click)
+            if (move_to->get_unit()->get_current_health() <= 0 ) {
+                move_to->clear_unit();
+            }
+            to_move->cause_damage(move_to->get_unit()->get_unit_type());
+            if (to_move->get_current_health() <= 0) {
+                move_from->clear_unit();
+            }
+            to_move->use_movement(Unit::get_max_movement(to_move->get_unit_type()));
+            return false;//did not actually move the unit, so return false
+        } else if (move_from->has_unit() && map->is_adjacent(*move_from, *move_to) && move_to->has_unit()) {
+            //do nothing if player unit on square
+            return false;
+        } else if (move_from->has_unit() && map->is_adjacent(*move_from, *move_to)) {
+            to_move->use_movement(Tile_Terrain::get_movement_cost(move_to->get_terrain()));
+            to_move->set_location(move_to->get_id());
+            to_move->set_center(move_to->get_center());
+            move_to->set_unit(to_move);
+            move_from->clear_unit();
+            move_from->draw();
+            move_to->draw();
 
-        Unit * to_move = get_unit(Civilization_Name::WESTEROS,tilefrom);
-        to_move->use_movement(Tile_Terrain::get_movement_cost(move_to->get_terrain()));
-        to_move->set_location(move_to->get_id());
-        to_move->set_center(move_to->get_center());
-        move_to->set_unit(to_move);
-        move_from->clear_unit();
-        move_from->draw();
-        move_to->draw();
-
-        return true;
+            return true;
+        }
     }
     return false;
 
@@ -237,6 +247,14 @@ bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
 void Civilization::refresh() {
     for (int i = 0; i < units.size(); i++) {
         units[i].refresh();
+    }
+}
+
+void Civilization::destroy_units() {
+    for (auto u = units.begin();u != units.end(); u++){
+        if (u->get_current_health() <= 0) {
+            units.erase(u);
+        }
     }
 }
 

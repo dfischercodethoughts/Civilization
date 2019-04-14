@@ -180,6 +180,9 @@ void Unit::set_health(int newh) {
     if (newh >= 0 & newh < 100) {
         health = newh;
     }
+    else if (newh <= 0 ) {
+        health = 0;
+    }
 }
 
 void Unit::reset_health() {
@@ -392,7 +395,7 @@ void Unit::draw_on_viewport(Square base) {
 }
 
 int Unit::cause_damage(Unit_Type attacking) {
-    set_health(get_damage(attacking));
+    set_health(health -get_damage(attacking));
 }
 
 void Unit::full_heal() {

@@ -250,10 +250,8 @@ bool Map::is_adjacent(Tile & first, Tile & second){
 
 void Map::reveal(std::vector<Unit *> units) {
     hide_map();
-    for (int  i = 0; i < units.size();i++) {
-        std::vector<Tile * >* visible_tiles = new std::vector<Tile *>();
-        visible_tiles = get_tiles_within_range(get_tile_from_id(units[i]->get_location_id()),Unit::get_max_movement(units[i]->get_unit_type()));
-        make_visible(*visible_tiles);
+    for (Unit * u : units) {
+        reveal_unit(u);
     }
 
 }

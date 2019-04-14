@@ -84,6 +84,7 @@ Unit * Game::get_active_unit() {
 const Unit * Game::get_active_unit_const() const {
     return active_unit;
 }
+
 const Turn_Manager &Game::get_turn_manager() const {
     return manager;
 }
@@ -129,17 +130,23 @@ void Game::reveal_unit(std::unique_ptr<Unit>& to_rev) {
 }
 
 void Game::reveal() {
+
     for (Unit * u : player.get_units()) {
         reveal_unit(u);
     }
 }
 
-
 bool Game::move_active_unit(Tile &to_move_to) {
     if (player.move_unit(&map,active_unit->get_location_id(),to_move_to.get_id())) {
         reveal_unit(to_move_to.get_unit());
+
         return true;
     }
+    else {
+        player.destroy_units();
+        ai.destroy_units();
+    }
+
     return false;
 }
 
@@ -160,8 +167,7 @@ void Game::next_turn() {
     ai.refresh();
     //play_ai();
     player.refresh();
-    map.hide();
-    reveal();
+    map.reveal(player.get_units());
     manager.set_current_phase(Turn_Phase::MOVE);
 }
 

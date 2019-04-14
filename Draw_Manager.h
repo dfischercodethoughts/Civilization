@@ -39,6 +39,8 @@ public:
     void set_screen(Screen::names);
     Screen * get_current_screen();
 
+    void clear_active();
+
     ~Draw_Manager();
 };
 
