@@ -22,12 +22,6 @@ string
 
 /home/willi/CLionProjects/Final_Proj_v2/Coordinate.h
 
-/home/willi/CLionProjects/Final_Proj_v2/Game.cpp
-chrono
--
-Game.h
-/home/willi/CLionProjects/Final_Proj_v2/Game.h
-
 /home/willi/CLionProjects/Final_Proj_v2/Game.h
 memory
 -
@@ -44,6 +38,20 @@ Turn_Manager.h
 random
 -
 
+/home/willi/CLionProjects/Final_Proj_v2/Main_Screen.cpp
+Game.h
+/home/willi/CLionProjects/Final_Proj_v2/Game.h
+Main_Screen.h
+/home/willi/CLionProjects/Final_Proj_v2/Main_Screen.h
+iostream
+-
+
+/home/willi/CLionProjects/Final_Proj_v2/Main_Screen.h
+Screen.h
+/home/willi/CLionProjects/Final_Proj_v2/Screen.h
+Game.h
+/home/willi/CLionProjects/Final_Proj_v2/Game.h
+
 /home/willi/CLionProjects/Final_Proj_v2/Map.h
 Tile.h
 /home/willi/CLionProjects/Final_Proj_v2/Tile.h
@@ -57,6 +65,12 @@ Square.h
 /home/willi/CLionProjects/Final_Proj_v2/Square.h
 Validator.h
 /home/willi/CLionProjects/Final_Proj_v2/Validator.h
+
+/home/willi/CLionProjects/Final_Proj_v2/Screen.h
+Square.h
+/home/willi/CLionProjects/Final_Proj_v2/Square.h
+vector
+-
 
 /home/willi/CLionProjects/Final_Proj_v2/Square.h
 Color.h

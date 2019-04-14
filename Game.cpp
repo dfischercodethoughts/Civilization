@@ -142,9 +142,19 @@ void Game::set_phase(Turn_Phase::names newphase) {
     manager.set_current_phase(newphase);
 }
 
+void Game::next_phase() {
+    manager.next_phase();
+}
+
+std::string Game::get_phase(){
+    return manager.get_current_phase_str();
+}
+
 void Game::next_turn() {
     manager.set_current_phase(Turn_Phase::AI_TURN);
-    //ai.refresh();
+    ai.refresh();
+
+    //TODO::fix this function
     //play_ai();
     player.refresh();
     manager.set_current_phase(Turn_Phase::MOVE);

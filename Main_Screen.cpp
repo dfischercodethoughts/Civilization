@@ -3,12 +3,15 @@
 
 // Created by david on 4/3/2019.
 //
-
+#include "Game.h"
 #include "Main_Screen.h"
+#include <iostream>
 Main_Screen::Main_Screen() {
     game = Game();
 
     next_turn = Square();
+
+    next_phase = Square();
 
     game_view_port = Square();
 
@@ -34,7 +37,9 @@ void Main_Screen::init(int h, int w,int x, int y) {
 
     next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/5,"Next Turn",true);
 
-    next_phase = Square();//TODO::create a next phase button
+    //TODO:: get name of the phase to show up on the screen
+    next_phase = Square({7*w/8,22*h/32},Colors::WHITE,Colors::BLACK,h/12,w/5, game.get_phase(),true);//TODO::create a next phase button, update button text with the turn we are on
+    //reference the Tile::draw
 
     game_view_port = Square({5*w/8,7*h/8},Colors::WHITE,3*h/16,w/8,false);
 
@@ -51,6 +56,8 @@ void Main_Screen::draw() {
     game.get_map().draw();//tiles have references to units, and will draw if visible
 
     next_turn.draw();
+
+    next_phase.draw();
 
     if (game.has_active_unit()) {
         game.get_active_unit()->draw_on_viewport(piece_view_port);
@@ -73,6 +80,10 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
     else if (next_turn.check_click(click)) {
         //engage games next turn function
         game.next_turn();
+
+    }else if(next_phase.check_click(click)){
+        game.next_phase();
+        std::cout << "phase click ";
 
     }
     return Screen::RETURN_TO_GAME;
@@ -145,6 +156,7 @@ Game* Main_Screen::get_game() {
 Main_Screen::~Main_Screen() {
     game = Game();
     next_turn = Square();
+    next_phase = Square();
     game_view_port = Square();
     piece_view_port = Square();
     tile_view_port = Square();

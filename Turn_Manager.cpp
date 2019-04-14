@@ -25,7 +25,42 @@ void Turn_Manager::next_phase() {
     current_phase = Turn_Phase::names(c);
 }
 
-void Turn_Manager::next_turn() {
+std::string Turn_Manager::get_current_phase_str() const {
+    switch (current_phase) {
+
+        case (Turn_Phase::MOVE) : {
+            return "MOVE";
+        }
+        case (Turn_Phase::BUILD) : {
+            return "BUILD";
+        }
+        case (Turn_Phase::COLLECT) : {
+            return "COLLECT";
+        }
+        default : {
+            return "AI_TURN";
+        }
+    }
+}
+
+std::string to_string(Turn_Phase::names nm) {
+    switch (nm) {
+
+        case (Turn_Phase::MOVE) : {
+            return "MOVE";
+        }
+        case (Turn_Phase::BUILD) : {
+            return "BUILD";
+        }
+        case (Turn_Phase::COLLECT) : {
+            return "COLLECT";
+        }
+        default : {
+            return "AI_TURN";
+        }
+    }
+}
+void Turn_Manager::next_turn(){
     current_phase = Turn_Phase::MOVE;
     count++;
 }
