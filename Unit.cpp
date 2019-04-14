@@ -221,11 +221,32 @@ Unit::Unit(int loc, Civilization_Name::Names own, Unit_Type tp) {
     reset_movement();
 }
 
+Unit::Unit(int loc, Coordinate cnt, Civilization_Name::Names own, Unit_Type tp) {
+    this->set_type(Piece_Type::UNIT);
+    this->set_height(Tile::TILE_HEIGHT);
+    this->set_width(Tile::TILE_WIDTH);
+    this->set_center(cnt);
+    tile_id = loc;
+    unit_type = tp;
+    owner = own;
+    full_heal();
+    set_damage();
+    reset_movement();
+}
+
 Unit::Unit(Unit const & cp) {
     this->set_type("UNIT");
     this->set_height(cp.get_height());
     this->set_width(cp.get_width());
     this->set_center(cp.get_center());
+    set_message(cp.get_message());
+    set_height(cp.get_height());
+    set_fill(cp.get_fill());
+    set_text_color(cp.get_text_color());
+    set_width(cp.get_width());
+    set_y_offset(cp.get_y_offset());
+    set_x_offset(cp.get_x_offset());
+    set_unit_type(cp.get_unit_type());
     tile_id = cp.get_location_id();
     unit_type = cp.get_unit_type();
     owner  = cp.get_owner();
@@ -239,6 +260,14 @@ Unit::Unit(Unit const * cpy) {
     this->set_height(cpy->get_height());
     this->set_width(cpy->get_width());
     this->set_center(cpy->get_center());
+    set_message(cpy->get_message());
+    set_height(cpy->get_height());
+    set_fill(cpy->get_fill());
+    set_text_color(cpy->get_text_color());
+    set_width(cpy->get_width());
+    set_y_offset(cpy->get_y_offset());
+    set_x_offset(cpy->get_x_offset());
+    set_unit_type(cpy->get_unit_type());
     tile_id = cpy->get_location_id();
     unit_type = cpy->get_unit_type();
     owner = cpy->get_owner();
@@ -283,8 +312,10 @@ void Unit::set_location(int newl) {
     if (newl>=0&newl<65) {
         tile_id = newl;
     }
+    else {
+        tile_id = 64;
+    }
 }
-
 
 void Unit::set_owner(Civilization_Name::Names newown) {
     owner = newown;

@@ -20,6 +20,14 @@ Piece(cp->get_center(),cp->get_height(),cp->get_width(),cp->get_fill(),cp->get_t
     init(cp->get_terrain(),cp->get_resource(),cp->get_const_unit(),cp->is_visible(),cp->get_id());
 }
 
+Tile::Tile(const Tile *cp):
+        Piece(cp->get_center(),cp->get_height(),cp->get_width(),cp->get_fill(),cp->get_text_color(),Piece::TILE)
+{
+    num_tiles++;
+    init(cp->get_terrain(),cp->get_resource(),cp->get_const_unit(),cp->is_visible(),cp->get_id());
+}
+
+
 Tile::Tile(const Tile & cp):
 Piece(cp.get_center(),cp.get_height(),cp.get_width(),cp.get_fill(),cp.get_text_color(),Piece::TILE)
 {
@@ -167,7 +175,7 @@ Unit* Tile::get_const_unit() const {
 }
 
 Unit* Tile::get_unit() {
-    return &*unit;
+    return unit;
 }
 
 void Tile::set_unit(Unit &newu) {
@@ -175,7 +183,7 @@ void Tile::set_unit(Unit &newu) {
 }
 
 void Tile::set_unit(Unit *newu) {
-    unit = &*newu;
+    unit = newu;
 }
 
 void Tile::draw() const {

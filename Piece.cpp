@@ -23,7 +23,11 @@ std::string Piece::piece_type_to_string(Piece::Piece_Type type) {
     }
 }
 
-Piece::Piece_Type Piece::string_to_piece_type(std::string type) {
+Piece::Piece_Type Piece::string_to_piece_type(std::string tp) {
+    std::string type;
+    for (char c : tp) {
+        type += toupper(c);
+    }
     if (type == "BUILDING") {
         return Piece::BUILDING;
     }

@@ -42,15 +42,14 @@ Game::Game() {
 Game::Game(int width, int height, int vecw, int vech) {
     map = Map(height,width,vecw,vech,MAP_X_OFF,MAP_Y_OFF);
     player = Civilization("Westeros",false);
-    Unit player_start(map.get_tile_from_vector_coordinates(Coordinate(0,0))->get_id(),player.get_name(),Unit::WARRIOR);
-    player.add_unit(&player_start,*map.get_tile_from_vector_coordinates(Coordinate(0,0)));
+    player.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(0,0))->get_id(),player.get_name(),Unit::WARRIOR),*map.get_tile_from_vector_coordinates(Coordinate(0,0)));
     ai = Civilization("Night King",true);
-    Unit ai_start(map.get_tile_from_vector_coordinates(Coordinate(vecw-1,vech-1))->get_id(),ai.get_name(),Unit::WARRIOR);
-    ai.add_unit(&ai_start,*map.get_tile_from_vector_coordinates(Coordinate(vecw-1,vech-1)));
+    ai.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(vecw-1,vech-1))->get_id(),ai.get_name(),Unit::WARRIOR),*map.get_tile_from_vector_coordinates(Coordinate(vecw-1,vech-1)));
     //player.add_unit(Unit::WARRIOR,*map.get_tile_from_vector_coordinates({0,0}));
     //ai.add_unit(Unit::WARRIOR,*map.get_tile_from_vector_coordinates({vecw-1,vech-1}));
-    map.reveal(player.get_units());
-
+    reveal();
+    active_unit = nullptr;
+    active_tile = nullptr;
     manager = Turn_Manager();
 }
 
@@ -69,19 +68,20 @@ Civilization & Game::get_ai() {
 const Civilization & Game::get_ai_const() const {
     return ai;
 }
-std::unique_ptr<Tile> & Game::get_active_tile() {
+
+Tile * Game::get_active_tile() {
     return active_tile;
 }
 
-const std::unique_ptr<Tile> & Game::get_active_tile_const() const {
+const Tile * Game::get_active_tile_const() const {
     return active_tile;
 }
 
-std::unique_ptr<Unit>& Game::get_active_unit() {
+Unit * Game::get_active_unit() {
     return active_unit;
 }
 
-const std::unique_ptr<Unit>& Game::get_active_unit_const() const {
+const Unit * Game::get_active_unit_const() const {
     return active_unit;
 }
 const Turn_Manager &Game::get_turn_manager() const {
@@ -89,11 +89,11 @@ const Turn_Manager &Game::get_turn_manager() const {
 }
 
 void Game::set_active_tile(Tile &tile) {
-    active_tile = std::make_unique<Tile>(tile);
+    active_tile = &tile;
 }
 
 void Game::set_active_unit(Unit &unit) {
-    active_unit = std::make_unique<Unit>(unit);
+    active_unit = &unit;
 }
 
 bool Game::has_active_unit() const {
@@ -128,11 +128,16 @@ void Game::reveal_unit(std::unique_ptr<Unit>& to_rev) {
 
 }
 
+void Game::reveal() {
+    for (Unit * u : player.get_units()) {
+        reveal_unit(u);
+    }
+}
+
 
 bool Game::move_active_unit(Tile &to_move_to) {
     if (player.move_unit(&map,active_unit->get_location_id(),to_move_to.get_id())) {
         reveal_unit(to_move_to.get_unit());
-        active_unit->use_movement(Tile_Terrain::get_movement_cost(to_move_to.get_terrain()));
         return true;
     }
     return false;
@@ -153,8 +158,10 @@ void Game::set_phase(Turn_Phase::names newphase) {
 void Game::next_turn() {
     manager.set_current_phase(Turn_Phase::AI_TURN);
     ai.refresh();
-    play_ai();
+    //play_ai();
     player.refresh();
+    map.hide();
+    reveal();
     manager.set_current_phase(Turn_Phase::MOVE);
 }
 
@@ -168,22 +175,19 @@ Game& Game::operator=(const Game &cp) {
     manager = cp.get_turn_manager();
     map = cp.get_map_const();
     if (cp.has_active_unit()) {
-        active_unit = std::make_unique<Unit>(&*cp.get_active_unit_const().get());
+        active_unit = &*new Unit(cp.get_active_unit_const());
     }
     else {
         active_unit = nullptr;
     }
     if (cp.has_active_tile()) {
-        active_tile = std::make_unique<Tile>(&*cp.get_active_tile_const());
+        active_tile = &*new Tile(cp.get_active_tile_const());
     } else {
         active_tile = nullptr;
     }
 }
 
 Game::~Game() {
-    player = Civilization();
-    ai = Civilization();
-    manager = Turn_Manager();
     active_tile = nullptr;
     active_unit = nullptr;
 }

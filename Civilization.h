@@ -48,18 +48,20 @@ public:
 
     bool is_ai() const;
     /**
-     * IF no unit already on tiles place...
-     * creates a unit of the specified type and adds it to the civilizations unit vector
-     * makes the place tile set its unit to the new unit, return true
-     * ELSE
-     * return false
+     * adds a unit to the civ's unit list. Initializes units list if size is zero
      * @param type of unit to produce
      * @param place to start unit
      * @return success or failure
      */
-    bool add_unit(Unit::Unit_Type type,Tile& place);
+    //bool add_unit(Unit un,Tile& place);
+    bool add_unit(Unit&un,Tile& place);
     bool add_unit(Unit*un,Tile& place);
+    bool add_unit(Unit::Unit_Type type,Tile& place);
 
+    Unit * get_unit(Civilization_Name::Names owner, int tileid);
+    Unit * get_unit_const(Civilization_Name::Names owner, int tileid) const;
+    Unit * get_unit(Civilization_Name::Names owner, Tile & loc);
+    Unit * get_unit_const(Civilization_Name::Names owner, Tile & loc) const;
     std::vector<Unit *> get_units();
     //const version for copy operator
     std::vector<Unit *> get_units_const() const;

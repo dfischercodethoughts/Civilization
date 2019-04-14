@@ -28,6 +28,7 @@ public:
     //inits piece type to tile; increments num tiles and sets id to numtiles
     Tile();
     explicit Tile(Tile * copy);
+    Tile(const Tile * cp);
     Tile(const Tile & cp);
     explicit Tile(std::unique_ptr<Tile> tile);
     Tile(std::string ter, std::string res);

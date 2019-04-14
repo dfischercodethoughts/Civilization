@@ -9,6 +9,7 @@ Civilization::Civilization() {
     gold = 0;
     food = 0;
     production = 0;
+    units = std::vector<Unit>();
 }
 
 Civilization::Civilization(std::string nm, std::shared_ptr<Tile> start, bool is_ai) {
@@ -17,7 +18,7 @@ Civilization::Civilization(std::string nm, std::shared_ptr<Tile> start, bool is_
     food=0;
     production=0;
     ai = is_ai;
-
+    units = std::vector<Unit>();
 }
 
 Civilization::Civilization(std::string nm, bool is_ai) {
@@ -26,7 +27,7 @@ Civilization::Civilization(std::string nm, bool is_ai) {
     food=0;
     production=0;
     ai = is_ai;
-
+    units = std::vector<Unit>();
 }
 
 Civilization_Name::Names Civilization::get_name() const {
@@ -53,12 +54,50 @@ bool Civilization::is_ai() const {
     return ai;
 }
 
+/**
+bool Civilization::add_unit(Unit newu, Tile & place) {
+    if (place.get_unit() == nullptr) {
+        //Unit * u  = new Unit (newu);
+        newu.set_center(place.get_center());
+        newu.set_location(place.get_id());
+        place.set_unit(newu);
+
+        if (units.size() == 0) {
+            units = std::vector<Unit>();
+            units.emplace_back(&newu);
+        }
+        else {
+            units.emplace_back(&newu);
+        }
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+*/
+bool Civilization::add_unit(Unit& newu, Tile & place) {
+    if (place.get_unit() == nullptr) {
+        newu.set_center(place.get_center());
+        newu.set_location(place.get_id());
+        place.set_unit(newu);
+        units.emplace_back(&(newu));
+
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+
 bool Civilization::add_unit(Unit* newu, Tile & place) {
     if (place.get_unit() == nullptr) {
-        Unit *to_add  =  new Unit(newu);
-        to_add->set_center(place.get_center());
-        units.emplace_back(&*to_add);
-        place.set_unit(*to_add);
+        newu->set_center(place.get_center());
+        newu->set_location(place.get_id());
+        units.emplace_back(*newu);
+        place.set_unit(&*newu);
         return true;
     }
     else {
@@ -70,7 +109,7 @@ bool Civilization::add_unit(Unit* newu, Tile & place) {
 bool Civilization::add_unit(Unit::Unit_Type type, Tile & place) {
 
     if (place.get_unit() == nullptr) {
-        Unit tmp = new Unit(place.get_id(),this->get_name(),type);
+        Unit tmp = new Unit(place.get_id(),place.get_center(),get_name(),type);
         tmp.set_center(place.get_center());
         units.emplace_back(tmp);
         place.set_unit(tmp);
@@ -82,18 +121,55 @@ bool Civilization::add_unit(Unit::Unit_Type type, Tile & place) {
 
 }
 
+Unit * Civilization::get_unit(Civilization_Name::Names owner, int tileid) {
+    for(int i = 0; i < units.size();i++) {
+        if (units[i].get_location_id() == tileid && units[i].get_owner() == owner) {
+            return &units[i];
+        }
+    }
+    return &*new Unit();
+}
+
+Unit * Civilization::get_unit_const(Civilization_Name::Names owner, int tileid) const {
+    for(int i = 0; i < units.size();i++) {
+        if (units[i].get_location_id() == tileid && units[i].get_owner() == owner) {
+            return &*new Unit(units[i]);
+        }
+    }
+    return &*new Unit();
+}
+
+Unit * Civilization::get_unit(Civilization_Name::Names owner, Tile & tile) {
+    for(int i = 0; i < units.size();i++) {
+        if (units[i].get_location_id() == tile.get_id() && units[i].get_owner() == owner) {
+            return &units[i];
+        }
+    }
+    return &*new Unit();
+}
+
+Unit * Civilization::get_unit_const(Civilization_Name::Names owner, Tile & tile) const {
+    for(int i = 0; i < units.size();i++) {
+        if (units[i].get_location_id() == tile.get_id() && units[i].get_owner() == owner) {
+            return &*new Unit(units[i]);
+        }
+    }
+    return &*new Unit();
+}
+
 std::vector<Unit *> Civilization::get_units() {
     std::vector<Unit*> to_ret;
-    for (Unit &u : units) {
-        to_ret.emplace_back(&u);
+    for (int i = 0; i < units.size();i++) {
+        to_ret.emplace_back(new Unit(units[i]));
     }
     return to_ret;
 }
 
 std::vector<Unit *> Civilization::get_units_const()  const{
     std::vector<Unit*> to_ret;
-    for (Unit u : units) {
-        to_ret.emplace_back(&u);
+    for (int i = 0; i < units.size();i++) {
+        Unit * u = new Unit(units[i]);
+        to_ret.emplace_back(u);
     }
     return to_ret;
 }
@@ -130,10 +206,6 @@ bool Civilization::move_unit(Map * map, Unit * to_move, Tile * move_to) {
 }
 
 bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
-    ;
-    //   std::vector<Tile *> tiles = map.get_tiles_within_range(&tile,to_move.get_current_movement());
-    //  for (int i = 0 ; i < tiles.size()-1;i++) {
-    //    if ((*tiles[i]) == move_to) {
 
     Tile * move_from = map->get_tile_from_id(tilefrom);
     Tile * move_to = map->get_tile_from_id(tileto);
@@ -147,7 +219,7 @@ bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
     }
     else if (move_from->has_unit()&&map->is_adjacent(*move_from,*move_to)) {
 
-        Unit * to_move = move_from->get_unit();
+        Unit * to_move = get_unit(Civilization_Name::WESTEROS,tilefrom);
         to_move->use_movement(Tile_Terrain::get_movement_cost(move_to->get_terrain()));
         to_move->set_location(move_to->get_id());
         to_move->set_center(move_to->get_center());
@@ -159,8 +231,7 @@ bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
         return true;
     }
     return false;
-    //    }
-    // }
+
 }
 
 void Civilization::refresh() {
@@ -179,7 +250,9 @@ Civilization & Civilization::operator=(Civilization const &rh) {
     gold = rh.get_gold();
     production = rh.get_production();
     food = rh.get_food();
-    for (Unit * un : rh.get_units_const()) {
+    auto u = rh.get_units_const();
+    for (int i = 0; i < u.size();i++) {
+        Unit *un = new Unit(u[i]);
         units.emplace_back(*un);
     }
     name = rh.get_name();

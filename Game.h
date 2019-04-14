@@ -20,9 +20,9 @@ private:
     Civilization ai;
     Turn_Manager manager;
 
-    std::unique_ptr<Tile> active_tile;
+    Tile * active_tile;
     //std::shared_ptr<City> active_city;
-    std::unique_ptr<Unit> active_unit;
+    Unit * active_unit;
     //std::shared_ptr<Building> active_building;
 
     Map map;
@@ -43,11 +43,11 @@ public:
     Civilization & get_ai();
     const Civilization & get_ai_const() const;
 
-    std::unique_ptr<Tile> & get_active_tile();
-    const std::unique_ptr<Tile> & get_active_tile_const() const;
+    Tile * get_active_tile();
+    const Tile * get_active_tile_const() const;
     //std::shared_ptr<City> & get_active_city();
-    std::unique_ptr<Unit> & get_active_unit();
-    const std::unique_ptr<Unit> & get_active_unit_const() const;
+    Unit* get_active_unit();
+    const Unit * get_active_unit_const() const;
 
     const Turn_Manager &get_turn_manager() const;
 
@@ -61,6 +61,10 @@ public:
 
     void reveal_unit(Unit * to_rev);
     void reveal_unit(std::unique_ptr<Unit>& to_rev);
+    /**
+     * sets all tiles within visible range (max movement range) of all units in players civ
+     */
+    void reveal();
 
     bool move_active_unit(Tile & to_move_to);
 

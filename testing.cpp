@@ -4,6 +4,7 @@
 
 #include "Map.h"
 #include "iostream"
+#include "Civilization.h"
 
 void test_get_vec_coordinates_from_click(Map & m) {
     std::cout << "TESTING GET VEC COORDINATES FROM CLICK" << std::endl;
@@ -48,10 +49,28 @@ bool test_get_tiles_within_range(Map & m) {
     return true;
 }
 
+bool test_civ_add_unit(Map & m) {
+    Civilization ai;
+    ai = Civilization("Night King",true);
+    ai.add_unit(new Unit(m.get_tile_from_vector_coordinates(Coordinate(7,7))->get_id(),ai.get_name(),Unit::WARRIOR),*m.get_tile_from_vector_coordinates(Coordinate(7,7)));
+    std::vector<Unit *> units = ai.get_units();
+    for (Unit * u : units) {
+        //std::cout<<u->get_unit_type() << u->get_owner() << "[" << u->get_center().x <<","  << u->get_center().y << "]" << std::endl;
+        if (u->get_owner() != Civilization_Name::NIGHT_KING) {
+            return false;
+        }
+        if (u->get_location_id() != 64) {
+            return false;
+        }
+    }
+    return true;
+}
+
 int main (int argc, char** argv) {
     Map m = Map(1200,800,8,8);
     std::cout << "TESTING MAP CLASS\n"<<std::endl;
     //test_get_vec_coordinates_from_click(m);
+   /**
     if (test_get_tile_from_vec_coord(m)) {
         std::cout << "SUCCESS" << std::endl;
     }
@@ -64,4 +83,10 @@ int main (int argc, char** argv) {
     else {
         std::cout << "FAIL" << std::endl;
     }
+    */
+
+   std::cout << "TESTING CIVILIZATION ADD UNIT" << std::endl;
+
+
+    std::cin;
 }

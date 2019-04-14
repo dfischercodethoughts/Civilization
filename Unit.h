@@ -53,6 +53,7 @@ public:
     Unit();
     Unit(int start_tile, Unit_Type tp);
     Unit(int loca, Civilization_Name::Names owner, Unit_Type tp);
+    Unit(int loca,Coordinate c, Civilization_Name::Names owner, Unit_Type tp);
     Unit(Unit const & to_cpy);
     Unit(Unit const * cpy);
     Unit(std::unique_ptr<Unit> to_cpy);
