@@ -73,6 +73,12 @@ public:
 
     void set_phase(Turn_Phase::names newphase);
 
+    void next_phase();
+
+    void phase_on_button(Square base);
+
+    std::string get_phase();
+
     void next_turn();//moves to next player turn; plays ai turn
 
     Coordinate get_unit_location_coordinates(Unit & u);

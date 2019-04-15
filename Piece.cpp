@@ -2,6 +2,7 @@
 // Created by david on 4/3/2019.
 //
 
+
 #include "Piece.h"
 
 std::string Piece::piece_type_to_string(Piece::Piece_Type type) {

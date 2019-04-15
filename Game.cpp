@@ -162,6 +162,26 @@ void Game::set_phase(Turn_Phase::names newphase) {
     manager.set_current_phase(newphase);
 }
 
+void Game::next_phase() {
+    manager.next_phase();
+}
+
+void Game::phase_on_button(Square base){
+    base.set_fill(Colors::WHITE);
+    base.draw();
+    glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
+    glRasterPos2i(base.get_center().x-3*base.get_width()/8,base.get_center().y - 3*base.get_height()/8);
+    std::string line = "CURRENT PHASE: " + manager.get_current_phase_str();
+    for (char c : line) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
+    }
+
+}
+
+std::string Game::get_phase(){
+    return manager.get_current_phase_str();
+}
+
 void Game::next_turn() {
     manager.set_current_phase(Turn_Phase::AI_TURN);
     ai.refresh();

@@ -20,6 +20,8 @@ public:
 private:
     Game game;
     Square next_turn;
+    Square next_phase;
+    Square build_view_port;
     Square game_view_port;
     Square piece_view_port;
     Square tile_view_port;

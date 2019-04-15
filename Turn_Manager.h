@@ -20,11 +20,16 @@ public:
 
     Turn_Phase::names get_current_phase() const;
 
+    std::string get_current_phase_str() const;
+
     void set_current_phase(Turn_Phase::names new_phase);
 
     void next_phase();
 
     void next_turn();
+
+    static std::string to_string(Turn_Phase::names nm);
+
 
     ~Turn_Manager();
 };

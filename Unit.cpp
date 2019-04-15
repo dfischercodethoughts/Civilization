@@ -341,7 +341,7 @@ void Unit::draw() {
 
 void Unit::draw_on_tile(Square base) {
     glColor3f(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
-    glRasterPos2i(base.get_center().x+base.get_width()/8,base.get_center().y - 3*base.get_height()/8);
+    glRasterPos2i(base.get_center().x+base.get_width()/8, base.get_center().y - 3*base.get_height()/8);
     std::string line = "U: " + unit_type_to_string(get_unit_type());
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
