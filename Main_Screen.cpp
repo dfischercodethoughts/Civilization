@@ -8,6 +8,8 @@
 Main_Screen::Main_Screen() {
     game = Game();
     next_turn = Square();
+    next_phase = Square();
+    build_view_port = Square();
     game_view_port = Square();
     piece_view_port = Square();
     tile_view_port = Square();
@@ -29,6 +31,7 @@ void Main_Screen::init(int h, int w,int x, int y) {
 
     next_phase = Square({7*w/8,22*h/32},Colors::WHITE,Colors::BLACK,h/12,w/5, "NEXT PHASE",true);//TODO::create a next phase button, update button text with the turn we are on
 
+    build_view_port = Square({3*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/3,"BUILDING MENU",true);
 
     next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/5,"Next Turn",true);
     next_turn.set_x_offset(-25);
@@ -54,6 +57,9 @@ void Main_Screen::draw() {
     }
     if (game.has_active_tile()) {
         game.get_active_tile()->draw_on_viewport(tile_view_port);
+    }
+    if (game.get_phase() == "BUILD"){
+        build_view_port.draw();
     }
 }
 
@@ -161,6 +167,7 @@ Main_Screen::~Main_Screen() {
     game = Game();
     next_turn = Square();
     next_phase = Square();
+    build_view_port = Square();
     game_view_port = Square();
     piece_view_port = Square();
     tile_view_port = Square();
