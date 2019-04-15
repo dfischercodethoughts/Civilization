@@ -53,6 +53,7 @@ public:
     Unit();
     Unit(int start_tile, Unit_Type tp);
     Unit(int loca, Civilization_Name::Names owner, Unit_Type tp);
+    Unit(int loca,Coordinate c, Civilization_Name::Names owner, Unit_Type tp);
     Unit(Unit const & to_cpy);
     Unit(Unit const * cpy);
     Unit(std::unique_ptr<Unit> to_cpy);
@@ -81,10 +82,10 @@ public:
     /**
      * extra functions
      */
-    //draws
+    //draw functions
     void draw();
     void draw_on_tile(Square base);
-    void draw_on_viewport(Square viewport_base);
+    void draw_on_viewport(Square viewport_base) override;
 
     /**
      *  switches on attacker and deals damage accordingly

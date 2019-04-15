@@ -8,6 +8,8 @@
 Main_Screen::Main_Screen() {
     game = Game();
     next_turn = Square();
+    next_phase = Square();
+    build_view_port = Square();
     game_view_port = Square();
     piece_view_port = Square();
     tile_view_port = Square();
@@ -26,24 +28,38 @@ void Main_Screen::init(int h, int w,int x, int y) {
     set_screen_width(w);
     set_center({w/2,h/2});
     game = Game(3*w/4,3*h/4,x,y);
+
+    next_phase = Square({7*w/8,22*h/32},Colors::WHITE,Colors::BLACK,h/12,w/5, "NEXT PHASE",true);//TODO::create a next phase button, update button text with the turn we are on
+
+    build_view_port = Square({3*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/3,"BUILDING MENU",true);
+
     next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/5,"Next Turn",true);
-    game_view_port = Square({5*w/8,7*h/8},Colors::WHITE,3*h/16,w/8,false);
-    piece_view_port = Square({w/2,6*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"Unit Info",true);
+    next_turn.set_x_offset(-25);
+    next_turn.set_y_offset(-25);
+    game_view_port = Square({3*w/8,3*h/8},Colors::WHITE,3*h/4,3*w/4,false);
+    piece_view_port = Square({7*w/8,1*h/8},Colors::WHITE,Colors::BLACK,2*h/8,w/4,"Unit Info",true);
     piece_view_port.set_y_offset(-3*h/16);
-    tile_view_port = Square({w/4,7*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"TILE INFO",true);
+    tile_view_port = Square({7*w/8,4*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"TILE INFO",true);
     tile_view_port.set_y_offset(-3*h/16);
 }
 
 void Main_Screen::draw() {
+    //TODO:: build draw boxes for other phases
+
     game_view_port.draw();
     game.get_map().draw();//tiles have references to units, and will draw if visible
     next_turn.draw();
+    next_phase.draw();
+    game.phase_on_button(next_phase);
 
     if (game.has_active_unit()) {
         game.get_active_unit()->draw_on_viewport(piece_view_port);
     }
     if (game.has_active_tile()) {
         game.get_active_tile()->draw_on_viewport(tile_view_port);
+    }
+    if (game.get_phase() == "BUILD"){
+        build_view_port.draw();
     }
 }
 
@@ -60,6 +76,8 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
         //engage games next turn function
         game.next_turn();
 
+    }else if(next_phase.check_click(click)){
+        game.next_phase();
     }
     return Screen::RETURN_TO_GAME;
 
@@ -72,47 +90,65 @@ void Main_Screen::process_click(Coordinate click) {
      * if tile clicked on next to tile of active unit, move there
      */
      if (game.get_active_unit() != nullptr) {
-         Unit * unit = &*game.get_active_unit();
-         Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
-         if(unit->get_current_movement() > 0) {
-             if (unit->get_unit_type() == Unit::ARCHER) {
-                 //get tile and get tiles available to move to with a range of 2
-                 if (tile_clicked->has_unit()) {
-                     std::vector<Tile *> tiles_in_range = game.get_map().get_tiles_within_range(
-                             game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id()), 3);
-                     for (int i = 0; i < tiles_in_range.size(); i++) {
-                         if (*tiles_in_range[i] == *tile_clicked) {
-                             //cause archer damage on unit
-                             tile_clicked->get_unit()->cause_damage(Unit::ARCHER);
-                             break;
+         //only go through this stuff if it's the move phase
+         //TODO::fix error where view port only displays tiles to the left and right of it
+         if (game.get_phase() == "MOVE") {
+             Unit *unit = &*game.get_active_unit();
+             Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
+             if (unit->get_current_movement() > 0) {
+                 if (unit->get_unit_type() == Unit::ARCHER) {
+                     //get tile and get tiles available to move to with a range of 2
+                     if (tile_clicked->has_unit()) {
+                         std::vector<Tile *> *tiles_in_range = game.get_map().get_tiles_within_range(
+                                 game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id()), 3);
+                         for (int i = 0; i < tiles_in_range->size(); i++) {
+                             if (*((*tiles_in_range)[i]) == *tile_clicked) {
+                                 //cause archer damage on unit
+                                 tile_clicked->get_unit()->cause_damage(Unit::ARCHER);
+                                 break;
+                             }
+                         }
+                     }
+
+                 } else if (unit->get_unit_type() == Unit::BOAT) {//is a non archer unit
+                     //implement boat move/attack
+                 } else {
+                     //only do stuff if tile selected is right next to tile of unit
+                     if (game.get_map().is_adjacent(*tile_clicked,
+                                                    *game.get_map().get_tile_from_id(unit->get_location_id()))) {
+                         if (tile_clicked->has_unit() &&
+                             tile_clicked->get_unit()->get_owner() != Civilization_Name::WESTEROS) {
+                             tile_clicked->get_unit()->cause_damage(unit->get_unit_type());
+                             unit->cause_damage(tile_clicked->get_unit()->get_unit_type());
+                         } else {
+                             //set unit to new tile
+                             if (game.move_active_unit(*tile_clicked)) {
+                                 //reveal the tiles around the units new location
+                                 // game.reveal_unit(game.get_active_unit());
+                                 //clear unit from active tile
+                                 game.get_active_tile()->clear_unit();
+                                 //redraw active tile
+                                 game.get_active_tile()->draw();
+                                 game.clear_active_unit();
+                                 game.clear_active_tile();
+                             }
+
                          }
                      }
                  }
-
+             } else {//current unit has no movement left, so clear the selection
+                 game.clear_active_tile();
+                 tile_view_port.hide();
+                 game.clear_active_unit();
+                 piece_view_port.hide();
              }
-             else if (unit->get_unit_type() == Unit::BOAT) {//is a non archer unit
-                 //implement boat move/attack
-             }
-             else {
-                 //only do stuff if tile selected is right next to tile of unit
-                 if (game.get_map().is_adjacent(*tile_clicked,*game.get_map().get_tile_from_id(unit->get_location_id()))) {
-                     if (tile_clicked->has_unit()) {
-                         tile_clicked->get_unit()->cause_damage(unit->get_unit_type());
-                         unit->cause_damage(tile_clicked->get_unit()->get_unit_type());
-                     }
-                     else {
-                         game.get_active_tile()->clear_unit();
-                         tile_clicked->set_unit(*unit);
-                         unit->set_location(tile_clicked->get_id());
-                     }
-                 }
-             }
-         }
-         else {//current unit has no movement left, so clear the selection
+         }else {//had to copy this for checking the phase to make it work correctly
              game.clear_active_tile();
+             tile_view_port.hide();
              game.clear_active_unit();
+             piece_view_port.hide();
          }
-     }//game has no current unit, so select the tile and unit clicked on
+     }
      else {
          game.set_active_tile(*game.get_map().get_tile_from_click(click));
          tile_view_port.reveal();
@@ -130,6 +166,8 @@ Game* Main_Screen::get_game() {
 Main_Screen::~Main_Screen() {
     game = Game();
     next_turn = Square();
+    next_phase = Square();
+    build_view_port = Square();
     game_view_port = Square();
     piece_view_port = Square();
     tile_view_port = Square();

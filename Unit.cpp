@@ -221,17 +221,38 @@ Unit::Unit(int loc, Civilization_Name::Names own, Unit_Type tp) {
     reset_movement();
 }
 
+Unit::Unit(int loc, Coordinate cnt, Civilization_Name::Names own, Unit_Type tp) {
+    this->set_type(Piece_Type::UNIT);
+    this->set_height(Tile::TILE_HEIGHT);
+    this->set_width(Tile::TILE_WIDTH);
+    this->set_center(cnt);
+    tile_id = loc;
+    unit_type = tp;
+    owner = own;
+    full_heal();
+    set_damage();
+    reset_movement();
+}
+
 Unit::Unit(Unit const & cp) {
     this->set_type("UNIT");
     this->set_height(cp.get_height());
     this->set_width(cp.get_width());
     this->set_center(cp.get_center());
+    set_message(cp.get_message());
+    set_height(cp.get_height());
+    set_fill(cp.get_fill());
+    set_text_color(cp.get_text_color());
+    set_width(cp.get_width());
+    set_y_offset(cp.get_y_offset());
+    set_x_offset(cp.get_x_offset());
+    set_unit_type(cp.get_unit_type());
     tile_id = cp.get_location_id();
     unit_type = cp.get_unit_type();
     owner  = cp.get_owner();
-    full_heal();
+    health = cp.get_current_health();
     set_damage();
-    reset_movement();
+    movement = cp.get_current_movement();
 }
 
 Unit::Unit(Unit const * cpy) {
@@ -239,12 +260,20 @@ Unit::Unit(Unit const * cpy) {
     this->set_height(cpy->get_height());
     this->set_width(cpy->get_width());
     this->set_center(cpy->get_center());
+    set_message(cpy->get_message());
+    set_height(cpy->get_height());
+    set_fill(cpy->get_fill());
+    set_text_color(cpy->get_text_color());
+    set_width(cpy->get_width());
+    set_y_offset(cpy->get_y_offset());
+    set_x_offset(cpy->get_x_offset());
+    set_unit_type(cpy->get_unit_type());
     tile_id = cpy->get_location_id();
     unit_type = cpy->get_unit_type();
     owner = cpy->get_owner();
-    full_heal();
+    health = cpy->get_current_health();
     set_damage();
-    reset_movement();
+    movement = cpy->get_current_movement();
 }
 
 int Unit::get_location_id() const {
@@ -280,11 +309,13 @@ Unit::Unit_Type Unit::get_unit_type() const {
 }
 
 void Unit::set_location(int newl) {
-    if (newl>=0&newl<10) {
+    if (newl>=0&newl<65) {
         tile_id = newl;
     }
+    else {
+        tile_id = 64;
+    }
 }
-
 
 void Unit::set_owner(Civilization_Name::Names newown) {
     owner = newown;
@@ -307,7 +338,7 @@ void Unit::draw() {
 
 void Unit::draw_on_tile(Square base) {
     glColor3f(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
-    glRasterPos2i(base.get_center().x+base.get_width()/8,base.get_center().y - 3*base.get_height()/8);
+    glRasterPos2i(base.get_center().x+base.get_width()/8, base.get_center().y - 3*base.get_height()/8);
     std::string line = "U: " + unit_type_to_string(get_unit_type());
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
@@ -315,42 +346,44 @@ void Unit::draw_on_tile(Square base) {
 }
 
 void Unit::draw_on_viewport(Square base) {
-    glColor3f(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
+    base.set_fill(Colors::WHITE);
+    base.draw();
+    glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
     glRasterPos2i(base.get_center().x-3*base.get_width()/8,base.get_center().y - 3*base.get_height()/8);
     std::string line = "TYPE: " + unit_type_to_string(get_unit_type());
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
-    glColor3f(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
+    glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
     glRasterPos2i(base.get_center().x-3*base.get_width()/8,base.get_center().y - base.get_height()/8);
     line = "OWNER: " + Civilization_Name::civ_name_to_string(get_owner());
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
-    glColor3f(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
+    glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
     glRasterPos2i(base.get_center().x-3*base.get_width()/8,base.get_center().y + base.get_height()/8);
     line = "MOVEMENT LEFT: " + std::to_string(get_current_movement());
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
-    glColor3f(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
+    glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
     glRasterPos2i(base.get_center().x-3*base.get_width()/8,base.get_center().y + 3*base.get_height()/8);
     line = "MAX MOVEMENT: " + std::to_string(get_max_movement(get_unit_type()));
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
-    glColor3f(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
+    glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
     glRasterPos2i(base.get_center().x+base.get_width()/8,base.get_center().y -3* base.get_height()/8);
     line = "HEALTH LEFT: " + std::to_string(get_current_health());
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
-    glColor3f(base.get_text_color().get_red(),base.get_text_color().get_green(),base.get_text_color().get_blue());
+    glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
     glRasterPos2i(base.get_center().x+base.get_width()/8,base.get_center().y - base.get_height()/8);
     line = "MAX HEALTH: " + std::to_string(get_max_health());
     for (char c : line) {
@@ -395,7 +428,7 @@ Unit & Unit::operator=(Unit const &rhs) {
     set_x_offset(rhs.get_x_offset());
     owner = rhs.get_owner();
     unit_type = rhs.unit_type;
-    reset_movement();
+    movement = rhs.get_current_movement();
     reset_health();
     set_damage();
     set_location(rhs.get_location_id());
