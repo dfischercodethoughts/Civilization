@@ -22,6 +22,7 @@ void Turn_Manager::next_phase() {
     //todo: test turn manager next phase logic
     int c = current_phase;
     c++;
+    c = c%4;
     current_phase = Turn_Phase::names(c);
 }
 

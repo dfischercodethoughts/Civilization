@@ -609,6 +609,33 @@ Turn_Manager.cpp.s:
 	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Turn_Manager.cpp.s
 .PHONY : Turn_Manager.cpp.s
 
+Turn_Phase.o: Turn_Phase.cpp.o
+
+.PHONY : Turn_Phase.o
+
+# target to build an object file
+Turn_Phase.cpp.o:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Turn_Phase.cpp.o
+.PHONY : Turn_Phase.cpp.o
+
+Turn_Phase.i: Turn_Phase.cpp.i
+
+.PHONY : Turn_Phase.i
+
+# target to preprocess a source file
+Turn_Phase.cpp.i:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Turn_Phase.cpp.i
+.PHONY : Turn_Phase.cpp.i
+
+Turn_Phase.s: Turn_Phase.cpp.s
+
+.PHONY : Turn_Phase.s
+
+# target to generate assembly for a file
+Turn_Phase.cpp.s:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Turn_Phase.cpp.s
+.PHONY : Turn_Phase.cpp.s
+
 Unit.o: Unit.cpp.o
 
 .PHONY : Unit.o
@@ -726,6 +753,9 @@ help:
 	@echo "... Turn_Manager.o"
 	@echo "... Turn_Manager.i"
 	@echo "... Turn_Manager.s"
+	@echo "... Turn_Phase.o"
+	@echo "... Turn_Phase.i"
+	@echo "... Turn_Phase.s"
 	@echo "... Unit.o"
 	@echo "... Unit.i"
 	@echo "... Unit.s"

@@ -12,7 +12,8 @@ struct Turn_Phase {
         MOVE,
         BUILD,
         COLLECT,
-        AI_TURN
+        AI_TURN,
+        DEFAULT
     };
 
 static Turn_Phase::names string_to_turn_phase(std::string phs);

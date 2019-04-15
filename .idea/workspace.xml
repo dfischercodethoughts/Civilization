@@ -13,20 +13,35 @@
   <component name="ChangeListManager">
     <list default="true" id="35f4dd57-fab4-4f95-ba17-f0088b3431f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Civilization.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Civilization.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Civilization.h" beforeDir="false" afterPath="$PROJECT_DIR$/Civilization.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Game.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game.h" beforeDir="false" afterPath="$PROJECT_DIR$/Game.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main_Screen.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Main_Screen.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Piece.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Piece.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Tile.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Tile.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unit.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Unit.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Unit.h" beforeDir="false" afterPath="$PROJECT_DIR$/Unit.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/gdb.exe.stackdump" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/gdb.exe.stackdump" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/main.cpp.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/main.cpp.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/main.cpp.exe.stackdump" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/main.cpp.exe.stackdump" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/testing.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main_Screen.h" beforeDir="false" afterPath="$PROJECT_DIR$/Main_Screen.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turn_Phase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Turn_Phase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turn_Phase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Turn_Phase.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.13.4/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.13.4/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.13.4/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.13.4/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.13.4/CMakeRCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.13.4/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.13.4/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.13.4/CompilerIdC/a.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.13.4/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.13.4/CompilerIdCXX/a.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/civ.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/civ.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/main.cpp.exe" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,22 +61,11 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Unit.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="169">
-                  <caret line="280" selection-start-line="280" selection-end-line="280" />
+                <state relative-caret-position="5644">
+                  <caret line="332" column="11" selection-start-line="332" selection-start-column="11" selection-end-line="332" selection-end-column="11" />
                   <folding>
                     <element signature="e#40#57#0" expanded="true" />
-                    <element signature="e#5869#6285#0" />
-                    <element signature="e#6287#8515#0" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/main.cpp">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="162">
-                  <caret line="99" selection-start-line="99" selection-end-line="99" />
                 </state>
               </provider>
             </entry>
@@ -69,8 +73,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Civilization.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="366">
-                  <caret line="234" selection-start-line="234" selection-end-line="234" />
+                <state relative-caret-position="3825">
+                  <caret line="225" column="30" selection-start-line="225" selection-start-column="30" selection-end-line="225" selection-end-column="30" />
                   <folding>
                     <element signature="e#565#641#0" />
                     <element signature="e#643#749#0" />
@@ -89,13 +93,17 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Game.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="247">
-                  <caret line="142" column="17" lean-forward="true" selection-start-line="142" selection-start-column="17" selection-end-line="142" selection-end-column="17" />
+                <state relative-caret-position="257">
+                  <caret line="138" column="11" selection-start-line="138" selection-start-column="11" selection-end-line="138" selection-end-column="11" />
                   <folding>
                     <element signature="e#40#57#0" expanded="true" />
+                    <element signature="e#1060#1231#0" />
+                    <element signature="e#3801#3860#0" />
+                    <element signature="e#3862#3955#0" />
+                    <element signature="e#3957#4177#0" />
                   </folding>
                 </state>
               </provider>
@@ -104,23 +112,64 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Draw_Manager.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="162">
-                  <caret line="78" selection-start-line="78" selection-end-line="78" />
+                <state relative-caret-position="1521">
+                  <caret line="171" column="13" selection-start-line="171" selection-start-column="13" selection-end-line="171" selection-end-column="13" />
                   <folding>
+                    <element signature="e#67#231#0" />
+                    <element signature="e#233#488#0" />
                     <element signature="e#490#1008#0" />
+                    <element signature="e#3880#4413#0" />
+                    <element signature="e#4415#4485#0" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Turn_Phase.cpp">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="255">
+                  <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Turn_Phase.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="306">
+                  <caret line="18" column="22" lean-forward="true" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="340">
+                  <caret line="20" column="553" selection-start-line="20" selection-start-column="553" selection-end-line="20" selection-end-column="553" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Tile_Terrain.h">
+              <provider selected="true" editor-type-id="text-editor" />
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Turn_Manager.h">
+              <provider selected="true" editor-type-id="text-editor" />
+            </entry>
+          </file>
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Main_Screen.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="366">
-                  <caret line="106" selection-start-line="106" selection-end-line="106" />
+                <state relative-caret-position="230">
+                  <caret line="82" selection-start-line="82" selection-end-line="82" />
                   <folding>
-                    <element signature="e#238#325#0" />
-                    <element signature="e#327#386#0" />
+                    <element signature="e#2489#5354#0" />
+                    <element signature="e#5453#5530#0" />
                   </folding>
                 </state>
               </provider>
@@ -130,11 +179,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Main_Screen.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="391">
-                  <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
+                <state relative-caret-position="436">
+                  <caret line="44" column="9" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
                   <folding>
                     <element signature="e#93#112#0" expanded="true" />
                   </folding>
@@ -143,10 +192,22 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Draw_Manager.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="561">
+                  <caret line="36" column="40" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
+                  <folding>
+                    <element signature="e#95#120#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Map.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="162">
-                  <caret line="28" selection-start-line="28" selection-end-line="28" />
+                <state relative-caret-position="257">
+                  <caret line="241" column="10" selection-start-line="241" selection-start-column="10" selection-end-line="241" selection-end-column="10" />
                   <folding>
                     <element signature="e#40#56#0" expanded="true" />
                     <element signature="e#183#347#0" />
@@ -164,8 +225,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Map.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="408">
-                  <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="48" />
+                <state relative-caret-position="816">
+                  <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
                   <folding>
                     <element signature="e#77#94#0" expanded="true" />
                   </folding>
@@ -176,8 +237,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Game.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="266">
-                  <caret line="49" column="16" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
+                <state relative-caret-position="467">
+                  <caret line="66" column="18" selection-start-line="66" selection-start-column="18" selection-end-line="66" selection-end-column="18" />
                   <folding>
                     <element signature="e#79#96#0" expanded="true" />
                     <element signature="e#160#176#0" expanded="true" />
@@ -186,11 +247,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Tile.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="179">
-                  <caret line="163" selection-start-line="163" selection-end-line="163" />
+                <state relative-caret-position="2958">
+                  <caret line="174" column="1" selection-start-line="174" selection-start-column="1" selection-end-line="174" selection-end-column="1" />
                   <folding>
                     <element signature="e#85#208#0" />
                     <element signature="e#210#456#0" />
@@ -224,8 +285,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Square.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="332">
-                  <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+                <state relative-caret-position="2125">
+                  <caret line="125" column="21" selection-start-line="125" selection-start-column="21" selection-end-line="125" selection-end-column="21" />
                 </state>
               </provider>
             </entry>
@@ -233,8 +294,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Tile.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="126">
-                  <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
+                <state relative-caret-position="372">
+                  <caret line="90" selection-start-line="90" selection-end-line="90" />
                   <folding>
                     <element signature="e#79#104#0" expanded="true" />
                   </folding>
@@ -245,8 +306,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Civilization.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="434">
-                  <caret line="76" column="28" lean-forward="true" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
+                <state relative-caret-position="1326">
+                  <caret line="78" column="7" selection-start-line="78" selection-start-column="7" selection-end-line="78" selection-end-column="7" />
                   <folding>
                     <element signature="e#94#111#0" expanded="true" />
                   </folding>
@@ -284,6 +345,7 @@
     </replaceStrings>
   </component>
   <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -309,7 +371,6 @@
         <option value="$PROJECT_DIR$/Start_Screen.h" />
         <option value="$PROJECT_DIR$/Turn_Manager.cpp" />
         <option value="$PROJECT_DIR$/Screen.cpp" />
-        <option value="$PROJECT_DIR$/Main_Screen.h" />
         <option value="$PROJECT_DIR$/Piece.h" />
         <option value="$PROJECT_DIR$/Color.cpp" />
         <option value="$PROJECT_DIR$/Draw_Manager.h" />
@@ -328,18 +389,21 @@
         <option value="$PROJECT_DIR$/Map.h" />
         <option value="$PROJECT_DIR$/Draw_Manager.cpp" />
         <option value="$PROJECT_DIR$/Map.cpp" />
-        <option value="$PROJECT_DIR$/Main_Screen.cpp" />
         <option value="$PROJECT_DIR$/Piece.cpp" />
         <option value="$PROJECT_DIR$/Unit.h" />
         <option value="$PROJECT_DIR$/Unit.cpp" />
         <option value="$PROJECT_DIR$/testing.cpp" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/Game.h" />
         <option value="$PROJECT_DIR$/Tile.h" />
-        <option value="$PROJECT_DIR$/Game.cpp" />
         <option value="$PROJECT_DIR$/Civilization.h" />
         <option value="$PROJECT_DIR$/Civilization.cpp" />
         <option value="$PROJECT_DIR$/Tile.cpp" />
+        <option value="$PROJECT_DIR$/Game.h" />
+        <option value="$PROJECT_DIR$/Game.cpp" />
+        <option value="$PROJECT_DIR$/Main_Screen.h" />
+        <option value="$PROJECT_DIR$/Turn_Phase.h" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/Main_Screen.cpp" />
+        <option value="$PROJECT_DIR$/Turn_Phase.cpp" />
       </list>
     </option>
   </component>
@@ -356,6 +420,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -372,13 +437,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../FinalToSave/Turn_Phase.h" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -429,6 +493,7 @@
       <workItem from="1555140604207" duration="575000" />
       <workItem from="1555141222538" duration="9899000" />
       <workItem from="1555205321863" duration="22765000" />
+      <workItem from="1555339905122" duration="572000" />
     </task>
     <task id="LOCAL-00001" summary="fixed start screen draw err (was using glColor3i instead of glColor3f).">
       <created>1554933169383</created>
@@ -493,11 +558,32 @@
       <option name="project" value="LOCAL" />
       <updated>1555213313893</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="rebased to davids branch&#10;switching phases works and prints on the next phase button&#10;next to add phase restrictions and other squares">
+      <created>1555283150650</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1555283150650</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update to the process click function to stop units from moving unless phase == move and to print to view port properly">
+      <created>1555284066769</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1555284066769</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Merge branch 'master' of https://github.com/dfischercodethoughts/Final_Proj_v2 into df_main_screen&#10;&#10;# Conflicts:&#10;#&#9;Main_Screen.cpp">
+      <created>1555364789379</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1555364789379</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="196245000" />
+    <option name="totallyTimeSpent" value="204057000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -512,20 +598,20 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12686567" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13059701" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4936034" weight="0.32827735" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.5506396" visible="true" weight="0.5449621" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5390374" weight="0.20469083" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.5378465" weight="0.42036837" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49932885" weight="0.3286119" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49893048" weight="0.3283582" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.6284648" weight="0.38353196" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.44936034" side_tool="true" visible="true" weight="0.5449621" />
+      <window_info active="true" anchor="bottom" id="Messages" order="8" sideWeight="0.73400855" visible="true" weight="0.19934994" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49946523" weight="0.32942432" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.26599148" side_tool="true" visible="true" weight="0.19934994" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.4986577" weight="0.3286119" />
       <window_info anchor="bottom" id="CMake" order="12" sideWeight="0.49946696" weight="0.32827735" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -533,6 +619,28 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.07914439" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49530202" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.44545454" visible="true" weight="0.30277187" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.45637584" weight="0.4206799" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49932885" weight="0.3286119" />
+      <window_info anchor="bottom" id="Database Changes" order="7" />
+      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.54385024" weight="0.3827292" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.55454546" side_tool="true" visible="true" weight="0.30277187" />
+      <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.49518716" weight="0.32731137" />
+      <window_info anchor="bottom" id="CMake" order="12" weight="0.3286119" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -547,7 +655,10 @@
     <MESSAGE value="fixed reveal problem. Need to fix unit movement not decreasing." />
     <MESSAGE value="fixed reveal problem. Need to fix unit movement not decreasing. Added testing file." />
     <MESSAGE value="fixed error in unit copy constructor that reset movement and health to max vals. Need to work on ai next turn bug." />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed error in unit copy constructor that reset movement and health to max vals. Need to work on ai next turn bug." />
+    <MESSAGE value="rebased to davids branch&#10;switching phases works and prints on the next phase button&#10;next to add phase restrictions and other squares" />
+    <MESSAGE value="Update to the process click function to stop units from moving unless phase == move and to print to view port properly" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/dfischercodethoughts/Final_Proj_v2 into df_main_screen&#10;&#10;# Conflicts:&#10;#&#9;Main_Screen.cpp" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/dfischercodethoughts/Final_Proj_v2 into df_main_screen&#10;&#10;# Conflicts:&#10;#&#9;Main_Screen.cpp" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -599,18 +710,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Main_Screen.cpp</url>
-          <line>75</line>
+          <line>96</line>
           <option name="timeStamp" value="118" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Main_Screen.cpp</url>
-          <line>58</line>
+          <line>74</line>
           <option name="timeStamp" value="122" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Main_Screen.cpp</url>
-          <line>56</line>
-          <option name="timeStamp" value="123" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Draw_Manager.cpp</url>
@@ -624,12 +730,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Game.cpp</url>
-          <line>160</line>
+          <line>180</line>
           <option name="timeStamp" value="144" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Game.cpp</url>
-          <line>159</line>
+          <line>179</line>
           <option name="timeStamp" value="145" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -663,11 +769,6 @@
           <option name="timeStamp" value="167" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Main_Screen.cpp</url>
-          <line>62</line>
-          <option name="timeStamp" value="184" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Civilization.cpp</url>
           <line>222</line>
           <option name="timeStamp" value="185" />
@@ -697,6 +798,11 @@
           <line>226</line>
           <option name="timeStamp" value="192" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Map.cpp</url>
+          <line>243</line>
+          <option name="timeStamp" value="200" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -710,116 +816,10 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Civilization_Name.h">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/allocator.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="130" selection-start-line="130" selection-end-line="130" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Color.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-338" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Screen.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="56" column="14" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
-          <folding>
-            <element signature="e#83#102#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Civilization_Name.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Program Files/Common Files/freeglut/include/GL/freeglut_std.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-20">
-          <caret line="494" column="25" selection-start-line="494" selection-start-column="25" selection-end-line="494" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/cygwin64/usr/include/w32api/GL/gl.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="706" column="24" selection-start-line="706" selection-start-column="24" selection-end-line="706" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/End_Screen.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-267">
-          <caret line="52" column="26" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Screen.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-355">
-          <caret line="79" column="25" lean-forward="true" selection-start-line="79" selection-start-column="25" selection-end-line="79" selection-end-column="25" />
-          <folding>
-            <element signature="e#62#529#0" />
-            <element signature="e#531#943#0" />
-            <element signature="e#945#1545#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Start_Screen.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Pause_Screen.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Pause_Screen.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="707">
-          <caret line="46" column="29" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/move.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="73" selection-start-line="73" selection-end-line="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/stl_algobase.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="226" selection-start-line="226" selection-end-line="226" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/stl_iterator.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="847" selection-start-line="847" selection-end-line="847" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/stl_iterator.h" />
     <entry file="file://$PROJECT_DIR$/Color.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
+        <state relative-caret-position="238">
           <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
@@ -845,34 +845,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/tuple">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="162" selection-start-line="162" selection-end-line="162" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/cygwin64/usr/src/debug/cygwin-3.0.4-1/winsup/cygwin/lib/libcmain.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main_Screen.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
-          <folding>
-            <element signature="e#93#112#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/tuple" />
+    <entry file="file://C:/cygwin64/usr/src/debug/cygwin-3.0.4-1/winsup/cygwin/lib/libcmain.c" />
     <entry file="file://$PROJECT_DIR$/Map.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="48" />
+        <state relative-caret-position="816">
+          <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
           <folding>
             <element signature="e#77#94#0" expanded="true" />
           </folding>
@@ -895,38 +873,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Unit.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="55" column="31" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
+        <state relative-caret-position="1190">
+          <caret line="85" column="14" selection-start-line="85" selection-start-column="14" selection-end-line="85" selection-end-column="14" />
           <folding>
             <element signature="e#79#97#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/stl_bvector.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="1063" column="6" selection-start-line="1063" selection-start-column="6" selection-end-line="1063" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Map.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-          <folding>
-            <element signature="e#40#56#0" expanded="true" />
-            <element signature="e#183#347#0" />
-            <element signature="e#919#1524#0" />
-            <element signature="e#1662#1966#0" />
-            <element signature="e#1968#2197#0" />
-            <element signature="e#2199#2446#0" />
-            <element signature="e#2449#2840#0" />
-            <element signature="e#2842#3122#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/stl_bvector.h" />
     <entry file="file://$PROJECT_DIR$/Coordinate.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -934,13 +889,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/vector.tcc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="451" selection-start-line="451" selection-end-line="451" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/vector.tcc" />
     <entry file="file://$PROJECT_DIR$/testing.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
@@ -954,154 +903,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/main.cpp.exe.stackdump">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/stl_construct.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="206" selection-start-line="206" selection-end-line="206" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/alloc_traits.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="461" selection-start-line="461" selection-end-line="461" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/ext/new_allocator.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="124" selection-start-line="124" selection-end-line="124" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/cygwin64/usr/src/debug/cygwin-3.0.4-1/winsup/cygwin/libstdcxx_wrapper.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="66" selection-start-line="66" selection-end-line="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/cygwin64/usr/src/debug/cygwin-3.0.4-1/winsup/cygwin/malloc_wrapper.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/cygwin64/usr/src/debug/cygwin-3.0.4-1/winsup/cygwin/sync.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="80" selection-start-line="80" selection-end-line="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/stl_vector.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="798" selection-start-line="798" selection-end-line="798" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/unique_ptr.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="331" selection-start-line="331" selection-end-line="331" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Game.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="49" column="16" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
-          <folding>
-            <element signature="e#79#96#0" expanded="true" />
-            <element signature="e#160#176#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tile.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
-          <folding>
-            <element signature="e#79#104#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Square.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/stl_construct.h" />
+    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/alloc_traits.h" />
+    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/ext/new_allocator.h" />
+    <entry file="file://C:/cygwin64/usr/src/debug/cygwin-3.0.4-1/winsup/cygwin/libstdcxx_wrapper.cc" />
+    <entry file="file://C:/cygwin64/usr/src/debug/cygwin-3.0.4-1/winsup/cygwin/malloc_wrapper.cc" />
+    <entry file="file://C:/cygwin64/usr/src/debug/cygwin-3.0.4-1/winsup/cygwin/sync.cc" />
+    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/stl_vector.h" />
+    <entry file="file://C:/cygwin64/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/bits/unique_ptr.h" />
     <entry file="file://$PROJECT_DIR$/Civilization.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="76" column="28" lean-forward="true" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
+        <state relative-caret-position="1326">
+          <caret line="78" column="7" selection-start-line="78" selection-start-column="7" selection-end-line="78" selection-end-column="7" />
           <folding>
             <element signature="e#94#111#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Unit.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="280" selection-start-line="280" selection-end-line="280" />
-          <folding>
-            <element signature="e#40#57#0" expanded="true" />
-            <element signature="e#5869#6285#0" />
-            <element signature="e#6287#8515#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="99" selection-start-line="99" selection-end-line="99" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Draw_Manager.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="78" selection-start-line="78" selection-end-line="78" />
-          <folding>
-            <element signature="e#490#1008#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main_Screen.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="106" selection-start-line="106" selection-end-line="106" />
-          <folding>
-            <element signature="e#238#325#0" />
-            <element signature="e#327#386#0" />
-          </folding>
+        <state relative-caret-position="1071">
+          <caret line="63" column="5" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Tile.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="163" selection-start-line="163" selection-end-line="163" />
+        <state relative-caret-position="2958">
+          <caret line="174" column="1" selection-start-line="174" selection-start-column="1" selection-end-line="174" selection-end-column="1" />
           <folding>
             <element signature="e#85#208#0" />
             <element signature="e#210#456#0" />
@@ -1131,10 +964,11 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../FinalToSave/Main_Screen.cpp" />
     <entry file="file://$PROJECT_DIR$/Civilization.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="234" selection-start-line="234" selection-end-line="234" />
+        <state relative-caret-position="3825">
+          <caret line="225" column="30" selection-start-line="225" selection-start-column="30" selection-end-line="225" selection-end-column="30" />
           <folding>
             <element signature="e#565#641#0" />
             <element signature="e#643#749#0" />
@@ -1152,13 +986,164 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Game.cpp">
+    <entry file="file://$PROJECT_DIR$/../FinalToSave/Turn_Phase.h" />
+    <entry file="file://$PROJECT_DIR$/../FinalToSave/Game.h" />
+    <entry file="file://$PROJECT_DIR$/../FinalToSave/Game.cpp" />
+    <entry file="file://$PROJECT_DIR$/../FinalToSave/Turn_Manager.cpp" />
+    <entry file="file://$PROJECT_DIR$/../FinalToSave/Turn_Manager.h" />
+    <entry file="file://$PROJECT_DIR$/../FinalToSave/Turn_Phase.cpp" />
+    <entry file="file://$PROJECT_DIR$/Start_Screen.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="142" column="17" lean-forward="true" selection-start-line="142" selection-start-column="17" selection-end-line="142" selection-end-column="17" />
+        <state relative-caret-position="299">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Square.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2125">
+          <caret line="125" column="21" selection-start-line="125" selection-start-column="21" selection-end-line="125" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Turn_Manager.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="25" column="1" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Unit.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5644">
+          <caret line="332" column="11" selection-start-line="332" selection-start-column="11" selection-end-line="332" selection-end-column="11" />
           <folding>
             <element signature="e#40#57#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tile.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="90" selection-start-line="90" selection-end-line="90" />
+          <folding>
+            <element signature="e#79#104#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Map.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="241" column="10" selection-start-line="241" selection-start-column="10" selection-end-line="241" selection-end-column="10" />
+          <folding>
+            <element signature="e#40#56#0" expanded="true" />
+            <element signature="e#183#347#0" />
+            <element signature="e#919#1524#0" />
+            <element signature="e#1662#1966#0" />
+            <element signature="e#1968#2197#0" />
+            <element signature="e#2199#2446#0" />
+            <element signature="e#2449#2840#0" />
+            <element signature="e#2842#3122#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Game.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="66" column="18" selection-start-line="66" selection-start-column="18" selection-end-line="66" selection-end-column="18" />
+          <folding>
+            <element signature="e#79#96#0" expanded="true" />
+            <element signature="e#160#176#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Draw_Manager.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="36" column="40" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
+          <folding>
+            <element signature="e#95#120#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Draw_Manager.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1521">
+          <caret line="171" column="13" selection-start-line="171" selection-start-column="13" selection-end-line="171" selection-end-column="13" />
+          <folding>
+            <element signature="e#67#231#0" />
+            <element signature="e#233#488#0" />
+            <element signature="e#490#1008#0" />
+            <element signature="e#3880#4413#0" />
+            <element signature="e#4415#4485#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Game.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="138" column="11" selection-start-line="138" selection-start-column="11" selection-end-line="138" selection-end-column="11" />
+          <folding>
+            <element signature="e#40#57#0" expanded="true" />
+            <element signature="e#1060#1231#0" />
+            <element signature="e#3801#3860#0" />
+            <element signature="e#3862#3955#0" />
+            <element signature="e#3957#4177#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tile_Terrain.h">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Turn_Manager.h">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="553" selection-start-line="20" selection-start-column="553" selection-end-line="20" selection-end-column="553" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main_Screen.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="44" column="9" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
+          <folding>
+            <element signature="e#93#112#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main_Screen.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="82" selection-start-line="82" selection-end-line="82" />
+          <folding>
+            <element signature="e#2489#5354#0" />
+            <element signature="e#5453#5530#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Turn_Phase.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="22" lean-forward="true" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Turn_Phase.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
         </state>
       </provider>
     </entry>

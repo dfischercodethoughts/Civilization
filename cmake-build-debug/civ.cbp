@@ -192,6 +192,12 @@
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Turn_Manager.h">
 			<Option target="main.cpp"/>
 		</Unit>
+		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Turn_Phase.cpp">
+			<Option target="main.cpp"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Turn_Phase.h">
+			<Option target="main.cpp"/>
+		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Unit.cpp">
 			<Option target="main.cpp"/>
 		</Unit>
