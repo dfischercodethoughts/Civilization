@@ -37,9 +37,12 @@ public:
     void draw() override;
     names get_type() const override;
 
+    void clear_active();
+
     menu_options check_click(Coordinate click) override;
 
-    void process_click(Coordinate click);
+    void process_move(Coordinate click);
+    void process_build(Coordinate click);
 
     Game * get_game();
 

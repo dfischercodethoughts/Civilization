@@ -166,6 +166,13 @@ Screen * Draw_Manager::get_current_screen() {
     return cur_screen;
 }
 
+//perhaps bad coding practice
+void Draw_Manager::clear_active() {
+    if (cur_screen->get_type() == Screen::MAIN_GAME) {
+        main.clear_active();
+    }
+}
+
 Draw_Manager::~Draw_Manager() {
     cur_screen = nullptr;
     main = Main_Screen();

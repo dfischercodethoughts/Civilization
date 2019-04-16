@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/clion/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /cygdrive/c/Users/david/.CLion2019.1/system/cygwin_cmake/bin/cmake.exe
 
 # The command to remove a file.
-RM = /opt/clion/bin/cmake/linux/bin/cmake -E remove -f
+RM = /cygdrive/c/Users/david/.CLion2019.1/system/cygwin_cmake/bin/cmake.exe -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/willi/CLionProjects/Final_Proj_v2
+CMAKE_SOURCE_DIR = /cygdrive/c/Users/david/CLionProjects/civ_v2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/willi/CLionProjects/Final_Proj_v2/cmake-build-debug
+CMAKE_BINARY_DIR = /cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/willi/CLionProjects/Final_Proj_v2/cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/opt/clion/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/cygdrive/c/Users/david/.CLion2019.1/system/cygwin_cmake/bin/cmake.exe -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/opt/clion/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/cygdrive/c/Users/david/.CLion2019.1/system/cygwin_cmake/bin/cmake.exe -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/willi/CLionProjects/Final_Proj_v2/cmake-build-debug/CMakeFiles /home/willi/CLionProjects/Final_Proj_v2/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/CMakeFiles /cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/willi/CLionProjects/Final_Proj_v2/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/c/Users/david/CLionProjects/civ_v2/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -609,6 +609,33 @@ Turn_Manager.cpp.s:
 	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Turn_Manager.cpp.s
 .PHONY : Turn_Manager.cpp.s
 
+Turn_Phase.o: Turn_Phase.cpp.o
+
+.PHONY : Turn_Phase.o
+
+# target to build an object file
+Turn_Phase.cpp.o:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Turn_Phase.cpp.o
+.PHONY : Turn_Phase.cpp.o
+
+Turn_Phase.i: Turn_Phase.cpp.i
+
+.PHONY : Turn_Phase.i
+
+# target to preprocess a source file
+Turn_Phase.cpp.i:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Turn_Phase.cpp.i
+.PHONY : Turn_Phase.cpp.i
+
+Turn_Phase.s: Turn_Phase.cpp.s
+
+.PHONY : Turn_Phase.s
+
+# target to generate assembly for a file
+Turn_Phase.cpp.s:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Turn_Phase.cpp.s
+.PHONY : Turn_Phase.cpp.s
+
 Unit.o: Unit.cpp.o
 
 .PHONY : Unit.o
@@ -726,6 +753,9 @@ help:
 	@echo "... Turn_Manager.o"
 	@echo "... Turn_Manager.i"
 	@echo "... Turn_Manager.s"
+	@echo "... Turn_Phase.o"
+	@echo "... Turn_Phase.i"
+	@echo "... Turn_Phase.s"
 	@echo "... Unit.o"
 	@echo "... Unit.i"
 	@echo "... Unit.s"

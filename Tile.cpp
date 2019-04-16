@@ -228,14 +228,14 @@ void Tile::draw() const {
 void Tile::draw_on_viewport(Square viewport_base) {
     viewport_base.draw();
     std::string line = "";
-    glColor3f(get_text_color().get_red(),get_text_color().get_green(),get_text_color().get_blue());
+    glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
     glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y-3*viewport_base.get_height()/8);
     line += "TERRAIN TYPE: " + Tile_Terrain::terrain_to_string(terrain);
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
-    glColor3f(get_text_color().get_red(),get_text_color().get_green(),get_text_color().get_blue());
+    glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
     glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y);
     line = "RESOURCE TYPE: " + Tile_Resource::resource_to_string(resource);
     for (char c : line) {

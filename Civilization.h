@@ -74,6 +74,11 @@ public:
     bool move_unit(Map * map, Unit * to_move, Tile * move_to);
     bool move_unit(Map * map, int fromid, int toid);
 
+    /**
+     * loops through units and removes the unit from the units vector if health is 0 or less
+     */
+    void destroy_units();
+
     //refresh at end of turn
     void refresh();
 
