@@ -83,10 +83,12 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
         switch (Turn_Phase::string_to_turn_phase(game.get_phase())) {
             case (Turn_Phase::MOVE): {
                 process_move(click);
+                break;
             }
 
             case (Turn_Phase::BUILD): {
                 process_build(click);
+                break;
             }
         }
     }
