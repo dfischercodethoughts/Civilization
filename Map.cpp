@@ -241,7 +241,7 @@ std::vector<Tile *>* Map::get_tiles_within_range(Tile * start, int movement) {
 
 bool Map::is_adjacent(Tile & first, Tile & second){
     Coordinate first_coord = get_vector_coordinates_from_click(first.get_center());
-    Coordinate second_coord = get_vector_coordinates_from_click(first.get_center());
+    Coordinate second_coord = get_vector_coordinates_from_click(second.get_center());
 
     if (abs(first_coord.x - second_coord.x) <= 1) {
         if (abs(second_coord.y - first_coord.y) <= 1) {

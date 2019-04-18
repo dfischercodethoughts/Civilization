@@ -30,13 +30,14 @@ public:
     static int get_upkeep(Unit_Type type);
     static int get_gold_cost(Unit_Type type);
     static int get_damage(Unit_Type type);
+    static int get_range(Unit_Type type);
 
 private:
     int tile_id;
     Civilization_Name::Names owner;
     //todo: switch all std::shared_ptr<Civilization> to Civilization &
 
-    int health, damage,movement;
+    int health, movement,range,damage;
 
     Unit_Type unit_type;
 
@@ -45,6 +46,7 @@ private:
     void set_health(int newh);
     void reset_health();
     void set_damage();
+    void set_range();
 
 public:
     /**

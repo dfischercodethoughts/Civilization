@@ -70,6 +70,8 @@ Screen::names Main_Screen::get_type() const {
 void Main_Screen::clear_active() {
     game.clear_active_unit();
     game.clear_active_tile();
+    piece_view_port.hide();
+    tile_view_port.hide();
 }
 
 Screen::menu_options Main_Screen::check_click(Coordinate click) {
@@ -104,6 +106,7 @@ void Main_Screen::process_move(Coordinate click) {
 
          Unit *unit = &*game.get_active_unit();
          Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
+
          if (unit->get_current_movement() > 0) {
              if (unit->get_unit_type() == Unit::ARCHER) {
                  //get tile and get tiles available to move to with a range of 2
@@ -124,22 +127,19 @@ void Main_Screen::process_move(Coordinate click) {
                  //only do stuff if tile selected is right next to tile of unit
                  if (game.get_map().is_adjacent(*tile_clicked,
                                                 *game.get_map().get_tile_from_id(unit->get_location_id()))) {
-                                                  //set unit to new tile
+                      //call civ move unit method
                      if (game.move_active_unit(*tile_clicked)) {
                          //clear unit from active tile
                          game.get_active_tile()->clear_unit();
                          //redraw active tile
                          game.get_active_tile()->draw();
-                         clear_active();
+
                      }
+
                  }
              }
-         } else {//current unit has no movement left, so clear the selection
-             game.clear_active_tile();
-             tile_view_port.hide();
-             game.clear_active_unit();
-             piece_view_port.hide();
          }
+         clear_active();
 
      }//end if has active unit, so has no active unit, so set active tile and active unit
      else {
