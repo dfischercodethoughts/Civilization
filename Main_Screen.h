@@ -24,7 +24,12 @@ private:
     Game game;
     Square next_turn;
     Square next_phase;
-    Square build_view_port;
+    //Square build_view_port;
+    Square build_square_1;
+    Square build_square_2;
+    Square build_square_3;
+    Square build_square_4;
+
     Square game_view_port;
     Square piece_view_port;
     Square tile_view_port;
