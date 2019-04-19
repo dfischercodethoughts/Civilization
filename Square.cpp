@@ -156,7 +156,6 @@ void Square::draw() const {
     }
 }
 
-
 Square::~Square() {
     center = {-1,-1};
     height = 0;

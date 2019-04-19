@@ -91,7 +91,19 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
             }
 
             case (Turn_Phase::BUILD): {
-                process_build(click);
+                if (game_view_port.check_click(click)) {
+                    process_build(click);
+                }
+                else if (build_view_port.check_click(click)) {
+                    /*
+                     * in pseudo code: we are going to have a build menu that will have a function that
+                     *                  returns the piece type of the click, which we assign to a piece_type
+                     *                  variable
+                     *                 then we switch on the piece type and call the appropriate change_city_production
+                     *                  method in main_screen.
+                     */
+                    //change_active_city_build(Building::names );
+                }
                 break;
             }
         }
@@ -164,9 +176,9 @@ void Main_Screen::process_build(Coordinate click) {
      * logic to come
      * in pseudo code
      * if a city is selected and has something to place, then if the click is on the game viewport
-     *      and the tile selected is empty of buildings or cities (or enemy units) call the active
-     *      city's build function on tile selected (which will check if tile is in range before building)
-     * if city is selected and has something to place and click is on the build menu, do nothing (have to
+     *      and the tile selected is empty of buildings or cities (or enemy units) call the player's
+     *      build function on active city and tile selected (which will check if tile is in range before building)
+     * else if city is selected and has something to place and click is on the build menu, do nothing (have to
      *      place unit/building to be build before selecting new production)
      * if a city is selected and has nothing to place, then do clear active if click on game viewport.
      *      if click is on the building menu, then switch active city's active production to the item selected

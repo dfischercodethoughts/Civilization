@@ -66,11 +66,57 @@ bool test_civ_add_unit(Map & m) {
     return true;
 }
 
+bool test_color_input_output() {
+    std::cout << "TESTING COLOR INPUT/OUTPUT"<< std::endl;
+
+    std::cout << "MAKING RED COLOR" << std::endl;
+    Color red_old = Colors::RED;
+    std::cout << red_old << std::endl;
+
+    std::cout << "MAKING GREEN COLOR" << std::endl;
+    Color green_old = Colors::GREEN;
+    std::cout << green_old << std::endl;
+
+    std::cout << "MAKING BLUE COLOR" << std::endl;
+    Color blue_old = Colors::BLUE;
+    std::cout << blue_old << std::endl;
+
+    std::cout << "MAKING BLACK COLOR" << std::endl;
+    Color black_old = Colors::BLACK;
+    std::cout << black_old << std::endl;
+
+    std::cout << "TESTING COLOR FILE INPUT/OUTPUT; LOOK FOR save.civ"<< std::endl;
+
+    std::ofstream outs;
+    outs.open(Files::FILENAME);
+
+    outs << red_old << green_old << blue_old << black_old << std::endl;
+
+    outs.close();
+
+    std::cout << "DONE SAVING. NOW LOADING..." << std::endl;
+    Color red, green, blue, black;
+    std::ifstream ins;
+    ins.open(Files::FILENAME);
+    ins >> red >> green >> blue >> black;
+    ins.close();
+    std::cout << "DONE LOADING. NOW PRINTING..." << std::endl;
+    std::cout << red << green << blue << black << std::endl;
+
+    std::cout << "DONE." << std::endl;
+
+    if (red != red_old || green != green_old || blue != blue_old) {
+        return false;
+    }
+    return true;
+}
+
 int main (int argc, char** argv) {
+    /*
     Map m = Map(1200,800,8,8);
     std::cout << "TESTING MAP CLASS\n"<<std::endl;
     //test_get_vec_coordinates_from_click(m);
-   /**
+
     if (test_get_tile_from_vec_coord(m)) {
         std::cout << "SUCCESS" << std::endl;
     }
@@ -83,10 +129,11 @@ int main (int argc, char** argv) {
     else {
         std::cout << "FAIL" << std::endl;
     }
+
+
+   //std::cout << "TESTING CIVILIZATION ADD UNIT" << std::endl;
     */
+    test_color_input_output();
 
-   std::cout << "TESTING CIVILIZATION ADD UNIT" << std::endl;
 
-
-    std::cin;
 }
