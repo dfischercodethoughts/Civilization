@@ -8,6 +8,9 @@
 #include "Screen.h"
 #include "Game.h"
 
+
+
+
 class Main_Screen : public Screen {
 public:
     enum Main_Options {
@@ -42,7 +45,14 @@ public:
     menu_options check_click(Coordinate click) override;
 
     void process_move(Coordinate click);
-    void process_build(Coordinate click);
+    void process_build(Coordinate click);//todo: add process_build logic
+
+    /**
+     * sets active tile, and unit if applicable.
+     * todo:set active city
+     * @param tile
+     */
+    void select_tile(Tile * tile);//todo: add active city pointer
 
     Game * get_game();
 

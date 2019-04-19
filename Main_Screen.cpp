@@ -85,6 +85,8 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
         switch (Turn_Phase::string_to_turn_phase(game.get_phase())) {
             case (Turn_Phase::MOVE): {
                 process_move(click);
+
+
                 break;
             }
 
@@ -100,57 +102,62 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
 
 void Main_Screen::process_move(Coordinate click) {
 
-     if (game.get_active_unit() != nullptr) {
-         //only go through this stuff if it's the move phase
-         //TODO::fix error where view port only displays tiles to the left and right of it
+    Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
 
-         Unit *unit = &*game.get_active_unit();
-         Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
+    if (tile_clicked->is_visible()) {
 
-         if (unit->get_current_movement() > 0) {
-             if (unit->get_unit_type() == Unit::ARCHER) {
-                 //get tile and get tiles available to move to with a range of 2
-                 if (tile_clicked->has_unit()) {
-                     std::vector<Tile *> *tiles_in_range = game.get_map().get_tiles_within_range(
-                             game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id()), 2);
-                     for (int i = 0; i < tiles_in_range->size(); i++) {
-                         if (*((*tiles_in_range)[i]) == *tile_clicked) {
-                             //cause archer damage on unit
-                             tile_clicked->get_unit()->cause_damage(Unit::ARCHER);
-                             break;
-                         }
-                     }
-                 }
-             } else if (unit->get_unit_type() == Unit::BOAT) {//is a non archer unit
-                 //implement boat move/attack
-             } else {
-                 //only do stuff if tile selected is right next to tile of unit
-                 if (game.get_map().is_adjacent(*tile_clicked,
-                                                *game.get_map().get_tile_from_id(unit->get_location_id()))) {
-                      //call civ move unit method
-                     if (game.move_active_unit(*tile_clicked)) {
-                         //clear unit from active tile
-                         game.get_active_tile()->clear_unit();
-                         //redraw active tile
-                         game.get_active_tile()->draw();
+        if (game.has_active_unit()) {
+            Unit *unit = &*game.get_active_unit();
 
-                     }
+            if (unit->get_owner() == Civilization_Name::WESTEROS) {
+                if (unit->get_current_movement() > 0) {
+                    if (unit->get_unit_type() == Unit::ARCHER) {
+                        //get tile and get tiles available to move to with a range of 2
+                        if (tile_clicked->has_unit()) {
+                            std::vector<Tile *> *tiles_in_range = game.get_map().get_tiles_within_range(
+                                    game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id()), 2);
+                            for (int i = 0; i < tiles_in_range->size(); i++) {
+                                if (*((*tiles_in_range)[i]) == *tile_clicked) {
+                                    //cause archer damage on unit
+                                    tile_clicked->get_unit()->cause_damage(Unit::ARCHER);
+                                    break;
+                                }
+                            }
+                        }
+                    } else if (unit->get_unit_type() == Unit::BOAT) {//is a non archer unit
+                        //implement boat move/attack
+                    } else {
+                        //only do stuff if tile selected is right next to tile of unit
+                        if (game.get_map().is_adjacent(*tile_clicked,
+                                                       *game.get_map().get_tile_from_id(unit->get_location_id()))) {
+                            //call civ move unit method
+                            if (game.move_active_unit(*tile_clicked)) {
+                                //clear unit from active tile
+                                game.get_active_tile()->clear_unit();
+                                //redraw active tile
+                                game.get_active_tile()->draw();
 
-                 }
-             }
-         }
-         clear_active();
+                            }
 
-     }//end if has active unit, so has no active unit, so set active tile and active unit
-     else {
-         game.set_active_tile(*game.get_map().get_tile_from_click(click));
-         tile_view_port.reveal();
-         if (game.get_active_tile_const()->has_unit()) {
-             game.set_active_unit(*game.get_map().get_tile_from_click(click)->get_unit());
-            piece_view_port.reveal();
-         }
-     }
+                        }
+                    }//end unit type cases
+                }//end if unit has movement
+                clear_active();
+            } else if (unit->get_owner() == Civilization_Name::NIGHT_KING) {
+                clear_active();
+                select_tile(tile_clicked);
+            }
+
+
+        }//end if has active player unit, so has no active unit, so set active tile and active unit
+
+        else {
+            select_tile(tile_clicked);
+        }
+    }//do nothing if tile selected is not visible
 }
+
+
 
 void Main_Screen::process_build(Coordinate click) {
     /**
@@ -165,6 +172,15 @@ void Main_Screen::process_build(Coordinate click) {
      *      if click is on the building menu, then switch active city's active production to the item selected
      * if city selected, nothing to place, and click is on build, then switch production to selected item
      */
+}
+
+void Main_Screen::select_tile(Tile * tile) {
+    game.set_active_tile(*tile);
+    tile_view_port.reveal();
+    if (game.get_active_tile_const()->has_unit()) {
+        game.set_active_unit(*tile->get_unit());
+        piece_view_port.reveal();
+    }
 }
 
 Game* Main_Screen::get_game() {
