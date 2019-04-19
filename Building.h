@@ -4,6 +4,10 @@
 
 #ifndef CIV_BUILDING_H
 #define CIV_BUILDING_H
+
+#include "Piece.h"
+#include "Tile.h"
+
 class Building {
 
 public:
@@ -21,6 +25,8 @@ public:
 
     Building::names get_name();
     void set_name();
+
+    ~Building();
 private:
     Building::names name;
 };
