@@ -93,7 +93,6 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
         }
     }
 
-    //todo: implement next phase button, build button, buy button,
 }
 
 void Main_Screen::process_move(Coordinate click) {
