@@ -9,7 +9,12 @@ Main_Screen::Main_Screen() {
     game = Game();
     next_turn = Square();
     next_phase = Square();
-    build_view_port = Square();
+    //build_view_port = Square();
+    build_square_1 = Square();
+    build_square_2 = Square();
+    build_square_3 = Square();
+    build_square_4 = Square();
+
     game_view_port = Square();
     piece_view_port = Square();
     tile_view_port = Square();
@@ -31,7 +36,12 @@ void Main_Screen::init(int h, int w,int x, int y) {
 
     next_phase = Square({7*w/8,22*h/32},Colors::WHITE,Colors::BLACK,h/12,w/5, "NEXT PHASE",true);//TODO::create a next phase button, update button text with the turn we are on
 
-    build_view_port = Square({3*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/3,"BUILDING MENU",true);
+    //build_view_port = Square({3*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/3,"BUILDING MENU place holder",true);
+    build_square_1 = Square({2*w/9,15*h/18},Colors::WHITE,Colors::BLACK,h/12,w/12,"BUILD Sq 1",true);
+    build_square_2 = Square({2*w/9,11*h/12},Colors::WHITE,Colors::BLACK,h/12,w/12,"BUILD Sq 2",true);
+
+    build_square_3 = Square({11*w/36,15*h/18},Colors::WHITE,Colors::BLACK,h/12,w/12,"BUILD Sq 3",true);
+    build_square_4 = Square({11*w/36,11*h/12},Colors::WHITE,Colors::BLACK,h/12,w/12,"BUILD Sq 4",true);
 
     next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/5,"Next Turn",true);
     next_turn.set_x_offset(-25);
@@ -59,7 +69,10 @@ void Main_Screen::draw() {
         game.get_active_tile()->draw_on_viewport(tile_view_port);
     }
     if (game.get_phase() == "BUILD"){
-        build_view_port.draw();
+        build_square_1.draw();
+        build_square_2.draw();
+        build_square_3.draw();
+        build_square_4.draw();
     }
 }
 
@@ -159,6 +172,7 @@ void Main_Screen::process_move(Coordinate click) {
 
 
 void Main_Screen::process_build(Coordinate click) {
+    //TODO:: get game view port to show up on board clicks as well
     /**
      * logic to come
      * in pseudo code
@@ -171,6 +185,11 @@ void Main_Screen::process_build(Coordinate click) {
      *      if click is on the building menu, then switch active city's active production to the item selected
      * if city selected, nothing to place, and click is on build, then switch production to selected item
      */
+//     if(game.get_phase() == "BUILD"){
+//         bool x = true;
+//     }else{
+//         bool x = false;
+//     }
 }
 
 void Main_Screen::select_tile(Tile * tile) {
@@ -190,7 +209,12 @@ Main_Screen::~Main_Screen() {
     game = Game();
     next_turn = Square();
     next_phase = Square();
-    build_view_port = Square();
+    //build_view_port = Square();
+    build_square_1 = Square();
+    build_square_2 = Square();
+    build_square_3 = Square();
+    build_square_4 = Square();
+
     game_view_port = Square();
     piece_view_port = Square();
     tile_view_port = Square();
