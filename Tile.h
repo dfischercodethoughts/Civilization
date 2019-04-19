@@ -10,6 +10,7 @@
 #include "Piece.h"
 #include <memory>
 #include "Unit.h"
+#include "Tile_Output.h"
 
 
 class Tile : public Piece {
