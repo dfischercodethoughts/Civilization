@@ -84,6 +84,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Building.cpp">
+			<Option target="main.cpp"/>
+		</Unit>
+		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Building.h">
+			<Option target="main.cpp"/>
+		</Unit>
 		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Civilization.cpp">
 			<Option target="main.cpp"/>
 		</Unit>

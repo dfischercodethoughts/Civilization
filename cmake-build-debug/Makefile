@@ -123,6 +123,33 @@ main.cpp/fast:
 	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/build
 .PHONY : main.cpp/fast
 
+Building.o: Building.cpp.o
+
+.PHONY : Building.o
+
+# target to build an object file
+Building.cpp.o:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Building.cpp.o
+.PHONY : Building.cpp.o
+
+Building.i: Building.cpp.i
+
+.PHONY : Building.i
+
+# target to preprocess a source file
+Building.cpp.i:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Building.cpp.i
+.PHONY : Building.cpp.i
+
+Building.s: Building.cpp.s
+
+.PHONY : Building.s
+
+# target to generate assembly for a file
+Building.cpp.s:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Building.cpp.s
+.PHONY : Building.cpp.s
+
 Civilization.o: Civilization.cpp.o
 
 .PHONY : Civilization.o
@@ -699,6 +726,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... main.cpp"
 	@echo "... edit_cache"
+	@echo "... Building.o"
+	@echo "... Building.i"
+	@echo "... Building.s"
 	@echo "... Civilization.o"
 	@echo "... Civilization.i"
 	@echo "... Civilization.s"
