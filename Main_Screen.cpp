@@ -100,6 +100,7 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
                 if (game_view_port.check_click(click)) {
                     process_move(click);
                 }
+                check_win();
                 break;
             }
 
@@ -107,7 +108,7 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
                 if (game_view_port.check_click(click)) {
                     process_build(click);
                 }
-                else if (build_view_port.check_click(click)) {
+                //else if (build_view_port.check_click(click)) {
                     /*
                      * in pseudo code: we are going to have a build menu that will have a function that
                      *                  returns the piece type of the click, which we assign to a piece_type
@@ -116,12 +117,16 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
                      *                  method in main_screen.
                      */
                     //change_active_city_build(Building::names );
-                }
+                //}
                 break;
             }
         }
     }
 
+}
+
+void Main_Screen::check_win() {
+    if game.
 }
 
 void Main_Screen::process_move(Coordinate click) {

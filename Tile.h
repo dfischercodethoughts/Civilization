@@ -11,6 +11,7 @@
 #include <memory>
 #include "Unit.h"
 #include "Tile_Output.h"
+#include "Building.h"
 
 
 class Tile : public Piece {

@@ -15,7 +15,6 @@
 #include "Tile_Resource.h"
 #include "Tile_Terrain.h"
 
-//todo:implement copy constructor
 class Tile_Output {
 
     private:
