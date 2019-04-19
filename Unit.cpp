@@ -188,12 +188,7 @@ void Unit::reset_movement() {
 }
 
 void Unit::set_health(int newh) {
-    if (newh >= 0 & newh < 100) {
-        health = newh;
-    }
-    else if (newh <= 0 ) {
-        health = 0;
-    }
+    health = std::max(0,newh);
 }
 
 void Unit::reset_health() {

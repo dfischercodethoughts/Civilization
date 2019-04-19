@@ -8,7 +8,6 @@
 #include "Validator.h"
 
 class Piece : public Square{
-
 public:
     enum Piece_Type {
         BUILDING,

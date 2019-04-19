@@ -215,11 +215,11 @@ bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
             move_to->get_unit()->get_owner() != Civilization_Name::WESTEROS) {
             //todo : cause damage
             move_to->get_unit()->cause_damage(to_move->get_unit_type());
+            to_move->cause_damage(move_to->get_unit()->get_unit_type());
             //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::process click)
             if (move_to->get_unit()->get_current_health() <= 0 ) {
                 move_to->clear_unit();
             }
-            to_move->cause_damage(move_to->get_unit()->get_unit_type());
             if (to_move->get_current_health() <= 0) {
                 move_from->clear_unit();
             }
