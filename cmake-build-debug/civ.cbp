@@ -84,10 +84,16 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Building.cpp">
+		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Base_Resource.cpp">
 			<Option target="main.cpp"/>
 		</Unit>
-		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Building.h">
+		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Base_Resource.h">
+			<Option target="main.cpp"/>
+		</Unit>
+		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Base_Resource_Package.cpp">
+			<Option target="main.cpp"/>
+		</Unit>
+		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Base_Resource_Package.h">
 			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Civilization.cpp">
@@ -178,6 +184,12 @@
 			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Tile.h">
+			<Option target="main.cpp"/>
+		</Unit>
+		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Tile_Output.cpp">
+			<Option target="main.cpp"/>
+		</Unit>
+		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Tile_Output.h">
 			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Tile_Resource.cpp">

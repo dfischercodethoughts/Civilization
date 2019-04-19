@@ -123,32 +123,59 @@ main.cpp/fast:
 	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/build
 .PHONY : main.cpp/fast
 
-Building.o: Building.cpp.o
+Base_Resource.o: Base_Resource.cpp.o
 
-.PHONY : Building.o
+.PHONY : Base_Resource.o
 
 # target to build an object file
-Building.cpp.o:
-	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Building.cpp.o
-.PHONY : Building.cpp.o
+Base_Resource.cpp.o:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Base_Resource.cpp.o
+.PHONY : Base_Resource.cpp.o
 
-Building.i: Building.cpp.i
+Base_Resource.i: Base_Resource.cpp.i
 
-.PHONY : Building.i
+.PHONY : Base_Resource.i
 
 # target to preprocess a source file
-Building.cpp.i:
-	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Building.cpp.i
-.PHONY : Building.cpp.i
+Base_Resource.cpp.i:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Base_Resource.cpp.i
+.PHONY : Base_Resource.cpp.i
 
-Building.s: Building.cpp.s
+Base_Resource.s: Base_Resource.cpp.s
 
-.PHONY : Building.s
+.PHONY : Base_Resource.s
 
 # target to generate assembly for a file
-Building.cpp.s:
-	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Building.cpp.s
-.PHONY : Building.cpp.s
+Base_Resource.cpp.s:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Base_Resource.cpp.s
+.PHONY : Base_Resource.cpp.s
+
+Base_Resource_Package.o: Base_Resource_Package.cpp.o
+
+.PHONY : Base_Resource_Package.o
+
+# target to build an object file
+Base_Resource_Package.cpp.o:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Base_Resource_Package.cpp.o
+.PHONY : Base_Resource_Package.cpp.o
+
+Base_Resource_Package.i: Base_Resource_Package.cpp.i
+
+.PHONY : Base_Resource_Package.i
+
+# target to preprocess a source file
+Base_Resource_Package.cpp.i:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Base_Resource_Package.cpp.i
+.PHONY : Base_Resource_Package.cpp.i
+
+Base_Resource_Package.s: Base_Resource_Package.cpp.s
+
+.PHONY : Base_Resource_Package.s
+
+# target to generate assembly for a file
+Base_Resource_Package.cpp.s:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Base_Resource_Package.cpp.s
+.PHONY : Base_Resource_Package.cpp.s
 
 Civilization.o: Civilization.cpp.o
 
@@ -555,6 +582,33 @@ Tile.cpp.s:
 	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Tile.cpp.s
 .PHONY : Tile.cpp.s
 
+Tile_Output.o: Tile_Output.cpp.o
+
+.PHONY : Tile_Output.o
+
+# target to build an object file
+Tile_Output.cpp.o:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Tile_Output.cpp.o
+.PHONY : Tile_Output.cpp.o
+
+Tile_Output.i: Tile_Output.cpp.i
+
+.PHONY : Tile_Output.i
+
+# target to preprocess a source file
+Tile_Output.cpp.i:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Tile_Output.cpp.i
+.PHONY : Tile_Output.cpp.i
+
+Tile_Output.s: Tile_Output.cpp.s
+
+.PHONY : Tile_Output.s
+
+# target to generate assembly for a file
+Tile_Output.cpp.s:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Tile_Output.cpp.s
+.PHONY : Tile_Output.cpp.s
+
 Tile_Resource.o: Tile_Resource.cpp.o
 
 .PHONY : Tile_Resource.o
@@ -726,9 +780,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... main.cpp"
 	@echo "... edit_cache"
-	@echo "... Building.o"
-	@echo "... Building.i"
-	@echo "... Building.s"
+	@echo "... Base_Resource.o"
+	@echo "... Base_Resource.i"
+	@echo "... Base_Resource.s"
+	@echo "... Base_Resource_Package.o"
+	@echo "... Base_Resource_Package.i"
+	@echo "... Base_Resource_Package.s"
 	@echo "... Civilization.o"
 	@echo "... Civilization.i"
 	@echo "... Civilization.s"
@@ -774,6 +831,9 @@ help:
 	@echo "... Tile.o"
 	@echo "... Tile.i"
 	@echo "... Tile.s"
+	@echo "... Tile_Output.o"
+	@echo "... Tile_Output.i"
+	@echo "... Tile_Output.s"
 	@echo "... Tile_Resource.o"
 	@echo "... Tile_Resource.i"
 	@echo "... Tile_Resource.s"
