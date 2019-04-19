@@ -33,27 +33,27 @@ bool Tile_Output::increment_gold() {
     return true;
 }
 
-bool Tile_Output::check_building(Building::names nm) {
+bool Tile_Output::check_building(Building_Name::names nm) {
     switch (nm) {
-        case (Building::names::FARM ) : {
+        case (Building_Name::names::FARM ) : {
             if (increment_food()) {
                 return true;
             } else return false;
-        } case (Building::names::HUNTING_LODGE) : {
+        } case (Building_Name::names::HUNTING_LODGE) : {
             if (increment_food()) {
                 return true;
             } else return false;
         }
-        case (Building::names::MARKET) : {
+        case (Building_Name::names::MARKET) : {
             if (increment_gold()) {
                 return true;
             } else return false;
-        } case (Building::names::LOGGING_CAMP) : {
+        } case (Building_Name::names::LOGGING_CAMP) : {
             if (increment_production()) {
                 return true;
             } else return false;
         }
-        case (Building::names::MINE) : {
+        case (Building_Name::names::MINE) : {
             if (increment_production()) {
                 return true;
             } else return false;
@@ -127,7 +127,7 @@ Tile_Output::Tile_Output(Tile_Resource::names res, Tile_Terrain::names terr) : T
     }
 }
 
-Tile_Output::Tile_Output(Tile_Resource::names res, Tile_Terrain::names terr, Building::names bld) : Tile_Output(res,terr) {
+Tile_Output::Tile_Output(Tile_Resource::names res, Tile_Terrain::names terr, Building_Name::names bld) : Tile_Output(res,terr) {
     check_building(bld);
 }
 

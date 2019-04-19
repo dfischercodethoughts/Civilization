@@ -177,6 +177,60 @@ Base_Resource_Package.cpp.s:
 	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Base_Resource_Package.cpp.s
 .PHONY : Base_Resource_Package.cpp.s
 
+Building.o: Building.cpp.o
+
+.PHONY : Building.o
+
+# target to build an object file
+Building.cpp.o:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Building.cpp.o
+.PHONY : Building.cpp.o
+
+Building.i: Building.cpp.i
+
+.PHONY : Building.i
+
+# target to preprocess a source file
+Building.cpp.i:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Building.cpp.i
+.PHONY : Building.cpp.i
+
+Building.s: Building.cpp.s
+
+.PHONY : Building.s
+
+# target to generate assembly for a file
+Building.cpp.s:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Building.cpp.s
+.PHONY : Building.cpp.s
+
+Building_Name.o: Building_Name.cpp.o
+
+.PHONY : Building_Name.o
+
+# target to build an object file
+Building_Name.cpp.o:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Building_Name.cpp.o
+.PHONY : Building_Name.cpp.o
+
+Building_Name.i: Building_Name.cpp.i
+
+.PHONY : Building_Name.i
+
+# target to preprocess a source file
+Building_Name.cpp.i:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Building_Name.cpp.i
+.PHONY : Building_Name.cpp.i
+
+Building_Name.s: Building_Name.cpp.s
+
+.PHONY : Building_Name.s
+
+# target to generate assembly for a file
+Building_Name.cpp.s:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Building_Name.cpp.s
+.PHONY : Building_Name.cpp.s
+
 Civilization.o: Civilization.cpp.o
 
 .PHONY : Civilization.o
@@ -786,6 +840,12 @@ help:
 	@echo "... Base_Resource_Package.o"
 	@echo "... Base_Resource_Package.i"
 	@echo "... Base_Resource_Package.s"
+	@echo "... Building.o"
+	@echo "... Building.i"
+	@echo "... Building.s"
+	@echo "... Building_Name.o"
+	@echo "... Building_Name.i"
+	@echo "... Building_Name.s"
 	@echo "... Civilization.o"
 	@echo "... Civilization.i"
 	@echo "... Civilization.s"
