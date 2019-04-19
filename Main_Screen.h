@@ -10,7 +10,7 @@
 
 
 
-
+//todo: fix seg fault (game view port edges diff from actual map edges)
 class Main_Screen : public Screen {
 public:
     enum Main_Options {

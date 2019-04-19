@@ -67,6 +67,7 @@ bool test_civ_add_unit(Map & m) {
 }
 
 bool test_color_input_output() {
+    std::string filename = "colorio.save";
     std::cout << "TESTING COLOR INPUT/OUTPUT"<< std::endl;
 
     std::cout << "MAKING RED COLOR" << std::endl;
@@ -85,10 +86,10 @@ bool test_color_input_output() {
     Color black_old = Colors::BLACK;
     std::cout << black_old << std::endl;
 
-    std::cout << "TESTING COLOR FILE INPUT/OUTPUT; LOOK FOR save.civ"<< std::endl;
+    std::cout << "TESTING COLOR FILE INPUT/OUTPUT; LOOK FOR "<<filename<< std::endl;
 
     std::ofstream outs;
-    outs.open(Files::FILENAME);
+    outs.open(filename);
 
     outs << red_old << green_old << blue_old << black_old << std::endl;
 
@@ -97,7 +98,7 @@ bool test_color_input_output() {
     std::cout << "DONE SAVING. NOW LOADING..." << std::endl;
     Color red, green, blue, black;
     std::ifstream ins;
-    ins.open(Files::FILENAME);
+    ins.open(filename);
     ins >> red >> green >> blue >> black;
     ins.close();
     std::cout << "DONE LOADING. NOW PRINTING..." << std::endl;
@@ -109,6 +110,46 @@ bool test_color_input_output() {
         return false;
     }
     return true;
+}
+
+bool test_coordinate_input_output() {
+    std::string filename = "coordinateio.save";
+
+    std::cout << "TESTING COORDINATE INPUT/OUTPUT OPERATION..." << std::endl;
+    std::cout << "CREATING COORDINATES..." << std::endl;
+    Coordinate c1(0,0);
+    Coordinate c2(15,15);
+    Coordinate c3(-15,15);
+    Coordinate c4(1000000,100000000);
+    Coordinate c5(-99999,-10000000);
+
+    std::cout << "DONE." << std::endl;
+
+    std::cout << c1 << c2 << c3 << c4 << c5 << std::endl;
+
+    std::cout << "SAVING COORDINATES (look for " << filename << ")..." << std::endl;
+    std::ofstream outs;
+    outs.open(filename);
+    outs << c1 <<c2 << c3 << c4 << c5 <<std::endl;
+    outs.close();
+    std::cout << "DONE. LOADING COORDINATES..." << std::endl;
+
+    Coordinate n1,n2,n3,n4,n5;
+    std::ifstream ins;
+    ins.open(filename);
+    ins >> n1 >> n2 >> n3 >> n4 >> n5;
+    ins.close();
+    std::cout << "DONE." << std::endl;
+
+    std::cout << n1 << n2 << n3 << n4 << n5;
+
+    if (n1 == c1 && n2 == c2 && n3 == c3 && n4 == c4 && n5 == c5) {
+        std::cout <<std::endl<< "SUCCESS." << std::endl;
+        return true;
+    }
+    std::cout <<std::endl<< "FAIL." << std::endl;
+    return false;
+
 }
 
 int main (int argc, char** argv) {
@@ -130,10 +171,10 @@ int main (int argc, char** argv) {
         std::cout << "FAIL" << std::endl;
     }
 
-
    //std::cout << "TESTING CIVILIZATION ADD UNIT" << std::endl;
+     test_color_input_output();
     */
-    test_color_input_output();
+    test_coordinate_input_output();
 
 
 }

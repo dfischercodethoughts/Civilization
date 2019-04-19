@@ -36,7 +36,7 @@ void Main_Screen::init(int h, int w,int x, int y) {
     next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/5,"Next Turn",true);
     next_turn.set_x_offset(-25);
     next_turn.set_y_offset(-25);
-    game_view_port = Square({3*w/8,3*h/8},Colors::WHITE,3*h/4,3*w/4,false);
+    game_view_port = Square({3*w/8 + Game::MAP_X_OFF,3*h/8+Game::MAP_Y_OFF},Colors::WHITE,3*h/4,3*w/4,false);
     piece_view_port = Square({7*w/8,1*h/8},Colors::WHITE,Colors::BLACK,2*h/8,w/4,"Unit Info",true);
     piece_view_port.set_y_offset(-3*h/16);
     tile_view_port = Square({7*w/8,4*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"TILE INFO",true);
@@ -84,9 +84,9 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
     else {
         switch (Turn_Phase::string_to_turn_phase(game.get_phase())) {
             case (Turn_Phase::MOVE): {
-                process_move(click);
-
-
+                if (game_view_port.check_click(click)) {
+                    process_move(click);
+                }
                 break;
             }
 
@@ -142,7 +142,7 @@ void Main_Screen::process_move(Coordinate click) {
                         //only do stuff if tile selected is right next to tile of unit
                         if (game.get_map().is_adjacent(*tile_clicked,
                                                        *game.get_map().get_tile_from_id(unit->get_location_id()))) {
-                            //call civ move unit method
+                            //call game move unit method
                             if (game.move_active_unit(*tile_clicked)) {
                                 //clear unit from active tile
                                 game.get_active_tile()->clear_unit();
