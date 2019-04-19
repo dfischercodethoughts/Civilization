@@ -166,6 +166,17 @@ int Unit::get_damage(Unit_Type tp) {
     }
 }
 
+int Unit::get_range(Unit_Type tp) {
+    switch(tp) {
+        case (ARCHER) : {
+            return 3;
+        }
+        default : {
+            return 1;
+        }
+    }
+}
+
 void Unit::set_movement(int newm) {
     if (abs(newm) < 10) {
         movement = newm;
@@ -191,6 +202,10 @@ void Unit::reset_health() {
 
 void Unit::set_damage() {
     damage = get_damage(unit_type);
+}
+
+void Unit::set_range() {
+    range = get_range(unit_type);
 }
 
 Unit::Unit() {

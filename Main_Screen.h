@@ -8,6 +8,9 @@
 #include "Screen.h"
 #include "Game.h"
 
+
+
+
 class Main_Screen : public Screen {
 public:
     enum Main_Options {
@@ -21,7 +24,12 @@ private:
     Game game;
     Square next_turn;
     Square next_phase;
-    Square build_view_port;
+    //Square build_view_port;
+    Square build_square_1;
+    Square build_square_2;
+    Square build_square_3;
+    Square build_square_4;
+
     Square game_view_port;
     Square piece_view_port;
     Square tile_view_port;
@@ -42,7 +50,14 @@ public:
     menu_options check_click(Coordinate click) override;
 
     void process_move(Coordinate click);
-    void process_build(Coordinate click);
+    void process_build(Coordinate click);//todo: add process_build logic
+
+    /**
+     * sets active tile, and unit if applicable.
+     * todo:set active city
+     * @param tile
+     */
+    void select_tile(Tile * tile);//todo: add active city pointer
 
     Game * get_game();
 

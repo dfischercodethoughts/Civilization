@@ -224,11 +224,14 @@ bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
                 move_from->clear_unit();
             }
             to_move->use_movement(Unit::get_max_movement(to_move->get_unit_type()));
-            return false;//did not actually move the unit, so return false
+            return false;//attacked but did not actually move the unit, so return false
+
+        //do nothing if player unit on square
         } else if (move_from->has_unit() && map->is_adjacent(*move_from, *move_to) && move_to->has_unit()) {
-            //do nothing if player unit on square
             return false;
-        } else if (move_from->has_unit() && map->is_adjacent(*move_from, *move_to)) {
+        }
+        //perform a normal move if tile clicked is adjacent to tile to move from
+        else if (map->is_adjacent(*move_from, *move_to)) {
             to_move->use_movement(Tile_Terrain::get_movement_cost(move_to->get_terrain()));
             to_move->set_location(move_to->get_id());
             to_move->set_center(move_to->get_center());
@@ -239,6 +242,8 @@ bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
 
             return true;
         }
+
+
     }
     return false;
 
