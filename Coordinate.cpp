@@ -4,6 +4,11 @@
 
 #include "Coordinate.h"
 
+Coordinate::Coordinate() {
+    x = 0;
+    y = 0;
+}
+
 Coordinate::Coordinate(int xn, int ny) {
     if (xn >= -1 & xn < 10000) {
         x = xn;
@@ -24,4 +29,28 @@ bool Coordinate::operator==(Coordinate const &rhs) {
         return true;
     }
     return false;
+}
+
+std::ostream & operator<<(std::ostream &outs, const Coordinate &print) {
+    std::string line = "COORDINATE:" + std::to_string(print.x) + ',' + std::to_string(print.y);
+    outs << line << std::endl;
+    return outs;
+}
+
+std::istream & operator>>(std::istream & ins, Coordinate & fill) {
+    std::string line = "";
+    std::getline(ins,line);
+
+    //first token is thrown away
+    line.erase(0,line.find(':') + 1);
+
+    //second token is x coord
+    std::string tok = line.substr(0,line.find(','));
+    line.erase(0,line.find(',') + 1);
+    fill.x = std::stoi(tok);
+
+    fill.y = std::stoi(line);
+
+    return ins;
+
 }

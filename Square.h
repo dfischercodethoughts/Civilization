@@ -66,6 +66,9 @@ public:
 
     //operators
     Square & operator=(const Square & cp);
+
+    std::istream & operator>>(const Square & fill);
+    std::ostream & operator<<(const Square & print);
 };
 
 

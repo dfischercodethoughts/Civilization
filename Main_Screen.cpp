@@ -46,7 +46,7 @@ void Main_Screen::init(int h, int w,int x, int y) {
     next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/5,"Next Turn",true);
     next_turn.set_x_offset(-25);
     next_turn.set_y_offset(-25);
-    game_view_port = Square({3*w/8,3*h/8},Colors::WHITE,3*h/4,3*w/4,false);
+    game_view_port = Square({3*w/8 + Game::MAP_X_OFF,3*h/8+Game::MAP_Y_OFF},Colors::WHITE,3*h/4,3*w/4,false);
     piece_view_port = Square({7*w/8,1*h/8},Colors::WHITE,Colors::BLACK,2*h/8,w/4,"Unit Info",true);
     piece_view_port.set_y_offset(-3*h/16);
     tile_view_port = Square({7*w/8,4*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"TILE INFO",true);
@@ -97,14 +97,26 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
     else {
         switch (Turn_Phase::string_to_turn_phase(game.get_phase())) {
             case (Turn_Phase::MOVE): {
-                process_move(click);
-
-
+                if (game_view_port.check_click(click)) {
+                    process_move(click);
+                }
                 break;
             }
 
             case (Turn_Phase::BUILD): {
-                process_build(click);
+                if (game_view_port.check_click(click)) {
+                    process_build(click);
+                }
+                else if (build_view_port.check_click(click)) {
+                    /*
+                     * in pseudo code: we are going to have a build menu that will have a function that
+                     *                  returns the piece type of the click, which we assign to a piece_type
+                     *                  variable
+                     *                 then we switch on the piece type and call the appropriate change_city_production
+                     *                  method in main_screen.
+                     */
+                    //change_active_city_build(Building::names );
+                }
                 break;
             }
         }
@@ -142,7 +154,7 @@ void Main_Screen::process_move(Coordinate click) {
                         //only do stuff if tile selected is right next to tile of unit
                         if (game.get_map().is_adjacent(*tile_clicked,
                                                        *game.get_map().get_tile_from_id(unit->get_location_id()))) {
-                            //call civ move unit method
+                            //call game move unit method
                             if (game.move_active_unit(*tile_clicked)) {
                                 //clear unit from active tile
                                 game.get_active_tile()->clear_unit();
@@ -177,9 +189,9 @@ void Main_Screen::process_build(Coordinate click) {
      * logic to come
      * in pseudo code
      * if a city is selected and has something to place, then if the click is on the game viewport
-     *      and the tile selected is empty of buildings or cities (or enemy units) call the active
-     *      city's build function on tile selected (which will check if tile is in range before building)
-     * if city is selected and has something to place and click is on the build menu, do nothing (have to
+     *      and the tile selected is empty of buildings or cities (or enemy units) call the player's
+     *      build function on active city and tile selected (which will check if tile is in range before building)
+     * else if city is selected and has something to place and click is on the build menu, do nothing (have to
      *      place unit/building to be build before selecting new production)
      * if a city is selected and has nothing to place, then do clear active if click on game viewport.
      *      if click is on the building menu, then switch active city's active production to the item selected
