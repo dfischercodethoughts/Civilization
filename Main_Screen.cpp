@@ -100,7 +100,6 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
                 if (game_view_port.check_click(click)) {
                     process_move(click);
                 }
-                check_win();
                 break;
             }
 
@@ -125,8 +124,14 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
 
 }
 
-void Main_Screen::check_win() {
-    if game.
+std::string Main_Screen::check_winner() {
+    if (game.get_player().lost()) {
+        return game.get_ai().get_name_str();
+    }
+    if (game.get_ai().lost()) {
+        return game.get_player().get_name_str();
+    }
+    return "NONE";
 }
 
 void Main_Screen::process_move(Coordinate click) {
@@ -184,9 +189,10 @@ void Main_Screen::process_move(Coordinate click) {
             select_tile(tile_clicked);
         }
     }//do nothing if tile selected is not visible
+    else {
+        clear_active();
+    }
 }
-
-
 
 void Main_Screen::process_build(Coordinate click) {
     //TODO:: get game view port to show up on board clicks as well

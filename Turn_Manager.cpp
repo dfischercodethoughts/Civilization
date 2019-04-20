@@ -44,6 +44,10 @@ std::string Turn_Manager::get_current_phase_str() const {
     }
 }
 
+int Turn_Manager::get_num_turns() const {
+    return count;
+}
+
 std::string to_string(Turn_Phase::names nm) {
     switch (nm) {
 
@@ -61,12 +65,38 @@ std::string to_string(Turn_Phase::names nm) {
         }
     }
 }
+
 void Turn_Manager::next_turn(){
     current_phase = Turn_Phase::MOVE;
     count++;
 }
 
+std::ostream & operator<<(std::ostream &outs, const Turn_Manager & print) {
+    std::string line = "TURN MANAGER:" + std::to_string(print.count) + "," + Turn_Phase::turn_phase_to_string(print.current_phase);
+    outs << line << std::endl;
+    return outs;
+}
+
+std::istream & operator>>(std::istream & ins, Turn_Manager & fill) {
+    std::string line = "";
+    std::getline(ins,line);
+    //burn first token
+    line.erase(0,line.find(':')+1);
+    std::string tok = line.substr(0,line.find(','));
+    fill.count = std::stoi(tok);
+
+    line.erase(0,line.find(',')+1);
+    fill.current_phase = Turn_Phase::string_to_turn_phase(line.substr(0,line.length()));
+}
+
 Turn_Manager::~Turn_Manager() {
     count = -1;
     current_phase = Turn_Phase::AI_TURN;
+}
+
+bool operator==(const Turn_Manager & lhs, const Turn_Manager & rhs) {
+    if (lhs.get_current_phase() == rhs.get_current_phase() && lhs.get_num_turns() == rhs.get_num_turns()) {
+        return true;
+    }
+    return false;
 }

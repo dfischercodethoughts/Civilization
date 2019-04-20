@@ -46,6 +46,17 @@ void Draw_Manager::draw() {
     }
 }
 
+void Draw_Manager::check_win() {
+    if (main.check_winner() == main.get_game()->get_player().get_name_str()) {
+        end.win();
+        cur_screen =  &end;
+    }
+    else if (main.check_winner() == main.get_game()->get_ai().get_name_str()) {
+        end.lose();
+        cur_screen = &end;
+    }
+}
+
 int Draw_Manager::process_click(Coordinate click) {
     switch (cur_screen->get_type()) {
         case(Screen::START_SCREEN) : {
@@ -77,6 +88,7 @@ int Draw_Manager::process_click(Coordinate click) {
         }
         case (Screen::MAIN_GAME) : {
             main.check_click(click);
+            check_win();
             break;
 
         }

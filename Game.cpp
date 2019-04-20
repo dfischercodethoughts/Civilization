@@ -43,6 +43,7 @@ Game::Game(int width, int height, int vecw, int vech) {
     map = Map(height,width,vecw,vech,MAP_X_OFF,MAP_Y_OFF);
     player = Civilization("Westeros",false);
     player.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(0,0))->get_id(),player.get_name(),Unit::WARRIOR),*map.get_tile_from_vector_coordinates(Coordinate(0,0)));
+    player.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(1,0))->get_id(),player.get_name(),Unit::SCOUT),*map.get_tile_from_vector_coordinates(Coordinate(1,0)));
     ai = Civilization("Night King",true);
     ai.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(vecw-1,vech-1))->get_id(),ai.get_name(),Unit::WARRIOR),*map.get_tile_from_vector_coordinates(Coordinate(vecw-1,vech-1)));
     //player.add_unit(Unit::WARRIOR,*map.get_tile_from_vector_coordinates({0,0}));
@@ -136,15 +137,33 @@ void Game::reveal() {
     }
 }
 
-bool Game::move_active_unit(Tile &to_move_to) {
-    if (player.move_unit(&map,active_unit->get_location_id(),to_move_to.get_id())) {
-        reveal_unit(to_move_to.get_unit());
+bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and tile clicked is next to it
+    if (to_move_to.has_unit() ) {
+        if (to_move_to.get_unit()->get_owner() != Civilization_Name::WESTEROS) {
+            //attack
 
-        return true;
+            ai.get_unit(Civilization_Name::NIGHT_KING,to_move_to.get_id())->cause_damage(active_unit->get_unit_type());
+            to_move_to.set_unit(ai.get_unit(Civilization_Name::NIGHT_KING,to_move_to.get_id()));
+            active_unit->cause_damage(to_move_to.get_unit()->get_unit_type());
+            //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::process click)
+            if (to_move_to.get_unit()->get_current_health() <= 0) {
+                to_move_to.clear_unit();
+                ai.destroy_units();
+            }
+            if (active_unit->get_current_health() <= 0) {
+                map.get_tile_from_id(active_unit->get_location_id())->clear_unit();
+            }
+            active_unit->use_movement(Unit::get_max_movement(active_unit->get_unit_type()));
+
+
+            //do nothing if player unit on square
+
+        }
+        return false;//unit on tile to move to means unit didn't actually move (even if it did attack)
     }
-    else {
-        player.destroy_units();
-        ai.destroy_units();
+    else if (player.move_unit(&map,active_unit->get_location_id(),to_move_to.get_id())) {
+        reveal_unit(to_move_to.get_unit());
+        return true;
     }
 
     return false;

@@ -70,6 +70,8 @@ public:
      * additional methods
      */
 
+    bool lost();
+
     bool move_unit(Map& map,Unit& to_move, Tile& move_to);
     bool move_unit(Map * map, Unit * to_move, Tile * move_to);
     bool move_unit(Map * map, int fromid, int toid);

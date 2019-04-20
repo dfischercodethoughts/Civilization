@@ -5,6 +5,7 @@
 #include "Map.h"
 #include "iostream"
 #include "Civilization.h"
+#include "Turn_Manager.h"
 
 void test_get_vec_coordinates_from_click(Map & m) {
     std::cout << "TESTING GET VEC COORDINATES FROM CLICK" << std::endl;
@@ -152,7 +153,49 @@ bool test_coordinate_input_output() {
 
 }
 
+bool test_turn_manager_intput_output() {
+    std::string filename = "turn_manager.save";
+
+    std::cout << "TESTING TURN MANAGER INPUT OUTPUT..." << std::endl << std::endl;
+
+    std::cout << "CREATING TURN MANAGER..." << std::endl;
+
+    Turn_Manager tm;
+    std::cout << tm;
+
+    std::cout << "DONE. INCREMENTING COUNT TWICE..." << std::endl;
+    tm.next_turn();tm.next_turn();
+    std::cout << "DONE. INCREMENTING PHASE TWICE..." << std::endl;
+    tm.next_phase();tm.next_phase();
+
+    std::cout<<"DONE. SAVING TO FILE (look for " << filename << ")..." << std::endl;
+
+    std::ofstream outs;
+    outs.open(filename);
+    outs << tm;
+    outs.close();
+
+    std::cout << "DONE. LOADING FROM FILE..." << std::endl;
+    Turn_Manager new_tm;
+    std::ifstream ins;
+    ins.open(filename);
+    ins >> new_tm;
+    ins.close();
+    std::cout << "DONE:" <<std::endl<< new_tm;
+
+    if (new_tm == tm) {
+        std::cout<<"SUCCESS." << std::endl;
+        return true;
+    }
+    std::cout << "DONE." << std::endl;
+    std::cout << "FAIL." << std::endl;
+
+    return false;
+}
+
 int main (int argc, char** argv) {
+    test_turn_manager_intput_output();
+
     /*
     Map m = Map(1200,800,8,8);
     std::cout << "TESTING MAP CLASS\n"<<std::endl;
@@ -174,7 +217,7 @@ int main (int argc, char** argv) {
    //std::cout << "TESTING CIVILIZATION ADD UNIT" << std::endl;
      test_color_input_output();
     */
-    test_coordinate_input_output();
+    //test_coordinate_input_output();
 
 
 }

@@ -49,7 +49,7 @@ public:
 
     menu_options check_click(Coordinate click) override;
 
-    void check_win();
+    std::string check_winner();
 
     void process_move(Coordinate click);
     void process_build(Coordinate click);//todo: add process_build logic

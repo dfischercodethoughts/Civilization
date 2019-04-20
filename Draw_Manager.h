@@ -36,6 +36,8 @@ public:
 
     int process_click(Coordinate click);
 
+    void check_win();
+
     void set_screen(Screen::names);
     Screen * get_current_screen();
 

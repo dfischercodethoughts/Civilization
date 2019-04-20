@@ -89,16 +89,16 @@ int Unit::get_max_movement(Unit::Unit_Type tp) {
             return(2);
         }
         case(BOAT) : {
-            return(5);
+            return(3);
         }
         case(SETTLER) : {
-            return(4);
+            return(1);
         }
         case (SCOUT) : {
-            return(5);
+            return(3);
         }
         case (HORSEMAN) : {
-            return(6);
+            return(4);
         }
     }
 }

@@ -174,6 +174,14 @@ std::vector<Unit *> Civilization::get_units_const()  const{
     return to_ret;
 }
 
+bool Civilization::lost() {
+    //todo: change to check if cities vector is empty
+    if (units.empty()) {
+        return true;
+    }
+    return false;
+}
+
 bool Civilization::move_unit(Map & map, Unit & to_move, Tile & move_to) {
  //   std::vector<Tile *> tiles = map.get_tiles_within_range(&tile,to_move.get_current_movement());
   //  for (int i = 0 ; i < tiles.size()-1;i++) {
@@ -207,44 +215,22 @@ bool Civilization::move_unit(Map * map, Unit * to_move, Tile * move_to) {
 
 bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
 
-    Tile * move_from = map->get_tile_from_id(tilefrom);
-    Tile * move_to = map->get_tile_from_id(tileto);
-    if (move_from->has_unit()) {
-        Unit *to_move = get_unit(Civilization_Name::WESTEROS, tilefrom);
-        if (move_from->has_unit() && map->is_adjacent(*move_from, *move_to) && move_to->has_unit() &&
-            move_to->get_unit()->get_owner() != Civilization_Name::WESTEROS) {
-            //todo : cause damage
-            move_to->get_unit()->cause_damage(to_move->get_unit_type());
-            to_move->cause_damage(move_to->get_unit()->get_unit_type());
-            //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::process click)
-            if (move_to->get_unit()->get_current_health() <= 0 ) {
-                move_to->clear_unit();
-            }
-            if (to_move->get_current_health() <= 0) {
-                move_from->clear_unit();
-            }
-            to_move->use_movement(Unit::get_max_movement(to_move->get_unit_type()));
-            return false;//attacked but did not actually move the unit, so return false
+    Tile * move_from = &*map->get_tile_from_id(tilefrom);
+    Tile * move_to = &*map->get_tile_from_id(tileto);
+    if (map->is_adjacent(*move_from, *move_to)) {
+        Unit * unit = get_unit(name,move_from->get_id());
+        unit->use_movement(Tile_Terrain::get_movement_cost(move_to->get_terrain()));
+        unit->set_location(move_to->get_id());
+        unit->set_center(move_to->get_center());
+        //set move to tile unit; use move to's id since we already updated unit's location
+        move_to->set_unit(*unit);
+        move_from->clear_unit();
+        move_from->draw();
+        move_to->draw();
 
-        //do nothing if player unit on square
-        } else if (move_from->has_unit() && map->is_adjacent(*move_from, *move_to) && move_to->has_unit()) {
-            return false;
-        }
-        //perform a normal move if tile clicked is adjacent to tile to move from
-        else if (map->is_adjacent(*move_from, *move_to)) {
-            to_move->use_movement(Tile_Terrain::get_movement_cost(move_to->get_terrain()));
-            to_move->set_location(move_to->get_id());
-            to_move->set_center(move_to->get_center());
-            move_to->set_unit(to_move);
-            move_from->clear_unit();
-            move_from->draw();
-            move_to->draw();
-
-            return true;
-        }
-
-
+        return true;
     }
+
     return false;
 
 }
