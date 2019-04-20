@@ -179,3 +179,88 @@ Square & Square::operator=(const Square & cp) {
     msg = cp.get_message();
     visible = cp.visible;
 }
+
+bool Square::operator==(const Square & rhs) {
+    if (center != rhs.center) {
+        return false;
+    }
+    if (width != rhs.get_width()) {
+         return false;
+    }
+    if (height != rhs.get_height()) {
+        return false;
+    }
+    if (xoff != rhs.get_x_offset()) {
+        return false;
+    }
+    if (yoff != rhs.get_y_offset()) {
+        return false;
+    }
+    if (fill != rhs.get_fill()) {
+        return false;
+    }
+    if (text_color != rhs.get_text_color()) {
+        return false;
+    }
+    if (msg != rhs.get_message()) {
+        return false;
+    }
+    if (visible != rhs.is_visible()) {
+        return false;
+    }
+    return true;
+}
+
+bool Square::operator!=(const Square & rhs) {
+    if (!(*this == rhs)) {
+        return true;
+    }
+    return false;
+}
+
+std::istream & operator>>(std::istream & ins, Square & fill) {
+    try {
+        std::string line = "";
+        std::getline(ins,line);//burn "SQUARE"
+        ins >> fill.center;
+
+        std::getline(ins,line);
+        std::string tok = line.substr(0,line.find(','));
+        line.erase(0,line.find(',')+1);
+        fill.height = std::stoi(tok);
+
+        tok = line.substr(0,line.find(','));
+        line.erase(0,line.find(',')+1);
+        fill.width = std::stoi(tok);
+
+        tok = line.substr(0,line.find(','));
+        line.erase(0,line.find(',')+1);
+        fill.xoff = std::stoi(tok);
+        fill.yoff = std::stoi(line);
+
+        ins >> fill.fill >> fill.text_color;
+
+        std::getline(ins,line);
+        fill.msg = line;
+        std::getline(ins,line);
+        if (line == "1"){
+            fill.visible = true;
+        }
+        else {
+            fill.visible = false;
+        }
+
+    }
+    catch (std::exception & e) {
+        std::cout << e.what() << std::endl;
+    }
+    return ins;
+}
+
+std::ostream & operator<<(std::ostream & outs, const Square & fill) {
+    std::string line = "SQUARE\n";
+    outs << line << fill.center;
+    line = std::to_string(fill.height) + ',' + std::to_string(fill.width) + ',' + std::to_string(fill.xoff) + ',' + std::to_string(fill.yoff) + "\n";
+    outs << line << fill.fill << fill.text_color << fill.msg << std::endl << std::to_string(fill.visible) << std::endl;
+    return outs;
+}

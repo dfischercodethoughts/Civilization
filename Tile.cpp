@@ -147,6 +147,30 @@ void Tile::init_id() {
     Tile::num_tiles = 0;
 }
 
+Square Tile::get_base_square() const {
+    Square toret(this->get_center(),this->get_fill(),this->get_text_color(),this->get_height(),this->get_width(),this->get_message(),this->is_visible());
+    toret.set_x_offset(this->get_x_offset());
+    toret.set_y_offset(this->get_y_offset());
+    return toret;
+}
+
+void Tile::set_base_square(Square set) {
+    this->set_center(set.get_center());
+    this->set_y_offset(set.get_y_offset());
+    this->set_x_offset(set.get_x_offset());
+    this->set_fill(set.get_fill());
+    this->set_text_color(set.get_text_color());
+    this->set_width(set.get_width());
+    this->set_height(set.get_height());
+    this->set_message(set.get_message());
+    if (set.is_visible()) {
+        this->reveal();
+    }
+    else {
+        this->hide();
+    }
+}
+
 Tile_Terrain::names Tile::get_terrain() const {
     return terrain;
 }
@@ -184,6 +208,23 @@ void Tile::set_unit(Unit &newu) {
 
 void Tile::set_unit(Unit *newu) {
     unit = newu;
+}
+
+void Tile::set_background_square(Square set) {
+    this->set_center(set.get_center());
+    this -> set_x_offset(set.get_x_offset());
+    this->set_y_offset(set.get_y_offset());
+    this->set_text_color(set.get_text_color());
+    this->set_message(set.get_message());
+    this->set_fill(set.get_fill());
+    if (set.is_visible()) {
+        this->reveal();
+    }
+    else {
+        this->hide();
+    }
+    this->set_height(set.get_height());
+    this->set_width(set.get_width());
 }
 
 void Tile::draw() const {
@@ -251,7 +292,11 @@ void Tile::draw_on_viewport(Square viewport_base) {
 }
 
 std::ostream & operator<<(std::ostream & outs, const Tile & print) {
-    std::string line = "TILE\n" + Tile_Terrain::terrain_to_string(print.terrain) + "\n" + Tile_Resource::resource_to_string(print.resource) +
+    std::string line = "TILE\n";
+    outs << line;
+    outs << print.get_base_square();
+
+    line =Tile_Terrain::terrain_to_string(print.terrain) + "\n" + Tile_Resource::resource_to_string(print.resource) +
             "\n" + std::to_string(print.id);
     //todo: add building to tile output (before id output)
     outs << line << std::endl;
@@ -262,6 +307,9 @@ std::istream & operator>>(std::istream & ins, Tile & fill) {
     try {
         //assume "TILE\n" already read
         fill.set_type(Piece::TILE);
+        Square base;
+        ins >> base;
+        fill.set_base_square(base);
 
         std::string line = "";
 

@@ -206,7 +206,7 @@ void Game::next_turn() {
     ai.refresh();
     //play_ai();
     player.refresh();
-    map.reveal(player.get_units());
+    map.reveal_units(player.get_units());
     manager.set_current_phase(Turn_Phase::MOVE);
 }
 

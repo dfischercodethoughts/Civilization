@@ -47,7 +47,7 @@ void Color::set_blue(int nb) {
     }
 }
 
-std::ostream & operator<<(std::ostream & outs, Color & print) {
+std::ostream & operator<<(std::ostream & outs, const Color & print) {
     std::string p = "COLOR: " + std::to_string(print.r) + "," + std::to_string(print.g) + "," + std::to_string(print.b);
     outs << p << std::endl;
     return outs;

@@ -22,7 +22,11 @@ public:
     Map(int h, int w, int numx, int numy,int xoff, int yoff);
     Map();
 
+    int get_x() const;
+    int get_y() const;
+
     std::vector<std::vector<Tile>> * get_tiles();
+    std::vector<std::vector<Tile>> get_tiles_const() const;
 
     Coordinate get_vector_coordinates_from_click(Coordinate click);
 
@@ -31,6 +35,8 @@ public:
     Tile * get_tile_from_click(Coordinate click);
     //assume id is good
     Tile * get_tile_from_id(int id);
+
+    void set_background_square(Square set);
 
     static void remove_duplicates(std::vector<Tile*>& list);
 
@@ -46,7 +52,7 @@ public:
      * 
      * @param units
      */
-    void reveal(std::vector<Unit *> units);
+    void reveal_units(std::vector<Unit *> units);
     void reveal_unit(Unit * unit);
 
     void draw() const override;
@@ -54,8 +60,20 @@ public:
     //operators
     Map & operator=(Map const & cp);
 
+    /**
+     * outputs "MAP\nSQUARE\n...SQAUREINFO...\n#rows,#cols\nTILE1\nTILE2\n..."
+     * @param outs
+     * @param fill
+     * @return
+     */
+    friend std::ostream & operator<<(std::ostream & outs, const Map & print);
+    //assumes "MAP\n" has not already been read
+    friend std::istream &operator>>(std::istream & ins, Map & fill);
+
     ~Map();
 };
+
+bool operator==(const Map & lhs, const Map & rhs);
 
 
 #endif //CIV_MAP_H

@@ -15,6 +15,7 @@ public:
     Coordinate(int xn, int ny);
 
     bool operator==(Coordinate const & rhs);
+    bool operator!=(const Coordinate & rhs);
     friend std::ostream & operator<<(std::ostream & outs, const Coordinate & print);
     friend std::istream & operator>>(std::istream & ins, Coordinate & fill);
 };

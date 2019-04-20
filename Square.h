@@ -67,8 +67,23 @@ public:
     //operators
     Square & operator=(const Square & cp);
 
-    std::istream & operator>>(const Square & fill);
-    std::ostream & operator<<(const Square & print);
+    bool operator==(const Square & rhs);
+    bool operator!=(const Square & rhs);
+
+    /**
+     * burns leading SQUARE\n then fills in info by scheme of output operator
+     * @param ins
+     * @param fill
+     * @return
+     */
+    friend std::istream & operator>>(std::istream & ins, Square & fill);
+    /**
+     * outputs "SQUARE\nCENTER\nheight,width,xoff,yoff\nfill\ntextcolor\nmsg\nvisible\n
+     * @param outs
+     * @param print
+     * @return
+     */
+    friend std::ostream & operator<<(std::ostream & outs, const Square & print);
 };
 
 

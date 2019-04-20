@@ -52,6 +52,9 @@ public:
     static void increment_num_tiles();
     static void init_id();//called in map class
 
+    Square get_base_square() const;
+    void set_base_square(Square set);
+
     Tile_Terrain::names get_terrain() const;
     Tile_Resource::names get_resource() const;
 
@@ -65,6 +68,8 @@ public:
     void set_unit(Unit & newu);
     void set_unit(Unit * newu);
 
+    void set_background_square(Square set);
+
     void draw() const override;
 
     void draw_on_viewport( Square viewport_base) override;
@@ -74,7 +79,7 @@ public:
      */
 
     /**
-     * prints tiles: "TILE\nTERRAIN\nRESOURCE\nBUILDING\nID\n"
+     * prints tiles: "TILE\nBASE_SQUARE\nTERRAIN\nRESOURCE\nBUILDING\nID\n"
      * note does NOT ouput unit ( nor square )
      * @throws input error
      * @param outs

@@ -31,7 +31,7 @@ public:
      * @param print
      * @return
      */
-    friend std::ostream & operator<<(std::ostream & out, Color & print);
+    friend std::ostream & operator<<(std::ostream & out,const  Color & print);
     friend std::istream & operator>>(std::istream & ins, Color & fill);
 };
 
@@ -44,10 +44,6 @@ namespace Colors {
     static const Color WHITE = Color(255,255,255);
     static const Color GREEN = Color(0,255,0);
     static const Color BLUE = Color (0,0,255);
-}
-
-namespace Files {
-    static const std::string FILENAME = "save.civ";
 }
 
 
