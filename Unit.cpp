@@ -447,6 +447,58 @@ Unit & Unit::operator=(Unit const &rhs) {
     set_location(rhs.get_location_id());
 }
 
+bool Unit::operator!=(Unit const & rhs) {
+    if (!(*this == rhs)) {
+        return true;
+    }
+    return false;
+}
+
+std::ostream & operator<<(std::ostream & outs, const Unit & print) {
+    try {
+        std::string line =
+                "UNIT\n" + Civilization_Name::civ_name_to_string(print.owner) + "\n" + std::to_string(print.tile_id) +
+                "\n" + Unit::unit_type_to_string(print.unit_type) + "\n" + std::to_string(print.health) + ',' +
+                std::to_string(print.movement);
+        outs << line << std::endl;
+    }
+    catch (std::exception &e) {
+        std::cout << e.what() << std::endl;
+    }
+    return outs;
+
+}
+
+std::istream & operator>>(std::istream & ins, Unit & fill) {
+    //NOTE: ASSUME "UNIT\n" ALREADY READ FROM ISTREAM
+    try {
+        std::string line = "";
+        std::getline(ins, line);
+        std::string tok = "";
+
+        fill.owner = Civilization_Name::string_to_civ_name(line);
+
+        std::getline(ins, line);
+        fill.tile_id = std::stoi(line);
+
+        std::getline(ins, line);
+        fill.unit_type = Unit::string_to_unit_type(line);
+
+        std::getline(ins, line);
+        tok = line.substr(0, line.find(',') + 1);
+        line.erase(0, line.find(',') + 1);
+        fill.health = std::stoi(tok);
+
+        fill.movement = std::stoi(line);
+        fill.set_range();
+        fill.set_damage();
+    }
+    catch (std::exception &e) {
+        std::cout <<e.what() << std::endl;
+    }
+    return ins;
+}
+
 Unit::~Unit() {
     tile_id = -1;
     owner = Civilization_Name::NONE;

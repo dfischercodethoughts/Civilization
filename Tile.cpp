@@ -250,7 +250,43 @@ void Tile::draw_on_viewport(Square viewport_base) {
     }
 }
 
+std::ostream & operator<<(std::ostream & outs, const Tile & print) {
+    std::string line = "TILE\n" + Tile_Terrain::terrain_to_string(print.terrain) + "\n" + Tile_Resource::resource_to_string(print.resource) +
+            "\n" + std::to_string(print.id);
+    //todo: add building to tile output (before id output)
+    outs << line << std::endl;
+    return outs;
+}
+
+std::istream & operator>>(std::istream & ins, Tile & fill) {
+    try {
+        //assume "TILE\n" already read
+        fill.set_type(Piece::TILE);
+
+        std::string line = "";
+
+        //read terrain
+        std::getline(ins, line);
+        fill.terrain = Tile_Terrain::string_to_terrain(line);
+
+        //read resource
+        std::getline(ins,line);
+        fill.resource = Tile_Resource::string_to_resource(line);
+
+        //todo:add building input to tile
+
+        std::getline(ins,line);
+        fill.id = std::stoi(line);
+
+    }
+    catch (std::exception & e) {
+        std::cout << e.what() << std::endl;
+    }
+    return ins;
+}
+
 Tile & Tile::operator=(const Tile & rhs) {
+    //todo:add set building to tile overloaded equals operator
     set_center(rhs.get_center());
     set_height(rhs.get_height());
     set_width(rhs.get_width());
@@ -261,10 +297,17 @@ Tile & Tile::operator=(const Tile & rhs) {
     return *this;
 }
 
-
 bool Tile::operator==(Tile const & rhs) const {
-    if ((get_center() == rhs.get_center()) && (terrain == rhs.get_terrain()) &&
+    //todo: add building to tile equality
+    if ((get_id() == rhs.get_id()) && (terrain == rhs.get_terrain()) &&
             (resource == rhs.get_resource())) {
+        return true;
+    }
+    return false;
+}
+
+bool Tile::operator!=(Tile const & rhs) const {
+    if (!(*this == rhs)) {
         return true;
     }
     return false;

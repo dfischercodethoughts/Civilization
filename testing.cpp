@@ -193,8 +193,224 @@ bool test_turn_manager_intput_output() {
     return false;
 }
 
+bool test_unit_input_output() {
+    std::string filename = "unit_test.save";
+
+    std::cout << "TESTING UNIT INPUT OUTPUT..." << std::endl << std::endl;
+
+    std::cout << "CREATING UNIT..." << std::endl;
+
+    Unit u1;
+    Unit u2(1,Unit::WARRIOR);
+    Unit u3(64,Civilization_Name::WESTEROS,Unit::SCOUT);
+    Unit u4(-5,{250,250},Civilization_Name::NIGHT_KING,Unit::HORSEMAN);
+    std::vector<Unit> old_units;
+    old_units.emplace_back(u1);
+    old_units.emplace_back(u2);
+    old_units.emplace_back(u3);
+    old_units.emplace_back(u4);
+    for (int i = 0; i < old_units.size();i++) {
+        std::cout << old_units[i];
+    }
+
+    std::cout << std::endl << "DONE. SAVING TO FILE (look for " << filename << ")..."<< std::endl;
+
+    std::ofstream outs;
+    outs.open(filename);
+    for (int i = 0; i < old_units.size();i++) {
+        outs << old_units[i];
+    }
+    outs.close();
+    std::cout << "DONE. LOADING FROM FILE..." << std::endl;
+    Unit nu1, nu2, nu3, nu4;
+    std::vector<Unit> units;
+    std::ifstream ins;
+    ins.open(filename);
+    std::string line = "";
+    std::getline(ins,line);
+    while (line == "UNIT") {
+        Unit * tmp = new Unit();
+        ins >> *tmp;
+        units.emplace_back(*tmp);
+        std::getline(ins,line);
+    }
+
+    ins.close();
+    std::cout << "DONE:"<<std::endl;
+    for (int i = 0; i < units.size(); i++) {
+        std::cout << units[i];
+    }
+    bool flag = false;
+    for (int i = 0; i < units.size(); i++) {
+        if (units[i] != old_units[i]) {
+            flag = true;
+        }
+    }
+
+    if (!flag) {
+        std::cout << "SUCCEED." << std::endl;
+        return true;
+    }
+
+    std::cout <<"FAIL." << std::endl;
+    return false;
+}
+
+bool test_civilization_input_output() {
+    std::string filename = "civilization.save";
+
+    std::cout << "TESTING CIVILIZATION INPUT OUTPUT..." << std::endl << std::endl;
+
+    std::cout << "CREATING CIVILIZATION AND UNITS..." << std::endl;
+
+    Civilization civ1("WESTEROS",false);
+    Unit u1;
+    Unit u2(1,Unit::WARRIOR);
+    Unit u3(64,Civilization_Name::WESTEROS,Unit::SCOUT);
+    Unit u4(-5,{250,250},Civilization_Name::NIGHT_KING,Unit::HORSEMAN);
+    civ1.add_unit(&u1);
+    civ1.add_unit(&u2);
+    civ1.add_unit(&u3);
+    civ1.add_unit(&u4);
+    std::cout <<civ1;
+
+    std::cout << std::endl << "DONE. SAVING TO FILE (look for " << filename << ")..."<< std::endl;
+
+    std::ofstream outs;
+    outs.open(filename);
+    outs << civ1;
+    outs.close();
+    std::cout << "DONE. LOADING FROM FILE..." << std::endl;
+    Civilization civ2;
+
+    std::ifstream ins;
+    ins.open(filename);
+    std::string line;
+    getline(ins,line);//read "CIVILIZATION\n"
+    ins >> civ2;
+    ins.close();
+
+    std::cout << "DONE:"<<std::endl;
+    std::cout << civ2;
+    if (civ2 == civ1) {
+        std::cout << std::endl << "SUCCEED." << std::endl;
+        return true;
+    }
+    std::cout << std::endl << "FAIL." << std::endl;
+    return false;
+}
+
+bool test_tile_input_output() {
+    //todo: add building to tile input/output tests
+    std::string filename = "tile_test.save";
+
+    std::cout << "TESTING TILE INPUT OUTPUT..." << std::endl << std::endl;
+
+    std::cout << "CREATING TILES..." << std::endl;
+
+    Tile t1;
+    Tile t2("GRASSLAND","IRON");
+    Tile t3("HILL","WOODS");
+    Tile t4("MOUNTAIN","GAZELLE");
+    std::vector<Tile> ot;
+    ot.emplace_back(t1);ot.emplace_back(t2);ot.emplace_back(t3);ot.emplace_back(t4);
+    for (int i = 0; i < ot.size();i++) {
+        std::cout << ot[i];
+    }
+
+    std::cout << std::endl << "DONE. SAVING TO FILE (look for " << filename << ")..."<< std::endl;
+
+    std::ofstream outs;
+    outs.open(filename);
+    for (int i = 0; i < ot.size();i++) {
+        outs << ot[i];
+    }
+    outs.close();
+    std::cout << "DONE. LOADING FROM FILE..." << std::endl;
+    Tile nt1, nt2, nt3, nt4;
+    std::vector<Tile> new_tiles;
+    std::ifstream ins;
+    ins.open(filename);
+    std::string line = "";
+    std::getline(ins,line);
+    while (line == "TILE") {
+        Tile * tmp = new Tile();
+        ins >> *tmp;
+        new_tiles.emplace_back(*tmp);
+        std::getline(ins,line);
+    }
+
+    ins.close();
+    std::cout << "DONE:"<<std::endl;
+    for (int i = 0; i < new_tiles.size(); i++) {
+        std::cout << new_tiles[i];
+    }
+    bool flag = false;
+    for (int i = 0; i < new_tiles.size(); i++) {
+        if (ot[i] != new_tiles[i]) {
+            flag = true;
+        }
+    }
+
+    if (!flag) {
+        std::cout << "SUCCEED." << std::endl;
+        return true;
+    }
+
+    std::cout <<"FAIL." << std::endl;
+    return false;
+}
+
+bool test_map_input_output() {
+    std::string filename = "map.save";
+
+    std::cout << "TESTING MAP INPUT OUTPUT..." << std::endl << std::endl;
+
+    std::cout << "CREATING MAP AND TILES..." << std::endl;
+
+    Civilization civ1("WESTEROS",false);
+    Unit u1;
+    Unit u2(1,Unit::WARRIOR);
+    Unit u3(64,Civilization_Name::WESTEROS,Unit::SCOUT);
+    Unit u4(-5,{250,250},Civilization_Name::NIGHT_KING,Unit::HORSEMAN);
+    civ1.add_unit(&u1);
+    civ1.add_unit(&u2);
+    civ1.add_unit(&u3);
+    civ1.add_unit(&u4);
+    std::cout <<civ1;
+
+    std::cout << std::endl << "DONE. SAVING TO FILE (look for " << filename << ")..."<< std::endl;
+
+    std::ofstream outs;
+    outs.open(filename);
+    outs << civ1;
+    outs.close();
+    std::cout << "DONE. LOADING FROM FILE..." << std::endl;
+    Civilization civ2;
+
+    std::ifstream ins;
+    ins.open(filename);
+    std::string line;
+    getline(ins,line);//read "CIVILIZATION\n"
+    ins >> civ2;
+    ins.close();
+
+    std::cout << "DONE:"<<std::endl;
+    std::cout << civ2;
+    if (civ2 == civ1) {
+        std::cout << std::endl << "SUCCEED." << std::endl;
+        return true;
+    }
+    std::cout << std::endl << "FAIL." << std::endl;
+    return false;
+}
+
 int main (int argc, char** argv) {
-    test_turn_manager_intput_output();
+    //test_turn_manager_intput_output();
+    //test_unit_input_output();
+    //test_civilization_input_output();
+    test_tile_input_output();
+   // test_map_input_output();
 
     /*
     Map m = Map(1200,800,8,8);

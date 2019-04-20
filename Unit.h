@@ -8,8 +8,9 @@
 #include "Piece.h"
 #include "Civilization_Name.h"
 #include <memory>
+#include "Validator.h"
+#include <exception>
 
-//todo:implement the rest of the unit classes
 
 class Unit : public Piece {
 public:
@@ -35,7 +36,6 @@ public:
 private:
     int tile_id;
     Civilization_Name::Names owner;
-    //todo: switch all std::shared_ptr<Civilization> to Civilization &
 
     int health, movement,range,damage;
 
@@ -58,7 +58,6 @@ public:
     Unit(int loca,Coordinate c, Civilization_Name::Names owner, Unit_Type tp);
     Unit(Unit const & to_cpy);
     Unit(Unit const * cpy);
-    Unit(std::unique_ptr<Unit> to_cpy);
 
     int get_location_id() const;
 
@@ -111,8 +110,17 @@ public:
      */
      //equality based on tile equality (only one unit per tile)
     bool operator==(Unit const & rhs);
-
+    bool operator!=(Unit const & rhs);
     Unit & operator=(Unit const & rhs);
+
+    /**
+     * @throws input error
+     * @param outs
+     * @param print
+     * @return
+     */
+    friend std::ostream & operator<<(std::ostream & outs, const Unit & print);
+    friend std::istream & operator>>(std::istream & ins, Unit & fill);
 
     ~Unit();
 };

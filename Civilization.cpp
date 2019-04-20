@@ -54,6 +54,16 @@ bool Civilization::is_ai() const {
     return ai;
 }
 
+bool Civilization::add_unit(Unit * un ) {
+    if (un->get_unit_type()!=Unit::NONE && un->get_type() == Piece::UNIT) {
+        Unit newu = Unit(*un);
+        units.emplace_back(newu);
+        return true;
+    }
+    return false;
+
+}
+
 /**
 bool Civilization::add_unit(Unit newu, Tile & place) {
     if (place.get_unit() == nullptr) {
@@ -269,10 +279,86 @@ Civilization & Civilization::operator=(Civilization const &rh) {
 }
 
 bool Civilization::operator==(Civilization const & rh) {
-    if (name == rh.get_name()) {
-        return true;
+
+    if (name != rh.get_name()) {
+        return false;
     }
-    return false;
+    for (int  i =0; i < units.size() && i < rh.get_units_const().size(); i++) {
+        if (units[i] != *rh.get_units_const()[i]) {
+            return false;
+        }
+    }
+    if (ai != rh.is_ai()) {
+        return false;
+    }
+    if (gold != rh.get_gold()) {
+        return false;
+    }
+    if (production != rh.get_production()) {
+        return false;
+    }
+    if (food != rh.get_food()) {
+        return false;
+    }
+
+
+    return true;
+}
+
+std::ostream & operator<<(std::ostream & outs, const Civilization & print) {
+    std::string line = "CIVILIZATION\n" + Civilization_Name::civ_name_to_string(print.name) + "\n" +
+            std::to_string(print.gold) + ',' + std::to_string(print.production) + ',' +std::to_string(print.food) + "\n" +
+            std::to_string(print.ai) + "\n";
+    outs << line;
+    for (int i =0 ; i < print.units.size();i++) {
+        outs << print.units[i];
+    }
+    return outs;
+}
+
+std::istream & operator>>(std::istream & ins, Civilization & fill) {
+    try {
+        //NOTE: ASSUME "CIVILIZATION\n" is already read (by game)
+        //read in "name\n"
+        std::string line = "";
+
+        std::getline(ins, line);
+        fill.name = Civilization_Name::string_to_civ_name(line);
+
+        //read in "gold,prod,food\n"
+        getline(ins, line);
+        std::string tok = line.substr(0, line.find(','));
+        line.erase(0, line.find(',') + 1);
+        fill.gold = std::stoi(tok);
+        tok = line.substr(0, line.find(','));
+        line.erase(0, line.find(',') + 1);
+        fill.production = std::stoi(tok);
+        fill.food = std::stoi(line);
+
+        //read in "is_ai\n"
+        getline(ins,line);
+        if (line == "1") {
+            fill.ai = true;
+        }
+        else {
+            fill.ai = false;
+        }
+
+
+        //read units while there is a unit in the next line
+        getline(ins,line);
+        while (line == "UNIT") {
+            Unit nu;
+            ins >> nu;
+            fill.add_unit(&nu);
+            getline(ins,line);
+        }
+
+    }
+    catch (std::exception & e) {
+        std::cout << e.what() << std::endl;
+    }
+
 }
 
 Civilization::~Civilization() {

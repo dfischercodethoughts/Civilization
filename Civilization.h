@@ -7,6 +7,7 @@
 #include "Tile.h"
 #include <vector>
 #include "Map.h"
+#include <iostream>
 
 /**
  * Note the enum Civilization_Name in Unit.h
@@ -54,6 +55,7 @@ public:
      * @return success or failure
      */
     //bool add_unit(Unit un,Tile& place);
+    bool add_unit(Unit * un );
     bool add_unit(Unit&un,Tile& place);
     bool add_unit(Unit*un,Tile& place);
     bool add_unit(Unit::Unit_Type type,Tile& place);
@@ -90,6 +92,9 @@ public:
     Civilization & operator=(Civilization const &);
     //equals operator checks name only
     bool operator==(Civilization const &);
+
+    friend std::ostream & operator<<(std::ostream & outs, const Civilization & print);
+    friend std::istream & operator>>(std::istream & ins, Civilization & fill);
 
     ~Civilization();
 

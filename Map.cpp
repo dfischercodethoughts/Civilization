@@ -86,7 +86,6 @@ const Tile * Map::get_const_tile_from_vector_coordinates(Coordinate coord) const
     return nullptr;
 }
 
-
 Tile * Map::get_tile_from_click(Coordinate click) {
     if (click.x < this->get_width() && click.y < this->get_height()) {
         for (int i = 0; i < tiles.size();i++) {
