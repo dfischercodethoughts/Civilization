@@ -232,24 +232,10 @@ void Tile::draw() const {
     //     R: resource
     //     U: unit_type
     if (is_visible()) {
-        Square(get_center(),Colors::WHITE,Colors::BLACK,get_height(),get_width(),"",true).draw();
-        std::string line = "T: ";
-        glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-        glRasterPos2i(this->get_center().x-(3*this->get_width()/8),this->get_center().y-this->get_height()/3);
-        line += Tile_Terrain::terrain_to_string(this->get_terrain());
-        for (char c: line) {
-            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
-        }
-
-        glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-        glRasterPos2i(this->get_center().x-(3*this->get_width()/8),this->get_center().y);
-        line ="R: " + Tile_Resource::resource_to_string(this->get_resource());
-        for (char c: line) {
-            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
-        }
-
+        std::string line;
         if (this->has_unit()) {
-            glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
+            Square(get_center(), Colors::YELLOW, Colors::BLACK, get_height(), get_width(), "", true).draw();
+            glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
             glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8),
                           this->get_center().y + this->get_height() / 3);
 
@@ -258,8 +244,29 @@ void Tile::draw() const {
             for (char c: line) {
                 glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
             }
+        } else {
+            Square(get_center(), Colors::WHITE, Colors::BLACK, get_height(), get_width(), "", true).draw();
+        }
+
+
+
+        line = "T: ";
+        glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
+        glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8),
+                      this->get_center().y - this->get_height() / 3);
+        line += Tile_Terrain::terrain_to_string(this->get_terrain());
+        for (char c: line) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+        }
+
+        glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
+        glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8), this->get_center().y);
+        line = "R: " + Tile_Resource::resource_to_string(this->get_resource());
+        for (char c: line) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
         }
     }
+
     //if not visible print black square
     else {
         Square(get_center(),Colors::BLACK,Colors::WHITE,get_height(),get_width(),"",true).draw();

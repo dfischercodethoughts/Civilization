@@ -107,16 +107,18 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
                 if (game_view_port.check_click(click)) {
                     process_build(click);
                 }
-                //else if (build_view_port.check_click(click)) {
-                    /*
-                     * in pseudo code: we are going to have a build menu that will have a function that
-                     *                  returns the piece type of the click, which we assign to a piece_type
-                     *                  variable
-                     *                 then we switch on the piece type and call the appropriate change_city_production
-                     *                  method in main_screen.
-                     */
-                    //change_active_city_build(Building::names );
-                //}
+
+                //TODO:: implement check click options for the build squares
+//                else if (build_view_port.check_click(click)) {
+//                    /*
+//                     * in pseudo code: we are going to have a build menu that will have a function that
+//                     *                  returns the piece type of the click, which we assign to a piece_type
+//                     *                  variable
+//                     *                 then we switch on the piece type and call the appropriate change_city_production
+//                     *                  method in main_screen.
+//                     */
+//                    //change_active_city_build(Building::names );
+//                }
                 break;
             }
         }

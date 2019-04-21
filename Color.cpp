@@ -12,6 +12,7 @@ const Color Colors::BLUE = Color (0,0,255);
 const Color Colors::PURPLE = Color(155,80,175);
 const Color Colors::BEIGE = Color(175,155,80);
 const Color Colors::TEAL = Color (80,175,155);
+const Color Colors::YELLOW = Color(255,255,0);
 
 Color::Color() {
     r= 0;

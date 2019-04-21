@@ -44,6 +44,7 @@ struct Colors {
     static const Color PURPLE;
     static const Color BEIGE;
     static const Color TEAL;
+    static const Color YELLOW;
 };
 
 bool operator==(Color const & lhs, Color const & rhs);

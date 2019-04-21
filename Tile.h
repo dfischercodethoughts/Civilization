@@ -10,6 +10,7 @@
 #include "Piece.h"
 #include <memory>
 #include "Unit.h"
+#include "Building.h"
 #include "Tile_Output.h"
 #include "Building.h"
 
