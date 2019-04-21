@@ -49,6 +49,8 @@ public:
 
     menu_options check_click(Coordinate click) override;
 
+    std::string check_winner();
+
     void process_move(Coordinate click);
     void process_build(Coordinate click);//todo: add process_build logic
 
@@ -60,6 +62,7 @@ public:
     void select_tile(Tile * tile);//todo: add active city pointer
 
     Game * get_game();
+    void new_game();
 
     ~Main_Screen();
 };

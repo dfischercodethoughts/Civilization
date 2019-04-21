@@ -15,6 +15,13 @@
 #endif
 
 class Square {
+public:
+    enum Text_Size {
+        SMALL,
+        MEDIUM,
+        LARGE
+    };
+
 private:
     Coordinate center;
     int height, width;
@@ -23,9 +30,12 @@ private:
     Color text_color;
     std::string msg;
     bool visible;
+    Text_Size text_size;
 
 
 public:
+
+
     static const int TILE_HEIGHT = 100;
     static const int TILE_WIDTH = 150;
 
@@ -36,6 +46,9 @@ public:
     Square();
     Square(Coordinate cnt, Color fill, int h, int w, bool vis);
     Square(Coordinate cnt, Color fill, Color text, int h, int w, std::string msg, bool vis);
+
+    Text_Size get_text_size() const;
+    void set_text_size(Text_Size size);
 
     Coordinate get_center() const;
     int get_height() const;
@@ -67,8 +80,23 @@ public:
     //operators
     Square & operator=(const Square & cp);
 
-    std::istream & operator>>(const Square & fill);
-    std::ostream & operator<<(const Square & print);
+    bool operator==(const Square & rhs);
+    bool operator!=(const Square & rhs);
+
+    /**
+     * burns leading SQUARE\n then fills in info by scheme of output operator
+     * @param ins
+     * @param fill
+     * @return
+     */
+    friend std::istream & operator>>(std::istream & ins, Square & fill);
+    /**
+     * outputs "SQUARE\nCENTER\nheight,width,xoff,yoff\nfill\ntextcolor\nmsg\nvisible\n
+     * @param outs
+     * @param print
+     * @return
+     */
+    friend std::ostream & operator<<(std::ostream & outs, const Square & print);
 };
 
 

@@ -125,11 +125,21 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
 
 }
 
+std::string Main_Screen::check_winner() {
+    if (game.get_player().lost()) {
+        return game.get_ai().get_name_str();
+    }
+    if (game.get_ai().lost()) {
+        return game.get_player().get_name_str();
+    }
+    return "NONE";
+}
+
 void Main_Screen::process_move(Coordinate click) {
 
     Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
 
-    if (tile_clicked->is_visible()) {
+    if (tile_clicked!= nullptr && tile_clicked->is_visible()) {
 
         if (game.has_active_unit()) {
             Unit *unit = &*game.get_active_unit();
@@ -180,9 +190,10 @@ void Main_Screen::process_move(Coordinate click) {
             select_tile(tile_clicked);
         }
     }//do nothing if tile selected is not visible
+    else {
+        clear_active();
+    }
 }
-
-
 
 void Main_Screen::process_build(Coordinate click) {
     //TODO:: get game view port to show up on board clicks as well
@@ -216,6 +227,10 @@ void Main_Screen::select_tile(Tile * tile) {
 
 Game* Main_Screen::get_game() {
     return &game;
+}
+
+void Main_Screen::new_game() {
+    game.load("new_civs.save","new_map.save","new_tm.save");
 }
 
 Main_Screen::~Main_Screen() {

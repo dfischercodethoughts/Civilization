@@ -31,6 +31,13 @@ bool Coordinate::operator==(Coordinate const &rhs) {
     return false;
 }
 
+bool Coordinate::operator!=(const Coordinate & rhs) {
+    if (!(*this==rhs)) {
+        return true;
+    }
+    return false;
+}
+
 std::ostream & operator<<(std::ostream &outs, const Coordinate &print) {
     std::string line = "COORDINATE:" + std::to_string(print.x) + ',' + std::to_string(print.y);
     outs << line << std::endl;

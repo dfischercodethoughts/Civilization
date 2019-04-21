@@ -12,6 +12,7 @@
 #include "Unit.h"
 #include "Building.h"
 #include "Tile_Output.h"
+#include "Building.h"
 
 
 class Tile : public Piece {
@@ -52,6 +53,9 @@ public:
     static void increment_num_tiles();
     static void init_id();//called in map class
 
+    Square get_base_square() const;
+    void set_base_square(Square set);
+
     Tile_Terrain::names get_terrain() const;
     Tile_Resource::names get_resource() const;
 
@@ -59,10 +63,13 @@ public:
 
     void clear_unit();
     bool has_unit() const;
+    //returns pointer to original unit, hopefully (units are owned by civilizations)
     Unit * get_const_unit() const;
     Unit * get_unit();
     void set_unit(Unit & newu);
     void set_unit(Unit * newu);
+
+    void set_background_square(Square set);
 
     void draw() const override;
 
@@ -71,6 +78,24 @@ public:
     /**
      * overloaded operators
      */
+
+    /**
+     * prints tiles: "TILE\nBASE_SQUARE\nTERRAIN\nRESOURCE\nBUILDING\nID\n"
+     * note does NOT ouput unit ( nor square )
+     * @throws input error
+     * @param outs
+     * @param print
+     * @return
+     */
+    friend std::ostream & operator<<(std::ostream & outs, const Tile & print);
+    /**
+     * input assumes "TILE\n" already read
+        input does NOT input base square information (map class should do so
+        input does set fill piece_type
+        note does NOT input unit
+    */
+    friend std::istream & operator>>(std::istream & ins, Tile & fill);
+
      Tile & operator=(const Tile & rhs);
 
     /**
@@ -79,6 +104,7 @@ public:
      * @return
      */
     bool operator==(Tile const & rhs) const;
+    bool operator!=(Tile const & rhs) const;
     /**
      * order by id of tiles
      * used to get rid of duplicates in get tiles within range in map

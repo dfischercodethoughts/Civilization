@@ -15,7 +15,7 @@ Square::Square() :center(Coordinate(0,0)) {
 }
 
 Square::Square(Coordinate cnt, Color fll, int h, int w, bool vis):
-center(cnt)
+center(cnt), text_size(Text_Size::MEDIUM)
 {
     fill = fll;
     text_color = Color(0,0,0);
@@ -28,7 +28,7 @@ center(cnt)
 }
 
 Square::Square(Coordinate cnt, Color fll, Color text, int h, int w, std::string mesg, bool vis):
-center(cnt)
+center(cnt),text_size(Text_Size::MEDIUM)
 {
     fill = fll;
     text_color = text;
@@ -38,6 +38,14 @@ center(cnt)
     visible = vis;
     xoff =  -msg.size()*4;
     yoff = 0;
+}
+
+Square::Text_Size Square::get_text_size() const{
+    return text_size;
+}
+
+void Square::set_text_size(Text_Size size) {
+    text_size = size;
 }
 
 Coordinate Square::get_center() const {
@@ -137,7 +145,7 @@ bool Square::check_click(Coordinate click) {
 
 void Square::draw() const {
     if (visible) {
-        glColor3f(fill.get_red(), fill.get_green(), fill.get_blue());
+        glColor3d(fill.get_red()/255.0, fill.get_green()/255.0, fill.get_blue()/255.0);
         glBegin(GL_QUADS);
         //top left
         glVertex2i(center.x - width / 2, center.y - height / 2);
@@ -148,10 +156,23 @@ void Square::draw() const {
         glEnd();
 
         //draw message
-        glColor3f(text_color.get_red(), text_color.get_green(), text_color.get_blue());
-        glRasterPos2i(center.x +xoff, center.y + yoff+5);
+        glColor3d(text_color.get_red()/255.0, text_color.get_green()/255.0, text_color.get_blue()/255.0);
+        glRasterPos2i(center.x +xoff, center.y + yoff+10);
         for (char c : msg) {
-            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+            switch (text_size) {
+                case(SMALL) : {
+                    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+                    break;
+                }
+                case (MEDIUM) : {
+                    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+                    break;
+                }
+                case (LARGE) : {
+                    glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, c);
+                    break;
+                }
+            }
         }
     }
 }
@@ -178,4 +199,89 @@ Square & Square::operator=(const Square & cp) {
     text_color = cp.get_text_color();
     msg = cp.get_message();
     visible = cp.visible;
+}
+
+bool Square::operator==(const Square & rhs) {
+    if (center != rhs.center) {
+        return false;
+    }
+    if (width != rhs.get_width()) {
+         return false;
+    }
+    if (height != rhs.get_height()) {
+        return false;
+    }
+    if (xoff != rhs.get_x_offset()) {
+        return false;
+    }
+    if (yoff != rhs.get_y_offset()) {
+        return false;
+    }
+    if (fill != rhs.get_fill()) {
+        return false;
+    }
+    if (text_color != rhs.get_text_color()) {
+        return false;
+    }
+    if (msg != rhs.get_message()) {
+        return false;
+    }
+    if (visible != rhs.is_visible()) {
+        return false;
+    }
+    return true;
+}
+
+bool Square::operator!=(const Square & rhs) {
+    if (!(*this == rhs)) {
+        return true;
+    }
+    return false;
+}
+
+std::istream & operator>>(std::istream & ins, Square & fill) {
+    try {
+        std::string line = "";
+        std::getline(ins,line);//burn "SQUARE"
+        ins >> fill.center;
+
+        std::getline(ins,line);
+        std::string tok = line.substr(0,line.find(','));
+        line.erase(0,line.find(',')+1);
+        fill.height = std::stoi(tok);
+
+        tok = line.substr(0,line.find(','));
+        line.erase(0,line.find(',')+1);
+        fill.width = std::stoi(tok);
+
+        tok = line.substr(0,line.find(','));
+        line.erase(0,line.find(',')+1);
+        fill.xoff = std::stoi(tok);
+        fill.yoff = std::stoi(line);
+
+        ins >> fill.fill >> fill.text_color;
+
+        std::getline(ins,line);
+        fill.msg = line;
+        std::getline(ins,line);
+        if (line == "1"){
+            fill.visible = true;
+        }
+        else {
+            fill.visible = false;
+        }
+
+    }
+    catch (std::exception & e) {
+        std::cout << e.what() << std::endl;
+    }
+    return ins;
+}
+
+std::ostream & operator<<(std::ostream & outs, const Square & fill) {
+    std::string line = "SQUARE\n";
+    outs << line << fill.center;
+    line = std::to_string(fill.height) + ',' + std::to_string(fill.width) + ',' + std::to_string(fill.xoff) + ',' + std::to_string(fill.yoff) + "\n";
+    outs << line << fill.fill << fill.text_color << fill.msg << std::endl << std::to_string(fill.visible) << std::endl;
+    return outs;
 }

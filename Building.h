@@ -7,7 +7,7 @@
 
 
 #include "Piece.h"
-#include "Tile.h"
+
 #include "Building_Name.h"
 
 class Building {

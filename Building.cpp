@@ -5,8 +5,8 @@
 #include "Building.h"
 
 Building::Building() {
-    name = Building_Name::FARM;
-}
+    name = Building_Name::NONE;
+
 
 Building::Building(Building_Name::names nm) {
     name = nm;

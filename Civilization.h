@@ -7,6 +7,7 @@
 #include "Tile.h"
 #include <vector>
 #include "Map.h"
+#include <iostream>
 
 /**
  * Note the enum Civilization_Name in Unit.h
@@ -47,6 +48,9 @@ public:
     int get_food() const;
 
     bool is_ai() const;
+
+    void clear();
+
     /**
      * adds a unit to the civ's unit list. Initializes units list if size is zero
      * @param type of unit to produce
@@ -54,6 +58,7 @@ public:
      * @return success or failure
      */
     //bool add_unit(Unit un,Tile& place);
+    bool add_unit(Unit * un );
     bool add_unit(Unit&un,Tile& place);
     bool add_unit(Unit*un,Tile& place);
     bool add_unit(Unit::Unit_Type type,Tile& place);
@@ -69,6 +74,8 @@ public:
     /**
      * additional methods
      */
+
+    bool lost();
 
     bool move_unit(Map& map,Unit& to_move, Tile& move_to);
     bool move_unit(Map * map, Unit * to_move, Tile * move_to);
@@ -88,6 +95,9 @@ public:
     Civilization & operator=(Civilization const &);
     //equals operator checks name only
     bool operator==(Civilization const &);
+
+    friend std::ostream & operator<<(std::ostream & outs, const Civilization & print);
+    friend std::istream & operator>>(std::istream & ins, Civilization & fill);
 
     ~Civilization();
 

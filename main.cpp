@@ -56,7 +56,13 @@ void kbd(unsigned char key, int x, int y)
 
     // escape
     if (key == 27) {
-        dm->set_screen(Screen::PAUSE_SCREEN);
+
+        if (dm->get_current_screen()->get_type() == Screen::PAUSE_SCREEN) {
+            dm->set_screen(Screen::MAIN_GAME);
+        }
+        else if (dm->get_current_screen()->get_type() == Screen::MAIN_GAME) {
+            dm->set_screen(Screen::PAUSE_SCREEN);
+        }
     }
     //C or c
     else if ((key == 67 || key == 99) && dm->get_current_screen()->get_type() == Screen::MAIN_GAME) {
@@ -124,7 +130,7 @@ int main(int argc, char** argv) {
 
     glutInit(&argc, argv);          // Initialize GLUT
 
-    glutInitDisplayMode(GLUT_RGBA);
+    glutInitDisplayMode(GLUT_RGB);
 
     glutInitWindowSize((int)width, (int)height);
     glutInitWindowPosition(0, 0); // Position the window relative to top-left corner

@@ -54,8 +54,28 @@ Map::Map()
     tiles = std::vector<std::vector<Tile>>();
 }
 
+int Map::get_x() const {
+    return tiles.size();
+}
+
+int Map::get_y() const {
+    if (!tiles.empty()) {
+        return tiles[0].size();
+    }
+    return 0;
+}
+
+void Map::clear() {
+    tiles.clear();
+}
+
+
 std::vector<std::vector<Tile>> * Map::get_tiles() {
     return &tiles;
+}
+
+std::vector<std::vector<Tile>> Map::get_tiles_const() const {
+    return tiles;
 }
 
 Coordinate Map::get_vector_coordinates_from_click(Coordinate click) {
@@ -86,7 +106,6 @@ const Tile * Map::get_const_tile_from_vector_coordinates(Coordinate coord) const
     return nullptr;
 }
 
-
 Tile * Map::get_tile_from_click(Coordinate click) {
     if (click.x < this->get_width() && click.y < this->get_height()) {
         for (int i = 0; i < tiles.size();i++) {
@@ -111,6 +130,23 @@ Tile * Map::get_tile_from_id(int id) {
         }
     }
 
+}
+
+void Map::set_background_square(Square set) {
+    this->set_center(set.get_center());
+    this -> set_x_offset(set.get_x_offset());
+    this->set_y_offset(set.get_y_offset());
+    this->set_text_color(set.get_text_color());
+    this->set_message(set.get_message());
+    this->set_fill(set.get_fill());
+    if (set.is_visible()) {
+        this->reveal();
+    }
+    else {
+        this->hide();
+    }
+    this->set_height(set.get_height());
+    this->set_width(set.get_width());
 }
 
 void Map::remove_duplicates(std::vector<Tile *> & list) {
@@ -251,7 +287,7 @@ bool Map::is_adjacent(Tile & first, Tile & second){
     return false;
 }
 
-void Map::reveal(std::vector<Unit *> units) {
+void Map::reveal_units(std::vector<Unit *> units) {
     hide_map();
     for (Unit * u : units) {
         reveal_unit(u);
@@ -295,6 +331,84 @@ Map & Map::operator=(const Map & cp ) {
 
 }
 
+std::ostream & operator<<(std::ostream & outs, const Map & print) {
+    try {
+        std::string line = "MAP\n";
+        outs << line;
+        Square tmp(print.get_center(),print.get_fill(),print.get_text_color(),print.get_height(),print.get_width(),print.get_message(),print.is_visible());
+        tmp.set_x_offset(print.get_x_offset());
+        tmp.set_y_offset(print.get_y_offset());
+        outs << tmp;
+        line =std::to_string(print.tiles[0].size()) + ',' + std::to_string(print.tiles.size()) + "\n";
+        outs << line;
+        for (std::vector<Tile> col : print.tiles) {
+            for (Tile t : col) {
+                outs << t;
+            }
+        }
+        outs<<"END"<<std::endl;//add end marker because input operator burns line at end of while loop
+    }
+    catch (std::exception & e) {
+        std::cout << e.what() << std::endl;
+    }
+    return outs;
+}
+
+std::istream & operator>>(std::istream & ins, Map & fill) {
+    try {
+        std::string line = "";
+        std::getline(ins, line);//burn "MAP\n"
+        //read SQUARE infom
+        Square tmp;
+        ins >> tmp;
+        fill.set_background_square(tmp);//fill in background square info
+
+        std::getline(ins,line);
+        std::string tok = line.substr(0, line.find(','));
+        line.erase(0, line.find(',') + 1);
+        //start making tiles
+        int x = std::stoi(line);
+        int y = std::stoi(tok);
+
+        int county = 0; int countx = 0;
+        std::getline(ins,line);
+        while (line == "TILE") {
+            if (county % y == 0) {
+                fill.tiles.emplace_back(std::vector<Tile>());
+                countx++;
+                county = 0;
+            }
+            if (countx == x+1) {
+                break;
+            }
+            Tile tmp_tile;
+            ins >> tmp_tile;
+            fill.tiles[countx-1].emplace_back(tmp_tile);
+            county++;
+            std::getline(ins,line);
+        }
+
+    }
+    catch (std::exception & e) {
+        std::cout << e.what() << std::endl;
+    }
+    return ins;
+}
+
 Map::~Map() {
     tiles.clear();
+}
+
+bool operator==(const Map & lhs, const Map & rhs) {
+    if (lhs.get_x() != rhs.get_x() || lhs.get_y() != rhs.get_y()) {
+        return false;
+    }
+    for (int i = 0; i < lhs.get_x();i++) {
+        for (int j = 0; j < lhs.get_y();j++) {
+            if (lhs.get_tiles_const()[i][j] != rhs.get_tiles_const()[i][j]) {
+                return false;
+            }
+        }
+    }
+    return true;
 }

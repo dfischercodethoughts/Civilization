@@ -7,7 +7,7 @@
 End_Screen::End_Screen() {
     return_to_start = Square();
     exit = Square();
-    message = "DEFAULT";
+
 }
 
 End_Screen::End_Screen(bool won) {
@@ -26,17 +26,25 @@ void End_Screen::init(bool won, int h, int w) {
     this->set_center(Coordinate(w/2,h/2));
     this->set_screen_height(h);
     this->set_screen_width(w);
-    return_to_start = Square(Coordinate(w/2,h/2+100),{255,255,255},{200,100,200},300,200,"Return To Start",true);
-    exit = Square(Coordinate(w/2,h/2+200),{255,255,255},{200,100,200},300,400,"Exit Game",true);
+    return_to_start = Square(Coordinate(w/2,h/2),Colors::PURPLE,Colors::WHITE,h/8,w/4,"Return To Start",true);
+    exit = Square(Coordinate(w/2,5*h/8),Colors::PURPLE,Colors::WHITE,h/8,w/4,"Exit Game",true);
+    message_port = Square(Coordinate(w/2,h/4),Colors::PURPLE,Colors::BLACK,3*h/16,w/3,"",true);
+    return_to_start.set_text_size(Square::MEDIUM);
+    exit.set_text_size(Square::MEDIUM);
+    exit.set_x_offset(-exit.get_message().size()*4);
+    return_to_start.set_x_offset(-return_to_start.get_message().size()*4);
     if (won) {
-        message = "YOU WIN! CONGRATULATIONS!";
+        message_port.set_message("YOU WIN! CONGRATULATIONS!");
     }
     else {
-        message = "YOU LOST. TRY AGAIN?";
+        message_port.set_message("YOU LOST. TRY AGAIN?");
     }
+    message_port.set_text_size(Square::LARGE);
+    message_port.set_x_offset(-150);
 }
 
 void End_Screen::draw() {
+    /*
     //end screen has green background
     glColor3f(50,200,30);
     glBegin(GL_QUADS);
@@ -45,16 +53,11 @@ void End_Screen::draw() {
     glVertex2i(this->get_screen_width(),get_screen_height());
     glVertex2i(0,get_screen_height());
     glEnd();
-
+*/
+    Square(get_center(),Colors::BEIGE,Colors::WHITE,get_screen_height(),get_screen_width(),"",true).draw();
     return_to_start.draw();
     exit.draw();
-
-    //and white text
-    glColor3f(255,255,50);
-    glRasterPos2i(get_center().x,get_center().y-100);
-    for (char c : message) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
-    }
+    message_port.draw();
 }
 
 Screen::names End_Screen::get_type() const {
@@ -74,15 +77,15 @@ Screen::menu_options End_Screen::check_click(Coordinate click) {
 }
 
 void End_Screen::win() {
-    message = "CONGRATULATIONS; YOU WIN!";
+    message_port.set_message("YOU WIN! CONGRATULATIONS!");
 }
 
 void End_Screen::lose() {
-    message = "YOU LOST. TRY AGAIN?";
+    message_port.set_message("YOU LOST. TRY AGAIN?");
 }
 
 End_Screen::~End_Screen() {
     return_to_start = Square();
     exit = Square();
-    message = "";
+    message_port.set_message("");
 }
