@@ -138,7 +138,7 @@ void Main_Screen::process_move(Coordinate click) {
 
     Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
 
-    if (tile_clicked->is_visible()) {
+    if (tile_clicked!= nullptr && tile_clicked->is_visible()) {
 
         if (game.has_active_unit()) {
             Unit *unit = &*game.get_active_unit();

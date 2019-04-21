@@ -145,7 +145,7 @@ bool Square::check_click(Coordinate click) {
 
 void Square::draw() const {
     if (visible) {
-        glColor3f(fill.get_red(), fill.get_green(), fill.get_blue());
+        glColor3d(fill.get_red()/255.0, fill.get_green()/255.0, fill.get_blue()/255.0);
         glBegin(GL_QUADS);
         //top left
         glVertex2i(center.x - width / 2, center.y - height / 2);
@@ -156,16 +156,16 @@ void Square::draw() const {
         glEnd();
 
         //draw message
-        glColor3f(text_color.get_red(), text_color.get_green(), text_color.get_blue());
-        glRasterPos2i(center.x +xoff, center.y + yoff+5);
+        glColor3d(text_color.get_red()/255.0, text_color.get_green()/255.0, text_color.get_blue()/255.0);
+        glRasterPos2i(center.x +xoff, center.y + yoff+10);
         for (char c : msg) {
             switch (text_size) {
                 case(SMALL) : {
-                    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, c);
+                    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
                     break;
                 }
                 case (MEDIUM) : {
-                    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+                    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
                     break;
                 }
                 case (LARGE) : {

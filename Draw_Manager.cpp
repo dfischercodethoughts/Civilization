@@ -66,11 +66,11 @@ int Draw_Manager::process_click(Coordinate click) {
                     main.new_game();
                     set_screen(Screen::MAIN_GAME);
                     return 0;
-                    break;
+
                 }
                 case (Screen::EXIT_GAME) : {
                     return -1;
-                    break;
+
                 }
                 case (Screen::LOAD_GAME) : {
                     //filenames are hardcoded into game class
@@ -112,7 +112,6 @@ int Draw_Manager::process_click(Coordinate click) {
                     return -1;
                     break;
                 }
-                //todo: remove save and load from end screen
 
             }
             break;

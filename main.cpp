@@ -130,7 +130,7 @@ int main(int argc, char** argv) {
 
     glutInit(&argc, argv);          // Initialize GLUT
 
-    glutInitDisplayMode(GLUT_RGBA);
+    glutInitDisplayMode(GLUT_RGB);
 
     glutInitWindowSize((int)width, (int)height);
     glutInitWindowPosition(0, 0); // Position the window relative to top-left corner

@@ -41,6 +41,9 @@ private:
     void load_civilizations(std::string filename);
     void load_turn_manager(std::string filename);
 
+    //updates map with latest unit info
+    void update_map();
+
     /**
      * for use before load, clears all info from current game
      */

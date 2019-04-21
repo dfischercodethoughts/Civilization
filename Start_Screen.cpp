@@ -22,11 +22,18 @@ void Start_Screen::init(int h, int w) {
     set_screen_height(h);
     set_screen_width(w);
     set_center(Coordinate(w/2,h/2));
-    new_game = Square(Coordinate(width/2,3*height/8),Colors::BLUE,Colors::BLACK,h/8,w/4,"New Game",true);
-    exit_game = Square(Coordinate(width/2,5*height/8),Colors::BLUE,Colors::BLACK,h/8,w/4,"Exit Game",true);
-    load_game = Square(Coordinate(width/2,4*height/8),Colors::BLUE,Colors::BLACK,h/8,w/4,"Load Game",true);
-    title_port = Square(Coordinate(width/2,height/8),Colors::GREEN,Colors::BLACK,height/10,width/5,"CIVILIZATION",true);
+    new_game = Square(Coordinate(width/2,3*height/8),Colors::BLUE,Colors::BLACK,h/8,w/4,"NEW GAME",true);
+    exit_game = Square(Coordinate(width/2,5*height/8),Colors::BLUE,Colors::BLACK,h/8,w/4,"EXIT GAME",true);
+    load_game = Square(Coordinate(width/2,4*height/8),Colors::BLUE,Colors::BLACK,h/8,w/4,"LOAD GAME",true);
+    title_port = Square(Coordinate(width/2,height/8),Colors::PURPLE,Colors::WHITE,height/10,width/5,"CIVILIZATION",true);
+    new_game.set_text_size(Square::MEDIUM);
+    new_game.set_x_offset(-new_game.get_message().size()*5);
+    exit_game.set_text_size(Square::MEDIUM);
+    exit_game.set_x_offset(-exit_game.get_message().size()*5);
+    load_game.set_text_size(Square::MEDIUM);
+    load_game.set_x_offset(-load_game.get_message().size()*5);
     title_port.set_text_size(Square::Text_Size::LARGE);
+    title_port.set_x_offset(-77);
 }
 
 void Start_Screen::draw() {

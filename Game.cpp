@@ -150,6 +150,18 @@ void Game::load_turn_manager(std::string filename) {
     }
 }
 
+void Game::update_map() {
+    //todo: add loop to iterate through civilizations
+    for (int i = 0;i<player.get_units().size();i++) {
+        Tile * tile = map.get_tile_from_id(player.get_units()[i]->get_location_id());
+        tile->set_unit(player.get_units()[i]);
+    }
+    for (int i = 0;i<ai.get_units().size();i++) {
+        Tile * tile = map.get_tile_from_id(ai.get_units()[i]->get_location_id());
+        tile->set_unit(ai.get_units()[i]);
+    }
+}
+
 void Game::clear() {
     player.clear();
     ai.clear();
@@ -340,6 +352,9 @@ void Game::next_turn() {
     ai.refresh();
     //play_ai();
     player.refresh();
+    update_map();
+    clear_active_tile();
+    clear_active_unit();
     map.reveal_units(player.get_units());
     manager.set_current_phase(Turn_Phase::MOVE);
 }
