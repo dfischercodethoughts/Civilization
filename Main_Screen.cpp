@@ -107,7 +107,6 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
                 if (game_view_port.check_click(click)) {
                     process_build(click);
                 }
-
                 //TODO:: implement check click options for the build squares
 //                else if (build_view_port.check_click(click)) {
 //                    /*

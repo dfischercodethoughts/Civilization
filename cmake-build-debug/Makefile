@@ -204,6 +204,7 @@ Building.cpp.s:
 	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Building.cpp.s
 .PHONY : Building.cpp.s
 
+
 Civilization.o: Civilization.cpp.o
 
 .PHONY : Civilization.o
@@ -816,6 +817,9 @@ help:
 	@echo "... Building.o"
 	@echo "... Building.i"
 	@echo "... Building.s"
+	@echo "... Building_Name.o"
+	@echo "... Building_Name.i"
+	@echo "... Building_Name.s"
 	@echo "... Civilization.o"
 	@echo "... Civilization.i"
 	@echo "... Civilization.s"
