@@ -37,6 +37,14 @@ private:
     void load_map();
     void load_civilizations();
     void load_turn_manager();
+    void load_map(std::string filename);
+    void load_civilizations(std::string filename);
+    void load_turn_manager(std::string filename);
+
+    /**
+     * for use before load, clears all info from current game
+     */
+    void clear();
 
 public:
     const static int MAP_X_OFF = 25;
@@ -95,6 +103,7 @@ public:
 
     void save();
     void load();
+    void load(std::string civs_filename, std::string map_filename, std::string tm_filename);
 
     Game & operator=(const Game & cp);
     bool operator==(const Game & rhs);

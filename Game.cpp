@@ -110,6 +110,55 @@ void Game::load_turn_manager() {
     }
 }
 
+void Game::load_map(std::string filename) {
+    try {
+        std::ifstream ins;
+        ins.open(filename);
+        ins >> map;
+        ins.close();
+    }
+    catch (std::exception & e) {
+        std::cout << e.what() << std::endl;
+    }
+
+}
+
+void Game::load_civilizations(std::string filename) {
+    try {
+        std::ifstream ins;
+
+        ins.open(filename);
+        ins >> player;
+        ins >> ai;
+        ins.close();
+    }
+    catch (std::exception & e) {
+        std::cout << e.what() << std::endl;
+    }
+
+}
+
+void Game::load_turn_manager(std::string filename) {
+    try {
+        std::ifstream ins;
+        ins.open(filename);
+        ins >> manager;
+        ins.close();
+    }
+    catch (std::exception & e){
+        std::cout << e.what() << std::endl;
+    }
+}
+
+void Game::clear() {
+    player.clear();
+    ai.clear();
+    manager = Turn_Manager();
+    active_unit = nullptr;
+    active_tile = nullptr;
+    map.clear();
+}
+
 Game::Game() {
     player = Civilization();
     ai = Civilization();
@@ -225,16 +274,20 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
 
             ai.get_unit(Civilization_Name::NIGHT_KING,to_move_to.get_id())->cause_damage(active_unit->get_unit_type());
             to_move_to.set_unit(ai.get_unit(Civilization_Name::NIGHT_KING,to_move_to.get_id()));
-            active_unit->cause_damage(to_move_to.get_unit()->get_unit_type());
+            Unit * pu = player.get_unit(Civilization_Name::WESTEROS,active_unit->get_location_id());
+            pu->cause_damage(to_move_to.get_unit()->get_unit_type());
             //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::process click)
             if (to_move_to.get_unit()->get_current_health() <= 0) {
                 to_move_to.clear_unit();
                 ai.destroy_units();
             }
-            if (active_unit->get_current_health() <= 0) {
+            if (pu->get_current_health() <= 0) {
                 map.get_tile_from_id(active_unit->get_location_id())->clear_unit();
+                player.destroy_units();
             }
-            active_unit->use_movement(Unit::get_max_movement(active_unit->get_unit_type()));
+            else {
+                active_unit->use_movement(Unit::get_max_movement(active_unit->get_unit_type()));
+            }
 
 
             //do nothing if player unit on square
@@ -302,9 +355,35 @@ void Game::save() {
 }
 
 void Game::load() {
+    clear();
     load_civilizations();
     load_map();
     load_turn_manager();
+    //link units to map
+    for (int i = 0; i < player.get_units().size();i++) {
+        Tile * to_set = map.get_tile_from_id(player.get_units()[i]->get_location_id());
+        to_set->set_unit(player.get_units()[i]);
+    }
+    for (int i = 0; i < ai.get_units().size();i++) {
+        Tile * to_set = map.get_tile_from_id(ai.get_units()[i]->get_location_id());
+        to_set->set_unit(ai.get_units()[i]);
+    }
+}
+
+void Game::load(std::string civs_filename, std::string map_filename,std::string tm_filename) {
+    clear();
+    load_civilizations(civs_filename);
+    load_map(map_filename);
+    load_turn_manager(tm_filename);
+    //link units to map
+    for (int i = 0; i < player.get_units().size();i++) {
+        Tile * to_set = map.get_tile_from_id(player.get_units()[i]->get_location_id());
+        to_set->set_unit(player.get_units()[i]);
+    }
+    for (int i = 0; i < ai.get_units().size();i++) {
+        Tile * to_set = map.get_tile_from_id(ai.get_units()[i]->get_location_id());
+        to_set->set_unit(ai.get_units()[i]);
+    }
 }
 
 Game& Game::operator=(const Game &cp) {

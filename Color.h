@@ -35,16 +35,18 @@ public:
     friend std::istream & operator>>(std::istream & ins, Color & fill);
 };
 
+struct Colors {
+    static const Color RED;
+    static const Color BLACK;
+    static const Color WHITE;
+    static const Color GREEN;
+    static const Color BLUE;
+    static const Color PURPLE;
+    static const Color BEIGE;
+    static const Color TEAL;
+};
+
 bool operator==(Color const & lhs, Color const & rhs);
 bool operator!=(Color const & lhs, Color const & rhs);
-
-namespace Colors {
-    static const Color RED = Color(255,0,0);
-    static const Color BLACK = Color(0,0,0);
-    static const Color WHITE = Color(255,255,255);
-    static const Color GREEN = Color(0,255,0);
-    static const Color BLUE = Color (0,0,255);
-}
-
 
 #endif //CIV_COLOR_H

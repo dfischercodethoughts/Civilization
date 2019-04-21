@@ -65,6 +65,10 @@ int Map::get_y() const {
     return 0;
 }
 
+void Map::clear() {
+    tiles.clear();
+}
+
 
 std::vector<std::vector<Tile>> * Map::get_tiles() {
     return &tiles;

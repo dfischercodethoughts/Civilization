@@ -4,6 +4,15 @@
 
 #include "Color.h"
 
+const Color Colors::RED =  Color(255,0,0);
+const Color Colors::BLACK = Color(0,0,0);
+const Color Colors::WHITE = Color(255,255,255);
+const Color Colors::GREEN = Color(0,255,0);
+const Color Colors::BLUE = Color (0,0,255);
+const Color Colors::PURPLE = Color(155,80,175);
+const Color Colors::BEIGE = Color(175,155,80);
+const Color Colors::TEAL = Color (80,175,155);
+
 Color::Color() {
     r= 0;
     g=0;

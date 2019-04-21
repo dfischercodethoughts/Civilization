@@ -228,6 +228,10 @@ Game* Main_Screen::get_game() {
     return &game;
 }
 
+void Main_Screen::new_game() {
+    game.load("new_civs.save","new_map.save","new_tm.save");
+}
+
 Main_Screen::~Main_Screen() {
     game = Game();
     next_turn = Square();

@@ -15,6 +15,13 @@
 #endif
 
 class Square {
+public:
+    enum Text_Size {
+        SMALL,
+        MEDIUM,
+        LARGE
+    };
+
 private:
     Coordinate center;
     int height, width;
@@ -23,9 +30,12 @@ private:
     Color text_color;
     std::string msg;
     bool visible;
+    Text_Size text_size;
 
 
 public:
+
+
     static const int TILE_HEIGHT = 100;
     static const int TILE_WIDTH = 150;
 
@@ -36,6 +46,9 @@ public:
     Square();
     Square(Coordinate cnt, Color fill, int h, int w, bool vis);
     Square(Coordinate cnt, Color fill, Color text, int h, int w, std::string msg, bool vis);
+
+    Text_Size get_text_size() const;
+    void set_text_size(Text_Size size);
 
     Coordinate get_center() const;
     int get_height() const;

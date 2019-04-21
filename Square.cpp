@@ -15,7 +15,7 @@ Square::Square() :center(Coordinate(0,0)) {
 }
 
 Square::Square(Coordinate cnt, Color fll, int h, int w, bool vis):
-center(cnt)
+center(cnt), text_size(Text_Size::MEDIUM)
 {
     fill = fll;
     text_color = Color(0,0,0);
@@ -28,7 +28,7 @@ center(cnt)
 }
 
 Square::Square(Coordinate cnt, Color fll, Color text, int h, int w, std::string mesg, bool vis):
-center(cnt)
+center(cnt),text_size(Text_Size::MEDIUM)
 {
     fill = fll;
     text_color = text;
@@ -38,6 +38,14 @@ center(cnt)
     visible = vis;
     xoff =  -msg.size()*4;
     yoff = 0;
+}
+
+Square::Text_Size Square::get_text_size() const{
+    return text_size;
+}
+
+void Square::set_text_size(Text_Size size) {
+    text_size = size;
 }
 
 Coordinate Square::get_center() const {
@@ -151,7 +159,20 @@ void Square::draw() const {
         glColor3f(text_color.get_red(), text_color.get_green(), text_color.get_blue());
         glRasterPos2i(center.x +xoff, center.y + yoff+5);
         for (char c : msg) {
-            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+            switch (text_size) {
+                case(SMALL) : {
+                    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, c);
+                    break;
+                }
+                case (MEDIUM) : {
+                    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+                    break;
+                }
+                case (LARGE) : {
+                    glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, c);
+                    break;
+                }
+            }
         }
     }
 }

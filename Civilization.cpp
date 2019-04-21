@@ -54,6 +54,15 @@ bool Civilization::is_ai() const {
     return ai;
 }
 
+void Civilization::clear() {
+    gold = 0;
+    production = 0;
+    food = 0;
+    units.clear();
+    name = Civilization_Name::NONE;
+    ai = true;
+}
+
 bool Civilization::add_unit(Unit * un ) {
     if (un->get_unit_type()!=Unit::NONE && un->get_type() == Piece::UNIT) {
         Unit newu = Unit(*un);
@@ -252,9 +261,10 @@ void Civilization::refresh() {
 }
 
 void Civilization::destroy_units() {
-    for (auto u = units.begin();u != units.end(); u++){
-        if (u->get_current_health() <= 0) {
-            units.erase(u);
+    for (int i = 0; i < units.size();i++){
+        if (units[i].get_current_health() <= 0) {
+            units.erase(units.begin() + i);
+            i--;
         }
     }
 }

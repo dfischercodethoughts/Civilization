@@ -62,6 +62,7 @@ public:
     void select_tile(Tile * tile);//todo: add active city pointer
 
     Game * get_game();
+    void new_game();
 
     ~Main_Screen();
 };

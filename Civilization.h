@@ -48,6 +48,9 @@ public:
     int get_food() const;
 
     bool is_ai() const;
+
+    void clear();
+
     /**
      * adds a unit to the civ's unit list. Initializes units list if size is zero
      * @param type of unit to produce

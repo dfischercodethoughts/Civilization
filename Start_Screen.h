@@ -13,6 +13,7 @@ private:
     Square new_game;
     Square exit_game;
     Square load_game;
+    Square title_port;
     int width, height;
 
 public:

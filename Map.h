@@ -25,6 +25,9 @@ public:
     int get_x() const;
     int get_y() const;
 
+    //clears all tiles (for use before load)
+    void clear();
+
     std::vector<std::vector<Tile>> * get_tiles();
     std::vector<std::vector<Tile>> get_tiles_const() const;
 
