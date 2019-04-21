@@ -313,15 +313,16 @@ std::ostream & operator<<(std::ostream & outs, const Civilization & print) {
     for (int i =0 ; i < print.units.size();i++) {
         outs << print.units[i];
     }
+    outs << "END"<<std::endl;//end marker because input burns line at end of for loop
     return outs;
 }
 
 std::istream & operator>>(std::istream & ins, Civilization & fill) {
     try {
-        //NOTE: ASSUME "CIVILIZATION\n" is already read (by game)
+        //NOTE: ASSUME "CIVILIZATION\n" is NOT already read (by game)
         //read in "name\n"
         std::string line = "";
-
+        std::getline(ins,line);
         std::getline(ins, line);
         fill.name = Civilization_Name::string_to_civ_name(line);
 

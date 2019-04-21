@@ -209,6 +209,7 @@ Unit::Unit() {
     health = -1; damage = -1; movement = -1;
     unit_type = NONE;
     this->set_type(Piece_Type::UNIT);
+    set_range();
 }
 
 Unit::Unit(int  loc, Unit_Type tp) {
@@ -219,6 +220,7 @@ Unit::Unit(int  loc, Unit_Type tp) {
     full_heal();
     set_damage();
     reset_movement();
+    set_range();
 }
 
 Unit::Unit(int loc, Civilization_Name::Names own, Unit_Type tp) {
@@ -232,6 +234,7 @@ Unit::Unit(int loc, Civilization_Name::Names own, Unit_Type tp) {
     full_heal();
     set_damage();
     reset_movement();
+    set_range();
 }
 
 Unit::Unit(int loc, Coordinate cnt, Civilization_Name::Names own, Unit_Type tp) {
@@ -245,6 +248,7 @@ Unit::Unit(int loc, Coordinate cnt, Civilization_Name::Names own, Unit_Type tp) 
     full_heal();
     set_damage();
     reset_movement();
+    set_range();
 }
 
 Unit::Unit(Unit const & cp) {
@@ -266,6 +270,7 @@ Unit::Unit(Unit const & cp) {
     health = cp.get_current_health();
     set_damage();
     movement = cp.get_current_movement();
+    set_range();
 }
 
 Unit::Unit(Unit const * cpy) {
@@ -287,6 +292,7 @@ Unit::Unit(Unit const * cpy) {
     health = cpy->get_current_health();
     set_damage();
     movement = cpy->get_current_movement();
+    set_range();
 }
 
 int Unit::get_location_id() const {

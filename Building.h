@@ -6,7 +6,6 @@
 #define CIV_BUILDING_H
 
 #include "Piece.h"
-#include "Tile.h"
 
 class Building {
 

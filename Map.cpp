@@ -342,6 +342,7 @@ std::ostream & operator<<(std::ostream & outs, const Map & print) {
                 outs << t;
             }
         }
+        outs<<"END"<<std::endl;//add end marker because input operator burns line at end of while loop
     }
     catch (std::exception & e) {
         std::cout << e.what() << std::endl;
@@ -376,9 +377,9 @@ std::istream & operator>>(std::istream & ins, Map & fill) {
             if (countx == x+1) {
                 break;
             }
-            Tile tmp;
-            ins >> tmp;
-            fill.tiles[countx-1].emplace_back(tmp);
+            Tile tmp_tile;
+            ins >> tmp_tile;
+            fill.tiles[countx-1].emplace_back(tmp_tile);
             county++;
             std::getline(ins,line);
         }

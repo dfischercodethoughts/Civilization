@@ -2,10 +2,9 @@
 // Created by david on 4/13/2019.
 //
 
-#include "Map.h"
+#include "Game.h"
 #include "iostream"
-#include "Civilization.h"
-#include "Turn_Manager.h"
+
 
 void test_get_vec_coordinates_from_click(Map & m) {
     std::cout << "TESTING GET VEC COORDINATES FROM CLICK" << std::endl;
@@ -459,13 +458,37 @@ bool test_map_input_output() {
     return false;
 }
 
+bool test_game_input_output() {
+    std::cout << "TESTING GAME INPUT OUTPUT..." <<std::endl << std::endl;
+
+    std::cout << "CREATING GAME..." << std::endl;
+    Game g1(1800,1200,10,10);
+    //g1.set_active_unit(*g1.get_player().get_unit(Civilization_Name::WESTEROS,1));
+    //g1.move_active_unit(*g1.get_map().get_tile_from_vector_coordinates({2,1}));
+    std::cout << "DONE. SAVING (look for civilizations.save, map.save, tm.save)..." << std::endl;
+    g1.save();
+    std::cout<<"DONE. MAKING NEW GAME AND LOADING." << std::endl;
+    Game g2;
+    g2.load();
+    std::cout << "DONE." << std::endl;
+
+    if (g2 == g1) {
+        std::cout << "SUCCEED." << std::endl;
+        return true;
+    }
+
+    std::cout << "FAIL." << std::endl;
+    return false;
+}
+
 int main (int argc, char** argv) {
     //test_turn_manager_intput_output();
     //test_unit_input_output();
     //test_civilization_input_output();
    // test_square_input_output();
     //test_tile_input_output();
-   test_map_input_output();
+   //test_map_input_output();
+   test_game_input_output();
 
     /*
     Map m = Map(1200,800,8,8);

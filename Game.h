@@ -7,12 +7,12 @@
 
 #include <memory>
 #include "Civilization.h"
-#include "Tile.h"
-//#include"City.h"
-#include"Unit.h"
 #include "Map.h"
 #include "Turn_Manager.h"
 #include <random>
+#include <fstream>
+#include <chrono>
+
 
 class Game {
 private:
@@ -30,13 +30,23 @@ private:
     //justmoves units for now - will attack if can, otherwise moves randomly
     void play_ai();
 
+    void save_map();
+    void save_civilizations();
+    void save_turn_manager();
+
+    void load_map();
+    void load_civilizations();
+    void load_turn_manager();
 
 public:
     const static int MAP_X_OFF = 25;
     const static int MAP_Y_OFF = 25;
+    const static std::string MAP_FILENAME;
+    const static std::string CIVS_FILENAME;
+    const static std::string TM_FILENAME;
 
     Game();
-    Game(int width, int height, int vecw, int vech);
+    Game(long width, long height, long vecw, long vech);
 
     Civilization & get_player();
     const Civilization & get_player_const() const;
@@ -83,7 +93,12 @@ public:
 
     Coordinate get_unit_location_coordinates(Unit & u);
 
+    void save();
+    void load();
+
     Game & operator=(const Game & cp);
+    bool operator==(const Game & rhs);
+    bool operator!=(const Game & rhs);
 
     ~Game();
 };

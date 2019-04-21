@@ -2,8 +2,12 @@
 // Created by david on 4/3/2019.
 //
 
-#include <chrono>
+
 #include "Game.h"
+
+const std::string Game::MAP_FILENAME = "map.save";
+const std::string Game::CIVS_FILENAME = "civs.save";
+const std::string Game::TM_FILENAME = "tm.save";
 
 void Game::play_ai() {
     for (Unit * unit : ai.get_units()) {
@@ -30,6 +34,82 @@ void Game::play_ai() {
     }
 }
 
+void Game::save_map() {
+    try {
+        std::ofstream outs;
+        outs.open(MAP_FILENAME);
+        outs << map;
+        outs.close();
+    }
+    catch (std::exception & e) {
+        std::cout << e.what() << std::endl;
+    }
+}
+
+void Game::save_civilizations() {
+    try {
+        std::ofstream outs;
+        outs.open(CIVS_FILENAME);
+        outs << player << ai;
+        outs.close();
+    }
+    catch (std::exception & e ) {
+        std::cout << e.what() << std::endl;
+    }
+}
+
+void Game::save_turn_manager() {
+    try {
+        std::ofstream outs;
+        outs.open(TM_FILENAME);
+        outs << manager;
+        outs.close();
+    }
+    catch (std::exception & e){
+        std::cout << e.what() << std::endl;
+    }
+}
+
+void Game::load_map() {
+    try {
+        std::ifstream ins;
+        ins.open(MAP_FILENAME);
+        ins >> map;
+        ins.close();
+    }
+    catch (std::exception & e) {
+        std::cout << e.what() << std::endl;
+    }
+
+}
+
+void Game::load_civilizations() {
+    try {
+        std::ifstream ins;
+
+        ins.open(CIVS_FILENAME);
+        ins >> player;
+        ins >> ai;
+        ins.close();
+    }
+    catch (std::exception & e) {
+        std::cout << e.what() << std::endl;
+    }
+
+}
+
+void Game::load_turn_manager() {
+    try {
+        std::ifstream ins;
+        ins.open(TM_FILENAME);
+        ins >> manager;
+        ins.close();
+    }
+    catch (std::exception & e){
+        std::cout << e.what() << std::endl;
+    }
+}
+
 Game::Game() {
     player = Civilization();
     ai = Civilization();
@@ -39,7 +119,8 @@ Game::Game() {
     map = Map();
 }
 
-Game::Game(int width, int height, int vecw, int vech) {
+Game::Game(long width, long height, long vecw, long vech) {
+
     map = Map(height,width,vecw,vech,MAP_X_OFF,MAP_Y_OFF);
     player = Civilization("Westeros",false);
     player.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(0,0))->get_id(),player.get_name(),Unit::WARRIOR),*map.get_tile_from_vector_coordinates(Coordinate(0,0)));
@@ -214,6 +295,18 @@ Coordinate Game::get_unit_location_coordinates(Unit & u) {
     return map.get_vector_coordinates_from_click(u.get_center());
 }
 
+void Game::save() {
+    save_civilizations();
+    save_map();
+    save_turn_manager();
+}
+
+void Game::load() {
+    load_civilizations();
+    load_map();
+    load_turn_manager();
+}
+
 Game& Game::operator=(const Game &cp) {
     player = cp.get_player_const();
     ai = cp.get_ai_const();
@@ -230,6 +323,15 @@ Game& Game::operator=(const Game &cp) {
     } else {
         active_tile = nullptr;
     }
+}
+
+bool Game::operator==(const Game & rhs) {
+    return (player == rhs.get_player_const() && ai == rhs.get_ai_const() && manager == rhs.get_turn_manager() &&
+        map == rhs.get_map_const());
+}
+
+bool Game::operator!=(const Game & rhs) {
+    return (!(*this==rhs));
 }
 
 Game::~Game() {
