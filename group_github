@@ -1,0 +1,25 @@
+Git with a Group Commands
+
+To be used after you link your local repo to the project on GitLab.
+
+git pull origin master
+git checkout -b [YOUR_INITIALS]_[WORK_DESIGNATION]
+Do work. Check to see if it works.
+git add -A
+git commit -m "[COMMIT_MESSAGE]"
+git push origin [YOUR_INITIALS]_[WORK_DESIGNATION]
+On GitLab, send a merge request for your branch
+Wait for code approval.
+git checkout master
+git pull origin master
+
+//This is for deleting your branch...do this at the end, otherwise you
+//will have to create a new branch every time you do work
+git branch -D [YOUR_INITIALS]_[WORK_DESIGNATION]
+How to add project to github repository
+
+git init
+git add .
+git commit -m "my commit"
+git remote add origin git@github.com:username/repo.git
+git push origin master
