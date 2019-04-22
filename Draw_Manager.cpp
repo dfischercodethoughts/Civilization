@@ -63,7 +63,7 @@ int Draw_Manager::process_click(Coordinate click) {
             Start_Screen::menu_options result = start.check_click(click);
             switch (result) {
                 case(Screen::START_GAME) : {
-                    main.new_game();
+                    //main.new_game();
                     set_screen(Screen::MAIN_GAME);
                     return 0;
 

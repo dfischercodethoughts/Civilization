@@ -1,2 +1,7 @@
-cmake-build-debug/
+cmake-build-debug/CMakeFiles/
+cmake-build-debug/*.stackdump
+cmake-build-debug/*.exe
+cmake-build-debug/*.txt
+cmake-build-debug/*.cmake
+.idea/workspace.xml
 .idea/

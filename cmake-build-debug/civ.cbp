@@ -34,7 +34,6 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/include/w32api"/>
 					<Add directory="C:/Program Files/Common Files/freeglut/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++"/>
 					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/x86_64-pc-cygwin"/>
@@ -57,7 +56,6 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/include/w32api"/>
 					<Add directory="C:/Program Files/Common Files/freeglut/include"/>
 					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++"/>
 					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/7.4.0/include/c++/x86_64-pc-cygwin"/>
@@ -96,21 +94,7 @@
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Base_Resource_Package.h">
 			<Option target="main.cpp"/>
 		</Unit>
-
-		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Building.cpp">
-			<Option target="main.cpp"/>
-		</Unit>
-		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Building.h">
-			<Option target="main.cpp"/>
-		</Unit>
-		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Building_Name.cpp">
-			<Option target="main.cpp"/>
-		</Unit>
-		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Building_Name.h">
-			<Option target="main.cpp"/>
-		</Unit>
-		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Civilization.cpp">
-
+		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Building.cpp">
 			<Option target="main.cpp"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/david/CLionProjects/civ_v2/Building.h">
