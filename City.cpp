@@ -12,7 +12,7 @@ void City::set_name(std::string nme) {
 City::City() {
     ready_to_produce = false;
     ready_to_grow = false;
-    building_in_production = Building::NONE;
+    building_in_production = Building_Name::NONE;
     unit_in_production = Unit::NONE;
     name = "Default";
     production = 0;
@@ -28,7 +28,7 @@ City::City(std::string name) {
 City::City(Tile & home) {
     ready_to_produce = false;
     ready_to_grow = false;
-    building_in_production = Building::NONE;
+    building_in_production = Building_Name::NONE;
     unit_in_production = Unit::NONE;
     name = "Default";
     production = 0;
@@ -152,7 +152,7 @@ std::shared_ptr<Tile> City::get_home_tile() const {
 }
 
 bool City::set_production(std::string new_production) {
-    Building::names building_attempt = Building::string_to_building(new_production);
+    Building_Name::names building_attempt = Building::string_to_building(new_production);
     Unit::names unit_attempt = Unit::string_to_unit(new_production);
     if (unit_attempt != Unit::NONE) {
         // we are producing a unit
@@ -161,7 +161,7 @@ bool City::set_production(std::string new_production) {
         unit_in_production = unit_attempt;
         return true;
     }
-    else if (building_attempt != Building::NONE) {
+    else if (building_attempt != Building_Name::NONE) {
         building_in_production = building_attempt;
         prod_type = production_type::BUILDING;
         unit_in_production = Unit::NONE;
@@ -170,10 +170,10 @@ bool City::set_production(std::string new_production) {
     return false;
 }
 
-bool City::produce_building(Tile &to_build_upon, Building::names blding) {
+bool City::produce_building(Tile &to_build_upon, Building_Name::names blding) {
     to_build_upon.create_building(blding);
 }
 
-bool City::produce_building(std::shared_ptr<Tile>to_build_upon, Building::names blding) {
+bool City::produce_building(std::shared_ptr<Tile>to_build_upon, Building_Name::names blding) {
     to_build_upon->create_building(blding);
 }

@@ -98,7 +98,10 @@ public:
 
     void phase_on_button(Square base);
 
+    void print_build_menu_title(Square base, Square base2);
+
     std::string get_phase();
+
 
     void next_turn();//moves to next player turn; plays ai turn
 

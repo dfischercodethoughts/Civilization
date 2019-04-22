@@ -344,7 +344,8 @@ std::ostream & operator<<(std::ostream & outs, const Map & print) {
         for (std::vector<Tile> col : print.tiles) {
             for (Tile t : col) {
                 outs << t;
-            }
+            }    std::string building_to_string(Building_Name::names nm);
+
         }
         outs<<"END"<<std::endl;//add end marker because input operator burns line at end of while loop
     }
