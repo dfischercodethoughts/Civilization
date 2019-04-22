@@ -30,6 +30,7 @@ public:
     static int get_max_movement(Unit_Type type);
     static int get_upkeep(Unit_Type type);
     static int get_gold_cost(Unit_Type type);
+    static int get_production_cost(Unit_Type tp);
     static int get_damage(Unit_Type type);
     static int get_range(Unit_Type type);
 

@@ -97,7 +97,10 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
     else {
         switch (Turn_Phase::string_to_turn_phase(game.get_phase())) {
             case (Turn_Phase::MOVE): {
-                if (game_view_port.check_click(click)) {
+                if (game.has_active_unit() && game.get_active_unit()->get_unit_type() == Unit::SETTLER) {
+
+                }
+                else if (game_view_port.check_click(click)) {
                     process_move(click);
                 }
                 break;

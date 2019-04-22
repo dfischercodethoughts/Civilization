@@ -28,6 +28,9 @@ class Tile_Output {
         bool increment_production();
         bool increment_gold();
         bool increment_food();
+        bool decrement_production();
+        bool decrement_gold();
+        bool decrement_food();
         bool check_building(Building_Name::names nm);
 
     public:

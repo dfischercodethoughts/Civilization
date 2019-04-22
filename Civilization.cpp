@@ -275,6 +275,30 @@ void Civilization::next_turn() {
 
 }
 
+bool Civilization::produce_building(Tile &to_build_upon, Building_Name::names blding) {
+    for (City c : cities) {
+        for (Tile *tmp : c.get_tiles()) {
+            if (*tmp == to_build_upon) {
+                to_build_upon.add_building(blding);
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Civilization::produce_building(Tile * to_build_upon, Building_Name::names blding) {
+    for (City c : cities) {
+        for (Tile *tmp : c.get_tiles()) {
+            if (*tmp == to_build_upon) {
+                to_build_upon->add_building(blding);
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 Civilization & Civilization::operator=(Civilization const &rh) {
     gold = rh.get_gold();
     production = rh.get_production();

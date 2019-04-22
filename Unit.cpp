@@ -143,6 +143,26 @@ int Unit::get_gold_cost(Unit::Unit_Type tp) {
     }
 }
 
+int Unit::get_production_cost(Unit_Type tp) {
+    switch (tp) {
+        case (ARCHER) : {
+            return 45;
+        }
+        case (WARRIOR) : {
+            return 30;
+        }
+        case (HORSEMAN) : {
+            return 50;
+        }
+        case (BOAT) : {
+            return 20;
+        }
+        default : {
+            return 0;
+        }
+    }
+}
+
 int Unit::get_damage(Unit_Type tp) {
     switch (tp) {
         case (WARRIOR) : {

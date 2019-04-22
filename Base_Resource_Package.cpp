@@ -17,6 +17,15 @@ bool Base_Resource_Package::increment_number() {
     return false;
 }
 
+bool Base_Resource_Package::decrement_number() {
+
+    if (num < 7) {
+        num -= 1;
+        return true;
+    }
+    return false;
+}
+
 void Base_Resource_Package::add(int to_add) {
     if (abs(to_add) < 100) {
         num += to_add;

@@ -33,13 +33,36 @@ bool Tile_Output::increment_gold() {
     return true;
 }
 
+bool Tile_Output::decrement_production() {
+    int old = get_production();
+    production -> decrement_number();
+    if (get_production() == old) {
+        return false;
+    }
+    return true;
+}
+
+bool Tile_Output::decrement_food() {
+    int old = get_food();
+    food -> decrement_number();
+    if (get_food() == old) {
+        return false;
+    }
+    return true;
+}
+
+bool Tile_Output::decrement_gold() {
+    int old = get_gold();
+    gold -> decrement_number();
+    if (old == get_gold()) {
+        return false;
+    }
+    return true;
+}
+
 bool Tile_Output::check_building(Building_Name::names nm) {
     switch (nm) {
         case (Building_Name::names::FARM ) : {
-            if (increment_food()) {
-                return true;
-            } else return false;
-        } case (Building_Name::names::HUNTING_LODGE) : {
             if (increment_food()) {
                 return true;
             } else return false;
