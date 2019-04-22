@@ -11,23 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35f4dd57-fab4-4f95-ba17-f0088b3431f1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Building.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Building.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Draw_Manager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Draw_Manager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/civ.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/civ.cbp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/civs.save" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/civs.save" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/map.save" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/map.save" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/new_civs.save" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/new_civs.save" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/new_map.save" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/new_map.save" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/new_tm.save" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/new_tm.save" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/tm.save" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/tm.save" afterDir="false" />
-    </list>
+    <list default="true" id="35f4dd57-fab4-4f95-ba17-f0088b3431f1" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -92,8 +76,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/.gitignore">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="51">
-                  <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+                <state relative-caret-position="102">
+                  <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
                 </state>
               </provider>
             </entry>
@@ -491,7 +475,7 @@
       <workItem from="1555867884836" duration="421000" />
       <workItem from="1555868339286" duration="8513000" />
       <workItem from="1555891134246" duration="272000" />
-      <workItem from="1555891777831" duration="1113000" />
+      <workItem from="1555891777831" duration="1645000" />
     </task>
     <task id="LOCAL-00001" summary="fixed start screen draw err (was using glColor3i instead of glColor3f).">
       <created>1554933169383</created>
@@ -637,7 +621,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="216227000" />
+    <option name="totallyTimeSpent" value="216759000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1243,8 +1227,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+        <state relative-caret-position="102">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
         </state>
       </provider>
     </entry>
