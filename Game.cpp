@@ -166,6 +166,7 @@ void Game::clear() {
     player.clear();
     ai.clear();
     manager = Turn_Manager();
+    buildmenu = Build_Menu();
     active_unit = nullptr;
     active_tile = nullptr;
     map.clear();
@@ -175,6 +176,7 @@ Game::Game() {
     player = Civilization();
     ai = Civilization();
     manager = Turn_Manager();
+    buildmenu = Build_Menu();
     active_unit = nullptr;
     active_tile = nullptr;
     map = Map();
@@ -183,6 +185,7 @@ Game::Game() {
 Game::Game(long width, long height, long vecw, long vech) {
 
     map = Map(height,width,vecw,vech,MAP_X_OFF,MAP_Y_OFF);
+    buildmenu = Build_Menu(height, width);
     player = Civilization("Westeros",false);
     player.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(0,0))->get_id(),player.get_name(),Unit::WARRIOR),*map.get_tile_from_vector_coordinates(Coordinate(0,0)));
     player.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(1,0))->get_id(),player.get_name(),Unit::SCOUT),*map.get_tile_from_vector_coordinates(Coordinate(1,0)));
@@ -339,6 +342,26 @@ void Game::phase_on_button(Square base){
     std::string line = "CURRENT PHASE: " + manager.get_current_phase_str();
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
+    }
+
+}
+
+
+//function to print the words BUILDING MENU AND UNIT MENU
+//right above their respective menus in build phase
+void Game::print_build_menu_title(Square base, Square base2){
+    glColor3f(Colors::WHITE.get_red(),Colors::WHITE.get_green(),Colors::WHITE.get_blue());
+    glRasterPos2i(base.get_center().x-40*base.get_width()/72,base.get_center().y - 42*base.get_height()/72);
+    std::string line = "BUILDING MENU";
+    for (char c : line) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
+    }
+
+    glColor3f(Colors::WHITE.get_red(),Colors::WHITE.get_green(),Colors::WHITE.get_blue());
+    glRasterPos2i(base2.get_center().x-27*base2.get_width()/72,base2.get_center().y - 42*base2.get_height()/72);
+    std::string line2 = "UNIT MENU";
+    for (char c : line2) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
     }
 
 }

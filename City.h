@@ -6,6 +6,7 @@
 #define CIV_CITY_H
 #include "Validator.h"
 #include "Tile.h"
+#include "Building.h"
 #include <vector>
 
 class City {
@@ -18,7 +19,7 @@ private:
     bool ready_to_produce;
     bool ready_to_grow;
     production_type prod_type;
-    Building::names building_in_production;
+    Building_Name::names building_in_production;
     Unit::names unit_in_production;
     std::string name;
     int production;
@@ -67,8 +68,8 @@ public:
      */
     bool set_production(std::string new_production);
 
-    bool produce_building(Tile & to_build_upon, Building::names blding);
-    bool produce_building(std::shared_ptr<Tile> to_build_upon, Building::names blding);
+    bool produce_building(Tile & to_build_upon, Building_Name::names blding);
+    bool produce_building(std::shared_ptr<Tile> to_build_upon, Building_Name::names blding);
 
     bool produce_unit(Tile & to_build_upon, Unit::names unit);
     bool produce_unit(std::shared_ptr<Tile> to_build_upon, Unit::names unit);
