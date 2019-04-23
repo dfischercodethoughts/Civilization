@@ -19,6 +19,7 @@ public:
     enum Text_Size {
         SMALL,
         MEDIUM,
+        //MED_LARGE,
         LARGE
     };
 

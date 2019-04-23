@@ -79,6 +79,7 @@ public:
 
     City * get_city();
     void set_city(City & newc);
+    void build_city(City & newc);
     bool has_city() const;
 
     Tile_Terrain::names get_terrain() const;

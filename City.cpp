@@ -3,11 +3,11 @@
 //
 
 #include "City.h"
-void City::set_name(std::string nme) {
-    if (nme.length() < 15 && !Validator::has_special_char(nme) && !Validator::has_num(nme)) {
-        name = nme;
-    }
+void City::increment_population() {
+    population++;
 }
+
+
 
 City::City() {
     ready_to_produce = false;
@@ -36,6 +36,27 @@ City::City(Tile & home) {
 
 std::string City::get_name() const {
     return name;
+}
+void City::set_name(std::string nme) {
+    if (nme.length() < 15 && !Validator::has_special_char(nme) && !Validator::has_num(nme)) {
+        name = nme;
+    }
+}
+
+bool City::is_ready_to_produce() const {
+    return ready_to_produce;
+}
+
+bool City::get_ready_to_produce() const {
+    return ready_to_produce;
+}
+
+bool City::is_ready_to_grow() const {
+    return ready_to_grow;
+}
+
+bool City::get_ready_to_grow() const {
+    return ready_to_grow;
 }
 
 std::string City::get_production_item() const {
@@ -98,13 +119,21 @@ std::vector<Tile *> City::get_tiles() {
     return ret;
 }
 
-void City::add_tiles(std::vector<Tile *> to_add) {
+void City::add_tiles(std::vector<Tile *> & to_add) {
     for (Tile * add : to_add) {
         tiles.emplace(&*add);
     }
 }
 
-Tile_Output City::update_resources() {
+std::vector<const Tile *> City::get_tiles_const() const {
+    std::vector<const Tile *> ret;
+    for(Tile * t:tiles) {
+        ret.emplace_back(t);
+    }
+    return ret;
+}
+
+Tile_Output City::collect_resources() {
     int tmp_food = 0;
     int tmp_production = 0;
     int tmp_gold = 0;
@@ -146,6 +175,10 @@ Tile * City::get_home_tile() const {
     return home_tile;
 }
 
+void City::set_home_tile(Tile & t) {
+    home_tile = &t;
+}
+
 bool City::has_barracks() const {
     for (Tile * t : tiles) {
         if (t->get_building().get_name()==Building_Name::BARRACKS) {
@@ -174,4 +207,78 @@ bool City::set_production(std::string new_production) {
     return false;
 }
 
+void City::grow(std::vector<Tile *> tl) {
+    increment_population();
+    add_tiles(tl);
+}
 
+void City::draw_on_viewport(Square sq) {
+    sq.draw();
+    std::string line = "CITY: " + name;
+    glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
+    glRasterPos2i(sq.get_center().x-sq.get_width()/2+sq.get_width()/4,sq.get_center().y-3*sq.get_height()/8);
+    for (char c : line) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
+    }
+
+    line = "PROD: " + std::to_string(production);
+    glRasterPos2i(sq.get_center().x-sq.get_width()/2+sq.get_width()/16,sq.get_center().y-sq.get_height()/8);
+    for (char c : line) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+    }
+
+    line = "FOOD: " + std::to_string(food);
+    glRasterPos2i(sq.get_center().x-sq.get_width()/2+sq.get_width()/16,sq.get_center().y+sq.get_height()/8);
+    for (char c : line) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+    }
+
+    line = "GOLD: " + std::to_string(get_gold_output());
+    glRasterPos2i(sq.get_center().x-sq.get_width()/2+sq.get_width()/16,sq.get_center().y+3*sq.get_height()/8);
+    for (char c : line) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+    }
+
+    line = "PRODUCING";
+    glRasterPos2i(sq.get_center().x+sq.get_width()/16,sq.get_center().y-sq.get_height()/8);
+    for (char c : line) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+    }
+
+    line = get_production_item();
+    glRasterPos2i(sq.get_center().x+sq.get_width()/16,sq.get_center().y+sq.get_height()/8);
+    for (char c : line) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+    }
+}
+
+City & City::operator=(const City & rhs) {
+    ready_to_grow = rhs.ready_to_grow;
+    ready_to_produce = rhs.ready_to_produce;
+    prod_type = rhs.prod_type;
+    building_in_production = rhs.building_in_production;
+    unit_in_production = rhs.unit_in_production;
+    if (rhs.name.size() < 25) {
+        name = rhs.name;
+    }
+    else {
+        name = "";
+    }
+    production = rhs.production;
+    food = rhs.food;
+    population = rhs.population;
+    home_tile = &*rhs.home_tile;
+    for (auto t = rhs.tiles.begin();t != rhs.tiles.end();t++) {
+        tiles.emplace(new Tile(*t));
+    }
+}
+
+//todo:implement city input output
+
+bool operator==(const City & lhs, const City & rhs) {
+    if (lhs.is_ready_to_produce() == rhs.is_ready_to_produce() && lhs.get_production_item() == rhs.get_production_item() &&
+        lhs.get_name() == rhs.get_name() && *lhs.get_home_tile() == *rhs.get_home_tile()) {
+        return true;
+    }
+    return false;
+}

@@ -89,7 +89,6 @@ Tile::Tile(const Tile *cp):
     init(cp->get_terrain(),cp->get_resource(),cp->get_const_unit(),cp->is_visible(),cp->get_id());
 }
 
-
 Tile::Tile(const Tile & cp):
 Piece(cp.get_center(),cp.get_height(),cp.get_width(),cp.get_fill(),cp.get_text_color(),Piece::TILE)
 {
@@ -244,6 +243,10 @@ City * Tile::get_city() {
 }
 
 void Tile::set_city(City & newc) {
+    city = &newc;
+}
+
+void Tile::build_city(City & newc) {
     city = &newc;
 }
 
@@ -599,33 +602,35 @@ void Tile::draw() const {
 
 void Tile::draw_on_viewport(Square viewport_base) {
     viewport_base.draw();
+    Coordinate tl ={ viewport_base.get_center().x-viewport_base.get_width()/2, viewport_base.get_center().y-viewport_base.get_height()/2};
+
     std::string line = "";
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y-3*viewport_base.get_height()/8);
+    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3);
     line += "TERRAIN TYPE: " + Tile_Terrain::terrain_to_string(terrain);
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y-viewport_base.get_height()/8);
+    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3+viewport_base.get_height()/6);
     line = "RESOURCE TYPE: " + Tile_Resource::resource_to_string(resource);
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y+viewport_base.get_height()/8);
+    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3 + viewport_base.get_height()/3);
     line = "MOVEMENT COST: "+std::to_string(Tile_Terrain::get_movement_cost(terrain));
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y+3*viewport_base.get_height()/8);
+    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3+viewport_base.get_height()/2);
     line = "BUILDING: "+Building_Name::building_name_to_string(building.get_name());
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
     }
 }
 

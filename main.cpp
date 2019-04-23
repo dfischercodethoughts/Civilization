@@ -11,10 +11,10 @@ static Draw_Manager *dm = nullptr;
 
 
 void init() {
-    width = 1600;
-    height = 1066;
+    width = 1920;
+    height = 1000;
 
-    dm = (new Draw_Manager(height,width,8,8));
+    dm = (new Draw_Manager(height,width,10,10));
 
     //do map things to game here
 }

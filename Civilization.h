@@ -49,8 +49,13 @@ public:
     int get_production() const;
     int get_food() const;
 
-    std::vector<City> get_cities() const;
-    std::vector<City> get_cities_const() const;
+    std::vector<City *> get_cities();
+    std::vector<const City *> get_cities_const() const;
+    void create_city(Map & m,Tile & newh);
+    void build_city(Map & m,Tile & newh);
+    void add_city(Map & m,Tile & newh);
+
+    void remove_unit(const Unit & re);
 
     bool is_ai() const;
 
@@ -94,7 +99,11 @@ public:
     //refresh at end of turn
     void refresh();
 
-    void next_turn();
+    void next_turn(Map & m);
+
+    void collect_resources();
+
+    void grow_cities(Map & m);
 
     bool produce_building(Tile & to_build_upon, Building_Name::names blding);
     bool produce_building(Tile * to_build_upon, Building_Name::names blding);

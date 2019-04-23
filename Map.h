@@ -13,7 +13,7 @@ class Map : public Square {
 private:
     std::vector<std::vector<Tile>> tiles;
 
-    void make_visible(std::vector<Tile *>&);
+
     void hide_map();
 
 public:
@@ -45,7 +45,6 @@ public:
 
     std::vector<Tile &> & get_tiles_driver(std::vector<std::unique_ptr<Tile>> & cur_list, Tile &cur_tile, int move_left);
     std::vector<Tile *> & get_tiles_driver(std::vector<Tile*> & cur_list, Tile & cur_tile, int move_left);
-
     std::vector<Tile *>* get_tiles_within_range(Tile *start, int movement);
 
     bool is_adjacent(Tile & first, Tile & second);
@@ -57,6 +56,7 @@ public:
      */
     void reveal_units(std::vector<Unit *> units);
     void reveal_unit(Unit * unit);
+    void make_visible(std::vector<Tile *>&);
 
     void draw() const override;
 

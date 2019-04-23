@@ -50,6 +50,55 @@ int Civilization::get_food() const {
     return food;
 }
 
+std::vector<City *> Civilization::get_cities() {
+    std::vector<City *> ret;
+    for (int i = 0; i < cities.size();i++) {
+        ret.emplace_back(&cities[i]);
+    }
+    return ret;
+}
+
+std::vector<const City *> Civilization::get_cities_const() const {
+    std::vector<const City *> ret;
+    for (int i = 0; i < cities.size();i++) {
+        ret.emplace_back(&cities[i]);
+    }
+    return ret;
+}
+
+void Civilization::create_city(Map & m,Tile & newh) {
+    City newc(newh);
+    newc.set_name("City " + std::to_string(cities.size()));
+    m.get_tiles_within_range(&newh,2);
+}
+
+void Civilization::build_city(Map & m,Tile & newh) {
+    City newc(newh);
+    newc.set_name("City " + std::to_string(cities.size()));
+    m.get_tiles_within_range(&newh,2);
+}
+
+void Civilization::add_city(Map & m,Tile & newh) {
+    City newc(newh);
+    newc.set_name("City " + std::to_string(cities.size()));
+    for (Tile * t : *m.get_tiles_within_range(&newh,2)) {
+        t->set_owner(name);
+    }
+    newc.add_tiles(*m.get_tiles_within_range(&newh, 2));
+
+    cities.emplace_back(newc);
+    newh.build_city(cities[cities.size()-1]);
+}
+
+void Civilization::remove_unit(const Unit & to_rem) {
+    for (auto u = units.begin(); u < units.end();u++) {
+        if (*u == to_rem) {
+            units.erase(u);
+            return;
+        }
+    }
+}
+
 bool Civilization::is_ai() const {
     return ai;
 }
@@ -269,10 +318,34 @@ void Civilization::destroy_units() {
     }
 }
 
-void Civilization::next_turn() {
+void Civilization::next_turn(Map & m) {
     refresh();
-    //todo:civilization next turn collects resources from cities
+    collect_resources();
+    grow_cities(m);
+}
 
+void Civilization::collect_resources() {
+    for (int i = 0; i < cities.size();i++) {
+        Tile_Output tmp = cities[i].collect_resources();
+        gold += tmp.get_gold();
+        food += tmp.get_food();
+        production += tmp.get_production();
+    }
+}
+
+void Civilization::grow_cities(Map & m) {
+    for (int i = 0; i < cities.size();i++) {
+        if (cities[i].is_ready_to_grow())  {
+            std::vector<Tile *> tl = *m.get_tiles_within_range(cities[i].get_home_tile(),cities[i].get_population()+1);
+            //update civ
+            for (Tile * t : tl) {
+                t -> set_owner(name);
+            }
+            cities[i].grow(tl);
+            //update tile city pointer
+            m.get_tile_from_id(cities[i].get_home_tile()->get_id())->build_city(cities[i]);
+        }
+    }
 }
 
 bool Civilization::produce_building(Tile &to_build_upon, Building_Name::names blding) {
@@ -297,6 +370,16 @@ bool Civilization::produce_building(Tile * to_build_upon, Building_Name::names b
         }
     }
     return false;
+}
+
+bool Civilization::produce_unit(Tile & to_build_upon,Unit::Unit_Type u) {
+    units.emplace_back(Unit(to_build_upon.get_id(),to_build_upon.get_center(),name,u));
+    to_build_upon.set_unit(&*get_unit(name,to_build_upon.get_id()));
+}
+
+bool Civilization::produce_unit(Tile *to_build_upon, Unit::Unit_Type unit) {
+    units.emplace_back(Unit(to_build_upon->get_id(),to_build_upon->get_center(),name,unit));
+    to_build_upon->set_unit(&*get_unit(name,to_build_upon->get_id()));
 }
 
 Civilization & Civilization::operator=(Civilization const &rh) {
@@ -334,7 +417,6 @@ bool Civilization::operator==(Civilization const & rh) {
     if (food != rh.get_food()) {
         return false;
     }
-
 
     return true;
 }

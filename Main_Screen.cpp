@@ -9,6 +9,9 @@ Main_Screen::Main_Screen() {
     game = Game();
     next_turn = Square();
     next_phase = Square();
+
+    build_city_button = Square();
+
     //build_view_port = Square();
     build_square_1 = Square();
     build_square_2 = Square();
@@ -34,7 +37,9 @@ void Main_Screen::init(int h, int w,int x, int y) {
     set_center({w/2,h/2});
     game = Game(3*w/4,3*h/4,x,y);
 
-    next_phase = Square({7*w/8,22*h/32},Colors::WHITE,Colors::BLACK,h/12,w/5, "NEXT PHASE",true);//TODO::create a next phase button, update button text with the turn we are on
+    next_phase = Square({7*w/8,22*h/32},Colors::WHITE,Colors::BLACK,h/12,w/5, "NEXT PHASE",true);
+
+    build_city_button = Square({w/16+Tile::TILE_WIDTH/2,15*h/16-Tile::TILE_HEIGHT/2},Colors::WHITE,Colors::BLACK,h/8,w/8,"Build City",false);
 
     //build_view_port = Square({3*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/3,"BUILDING MENU place holder",true);
     build_square_1 = Square({2*w/9,15*h/18},Colors::WHITE,Colors::BLACK,h/12,w/12,"BUILD Sq 1",true);
@@ -43,14 +48,18 @@ void Main_Screen::init(int h, int w,int x, int y) {
     build_square_3 = Square({11*w/36,15*h/18},Colors::WHITE,Colors::BLACK,h/12,w/12,"BUILD Sq 3",true);
     build_square_4 = Square({11*w/36,11*h/12},Colors::WHITE,Colors::BLACK,h/12,w/12,"BUILD Sq 4",true);
 
-    next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/5,"Next Turn",true);
-    next_turn.set_x_offset(-25);
-    next_turn.set_y_offset(-25);
+    next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/4,"Next Turn",true);
+    next_turn.set_x_offset(2*next_turn.get_x_offset());
+    next_turn.set_y_offset(-15);
+    next_turn.set_text_size(Square::LARGE);
     game_view_port = Square({3*w/8 + Game::MAP_X_OFF,3*h/8+Game::MAP_Y_OFF},Colors::WHITE,3*h/4,3*w/4,false);
     piece_view_port = Square({7*w/8,1*h/8},Colors::WHITE,Colors::BLACK,2*h/8,w/4,"Unit Info",true);
     piece_view_port.set_y_offset(-3*h/16);
-    tile_view_port = Square({7*w/8,4*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"TILE INFO",true);
-    tile_view_port.set_y_offset(-3*h/16);
+    tile_view_port = Square({11*w/16-5,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/8,"TILE INFO",true);
+    tile_view_port.set_y_offset(-6*h/64);
+    tile_view_port.set_x_offset(tile_view_port.get_x_offset()-20);
+    tile_view_port.set_text_size(Square::MEDIUM);
+    city_view_port = Square();
 }
 
 void Main_Screen::draw() {
@@ -61,12 +70,16 @@ void Main_Screen::draw() {
     next_turn.draw();
     next_phase.draw();
     game.phase_on_button(next_phase);
+    build_city_button.draw();
 
     if (game.has_active_unit()) {
         game.get_active_unit()->draw_on_viewport(piece_view_port);
     }
     if (game.has_active_tile()) {
         game.get_active_tile()->draw_on_viewport(tile_view_port);
+    }
+    if (game.has_active_city()) {
+        game.get_active_city()->draw_on_viewport(city_view_port);
     }
     if (game.get_phase() == "BUILD"){
         build_square_1.draw();
@@ -81,6 +94,9 @@ Screen::names Main_Screen::get_type() const {
 }
 
 void Main_Screen::clear_active() {
+    if (game.has_active_unit() && game.get_active_unit()->get_unit_type() == Unit::SETTLER) {
+        build_city_button.hide();
+    }
     game.clear_active_unit();
     game.clear_active_tile();
     piece_view_port.hide();
@@ -98,11 +114,14 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
         switch (Turn_Phase::string_to_turn_phase(game.get_phase())) {
             case (Turn_Phase::MOVE): {
                 if (game.has_active_unit() && game.get_active_unit()->get_unit_type() == Unit::SETTLER) {
+                    if (build_city_button.check_click(click)) {
+                        Tile * settler_tile = game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id());
+                        game.build_city(Civilization_Name::WESTEROS,*settler_tile);//building a city destroys the settler
+                    }
+                }
 
-                }
-                else if (game_view_port.check_click(click)) {
-                    process_move(click);
-                }
+                process_move(click);
+
                 break;
             }
 
@@ -179,8 +198,13 @@ void Main_Screen::process_move(Coordinate click) {
 
                         }
                     }//end unit type cases
+                    clear_active();
                 }//end if unit has movement
+
                 clear_active();
+                select_tile(tile_clicked);
+
+
             } else if (unit->get_owner() == Civilization_Name::NIGHT_KING) {
                 clear_active();
                 select_tile(tile_clicked);
@@ -224,6 +248,9 @@ void Main_Screen::select_tile(Tile * tile) {
     tile_view_port.reveal();
     if (game.get_active_tile_const()->has_unit()) {
         game.set_active_unit(*tile->get_unit());
+        if (game.get_active_unit()->get_unit_type() == Unit::SETTLER) {
+            build_city_button.reveal();
+        }
         piece_view_port.reveal();
     }
 }

@@ -28,8 +28,8 @@ private:
     std::set<Tile *> tiles;
     Tile * home_tile;
 
-    void set_name(std::string nme);
     void increment_population();
+
 
 public:
     //default city does not init tiles or home tile
@@ -37,6 +37,12 @@ public:
     explicit City(Tile & home);
 
     std::string get_name() const;
+    void set_name(std::string newname);
+
+    bool is_ready_to_produce() const;
+    bool get_ready_to_produce() const;
+    bool is_ready_to_grow() const;
+    bool get_ready_to_grow() const;
 
     std::string get_production_item() const;
 
@@ -49,11 +55,14 @@ public:
     Tile_Output get_output() const;
 
     std::vector<Tile *> get_tiles();
-    void add_tiles(std::vector<Tile*> to_add);
+    void add_tiles(std::vector<Tile*> & to_add);
 
-    Tile_Output update_resources();
+    std::vector<const Tile *> get_tiles_const() const;
+
+    Tile_Output collect_resources();
 
     Tile * get_home_tile() const;
+    void set_home_tile(Tile & newt);
 
     bool has_barracks()const;
 
@@ -65,15 +74,20 @@ public:
 
     //actual building of unit or building done by civilization
 
+    //flips is ready to grow, sets food to zero, and adds given tiles
+    void grow(std::vector<Tile *> tiles);
 
-    /**
-     * switches on production type
-     * units are made in the tile of the city
-     * buildings are produced with a tile click
-     * @return
+    void draw_on_viewport(Square sq);
+
+
+    /******************************************************************************************
+     * operators
      */
-    bool produce();
+     City & operator=(const City & rhs);
 
-    bool grow();
+     friend std::ostream & operator<<(std::ostream & outs, const City & ct);
+     friend std::istream & operator>>(std::istream & ins, City & fill);
 };
+
+bool operator==(const City & lhs, const City & rhs);
 #endif //CIV_CITY_H
