@@ -6,6 +6,7 @@
 #define CIV_CITY_H
 #include "Validator.h"
 #include "Tile.h"
+#include "Building.h"
 #include <vector>
 #include <set>
 
@@ -73,6 +74,7 @@ public:
     bool set_production(std::string new_production);
 
     //actual building of unit or building done by civilization
+
 
     //flips is ready to grow, sets food to zero, and adds given tiles
     void grow(std::vector<Tile *> tiles);

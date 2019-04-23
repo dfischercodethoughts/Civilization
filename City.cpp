@@ -189,8 +189,10 @@ bool City::has_barracks() const {
 }
 
 bool City::set_production(std::string new_production) {
+
     Building_Name::names building_attempt = Building_Name::string_to_building_name(new_production);
     Unit::Unit_Type unit_attempt = Unit::string_to_unit_type(new_production);
+
     if (unit_attempt != Unit::NONE) {
         // we are producing a unit
         building_in_production = Building_Name::NONE;
@@ -281,4 +283,5 @@ bool operator==(const City & lhs, const City & rhs) {
         return true;
     }
     return false;
-}
+
+

@@ -11,12 +11,22 @@ Main_Screen::Main_Screen() {
     next_phase = Square();
 
     build_city_button = Square();
+    buildmenu = Build_Menu();
 
     //build_view_port = Square();
-    build_square_1 = Square();
-    build_square_2 = Square();
-    build_square_3 = Square();
-    build_square_4 = Square();
+//    build_square_1 = Square();
+//    build_square_2 = Square();
+//    build_square_3 = Square();
+//    build_square_4 = Square();
+//    build_square_5 = Square();
+//
+//    unit_square_1 = Square();
+//    unit_square_2 = Square();
+//    unit_square_3 = Square();
+//    unit_square_4 = Square();
+//    unit_square_5 = Square();
+//    unit_square_6 = Square();
+
 
     game_view_port = Square();
     piece_view_port = Square();
@@ -41,12 +51,21 @@ void Main_Screen::init(int h, int w,int x, int y) {
 
     build_city_button = Square({w/16+Tile::TILE_WIDTH/2,15*h/16-Tile::TILE_HEIGHT/2},Colors::WHITE,Colors::BLACK,h/8,w/8,"Build City",false);
 
-    //build_view_port = Square({3*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/3,"BUILDING MENU place holder",true);
-    build_square_1 = Square({2*w/9,15*h/18},Colors::WHITE,Colors::BLACK,h/12,w/12,"BUILD Sq 1",true);
-    build_square_2 = Square({2*w/9,11*h/12},Colors::WHITE,Colors::BLACK,h/12,w/12,"BUILD Sq 2",true);
 
-    build_square_3 = Square({11*w/36,15*h/18},Colors::WHITE,Colors::BLACK,h/12,w/12,"BUILD Sq 3",true);
-    build_square_4 = Square({11*w/36,11*h/12},Colors::WHITE,Colors::BLACK,h/12,w/12,"BUILD Sq 4",true);
+    //build_view_port = Square({3*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/3,"BUILDING MENU place holder",true);
+    //follow same logic for unit squares
+//    build_square_1 = Square({10*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"FARM",true);
+//    build_square_2 = Square({10*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"MINE",true);
+//    build_square_3 = Square({16*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"HUNTING LODGE",true);
+//    build_square_4 = Square({16*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"LOGGING CAMP",true);
+//    build_square_5 = Square({22*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"MARKET",true);
+//
+//    unit_square_1 = Square({34*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 1",true);
+//    unit_square_2 = Square({34*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 2",true);
+//    unit_square_3 = Square({40*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 3",true);
+//    unit_square_4 = Square({40*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 4",true);
+//    unit_square_5 = Square({46*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 5",true);
+//    unit_square_6 = Square({46*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 6",true);
 
     next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/4,"Next Turn",true);
     next_turn.set_x_offset(2*next_turn.get_x_offset());
@@ -60,6 +79,8 @@ void Main_Screen::init(int h, int w,int x, int y) {
     tile_view_port.set_x_offset(tile_view_port.get_x_offset()-20);
     tile_view_port.set_text_size(Square::MEDIUM);
     city_view_port = Square();
+  
+    buildmenu = Build_Menu(62*h/72, 10*w/72);
 }
 
 void Main_Screen::draw() {
@@ -82,10 +103,23 @@ void Main_Screen::draw() {
         game.get_active_city()->draw_on_viewport(city_view_port);
     }
     if (game.get_phase() == "BUILD"){
-        build_square_1.draw();
-        build_square_2.draw();
-        build_square_3.draw();
-        build_square_4.draw();
+        buildmenu.draw();
+
+//        build_square_1.draw();
+//        build_square_2.draw();
+//        build_square_3.draw();
+//        build_square_4.draw();
+//        build_square_5.draw();
+//
+//        unit_square_1.draw();
+//        unit_square_2.draw();
+//        unit_square_3.draw();
+//        unit_square_4.draw();
+//        unit_square_5.draw();
+//        unit_square_6.draw();
+
+        //game.print_build_menu_title(build_square_3, unit_square_3);
+
     }
 }
 
@@ -218,12 +252,21 @@ void Main_Screen::process_move(Coordinate click) {
         }
     }//do nothing if tile selected is not visible
     else {
+
         clear_active();
     }
 }
 
 void Main_Screen::process_build(Coordinate click) {
-    //TODO:: get game view port to show up on board clicks as well
+
+    Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
+
+    if (tile_clicked!= nullptr && tile_clicked->is_visible()) {
+        clear_active();
+        select_tile(tile_clicked);
+    } else {
+        clear_active();
+    }
     /**
      * logic to come
      * in pseudo code
@@ -267,11 +310,21 @@ Main_Screen::~Main_Screen() {
     game = Game();
     next_turn = Square();
     next_phase = Square();
+    buildmenu = Build_Menu();
+
     //build_view_port = Square();
-    build_square_1 = Square();
-    build_square_2 = Square();
-    build_square_3 = Square();
-    build_square_4 = Square();
+//    build_square_1 = Square();
+//    build_square_2 = Square();
+//    build_square_3 = Square();
+//    build_square_4 = Square();
+//    build_square_5 = Square();
+//
+//    unit_square_1 = Square();
+//    unit_square_2 = Square();
+//    unit_square_3 = Square();
+//    unit_square_4 = Square();
+//    unit_square_5 = Square();
+//    unit_square_6 = Square();
 
     game_view_port = Square();
     piece_view_port = Square();
