@@ -7,6 +7,7 @@
 #include "Tile.h"
 #include <vector>
 #include "Map.h"
+#include "City.h"
 #include <iostream>
 
 /**
@@ -17,6 +18,7 @@ class Civilization {
 private:
     int gold, production, food;
     std::vector<Unit> units;
+    std::vector<City> cities;
     Civilization_Name::Names name;
 
     bool ai;
@@ -46,6 +48,14 @@ public:
     int get_gold() const;
     int get_production() const;
     int get_food() const;
+
+    std::vector<City *> get_cities();
+    std::vector<const City *> get_cities_const() const;
+    void create_city(Map & m,Tile & newh);
+    void build_city(Map & m,Tile & newh);
+    void add_city(Map & m,Tile & newh);
+
+    void remove_unit(const Unit & re);
 
     bool is_ai() const;
 
@@ -89,7 +99,18 @@ public:
     //refresh at end of turn
     void refresh();
 
-    void next_turn();
+    void next_turn(Map & m);
+
+    void collect_resources();
+
+    void grow_cities(Map & m);
+
+    bool produce_building(Tile & to_build_upon, Building_Name::names blding);
+    bool produce_building(Tile * to_build_upon, Building_Name::names blding);
+
+    bool produce_unit(Tile & to_build_upon, Unit::Unit_Type unit);
+    bool produce_unit(Tile * to_build_upon, Unit::Unit_Type unit);
+
 
     //operators
     Civilization & operator=(Civilization const &);

@@ -24,6 +24,9 @@ private:
     Game game;
     Square next_turn;
     Square next_phase;
+
+    Square build_city_button;
+
     Build_Menu buildmenu;
 
     //Square build_view_port;
@@ -44,6 +47,7 @@ private:
     Square game_view_port;
     Square piece_view_port;
     Square tile_view_port;
+    Square city_view_port;
 
 public:
     Main_Screen();

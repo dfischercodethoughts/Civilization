@@ -169,6 +169,7 @@ void Game::clear() {
     buildmenu = Build_Menu();
     active_unit = nullptr;
     active_tile = nullptr;
+    active_city = nullptr;
     map.clear();
 }
 
@@ -179,6 +180,7 @@ Game::Game() {
     buildmenu = Build_Menu();
     active_unit = nullptr;
     active_tile = nullptr;
+    active_city = nullptr;
     map = Map();
 }
 
@@ -187,8 +189,9 @@ Game::Game(long width, long height, long vecw, long vech) {
     map = Map(height,width,vecw,vech,MAP_X_OFF,MAP_Y_OFF);
     buildmenu = Build_Menu(height, width);
     player = Civilization("Westeros",false);
-    player.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(0,0))->get_id(),player.get_name(),Unit::WARRIOR),*map.get_tile_from_vector_coordinates(Coordinate(0,0)));
+    player.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(0,1))->get_id(),player.get_name(),Unit::WARRIOR),*map.get_tile_from_vector_coordinates(Coordinate(0,1)));
     player.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(1,0))->get_id(),player.get_name(),Unit::SCOUT),*map.get_tile_from_vector_coordinates(Coordinate(1,0)));
+    player.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(0,0))->get_id(),player.get_name(),Unit::SETTLER),*map.get_tile_from_vector_coordinates(Coordinate(0,0)));
     ai = Civilization("Night King",true);
     ai.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(vecw-1,vech-1))->get_id(),ai.get_name(),Unit::WARRIOR),*map.get_tile_from_vector_coordinates(Coordinate(vecw-1,vech-1)));
     //player.add_unit(Unit::WARRIOR,*map.get_tile_from_vector_coordinates({0,0}));
@@ -196,6 +199,7 @@ Game::Game(long width, long height, long vecw, long vech) {
     reveal();
     active_unit = nullptr;
     active_tile = nullptr;
+    active_city = nullptr;
     manager = Turn_Manager();
 }
 
@@ -231,6 +235,14 @@ const Unit * Game::get_active_unit_const() const {
     return active_unit;
 }
 
+City * Game::get_active_city() {
+    return active_city;
+}
+
+const City * Game::get_active_city_const() const {
+    return active_city;
+}
+
 const Turn_Manager &Game::get_turn_manager() const {
     return manager;
 }
@@ -241,6 +253,10 @@ void Game::set_active_tile(Tile &tile) {
 
 void Game::set_active_unit(Unit &unit) {
     active_unit = &unit;
+}
+
+void Game::set_active_city(City &c) {
+    active_city = &c;
 }
 
 bool Game::has_active_unit() const {
@@ -257,6 +273,10 @@ bool Game::has_active_tile() const {
     return false;
 }
 
+bool Game::has_active_city() const {
+    return active_city != nullptr;
+}
+
 void Game::clear_active_tile() {
     active_tile = nullptr;
 }
@@ -265,20 +285,54 @@ void Game::clear_active_unit() {
     active_unit = nullptr;
 }
 
+void Game::clear_active_city() {
+    active_city = nullptr;
+}
+
 void Game::reveal_unit(Unit * to_rev) {
     map.reveal_unit(to_rev);
 
 }
 
-void Game::reveal_unit(std::unique_ptr<Unit>& to_rev) {
-    map.reveal_unit(&*to_rev);
-
+void Game::reveal_city(City * to_rev) {
+    std::vector<Tile *> tmp = to_rev->get_tiles();
+    map.make_visible(tmp);
 }
 
 void Game::reveal() {
-
+    for (City * c : player.get_cities()) {
+        reveal_city(c);
+    }
     for (Unit * u : player.get_units()) {
         reveal_unit(u);
+    }
+}
+
+void Game::build_city(Civilization_Name::Names civ, Tile & build_on) {
+    Unit * u = build_on.get_unit();
+
+    if (civ == Civilization_Name::WESTEROS) {//todo: loop through civs vector when choosing how to build city...
+        player.add_city(map,build_on);
+        player.remove_unit(*u);
+
+    }
+    else {
+        ai.add_city(map,build_on);
+        ai.remove_unit(*u);
+
+    }
+    //remove settler from tile
+    build_on.clear_unit();
+
+}
+
+int Game::get_num_cities(Civilization_Name::Names nm) {
+    //todo:loop through civs vector and return the appropriate number of cities
+    if (nm == Civilization_Name::WESTEROS) {
+        return get_player().get_cities().size();
+    }
+    else {
+        return get_ai().get_cities().size();
     }
 }
 
@@ -372,9 +426,9 @@ std::string Game::get_phase(){
 
 void Game::next_turn() {
     manager.set_current_phase(Turn_Phase::AI_TURN);
-    ai.refresh();
+    ai.next_turn(map);
     //play_ai();
-    player.refresh();
+    player.next_turn(map);
     update_map();
     clear_active_tile();
     clear_active_unit();

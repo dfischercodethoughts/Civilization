@@ -23,7 +23,7 @@ private:
     Build_Menu buildmenu;
 
     Tile * active_tile;
-    //std::shared_ptr<City> active_city;
+    City * active_city;
     Unit * active_unit;
     //std::shared_ptr<Building> active_building;
 
@@ -71,25 +71,35 @@ public:
     //std::shared_ptr<City> & get_active_city();
     Unit* get_active_unit();
     const Unit * get_active_unit_const() const;
+    City * get_active_city();
+    const City * get_active_city_const() const;
 
     const Turn_Manager &get_turn_manager() const;
 
     //todo: deal with nullptr case
     void set_active_tile(Tile & tile);
     void set_active_unit(Unit & unit);
+    void set_active_city(City & c);
     bool has_active_unit() const;
     bool has_active_tile() const;
+    bool has_active_city() const;
     void clear_active_tile();
     void clear_active_unit();
+    void clear_active_city();
 
     void reveal_unit(Unit * to_rev);
-    void reveal_unit(std::unique_ptr<Unit>& to_rev);
+    void reveal_city(City * rev);
+
     /**
-     * sets all tiles within visible range (max movement range) of all units in players civ
+     * reveals all tiles within visible range (max movement range) of all units in players civ
      */
     void reveal();
 
     bool move_active_unit(Tile & to_move_to);
+
+    void build_city(Civilization_Name::Names civ, Tile & build_on);
+
+    int get_num_cities(Civilization_Name::Names civ);
 
     Map & get_map();
     const Map & get_map_const() const;

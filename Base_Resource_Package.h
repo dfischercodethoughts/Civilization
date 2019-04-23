@@ -19,6 +19,7 @@ private:
     friend class Tile_Output;
 
     bool increment_number();
+    bool decrement_number();
     void add(int to_add);
     bool set_type(Base_Resource::names new_n);
     bool set_type(std::string new_type);

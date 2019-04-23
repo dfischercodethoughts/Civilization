@@ -6,8 +6,70 @@
 
 int Tile::num_tiles = 0;
 
+void Tile::init_output() {
+    switch (terrain) {
+        case (Tile_Terrain::WATER) : {
+            output.increment_food();
+            break;
+        }
+        case (Tile_Terrain::MOUNTAIN) : {
+            output.increment_production();
+            break;
+        }
+        case (Tile_Terrain::GRASSLAND) : {
+            output.increment_food();
+            break;
+        }
+        case (Tile_Terrain::HILL) : {
+            output.increment_production();
+            break;
+        }
+    }
+}
+
+void Tile::clear_resource() {
+    switch ( resource) {
+        case ( Tile_Resource::STONE) : {
+            output.decrement_production();
+            resource = Tile_Resource::DEFAULT;
+            break;
+        }
+        case ( Tile_Resource::GOLD) : {
+            output.decrement_gold();
+            resource = Tile_Resource::DEFAULT;
+            break;
+        }case ( Tile_Resource::SILVER) : {
+            output.decrement_gold();
+            resource = Tile_Resource::DEFAULT;
+            break;
+        }
+        case ( Tile_Resource::WOODS) : {
+            output.decrement_production();
+            resource = Tile_Resource::DEFAULT;
+            break;
+        }
+        case ( Tile_Resource::WHEAT) : {
+            output.decrement_food();
+            resource = Tile_Resource::DEFAULT;
+            break;
+        }
+        case ( Tile_Resource::GAZELLE) : {
+            output.decrement_food();
+            resource = Tile_Resource::DEFAULT;
+            break;
+        }
+        case ( Tile_Resource::IRON) : {
+            output.decrement_production();
+            resource = Tile_Resource::DEFAULT;
+            break;
+        }
+
+
+    }
+}
+
 Tile::Tile():
-Piece(Piece::TILE)
+Piece(Piece::TILE), building(Building())
 {
     num_tiles++;
     init(Tile_Terrain::DEFAULT,Tile_Resource::DEFAULT,nullptr,false);
@@ -27,7 +89,6 @@ Tile::Tile(const Tile *cp):
     init(cp->get_terrain(),cp->get_resource(),cp->get_const_unit(),cp->is_visible(),cp->get_id());
 }
 
-
 Tile::Tile(const Tile & cp):
 Piece(cp.get_center(),cp.get_height(),cp.get_width(),cp.get_fill(),cp.get_text_color(),Piece::TILE)
 {
@@ -36,7 +97,7 @@ Piece(cp.get_center(),cp.get_height(),cp.get_width(),cp.get_fill(),cp.get_text_c
 }
 
 Tile::Tile(std::unique_ptr<Tile> cp):
-Piece(Piece::TILE)
+Piece(Piece::TILE), building(Building())
 {
     num_tiles++;
     init(cp->get_terrain(),cp->get_resource(),cp->get_const_unit(),cp->is_visible(),cp->get_id());
@@ -57,53 +118,54 @@ Piece(Piece::TILE)
 }
 
 Tile::Tile(std::string ter, std::string res, Unit & u):
-Piece(u.get_center(),u.get_height(),u.get_width(),u.get_fill(),u.get_text_color(),Piece::TILE){
+Piece(u.get_center(),u.get_height(),u.get_width(),u.get_fill(),u.get_text_color(),Piece::TILE), building(Building()){
     num_tiles++;
     init(Tile_Terrain::string_to_terrain(ter),Tile_Resource::string_to_resource(res),&u,false);
 }
 
 Tile::Tile(Tile_Terrain::names ter,Tile_Resource::names res, Unit & u):
-Piece(u.get_center(),u.get_height(),u.get_width(),u.get_fill(),u.get_text_color(),Piece::TILE) {
+Piece(u.get_center(),u.get_height(),u.get_width(),u.get_fill(),u.get_text_color(),Piece::TILE), building(Building()) {
     num_tiles++;
     init(ter,res,unit,false);
 }
 
 Tile::Tile(Tile_Terrain::names nm):
-Piece(Piece::TILE)
+Piece(Piece::TILE), building(Building())
 {
     num_tiles++;
     init(nm,Tile_Resource::DEFAULT,nullptr,false);
 }
 
 Tile::Tile(std::string ter, std::string res, std::shared_ptr<Unit> & u):
-Piece(u->get_center(),u->get_height(),u->get_width(),u->get_fill(),u->get_text_color(),Piece::TILE)
+Piece(u->get_center(),u->get_height(),u->get_width(),u->get_fill(),u->get_text_color(),Piece::TILE), building(Building())
 {
     num_tiles++;
     init(Tile_Terrain::string_to_terrain(ter),Tile_Resource::string_to_resource(res),&*u,false);
 }
 
 Tile::Tile(Tile_Terrain::names ter,Tile_Resource::names res, std::shared_ptr<Unit> & u):
-Piece(u->get_center(),u->get_height(),u->get_width(),u->get_fill(),u->get_text_color(),Piece::TILE) {
+Piece(u->get_center(),u->get_height(),u->get_width(),u->get_fill(),u->get_text_color(),Piece::TILE), building(Building())
+{
     num_tiles++;
     init(ter,res,&*u,false);
 }
 
 Tile::Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::names ter,Tile_Resource::names res):
-Piece(cnt,h,w,fill,text,Piece::TILE)
+Piece(cnt,h,w,fill,text,Piece::TILE), building(Building())
 {
     num_tiles++;
     init(ter,res,nullptr,false);
 }
 
 Tile::Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::names ter,Tile_Resource::names res,int i):
-        Piece(cnt,h,w,fill,text,Piece::TILE)
+        Piece(cnt,h,w,fill,text,Piece::TILE), building(Building())
 {
     num_tiles++;
     init(ter,res,nullptr,false);
 }
 
 Tile::Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::names ter,Tile_Resource::names res,bool vis):
-        Piece(cnt,h,w,fill,text,Piece::TILE)
+        Piece(cnt,h,w,fill,text,Piece::TILE), building(Building())
 {
     num_tiles++;
     init(ter,res,nullptr,vis);
@@ -113,25 +175,31 @@ void Tile::init(Tile_Terrain::names ter, Tile_Resource::names res, Unit * u, boo
     terrain = ter;
     resource = res;
     unit = &*u;
+    owner = Civilization_Name::NONE;
     if(vis) {
         this->reveal();
     }
     else {
         this->hide();
     }
+    init_output();
     id = get_num_tiles();
+    city = nullptr;
 }
 
 void Tile::init(Tile_Terrain::names ter, Tile_Resource::names res, Unit * u, bool vis, int i) {
     terrain = ter;
     resource = res;
     unit = &*u;
+    owner = Civilization_Name::NONE;
+    city = nullptr;
     if(vis) {
         this->reveal();
     }
     else {
         this->hide();
     }
+    init_output();
     id = i;
 }
 
@@ -147,11 +215,43 @@ void Tile::init_id() {
     Tile::num_tiles = 0;
 }
 
+Civilization_Name::Names Tile::get_owner() const {
+    return owner;
+}
+
+void Tile::set_owner(Civilization_Name::Names nm) {
+    owner = nm;
+}
+
+bool Tile::has_owner() const {
+    return !owner==Civilization_Name::NONE;
+}
+
+Building Tile::get_building() const {
+    return building;
+}
+
 Square Tile::get_base_square() const {
     Square toret(this->get_center(),this->get_fill(),this->get_text_color(),this->get_height(),this->get_width(),this->get_message(),this->is_visible());
     toret.set_x_offset(this->get_x_offset());
     toret.set_y_offset(this->get_y_offset());
     return toret;
+}
+
+City * Tile::get_city() {
+    return city;
+}
+
+void Tile::set_city(City & newc) {
+    city = &newc;
+}
+
+void Tile::build_city(City & newc) {
+    city = &newc;
+}
+
+bool Tile::has_city() const {
+    return !(city==nullptr);
 }
 
 void Tile::set_base_square(Square set) {
@@ -227,6 +327,196 @@ void Tile::set_background_square(Square set) {
     this->set_width(set.get_width());
 }
 
+bool Tile::add_building(Building_Name::names bld) {
+    bool built = false;
+
+    switch (bld) {
+        case (Building_Name::BARRACKS) : {
+            clear_resource();
+            break;
+        }
+        case (Building_Name::MINE) : {
+            switch (terrain) {
+                case (Tile_Terrain::GRASSLAND) : {
+                    building = Building(bld);
+                    output.increment_production();
+                    built = true;
+                    break;
+                }
+                case (Tile_Terrain::HILL) : {
+                    building = Building(bld);
+                    output.increment_production();
+                    built = true;
+                    break;
+                }
+                default : {
+                    return false;
+                }
+            }
+            if (resource == Tile_Resource::SILVER || resource == Tile_Resource::GOLD) {
+                output.increment_gold();
+                output.increment_gold();
+            }
+            else if (resource == Tile_Resource::STONE) {
+                output.increment_production();
+                output.increment_production();
+            }
+            else {
+                clear_resource();
+            }
+            break;
+        }
+        case (Building_Name::FARM) : {
+            switch (terrain) {
+                case (Tile_Terrain::GRASSLAND) : {
+                    building = Building(bld);
+                    output.increment_food();
+                    built = true;
+                    break;
+                }
+                case (Tile_Terrain::HILL) : {
+                    building = Building(bld);
+                    output.increment_food();
+                    built = true;
+                    break;
+                }
+                default : {
+                    return false;
+                }
+            }
+            if (resource == Tile_Resource::WHEAT) {
+                output.increment_food();
+                output.increment_food();
+            }
+            else {
+                clear_resource();
+            }
+            break;
+        }
+        case (Building_Name::LOGGING_CAMP) : {
+            if (resource == Tile_Resource::WOODS) {
+                output.increment_production();
+                output.increment_production();
+            }
+            else {
+                return false;
+            }
+
+            break;
+        }
+        case (Building_Name::MARKET) : {
+            switch (terrain) {
+                case (Tile_Terrain::GRASSLAND) : {
+                    building = Building(bld);
+                    output.increment_gold();
+                    output.increment_gold();
+                    built = true;
+                    break;
+                }
+                case (Tile_Terrain::HILL) : {
+                    building = Building(bld);
+                    output.increment_gold();
+                    output.increment_gold();
+                    built = true;
+                    break;
+                }
+                default : {
+                    return false;
+                }
+            }
+            clear_resource();
+            break;
+        }
+        case (Building_Name::HARBOR) : {
+            switch (terrain) {
+                case (Tile_Terrain::WATER) : {
+                    building = Building(bld);
+                    output.increment_food();
+                    output.increment_gold();
+                    built = true;
+                    break;
+                }
+                default : {
+                    return false;
+                }
+            }
+            if (resource == Tile_Resource::FISH) {
+                output.increment_food();
+                output.increment_food();
+            }
+            else {
+                clear_resource();
+            }
+            break;
+        }
+        case (Building_Name::TRADING_POST) : {
+            switch (terrain) {
+                case (Tile_Terrain::GRASSLAND) : {
+                    building = Building(bld);
+                    output.increment_gold();
+                    built = true;
+                    break;
+                }
+                case (Tile_Terrain::HILL) : {
+                    building = Building(bld);
+                    output.increment_gold();
+                    built = true;
+                    break;
+                }
+                default : {
+                    return false;
+                }
+            }
+            break;
+        }
+        case (Building_Name::WORKSHOP) : {
+            switch (terrain) {
+                case (Tile_Terrain::GRASSLAND) : {
+                    building = Building(bld);
+                    output.increment_production();
+                    built = true;
+                    break;
+                }
+                case (Tile_Terrain::HILL) : {
+                    building = Building(bld);
+                    output.increment_production();
+                    output.increment_production();
+                    built = true;
+                    break;
+                }
+                default : {
+                    return false;
+                }
+            }
+            if (resource == Tile_Resource::WOODS || resource == Tile_Resource::STONE) {
+                output.increment_production();
+            }
+            else if (resource == Tile_Resource::GOLD || resource == Tile_Resource::SILVER) {
+                output.increment_gold();
+            }
+            else {
+                clear_resource();
+            }
+            break;
+        }
+    }
+
+    if (built) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+Tile_Output Tile::get_output() const {
+    if (has_unit() && unit->get_owner() != Civilization_Name::WESTEROS) {
+        return Tile_Output();
+    }
+
+    return output;
+}
+
 void Tile::draw() const {
     //draw T: terrain
     //     R: resource
@@ -234,10 +524,17 @@ void Tile::draw() const {
     if (is_visible()) {
         std::string line;
         if (this->has_unit()) {
-            Square(get_center(), Colors::YELLOW, Colors::BLACK, get_height(), get_width(), "", true).draw();
+            Color tmp;
+            if (unit->get_owner()==Civilization_Name::WESTEROS) {
+                tmp = Colors::YELLOW;
+            }
+            else {
+                tmp = Colors::RED;
+            }
+            Square(get_center(), tmp, Colors::BLACK, get_height(), get_width(), "", true).draw();
             glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
             glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8),
-                          this->get_center().y + this->get_height() / 3);
+                          this->get_center().y -this->get_height()/2 + 4*get_height()/5);
 
             Unit::Unit_Type type = get_const_unit()->get_unit_type();
             line = "U: " + Unit::unit_type_to_string(type);
@@ -245,56 +542,95 @@ void Tile::draw() const {
                 glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
             }
         } else {
-            Square(get_center(), Colors::WHITE, Colors::BLACK, get_height(), get_width(), "", true).draw();
+            Color tmp;
+            if (has_owner()) {
+                if (owner == Civilization_Name::WESTEROS) {
+                    tmp = Colors::YELLOW;
+                }
+                else {
+                    tmp = Colors::RED;
+                }
+            }
+            else {
+                tmp = Colors::WHITE;
+            }
+            Square(get_center(), tmp, Colors::BLACK, get_height(), get_width(), "", true).draw();
         }
-
-
 
         line = "T: ";
         glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
         glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8),
-                      this->get_center().y - this->get_height() / 3);
+                      this->get_center().y - get_height() / 2 + get_height()/5);
         line += Tile_Terrain::terrain_to_string(this->get_terrain());
         for (char c: line) {
             glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
         }
 
         glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
-        glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8), this->get_center().y);
+        glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8),
+                this->get_center().y - get_height()/2 + get_height()*2/5);
         line = "R: " + Tile_Resource::resource_to_string(this->get_resource());
         for (char c: line) {
             glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+        }
+
+        glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
+        glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8),
+                this->get_center().y - get_height()/2 + 3*get_height()/5);
+        line = "B: " + Building_Name::building_name_to_string(building.get_name());
+        for (char c: line) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+        }
+
+        if (has_city()) {
+            glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
+            glRasterPos2i(this->get_center().x + (3 * this->get_width() / 8),
+                          this->get_center().y);
+            char c = 'C';
+
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+
         }
     }
 
     //if not visible print black square
     else {
+
         Square(get_center(),Colors::BLACK,Colors::WHITE,get_height(),get_width(),"",true).draw();
     }
 }
 
 void Tile::draw_on_viewport(Square viewport_base) {
     viewport_base.draw();
+    Coordinate tl ={ viewport_base.get_center().x-viewport_base.get_width()/2, viewport_base.get_center().y-viewport_base.get_height()/2};
+
     std::string line = "";
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y-3*viewport_base.get_height()/8);
+    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3);
     line += "TERRAIN TYPE: " + Tile_Terrain::terrain_to_string(terrain);
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y);
+    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3+viewport_base.get_height()/6);
     line = "RESOURCE TYPE: " + Tile_Resource::resource_to_string(resource);
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(viewport_base.get_center().x-3*viewport_base.get_width()/8,viewport_base.get_center().y+3*viewport_base.get_height()/8);
+    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3 + viewport_base.get_height()/3);
     line = "MOVEMENT COST: "+std::to_string(Tile_Terrain::get_movement_cost(terrain));
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+    }
+
+    glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
+    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3+viewport_base.get_height()/2);
+    line = "BUILDING: "+Building_Name::building_name_to_string(building.get_name());
+    for (char c : line) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
     }
 }
 
@@ -355,7 +691,7 @@ Tile & Tile::operator=(const Tile & rhs) {
 bool Tile::operator==(Tile const & rhs) const {
     //todo: add building to tile equality
     if ((get_id() == rhs.get_id()) && (terrain == rhs.get_terrain()) &&
-            (resource == rhs.get_resource())) {
+            (resource == rhs.get_resource())&& building == rhs.get_building()) {
         return true;
     }
     return false;

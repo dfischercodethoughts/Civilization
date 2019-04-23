@@ -5,11 +5,6 @@
 #include "Map.h"
 #include "Game.h"
 
-void Map::make_visible(std::vector<Tile *> &to) {
-    for (Tile * tl :to) {
-        tl->reveal();
-    }
-}
 
 void Map::hide_map() {
     for (int  i = 0; i < tiles.size();i++) {
@@ -298,6 +293,13 @@ void Map::reveal_units(std::vector<Unit *> units) {
 void Map::reveal_unit(Unit * unit) {
     std::vector<Tile *>* rev = get_tiles_within_range(get_tile_from_id(unit->get_location_id()),unit->get_max_movement(unit->get_unit_type()));
     make_visible(*rev);
+}
+
+
+void Map::make_visible(std::vector<Tile *> &to) {
+    for (Tile * tl :to) {
+        tl->reveal();
+    }
 }
 
 void Map::draw() const {

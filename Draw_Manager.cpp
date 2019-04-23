@@ -86,7 +86,6 @@ int Draw_Manager::process_click(Coordinate click) {
             main.check_click(click);
             check_win();
             break;
-
         }
                 /**
                  * build functionality to come
