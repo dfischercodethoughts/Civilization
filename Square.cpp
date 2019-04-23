@@ -136,10 +136,12 @@ void Square::hide() {
 }
 
 bool Square::check_click(Coordinate click) {
-    if (click.x > (center.x-width/2) && click.x < (center.x + width/2) &&
-        click.y > (center.y-height/2) && click.y < (center.y + height/2)) {
+    if (click.x > (center.x - width / 2) && click.x<(center.x + width / 2) &&
+                                                    click.y>(center.y - height / 2) &&
+        click.y < (center.y + height / 2)) {
         return true;
     }
+
     return false;
 }
 

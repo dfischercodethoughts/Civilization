@@ -189,11 +189,24 @@ Game::Game(long width, long height, long vecw, long vech) {
     map = Map(height,width,vecw,vech,MAP_X_OFF,MAP_Y_OFF);
     buildmenu = Build_Menu(height, width);
     player = Civilization("Westeros",false);
-    player.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(0,1))->get_id(),player.get_name(),Unit::WARRIOR),*map.get_tile_from_vector_coordinates(Coordinate(0,1)));
-    player.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(1,0))->get_id(),player.get_name(),Unit::SCOUT),*map.get_tile_from_vector_coordinates(Coordinate(1,0)));
-    player.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(0,0))->get_id(),player.get_name(),Unit::SETTLER),*map.get_tile_from_vector_coordinates(Coordinate(0,0)));
+    Unit * to_add = new Unit(map.get_tile_from_vector_coordinates(Coordinate(0,1))->get_id(),player.get_name(),Unit::WARRIOR);
+    player.add_unit(&*to_add);
+    map.get_tile_from_vector_coordinates(Coordinate(0,1))->set_unit(&*to_add);
+
+    to_add = new Unit(map.get_tile_from_vector_coordinates(Coordinate(1,0))->get_id(),player.get_name(),Unit::SCOUT);
+    player.add_unit(&*to_add);
+    map.get_tile_from_vector_coordinates(Coordinate(1,0))->set_unit(&*to_add);
+
+    to_add = new Unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(0,0))->get_id(),player.get_name(),Unit::SETTLER));
+
+    player.add_unit(to_add);
+    map.get_tile_from_vector_coordinates(Coordinate(0,0))->set_unit(&*to_add);
+
     ai = Civilization("Night King",true);
-    ai.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(vecw-1,vech-1))->get_id(),ai.get_name(),Unit::WARRIOR),*map.get_tile_from_vector_coordinates(Coordinate(vecw-1,vech-1)));
+
+    to_add = new Unit(map.get_tile_from_vector_coordinates(Coordinate(vecw-1,vech-1))->get_id(),ai.get_name(),Unit::WARRIOR);
+    ai.add_unit(&*to_add);
+    map.get_tile_from_id(to_add->get_location_id())->set_unit(ai.get_unit(Civilization_Name::NIGHT_KING,to_add->get_location_id()));
     //player.add_unit(Unit::WARRIOR,*map.get_tile_from_vector_coordinates({0,0}));
     //ai.add_unit(Unit::WARRIOR,*map.get_tile_from_vector_coordinates({vecw-1,vech-1}));
     reveal();
@@ -433,6 +446,7 @@ void Game::next_turn() {
     clear_active_tile();
     clear_active_unit();
     map.reveal_units(player.get_units());
+    map.reveal_cities(player.get_cities());
     manager.set_current_phase(Turn_Phase::MOVE);
 }
 

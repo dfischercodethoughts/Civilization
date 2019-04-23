@@ -291,10 +291,21 @@ void Map::reveal_units(std::vector<Unit *> units) {
 }
 
 void Map::reveal_unit(Unit * unit) {
-    std::vector<Tile *>* rev = get_tiles_within_range(get_tile_from_id(unit->get_location_id()),unit->get_max_movement(unit->get_unit_type()));
+    std::vector<Tile *> *rev = get_tiles_within_range(get_tile_from_id(unit->get_location_id()),
+                                                      unit->get_max_movement(unit->get_unit_type()));
     make_visible(*rev);
 }
 
+void Map::reveal_city(City *city) {
+    std::vector<Tile *> rev = city->get_tiles();
+    make_visible(rev);
+}
+
+void Map::reveal_cities(std::vector<City *> cities) {
+    for (City * c : cities) {
+        reveal_city(c);
+    }
+}
 
 void Map::make_visible(std::vector<Tile *> &to) {
     for (Tile * tl :to) {

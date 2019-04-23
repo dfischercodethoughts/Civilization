@@ -348,11 +348,11 @@ Unit::Unit_Type Unit::get_unit_type() const {
 }
 
 void Unit::set_location(int newl) {
-    if (newl>=0&newl<65) {
+    if (newl>=0&newl<1000) {
         tile_id = newl;
     }
     else {
-        tile_id = 64;
+        tile_id = -1;
     }
 }
 

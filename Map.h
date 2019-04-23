@@ -56,6 +56,8 @@ public:
      */
     void reveal_units(std::vector<Unit *> units);
     void reveal_unit(Unit * unit);
+    void reveal_city(City * city);
+    void reveal_cities(std::vector<City *> rev);
     void make_visible(std::vector<Tile *>&);
 
     void draw() const override;

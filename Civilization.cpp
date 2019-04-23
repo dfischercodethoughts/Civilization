@@ -66,21 +66,10 @@ std::vector<const City *> Civilization::get_cities_const() const {
     return ret;
 }
 
-void Civilization::create_city(Map & m,Tile & newh) {
-    City newc(newh);
-    newc.set_name("City " + std::to_string(cities.size()));
-    m.get_tiles_within_range(&newh,2);
-}
-
-void Civilization::build_city(Map & m,Tile & newh) {
-    City newc(newh);
-    newc.set_name("City " + std::to_string(cities.size()));
-    m.get_tiles_within_range(&newh,2);
-}
-
 void Civilization::add_city(Map & m,Tile & newh) {
     City newc(newh);
-    newc.set_name("City " + std::to_string(cities.size()));
+    std::string line = "CITY " + std::to_string(cities.size());
+    newc.set_name(line);
     for (Tile * t : *m.get_tiles_within_range(&newh,2)) {
         t->set_owner(name);
     }

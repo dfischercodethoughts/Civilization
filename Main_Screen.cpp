@@ -38,7 +38,7 @@ Main_Screen::Main_Screen(int h, int w, int vecx, int vecy) {
 }
 
 void Main_Screen::init(int h, int w) {
-    init(h,w,8,8);
+    init(h,w,10,10);
 }
 
 void Main_Screen::init(int h, int w,int x, int y) {
@@ -71,7 +71,7 @@ void Main_Screen::init(int h, int w,int x, int y) {
     next_turn.set_x_offset(2*next_turn.get_x_offset());
     next_turn.set_y_offset(-15);
     next_turn.set_text_size(Square::LARGE);
-    game_view_port = Square({3*w/8 + Game::MAP_X_OFF,3*h/8+Game::MAP_Y_OFF},Colors::WHITE,3*h/4,3*w/4,false);
+    game_view_port = Square({3*w/8,3*h/8},Colors::WHITE,3*h/4,3*w/4,false);
     piece_view_port = Square({7*w/8,1*h/8},Colors::WHITE,Colors::BLACK,2*h/8,w/4,"Unit Info",true);
     piece_view_port.set_y_offset(-3*h/16);
     tile_view_port = Square({11*w/16-5,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/8,"TILE INFO",true);

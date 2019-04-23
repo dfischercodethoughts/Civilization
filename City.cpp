@@ -38,7 +38,7 @@ std::string City::get_name() const {
     return name;
 }
 void City::set_name(std::string nme) {
-    if (nme.length() < 15 && !Validator::has_special_char(nme) && !Validator::has_num(nme)) {
+    if (nme.length() < 15 && !Validator::has_special_char(nme)) {
         name = nme;
     }
 }
@@ -278,10 +278,11 @@ City & City::operator=(const City & rhs) {
 //todo:implement city input output
 
 bool operator==(const City & lhs, const City & rhs) {
-    if (lhs.is_ready_to_produce() == rhs.is_ready_to_produce() && lhs.get_production_item() == rhs.get_production_item() &&
+    if (lhs.is_ready_to_produce() == rhs.is_ready_to_produce() &&
+        lhs.get_production_item() == rhs.get_production_item() &&
         lhs.get_name() == rhs.get_name() && *lhs.get_home_tile() == *rhs.get_home_tile()) {
         return true;
     }
     return false;
 
-
+}

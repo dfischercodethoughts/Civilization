@@ -21,10 +21,10 @@ bool Validator::is_special_char(char dig) {
 bool Validator::has_special_char(std::string check) {
     for (int i = 0; i < check.size(); i++) {
         if (is_special_char(check[i])) {
-            return false;
+            return true;
         }
     }
-    return true;
+    return false;
 }
 
 bool Validator::is_char(char dig) {

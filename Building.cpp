@@ -48,14 +48,16 @@ Building & Building::operator=(const Building & cp) {
     name = cp.get_name();
 }
 
+
+
 std::string Building::building_to_string(Building_Name::names nm){
     switch(nm){
         case(Building_Name::FARM):
             return "FARM";
         case(Building_Name::MINE):
             return "MINE";
-        case(Building_Name::HUNTING_LODGE):
-            return "HUNTING_LODGE";
+        //case(Building_Name::HUNTING_LODGE):
+        //    return "HUNTING_LODGE";
         case(Building_Name::LOGGING_CAMP):
             return "LOGGING_CAMP";
         case(Building_Name::MARKET):
@@ -72,10 +74,11 @@ int Building::get_upkeep(Building_Name::names nm){
     if(nm == Building_Name::FARM or nm == Building_Name::MINE){
         return 1;
         //logging camps and hunting lodge require 2 production
-    } else if(nm == Building_Name::LOGGING_CAMP or nm == Building_Name::HUNTING_LODGE){
-        return 2;
+    } //else if(nm == Building_Name::LOGGING_CAMP or nm == Building_Name::HUNTING_LODGE){
+        //return 2;
         //market requires 3 production
-    }else if(nm == Building_Name::MARKET){
+    //}
+    else if(nm == Building_Name::MARKET){
         return 3;
         //otherwise, that means their is nothing there so there is no production upkeep value
     }else{
