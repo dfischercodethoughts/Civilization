@@ -5,3 +5,5 @@ cmake-build-debug/*.txt
 cmake-build-debug/*.cmake
 .idea/workspace.xml
 .idea/
+cmake-build-debug/Makefile
+cmake-build-debug/civ.cbp
