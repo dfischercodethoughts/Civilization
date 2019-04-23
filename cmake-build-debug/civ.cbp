@@ -96,6 +96,12 @@
 		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Base_Resource_Package.h">
 			<Option target="main.cpp"/>
 		</Unit>
+		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Build_Menu.cpp">
+			<Option target="main.cpp"/>
+		</Unit>
+		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Build_Menu.h">
+			<Option target="main.cpp"/>
+		</Unit>
 		<Unit filename="/home/willi/CLionProjects/Final_Proj_v2/Building.cpp">
 			<Option target="main.cpp"/>
 		</Unit>

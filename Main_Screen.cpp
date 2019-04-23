@@ -9,19 +9,22 @@ Main_Screen::Main_Screen() {
     game = Game();
     next_turn = Square();
     next_phase = Square();
-    //build_view_port = Square();
-    build_square_1 = Square();
-    build_square_2 = Square();
-    build_square_3 = Square();
-    build_square_4 = Square();
-    build_square_5 = Square();
 
-    unit_square_1 = Square();
-    unit_square_2 = Square();
-    unit_square_3 = Square();
-    unit_square_4 = Square();
-    unit_square_5 = Square();
-    unit_square_6 = Square();
+    buildmenu = Build_Menu();
+
+    //build_view_port = Square();
+//    build_square_1 = Square();
+//    build_square_2 = Square();
+//    build_square_3 = Square();
+//    build_square_4 = Square();
+//    build_square_5 = Square();
+//
+//    unit_square_1 = Square();
+//    unit_square_2 = Square();
+//    unit_square_3 = Square();
+//    unit_square_4 = Square();
+//    unit_square_5 = Square();
+//    unit_square_6 = Square();
 
 
     game_view_port = Square();
@@ -42,23 +45,22 @@ void Main_Screen::init(int h, int w,int x, int y) {
     set_screen_width(w);
     set_center({w/2,h/2});
     game = Game(3*w/4,3*h/4,x,y);
-
     next_phase = Square({7*w/8,22*h/32},Colors::WHITE,Colors::BLACK,h/12,w/5, "NEXT PHASE",true);//TODO::create a next phase button, update button text with the turn we are on
 
     //build_view_port = Square({3*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/3,"BUILDING MENU place holder",true);
     //follow same logic for unit squares
-    build_square_1 = Square({10*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"FARM",true);
-    build_square_2 = Square({10*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"MINE",true);
-    build_square_3 = Square({16*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"HUNTING LODGE",true);
-    build_square_4 = Square({16*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"LOGGING CAMP",true);
-    build_square_5 = Square({22*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"MARKET",true);
-
-    unit_square_1 = Square({34*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 1",true);
-    unit_square_2 = Square({34*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 2",true);
-    unit_square_3 = Square({40*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 3",true);
-    unit_square_4 = Square({40*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 4",true);
-    unit_square_5 = Square({46*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 5",true);
-    unit_square_6 = Square({46*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 6",true);
+//    build_square_1 = Square({10*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"FARM",true);
+//    build_square_2 = Square({10*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"MINE",true);
+//    build_square_3 = Square({16*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"HUNTING LODGE",true);
+//    build_square_4 = Square({16*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"LOGGING CAMP",true);
+//    build_square_5 = Square({22*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"MARKET",true);
+//
+//    unit_square_1 = Square({34*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 1",true);
+//    unit_square_2 = Square({34*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 2",true);
+//    unit_square_3 = Square({40*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 3",true);
+//    unit_square_4 = Square({40*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 4",true);
+//    unit_square_5 = Square({46*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 5",true);
+//    unit_square_6 = Square({46*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 6",true);
 
     next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/5,"Next Turn",true);
     next_turn.set_x_offset(-25);
@@ -68,6 +70,9 @@ void Main_Screen::init(int h, int w,int x, int y) {
     piece_view_port.set_y_offset(-3*h/16);
     tile_view_port = Square({7*w/8,4*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"TILE INFO",true);
     tile_view_port.set_y_offset(-3*h/16);
+
+    buildmenu = Build_Menu(62*h/72, 10*w/72);
+
 }
 
 void Main_Screen::draw() {
@@ -86,20 +91,22 @@ void Main_Screen::draw() {
         game.get_active_tile()->draw_on_viewport(tile_view_port);
     }
     if (game.get_phase() == "BUILD"){
-        build_square_1.draw();
-        build_square_2.draw();
-        build_square_3.draw();
-        build_square_4.draw();
-        build_square_5.draw();
+        buildmenu.draw();
 
-        unit_square_1.draw();
-        unit_square_2.draw();
-        unit_square_3.draw();
-        unit_square_4.draw();
-        unit_square_5.draw();
-        unit_square_6.draw();
+//        build_square_1.draw();
+//        build_square_2.draw();
+//        build_square_3.draw();
+//        build_square_4.draw();
+//        build_square_5.draw();
+//
+//        unit_square_1.draw();
+//        unit_square_2.draw();
+//        unit_square_3.draw();
+//        unit_square_4.draw();
+//        unit_square_5.draw();
+//        unit_square_6.draw();
 
-        game.print_build_menu_title(build_square_3, unit_square_3);
+        //game.print_build_menu_title(build_square_3, unit_square_3);
 
     }
 }
@@ -274,19 +281,21 @@ Main_Screen::~Main_Screen() {
     game = Game();
     next_turn = Square();
     next_phase = Square();
-    //build_view_port = Square();
-    build_square_1 = Square();
-    build_square_2 = Square();
-    build_square_3 = Square();
-    build_square_4 = Square();
-    build_square_5 = Square();
+    buildmenu = Build_Menu();
 
-    unit_square_1 = Square();
-    unit_square_2 = Square();
-    unit_square_3 = Square();
-    unit_square_4 = Square();
-    unit_square_5 = Square();
-    unit_square_6 = Square();
+    //build_view_port = Square();
+//    build_square_1 = Square();
+//    build_square_2 = Square();
+//    build_square_3 = Square();
+//    build_square_4 = Square();
+//    build_square_5 = Square();
+//
+//    unit_square_1 = Square();
+//    unit_square_2 = Square();
+//    unit_square_3 = Square();
+//    unit_square_4 = Square();
+//    unit_square_5 = Square();
+//    unit_square_6 = Square();
 
     game_view_port = Square();
     piece_view_port = Square();

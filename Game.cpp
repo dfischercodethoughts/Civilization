@@ -166,6 +166,7 @@ void Game::clear() {
     player.clear();
     ai.clear();
     manager = Turn_Manager();
+    buildmenu = Build_Menu();
     active_unit = nullptr;
     active_tile = nullptr;
     map.clear();
@@ -175,6 +176,7 @@ Game::Game() {
     player = Civilization();
     ai = Civilization();
     manager = Turn_Manager();
+    buildmenu = Build_Menu();
     active_unit = nullptr;
     active_tile = nullptr;
     map = Map();
@@ -183,6 +185,7 @@ Game::Game() {
 Game::Game(long width, long height, long vecw, long vech) {
 
     map = Map(height,width,vecw,vech,MAP_X_OFF,MAP_Y_OFF);
+    buildmenu = Build_Menu(height, width);
     player = Civilization("Westeros",false);
     player.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(0,0))->get_id(),player.get_name(),Unit::WARRIOR),*map.get_tile_from_vector_coordinates(Coordinate(0,0)));
     player.add_unit(new Unit(map.get_tile_from_vector_coordinates(Coordinate(1,0))->get_id(),player.get_name(),Unit::SCOUT),*map.get_tile_from_vector_coordinates(Coordinate(1,0)));

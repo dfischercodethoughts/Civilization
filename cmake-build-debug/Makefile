@@ -177,6 +177,33 @@ Base_Resource_Package.cpp.s:
 	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Base_Resource_Package.cpp.s
 .PHONY : Base_Resource_Package.cpp.s
 
+Build_Menu.o: Build_Menu.cpp.o
+
+.PHONY : Build_Menu.o
+
+# target to build an object file
+Build_Menu.cpp.o:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Build_Menu.cpp.o
+.PHONY : Build_Menu.cpp.o
+
+Build_Menu.i: Build_Menu.cpp.i
+
+.PHONY : Build_Menu.i
+
+# target to preprocess a source file
+Build_Menu.cpp.i:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Build_Menu.cpp.i
+.PHONY : Build_Menu.cpp.i
+
+Build_Menu.s: Build_Menu.cpp.s
+
+.PHONY : Build_Menu.s
+
+# target to generate assembly for a file
+Build_Menu.cpp.s:
+	$(MAKE) -f CMakeFiles/main.cpp.dir/build.make CMakeFiles/main.cpp.dir/Build_Menu.cpp.s
+.PHONY : Build_Menu.cpp.s
+
 Building.o: Building.cpp.o
 
 .PHONY : Building.o
@@ -840,6 +867,9 @@ help:
 	@echo "... Base_Resource_Package.o"
 	@echo "... Base_Resource_Package.i"
 	@echo "... Base_Resource_Package.s"
+	@echo "... Build_Menu.o"
+	@echo "... Build_Menu.i"
+	@echo "... Build_Menu.s"
 	@echo "... Building.o"
 	@echo "... Building.i"
 	@echo "... Building.s"

@@ -11,6 +11,7 @@
 #include "Turn_Manager.h"
 #include <random>
 #include <fstream>
+#include "Build_Menu.h"
 #include <chrono>
 
 
@@ -19,6 +20,7 @@ private:
     Civilization player;
     Civilization ai;
     Turn_Manager manager;
+    Build_Menu buildmenu;
 
     Tile * active_tile;
     //std::shared_ptr<City> active_city;
