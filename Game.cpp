@@ -17,7 +17,8 @@ void Game::play_ai() {
         Tile * start_tile = map.get_tile_from_id(unit_id);
         std::vector<Tile *>* possible_moves = map.get_tiles_within_range(start_tile,unit->get_current_movement());
         for (Tile *tile : *possible_moves) {
-            if (tile->get_unit() != nullptr & tile->get_unit()->get_owner()!= Civilization_Name::WESTEROS) {
+            //if there's a tile with an enemy unit on it, attack that enemy
+            if (tile->get_unit() != nullptr && tile->get_unit()->get_owner()== Civilization_Name::WESTEROS) {
                 set_active_unit(*unit);
                 move_active_unit(*tile);
                 moved = true;
@@ -26,6 +27,7 @@ void Game::play_ai() {
 
         }
         if (!moved) {
+            //if it hasn't attacked, then move randomly
             unsigned time_stamp = std::chrono::system_clock::now().time_since_epoch().count();
             std::mt19937 generator(time_stamp);
             int ind_to_move = generator() % (possible_moves->size() - 1);
@@ -274,21 +276,28 @@ void Game::set_active_city(City &c) {
 }
 
 bool Game::has_active_unit() const {
-    if (active_unit != nullptr) {
-        return true;
-    }
-    return false;
+    return active_unit != nullptr;
 }
 
 bool Game::has_active_tile() const {
-    if (active_tile != nullptr) {
-        return true;
-    }
-    return false;
+    return active_tile != nullptr;
 }
 
 bool Game::has_active_city() const {
     return active_city != nullptr;
+}
+
+bool Game::has_build_piece() const {
+    return (has_build_unit() || has_build_building());
+
+}
+
+bool Game::has_build_unit() const {
+    return (unit_to_build != nullptr);
+}
+
+bool Game::has_build_building() const {
+    return (building_to_build != nullptr);
 }
 
 void Game::clear_active_tile() {

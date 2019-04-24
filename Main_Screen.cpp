@@ -31,6 +31,7 @@ Main_Screen::Main_Screen() {
     game_view_port = Square();
     piece_view_port = Square();
     tile_view_port = Square();
+    city_view_port = Square();
 }
 
 Main_Screen::Main_Screen(int h, int w, int vecx, int vecy) {
@@ -67,18 +68,18 @@ void Main_Screen::init(int h, int w,int x, int y) {
 //    unit_square_5 = Square({46*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 5",true);
 //    unit_square_6 = Square({46*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 6",true);
 
-    next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/4,"Next Turn",true);
+    next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/4,"NEXT TURN",true);
     next_turn.set_x_offset(2*next_turn.get_x_offset());
     next_turn.set_y_offset(-15);
     next_turn.set_text_size(Square::LARGE);
     game_view_port = Square({3*w/8,3*h/8},Colors::WHITE,3*h/4,3*w/4,false);
-    piece_view_port = Square({7*w/8,1*h/8},Colors::WHITE,Colors::BLACK,2*h/8,w/4,"Unit Info",true);
+    piece_view_port = Square({7*w/8,1*h/8},Colors::WHITE,Colors::BLACK,2*h/8,w/4,"UNIT INFO",true);
     piece_view_port.set_y_offset(-3*h/16);
     tile_view_port = Square({11*w/16-5,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/8,"TILE INFO",true);
     tile_view_port.set_y_offset(-6*h/64);
     tile_view_port.set_x_offset(tile_view_port.get_x_offset()-20);
     tile_view_port.set_text_size(Square::MEDIUM);
-    city_view_port = Square();
+    city_view_port = Square({7*w/8,h/2},Colors::WHITE,Colors::BLACK,h/4,w/8,"",true);
   
     buildmenu = Build_Menu(62*h/72, 10*w/72);
 }
@@ -104,9 +105,9 @@ void Main_Screen::draw() {
     }
     if (game.has_active_city()) {
         game.get_active_city()->draw_on_viewport(city_view_port);
-    }
-    if (game.get_phase() == "BUILD"){
         buildmenu.draw();
+    }
+
 
 //        build_square_1.draw();
 //        build_square_2.draw();
@@ -123,8 +124,8 @@ void Main_Screen::draw() {
 
         //game.print_build_menu_title(build_square_3, unit_square_3);
 
-    }
 }
+
 
 Screen::names Main_Screen::get_type() const {
     return Screen::MAIN_GAME;
@@ -136,8 +137,11 @@ void Main_Screen::clear_active() {
     }
     game.clear_active_unit();
     game.clear_active_tile();
+    game.clear_active_city();
     piece_view_port.hide();
     tile_view_port.hide();
+    city_view_port.hide();
+    buildmenu.hide();
 }
 
 Screen::menu_options Main_Screen::check_click(Coordinate click) {
@@ -148,40 +152,38 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
     else if (next_phase.check_click(click) && Turn_Phase::string_to_turn_phase(game.get_phase()) != Turn_Phase::AI_TURN) {
         game.next_phase();
     }
-    else {
-        switch (Turn_Phase::string_to_turn_phase(game.get_phase())) {
-            case (Turn_Phase::MOVE): {
-                if (game.has_active_unit() && game.get_active_unit()->get_unit_type() == Unit::SETTLER) {
-                    if (build_city_button.check_click(click)) {
-                        Tile * settler_tile = game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id());
-                        game.build_city(Civilization_Name::WESTEROS,*settler_tile);//building a city destroys the settler
-                    }
-                }
+    else if (game.has_active_city()) {
+        //if click is on the build menu
+        if (buildmenu.check_click(click)) {
+            //if the cost of the square clicked is less than the amount of production the active city has
+            //make the appropriate unit or building (internally), and set it to the appropriate build pointer in game
+        }
+        else if (game_view_port.check_click(click) && game.has_build_piece()) {
+            //else if click is on the game viewport and there's a building or unit to build
+            //if tile clicked is within the tiles that the city controls, try to build the building or
+            //unit selected on the tile clicked
+            //clear all active
+        }
+        else if (game_view_port.check_click(click)) {
+            //else if click is on game viewport and there is no building or unit to build
+            //go to move unit/select tile logic
+            process_move(click);
+        }
 
-                process_move(click);
+    }
+    else if(game_view_port.check_click(click) || build_city_button.check_click(click)) {//there is no active city and click is on game port
 
-                break;
-            }
-
-            case (Turn_Phase::BUILD): {
-                if (game_view_port.check_click(click)) {
-                    process_build(click);
-                }
-                //TODO:: implement check click options for the build squares
-//                else if (build_view_port.check_click(click)) {
-//                    /*
-//                     * in pseudo code: we are going to have a build menu that will have a function that
-//                     *                  returns the piece type of the click, which we assign to a piece_type
-//                     *                  variable
-//                     *                 then we switch on the piece type and call the appropriate change_city_production
-//                     *                  method in main_screen.
-//                     */
-//                    //change_active_city_build(Building::names );
-//                }
-                break;
+        if (game.has_active_unit() && game.get_active_unit()->get_unit_type() == Unit::SETTLER) {
+            if (build_city_button.check_click(click)) {
+                Tile *settler_tile = game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id());
+                game.build_city(Civilization_Name::WESTEROS, *settler_tile);//building a city destroys the settler
+                game.reveal();
             }
         }
+
+        process_move(click);
     }
+
 
 }
 
@@ -299,6 +301,16 @@ void Main_Screen::select_tile(Tile * tile) {
             build_city_button.reveal();
         }
         piece_view_port.reveal();
+    }
+    if (game.get_active_tile()->has_city()) {
+        if (game.get_active_tile()->get_owner() == Civilization_Name::WESTEROS) {
+            game.set_active_city(*game.get_player().get_city(game.get_active_tile()->get_id()));
+        }
+        else if (game.get_active_tile()->get_owner() == Civilization_Name::NIGHT_KING) {
+            game.set_active_city(*game.get_ai().get_city(game.get_active_tile()->get_id()));
+        }
+        buildmenu.reveal();
+        city_view_port.reveal();
     }
 }
 

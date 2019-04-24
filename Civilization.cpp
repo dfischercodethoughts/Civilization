@@ -12,14 +12,6 @@ Civilization::Civilization() {
     units = std::vector<Unit>();
 }
 
-Civilization::Civilization(std::string nm, std::shared_ptr<Tile> start, bool is_ai) {
-    name = Civilization_Name::string_to_civ_name(nm);
-    gold = 0;
-    food=0;
-    production=0;
-    ai = is_ai;
-    units = std::vector<Unit>();
-}
 
 Civilization::Civilization(std::string nm, bool is_ai) {
     name = Civilization_Name::string_to_civ_name(nm);
@@ -64,6 +56,22 @@ std::vector<const City *> Civilization::get_cities_const() const {
         ret.emplace_back(&cities[i]);
     }
     return ret;
+}
+
+City * Civilization::get_city(int home_id) {
+    for (int i= 0; i < cities.size();i++ ){
+        if (cities[i].get_home_tile()->get_id() == home_id) {
+            return &cities[i];
+        }
+    }
+}
+
+const City * Civilization::get_city_const(int home_id) const {
+    for (int i= 0; i < cities.size();i++ ){
+        if (cities[i].get_home_tile()->get_id() == home_id) {
+            return &cities[i];
+        }
+    }
 }
 
 void Civilization::add_city(Map & m,Tile & newh) {
@@ -111,29 +119,6 @@ bool Civilization::add_unit(Unit * un ) {
 
 }
 
-/**
-bool Civilization::add_unit(Unit newu, Tile & place) {
-    if (place.get_unit() == nullptr) {
-        //Unit * u  = new Unit (newu);
-        newu.set_center(place.get_center());
-        newu.set_location(place.get_id());
-        place.set_unit(newu);
-
-        if (units.size() == 0) {
-            units = std::vector<Unit>();
-            units.emplace_back(&newu);
-        }
-        else {
-            units.emplace_back(&newu);
-        }
-        return true;
-    }
-    else {
-        return false;
-    }
-
-}
-*/
 bool Civilization::add_unit(Unit& newu, Tile & place) {
     if (place.get_unit() == nullptr) {
         newu.set_center(place.get_center());
@@ -362,13 +347,30 @@ bool Civilization::produce_building(Tile * to_build_upon, Building_Name::names b
 }
 
 bool Civilization::produce_unit(Tile & to_build_upon,Unit::Unit_Type u) {
-    units.emplace_back(Unit(to_build_upon.get_id(),to_build_upon.get_center(),name,u));
-    to_build_upon.set_unit(&*get_unit(name,to_build_upon.get_id()));
+    for (City c : cities) {
+        for (Tile *tmp : c.get_tiles()) {
+            if (*tmp == to_build_upon) {
+                units.emplace_back(Unit(to_build_upon.get_id(),to_build_upon.get_center(),name,u));
+                to_build_upon.set_unit(&*get_unit(name,to_build_upon.get_id()));
+                return true;
+            }
+        }
+    }
+    return false;
+
 }
 
 bool Civilization::produce_unit(Tile *to_build_upon, Unit::Unit_Type unit) {
-    units.emplace_back(Unit(to_build_upon->get_id(),to_build_upon->get_center(),name,unit));
-    to_build_upon->set_unit(&*get_unit(name,to_build_upon->get_id()));
+    for (City c : cities) {
+        for (Tile *tmp : c.get_tiles()) {
+            if (*tmp == to_build_upon) {
+                units.emplace_back(Unit(to_build_upon->get_id(),to_build_upon->get_center(),name,unit));
+                to_build_upon->set_unit(&*get_unit(name,to_build_upon->get_id()));
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 Civilization & Civilization::operator=(Civilization const &rh) {

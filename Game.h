@@ -14,7 +14,9 @@
 #include "Build_Menu.h"
 #include <chrono>
 
-
+/**
+ * Game class holds all information about the internal state of the game
+ */
 class Game {
 private:
     Civilization player;
@@ -22,9 +24,15 @@ private:
     Turn_Manager manager;
     Build_Menu buildmenu;
 
+    /**
+     * game has pointers to "active" tile, unit, city
+     * also has pointer to a building or unit to build
+     */
     Tile * active_tile;
     City * active_city;
     Unit * active_unit;
+    Building * building_to_build;
+    Unit * unit_to_build;
     //std::shared_ptr<Building> active_building;
 
     Map map;
@@ -73,6 +81,7 @@ public:
     const Unit * get_active_unit_const() const;
     City * get_active_city();
     const City * get_active_city_const() const;
+    Piece * get_build_piece();
 
     const Turn_Manager &get_turn_manager() const;
 
@@ -80,12 +89,19 @@ public:
     void set_active_tile(Tile & tile);
     void set_active_unit(Unit & unit);
     void set_active_city(City & c);
+    void set_build_building(Building & p);
+    void set_build_unit(Unit & u);
     bool has_active_unit() const;
     bool has_active_tile() const;
     bool has_active_city() const;
+    bool has_build_piece() const;
+    bool has_build_building() const;
+    bool has_build_unit() const;
     void clear_active_tile();
     void clear_active_unit();
     void clear_active_city();
+    void clear_build_building();
+    void clear_build_unit();
 
     void reveal_unit(Unit * to_rev);
     void reveal_city(City * rev);
