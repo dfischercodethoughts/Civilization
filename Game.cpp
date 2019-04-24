@@ -10,6 +10,7 @@ const std::string Game::CIVS_FILENAME = "civs.save";
 const std::string Game::TM_FILENAME = "tm.save";
 
 void Game::play_ai() {
+    manager.set_current_phase(Turn_Phase::AI_TURN);
     for (Unit * unit : ai.get_units()) {
         bool moved=  false;
         int unit_id = unit->get_location_id();
@@ -350,37 +351,70 @@ int Game::get_num_cities(Civilization_Name::Names nm) {
 }
 
 bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and tile clicked is next to it
-    if (to_move_to.has_unit() ) {
-        if (to_move_to.get_unit()->get_owner() != Civilization_Name::WESTEROS) {
-            //attack
+    if (manager.get_current_phase()!=Turn_Phase::AI_TURN) {//perform differently if ai unit is being moved
+        if (to_move_to.has_unit()) {
+            if (to_move_to.get_unit()->get_owner() != Civilization_Name::WESTEROS) {
+                //attack
 
-            ai.get_unit(Civilization_Name::NIGHT_KING,to_move_to.get_id())->cause_damage(active_unit->get_unit_type());
-            to_move_to.set_unit(ai.get_unit(Civilization_Name::NIGHT_KING,to_move_to.get_id()));
-            Unit * pu = player.get_unit(Civilization_Name::WESTEROS,active_unit->get_location_id());
-            pu->cause_damage(to_move_to.get_unit()->get_unit_type());
-            //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::process click)
-            if (to_move_to.get_unit()->get_current_health() <= 0) {
-                to_move_to.clear_unit();
-                ai.destroy_units();
+                ai.get_unit(Civilization_Name::NIGHT_KING, to_move_to.get_id())->cause_damage(
+                        active_unit->get_unit_type());
+                to_move_to.set_unit(ai.get_unit(Civilization_Name::NIGHT_KING, to_move_to.get_id()));
+                Unit *pu = player.get_unit(Civilization_Name::WESTEROS, active_unit->get_location_id());
+                pu->cause_damage(to_move_to.get_unit()->get_unit_type());
+                //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::process click)
+                if (to_move_to.get_unit()->get_current_health() <= 0) {
+                    to_move_to.clear_unit();
+                    ai.destroy_units();
+                }
+                if (pu->get_current_health() <= 0) {
+                    map.get_tile_from_id(active_unit->get_location_id())->clear_unit();
+                    player.destroy_units();
+                } else {
+                    active_unit->use_movement(Unit::get_max_movement(active_unit->get_unit_type()));
+                }
+
+
+                //do nothing if player unit on square
+
             }
-            if (pu->get_current_health() <= 0) {
-                map.get_tile_from_id(active_unit->get_location_id())->clear_unit();
-                player.destroy_units();
-            }
-            else {
-                active_unit->use_movement(Unit::get_max_movement(active_unit->get_unit_type()));
-            }
-
-
-            //do nothing if player unit on square
-
+            return false;//unit on tile to move to means unit didn't actually move (even if it did attack)
+        } else if (player.move_unit(&map, active_unit->get_location_id(), to_move_to.get_id())) {
+            reveal_unit(to_move_to.get_unit());
+            return true;
         }
-        return false;//unit on tile to move to means unit didn't actually move (even if it did attack)
     }
-    else if (player.move_unit(&map,active_unit->get_location_id(),to_move_to.get_id())) {
-        reveal_unit(to_move_to.get_unit());
-        return true;
-    }
+    else {//AI MOVE
+        if (to_move_to.has_unit()) {
+            if (to_move_to.get_unit()->get_owner() == Civilization_Name::WESTEROS) {
+                //attack
+
+                player.get_unit(Civilization_Name::WESTEROS, to_move_to.get_id())->cause_damage(
+                        active_unit->get_unit_type());
+                to_move_to.set_unit(player.get_unit(Civilization_Name::WESTEROS, to_move_to.get_id()));
+                Unit *aiu = ai.get_unit(Civilization_Name::NIGHT_KING, active_unit->get_location_id());
+                aiu->cause_damage(to_move_to.get_unit()->get_unit_type());
+                //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::process click)
+                if (to_move_to.get_unit()->get_current_health() <= 0) {
+                    to_move_to.clear_unit();
+                    player.destroy_units();
+                }
+                if (aiu->get_current_health() <= 0) {
+                    map.get_tile_from_id(active_unit->get_location_id())->clear_unit();
+                    ai.destroy_units();
+                } else {
+                    active_unit->use_movement(Unit::get_max_movement(active_unit->get_unit_type()));
+                }
+
+
+                //do nothing if player unit on square
+
+            }
+            return false;//unit on tile to move to means unit didn't actually move (even if it did attack)
+        } else if (ai.move_unit(&map, active_unit->get_location_id(), to_move_to.get_id())) {
+            reveal_unit(to_move_to.get_unit());
+            return true;
+        }
+    }//end ai move
 
     return false;
 }
@@ -440,13 +474,14 @@ std::string Game::get_phase(){
 void Game::next_turn() {
     manager.set_current_phase(Turn_Phase::AI_TURN);
     ai.next_turn(map);
-    //play_ai();
+    play_ai();
     player.next_turn(map);
     update_map();
     clear_active_tile();
     clear_active_unit();
     map.reveal_units(player.get_units());
     map.reveal_cities(player.get_cities());
+    manager.next_turn();
     manager.set_current_phase(Turn_Phase::MOVE);
 }
 

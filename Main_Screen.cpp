@@ -88,8 +88,11 @@ void Main_Screen::draw() {
 
     game_view_port.draw();
     game.get_map().draw();//tiles have references to units, and will draw if visible
+
     next_turn.draw();
     next_phase.draw();
+    std::string line = "Turn: " + std::to_string(game.get_turn_manager().get_num_turns());
+    Square({next_turn.get_center().x-5,next_turn.get_center().y-50},Colors::WHITE,Colors::BLACK,15,50,line,true).draw();
     game.phase_on_button(next_phase);
     build_city_button.draw();
 
@@ -140,6 +143,7 @@ void Main_Screen::clear_active() {
 Screen::menu_options Main_Screen::check_click(Coordinate click) {
     if (next_turn.check_click(click)) {
         game.next_turn();
+
     }
     else if (next_phase.check_click(click) && Turn_Phase::string_to_turn_phase(game.get_phase()) != Turn_Phase::AI_TURN) {
         game.next_phase();
