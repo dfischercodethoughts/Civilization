@@ -454,9 +454,9 @@ std::istream & operator>>(std::istream & ins, Civilization & fill) {
         //read units while there is a unit in the next line
         getline(ins,line);
         while (line == "UNIT") {
-            Unit nu;
-            ins >> nu;
-            fill.add_unit(&nu);
+            Unit *nu = new Unit();
+            ins >> *nu;
+            fill.add_unit(&*nu);
             getline(ins,line);
         }
 
