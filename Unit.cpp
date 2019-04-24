@@ -146,7 +146,7 @@ int Unit::get_gold_cost(Unit::Unit_Type tp) {
 int Unit::get_production_cost(Unit_Type tp) {
     switch (tp) {
         case (ARCHER) : {
-            return 45;
+            return 40;
         }
         case (WARRIOR) : {
             return 30;

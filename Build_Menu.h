@@ -38,8 +38,7 @@ public:
     Build_Menu(int h, int w);
     void draw() const override;
     void no_active_city_draw();
-
-//    void grey_out(int prod_val){
+    void grey_out(int prod_val);
 //        if ()
 //    }
 
