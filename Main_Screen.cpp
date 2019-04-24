@@ -102,26 +102,22 @@ void Main_Screen::draw() {
     if (game.has_active_city()) {
         game.get_active_city()->draw_on_viewport(city_view_port);
     }
-    if (game.get_phase() == "BUILD"){
+    //&& game.has_active_city()
+    if (game.get_phase() == "BUILD" ) {
+//grey (beige) out works
+//TODO:: figure out how to get player production
+//TODO:: figure out how to get an active city after it's clicked on
+        buildmenu.grey_out(35);
         buildmenu.draw();
-
-//        build_square_1.draw();
-//        build_square_2.draw();
-//        build_square_3.draw();
-//        build_square_4.draw();
-//        build_square_5.draw();
+    }
+//    }else if (game.get_phase() == "BUILD" && (!game.has_active_city())){
+//            buildmenu.no_active_city_draw();
 //
-//        unit_square_1.draw();
-//        unit_square_2.draw();
-//        unit_square_3.draw();
-//        unit_square_4.draw();
-//        unit_square_5.draw();
-//        unit_square_6.draw();
+//        }
 
-        //game.print_build_menu_title(build_square_3, unit_square_3);
 
     }
-}
+
 
 Screen::names Main_Screen::get_type() const {
     return Screen::MAIN_GAME;
@@ -158,7 +154,6 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
 
                 break;
             }
-
             case (Turn_Phase::BUILD): {
                 if (game_view_port.check_click(click)) {
                     process_build(click);
@@ -194,7 +189,6 @@ std::string Main_Screen::check_winner() {
 void Main_Screen::process_move(Coordinate click) {
 
     Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
-
     if (tile_clicked!= nullptr && tile_clicked->is_visible()) {
 
         if (game.has_active_unit()) {
