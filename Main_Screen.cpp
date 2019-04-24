@@ -102,8 +102,12 @@ void Main_Screen::draw() {
     if (game.has_active_city()) {
         game.get_active_city()->draw_on_viewport(city_view_port);
     }
-    if (game.get_phase() == "BUILD"){
-        buildmenu.draw();
+    if (game.get_phase() == "BUILD" && game.has_active_city()){
+            buildmenu.draw();
+    }else if (game.get_phase() == "BUILD" && (!game.has_active_city())){
+            buildmenu.no_active_city_draw();
+
+        }
 
 //        build_square_1.draw();
 //        build_square_2.draw();
@@ -121,7 +125,7 @@ void Main_Screen::draw() {
         //game.print_build_menu_title(build_square_3, unit_square_3);
 
     }
-}
+
 
 Screen::names Main_Screen::get_type() const {
     return Screen::MAIN_GAME;
