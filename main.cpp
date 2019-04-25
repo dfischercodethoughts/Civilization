@@ -3,6 +3,7 @@
 //
 
 #include "main.h"
+#include "Texture.h"
 
 GLdouble width, height;
 int wd;
@@ -12,11 +13,31 @@ static Draw_Manager *dm = nullptr;
 
 void init() {
     width = 1920;
-    height = 1000;
+    height = 1066;
 
-    dm = (new Draw_Manager(height,width,10,10));
+    dm = (new Draw_Manager(height,width,8,8));
 
     //do map things to game here
+    TextureManager::Register(Tile_Terrain::terrain_to_string(Tile_Terrain::GRASSLAND).c_str(), Texture("assets//grassland.png"));
+    TextureManager::Register(Tile_Terrain::terrain_to_string(Tile_Terrain::HILL).c_str(), Texture("assets//hill.png"));
+    TextureManager::Register(Tile_Terrain::terrain_to_string(Tile_Terrain::MOUNTAIN).c_str(), Texture("assets//mountain.png"));
+    TextureManager::Register(Tile_Terrain::terrain_to_string(Tile_Terrain::WATER).c_str(), Texture("assets//water.png"));
+
+    TextureManager::Register(Tile_Resource::resource_to_string(Tile_Resource::WHEAT).c_str(), Texture("assets//wheat.png"));
+    TextureManager::Register(Tile_Resource::resource_to_string(Tile_Resource::GAZELLE).c_str(), Texture("assets//gazelle.png"));
+    TextureManager::Register(Tile_Resource::resource_to_string(Tile_Resource::FISH).c_str(), Texture("assets//fish.png"));
+    TextureManager::Register(Tile_Resource::resource_to_string(Tile_Resource::STONE).c_str(), Texture("assets//stone.png"));
+    TextureManager::Register(Tile_Resource::resource_to_string(Tile_Resource::WOODS).c_str(), Texture("assets//wood.png"));
+    TextureManager::Register(Tile_Resource::resource_to_string(Tile_Resource::IRON).c_str(), Texture("assets//iron.png"));
+    TextureManager::Register(Tile_Resource::resource_to_string(Tile_Resource::SILVER).c_str(), Texture("assets//silver.png"));
+    TextureManager::Register(Tile_Resource::resource_to_string(Tile_Resource::GOLD).c_str(), Texture("assets//gold.png"));
+
+    TextureManager::Register(Unit::unit_type_to_string(Unit::ARCHER).c_str(), Texture("assets//archer.png"));
+    TextureManager::Register(Unit::unit_type_to_string(Unit::SCOUT).c_str(), Texture("assets//scout.png"));
+    TextureManager::Register(Unit::unit_type_to_string(Unit::WARRIOR).c_str(), Texture("assets//warrior.png"));
+    TextureManager::Register(Unit::unit_type_to_string(Unit::SETTLER).c_str(), Texture("assets//settler.png"));
+    TextureManager::Register(Unit::unit_type_to_string(Unit::BOAT).c_str(), Texture("assets//boat.png"));
+    TextureManager::Register(Unit::unit_type_to_string(Unit::HORSEMAN).c_str(), Texture("assets//horseman.png"));
 }
 
 /* Initialize OpenGL Graphics */
