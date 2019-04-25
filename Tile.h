@@ -73,6 +73,7 @@ public:
 
     Building get_building() const;
     bool add_building(Building_Name::names bld);
+    bool has_building() const;
 
     Square get_base_square() const;
     void set_base_square(Square set);

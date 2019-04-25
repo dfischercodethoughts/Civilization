@@ -7,8 +7,6 @@ void City::increment_population() {
     population++;
 }
 
-
-
 City::City() {
     ready_to_produce = false;
     ready_to_grow = false;
@@ -135,7 +133,7 @@ std::vector<const Tile *> City::get_tiles_const() const {
 
 Tile_Output City::collect_resources() {
     int tmp_food = 0;
-    int tmp_production = 0;
+    int tmp_production = 1;//just having the city gives a production
     int tmp_gold = 0;
     Tile_Output to_ret;
     for (Tile * tile : tiles) {
@@ -210,8 +208,11 @@ bool City::set_production(std::string new_production) {
 }
 
 void City::grow(std::vector<Tile *> tl) {
-    increment_population();
-    add_tiles(tl);
+    if (population < 6) {
+        food = 0;
+        increment_population();
+        add_tiles(tl);
+    }
 }
 
 void City::draw_on_viewport(Square sq) {
@@ -220,38 +221,47 @@ void City::draw_on_viewport(Square sq) {
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
     glRasterPos2i(sq.get_center().x-sq.get_width()/2+sq.get_width()/4,sq.get_center().y-3*sq.get_height()/8);
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,c);
     }
 
     line = "PROD: " + std::to_string(production);
     glRasterPos2i(sq.get_center().x-sq.get_width()/2+sq.get_width()/16,sq.get_center().y-sq.get_height()/8);
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
     }
 
     line = "FOOD: " + std::to_string(food);
     glRasterPos2i(sq.get_center().x-sq.get_width()/2+sq.get_width()/16,sq.get_center().y+sq.get_height()/8);
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
     }
 
     line = "GOLD: " + std::to_string(get_gold_output());
     glRasterPos2i(sq.get_center().x-sq.get_width()/2+sq.get_width()/16,sq.get_center().y+3*sq.get_height()/8);
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
     }
 
+    line = "POP: " + std::to_string(population);
+    glRasterPos2i(sq.get_center().x+sq.get_width()/16,sq.get_center().y-sq.get_height()/8);
+    for (char c : line) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
+    }
+
+    /**alternate production method
+     *
     line = "PRODUCING";
     glRasterPos2i(sq.get_center().x+sq.get_width()/16,sq.get_center().y-sq.get_height()/8);
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
     }
 
     line = get_production_item();
     glRasterPos2i(sq.get_center().x+sq.get_width()/16,sq.get_center().y+sq.get_height()/8);
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
     }
+     */
 }
 
 City & City::operator=(const City & rhs) {

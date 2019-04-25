@@ -35,7 +35,6 @@ public:
      * @param start tile that civ should start on
      * @param is_ai is this civ computer or player controlled?
      */
-    Civilization(std::string nm, std::shared_ptr<Tile> start, bool is_ai);
     Civilization(std::string nm, bool is_ai);
 
     /**
@@ -51,8 +50,8 @@ public:
 
     std::vector<City *> get_cities();
     std::vector<const City *> get_cities_const() const;
-    void create_city(Map & m,Tile & newh);
-    void build_city(Map & m,Tile & newh);
+    City * get_city(int home_id);
+    const City * get_city_const(int homeid) const;
     void add_city(Map & m,Tile & newh);
 
     void remove_unit(const Unit & re);

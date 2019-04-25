@@ -224,7 +224,7 @@ void Tile::set_owner(Civilization_Name::Names nm) {
 }
 
 bool Tile::has_owner() const {
-    return !owner==Civilization_Name::NONE;
+    return owner!=Civilization_Name::NONE;
 }
 
 Building Tile::get_building() const {
@@ -251,7 +251,7 @@ void Tile::build_city(City & newc) {
 }
 
 bool Tile::has_city() const {
-    return !(city==nullptr);
+    return (city!=nullptr);
 }
 
 void Tile::set_base_square(Square set) {
@@ -288,10 +288,7 @@ void Tile::clear_unit() {
 }
 
 bool Tile::has_unit() const {
-    if (unit != nullptr) {
-        return true;
-    }
-    return false;
+    return unit != nullptr;
 }
 
 Unit* Tile::get_const_unit() const {
@@ -325,6 +322,10 @@ void Tile::set_background_square(Square set) {
     }
     this->set_height(set.get_height());
     this->set_width(set.get_width());
+}
+
+bool Tile::has_building() const {
+    return (building.get_name() != Building_Name::NONE);
 }
 
 bool Tile::add_building(Building_Name::names bld) {
@@ -501,12 +502,7 @@ bool Tile::add_building(Building_Name::names bld) {
         }
     }
 
-    if (built) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return built;
 }
 
 Tile_Output Tile::get_output() const {
@@ -545,7 +541,7 @@ void Tile::draw() const {
             Color tmp;
             if (has_owner()) {
                 if (owner == Civilization_Name::WESTEROS) {
-                    tmp = Colors::YELLOW;
+                    tmp = Colors::TEAL;
                 }
                 else {
                     tmp = Colors::RED;
@@ -689,19 +685,12 @@ Tile & Tile::operator=(const Tile & rhs) {
 }
 
 bool Tile::operator==(Tile const & rhs) const {
-    //todo: add building to tile equality
-    if ((get_id() == rhs.get_id()) && (terrain == rhs.get_terrain()) &&
-            (resource == rhs.get_resource())&& building == rhs.get_building()) {
-        return true;
-    }
-    return false;
+    return ((get_id() == rhs.get_id()) && (terrain == rhs.get_terrain()) &&
+            (resource == rhs.get_resource())&& building == rhs.get_building());
 }
 
 bool Tile::operator!=(Tile const & rhs) const {
-    if (!(*this == rhs)) {
-        return true;
-    }
-    return false;
+    return (!(*this == rhs));
 }
 
 bool Tile::operator<(const Tile & rhs) const {
