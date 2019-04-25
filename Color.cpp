@@ -3,16 +3,7 @@
 //
 
 #include "Color.h"
-
-const Color Colors::RED =  Color(255,0,0);
-const Color Colors::BLACK = Color(0,0,0);
-const Color Colors::WHITE = Color(255,255,255);
-const Color Colors::GREEN = Color(0,255,0);
-const Color Colors::BLUE = Color (0,0,255);
-const Color Colors::PURPLE = Color(155,80,175);
-const Color Colors::BEIGE = Color(175,155,80);
-const Color Colors::TEAL = Color (80,175,155);
-const Color Colors::YELLOW = Color(255,255,0);
+#include <string>
 
 Color::Color() {
     r= 0;
@@ -57,7 +48,7 @@ void Color::set_blue(int nb) {
     }
 }
 
-std::ostream & operator<<(std::ostream & outs, const Color & print) {
+std::ostream & operator<<(std::ostream & outs, Color & print) {
     std::string p = "COLOR: " + std::to_string(print.r) + "," + std::to_string(print.g) + "," + std::to_string(print.b);
     outs << p << std::endl;
     return outs;

@@ -11,8 +11,7 @@ class End_Screen : public Screen {
 private:
     Square return_to_start;
     Square exit;
-    Square message_port;
-
+    std::string message;
 
 public:
     End_Screen();

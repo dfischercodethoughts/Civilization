@@ -10,12 +10,7 @@
 #include "Piece.h"
 #include <memory>
 #include "Unit.h"
-#include "Building.h"
 #include "Tile_Output.h"
-#include "Building.h"
-#include "Civilization_Name.h"
-
-class City;
 
 
 class Tile : public Piece {
@@ -25,18 +20,7 @@ private:
     Tile_Terrain::names terrain;
     Tile_Resource::names resource;
 
-    Civilization_Name::Names owner;
-
-    Building building;
-
     Unit * unit;
-
-    City * city;
-
-    Tile_Output output;
-
-    void init_output();
-    void clear_resource();
 
 public:
     static int num_tiles;
@@ -67,21 +51,6 @@ public:
     static void increment_num_tiles();
     static void init_id();//called in map class
 
-    Civilization_Name::Names get_owner() const;
-    void set_owner(Civilization_Name::Names no);
-    bool has_owner() const;
-
-    Building get_building() const;
-    bool add_building(Building_Name::names bld);
-
-    Square get_base_square() const;
-    void set_base_square(Square set);
-
-    City * get_city();
-    void set_city(City & newc);
-    void build_city(City & newc);
-    bool has_city() const;
-
     Tile_Terrain::names get_terrain() const;
     Tile_Resource::names get_resource() const;
 
@@ -89,16 +58,10 @@ public:
 
     void clear_unit();
     bool has_unit() const;
-    //returns pointer to original unit, hopefully (units are owned by civilizations)
     Unit * get_const_unit() const;
     Unit * get_unit();
     void set_unit(Unit & newu);
     void set_unit(Unit * newu);
-
-    void set_background_square(Square set);
-
-
-    Tile_Output get_output() const;
 
     void draw() const override;
 
@@ -107,24 +70,6 @@ public:
     /**
      * overloaded operators
      */
-
-    /**
-     * prints tiles: "TILE\nBASE_SQUARE\nTERRAIN\nRESOURCE\nBUILDING\nID\n"
-     * note does NOT ouput unit ( nor square )
-     * @throws input error
-     * @param outs
-     * @param print
-     * @return
-     */
-    friend std::ostream & operator<<(std::ostream & outs, const Tile & print);
-    /**
-     * input assumes "TILE\n" already read
-        input does NOT input base square information (map class should do so
-        input does set fill piece_type
-        note does NOT input unit
-    */
-    friend std::istream & operator>>(std::istream & ins, Tile & fill);
-
      Tile & operator=(const Tile & rhs);
 
     /**
@@ -133,7 +78,6 @@ public:
      * @return
      */
     bool operator==(Tile const & rhs) const;
-    bool operator!=(Tile const & rhs) const;
     /**
      * order by id of tiles
      * used to get rid of duplicates in get tiles within range in map

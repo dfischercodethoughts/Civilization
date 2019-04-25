@@ -8,6 +8,7 @@
 #include <string>
 
 struct Validator {
+
     static bool is_num(char dig);
     static bool is_special_char(char dig);
     static bool has_special_char(std::string line);

@@ -8,7 +8,7 @@
 #include <string>
 #include <map>
 
-//纹理
+
 class Texture
 {
 protected:

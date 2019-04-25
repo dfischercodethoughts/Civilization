@@ -21,27 +21,3 @@ Turn_Phase::names Turn_Phase::string_to_turn_phase(std::string phs){
     else return Turn_Phase::DEFAULT;
 }
 
-
-std::string Turn_Phase::turn_phase_to_string(Turn_Phase::names nm) {
-    switch(nm) {
-        case (MOVE) : {
-            return "MOVE";
-            break;
-        }
-        case (BUILD) : {
-            return "BUILD";
-            break;
-        }
-        case (COLLECT) : {
-            return "COLLECT";
-            break;
-        }
-        case (AI_TURN) : {
-            return "AI_TURN";
-            break;
-        }
-        default : {
-            return "DEFAULT";
-        }
-    }
-}

@@ -3,6 +3,7 @@
 //
 
 #include "Civilization_Name.h"
+#include <cctype>
 std::string Civilization_Name::civ_name_to_string(Civilization_Name::Names nm) {
     //todo:implement
     switch(nm) {

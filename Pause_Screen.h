@@ -11,8 +11,6 @@ class Pause_Screen : public Screen {
 private:
     Square return_to_start;
     Square return_to_game;
-    Square save;
-    Square load;
     Square exit;
     std::string message;
 

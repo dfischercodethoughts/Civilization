@@ -16,19 +16,15 @@ Pause_Screen::Pause_Screen(int h, int w) {
 }
 
 void Pause_Screen::init(int h, int w) {
-    return_to_start = Square({w/2,2*h/8},Colors::RED,Colors::BLACK,h/8,w/4,"RETURN TO START", true);
-    return_to_game = Square({w/2,3*h/8},Colors::RED,Colors::BLACK,h/8,w/4,"RETURN TO GAME", true);
-    save = Square({w/2,h/2},Colors::RED,Colors::BLACK,h/8,w/4,"SAVE GAME", true);
-    load = Square({w/2,5*h/8},Colors::RED,Colors::BLACK,h/8,w/4,"LOAD GAME", true);
-    exit = Square({w/2,6*h/8},Colors::RED,Colors::BLACK,h/8,w/4,"EXIT GAME", true);
-
+    return_to_start = Square({w/2,3*h/8},Colors::RED,Colors::BLACK,h/8,w/4,"RETURN TO START", true);
+    return_to_game = Square({w/2,h/2},Colors::RED,Colors::BLACK,h/8,w/4,"RETURN TO GAME", true);
+    exit = Square({w/2,5*h/8},Colors::RED,Colors::BLACK,h/8,w/4,"EXIT GAME", true);
     message = "PAUSE SCREEN";
 }
 
 void Pause_Screen::draw() {
     Square(return_to_game.get_center(),Colors::WHITE,return_to_game.get_center().y * 2,return_to_game.get_center().x * 2,true);
-    save.draw();
-    load.draw();
+
     return_to_game.draw();
     return_to_start.draw();
     exit.draw();
@@ -56,12 +52,6 @@ Screen::menu_options Pause_Screen::check_click(Coordinate click) {
     }
     else if (exit.check_click(click)) {
         return Screen::EXIT_GAME;
-    }
-    else if (save.check_click(click)) {
-        return Screen::SAVE_GAME;
-    }
-    else if (load.check_click(click)) {
-        return Screen::LOAD_GAME;
     }
 
     return Screen::NONE;

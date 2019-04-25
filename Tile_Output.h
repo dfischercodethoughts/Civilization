@@ -11,10 +11,11 @@
 
 #include "Base_Resource_Package.h"
 #include <memory>
-#include "Building_Name.h"
+#include "Building.h"
 #include "Tile_Resource.h"
 #include "Tile_Terrain.h"
 
+//todo:implement copy constructor
 class Tile_Output {
 
     private:
@@ -28,16 +29,13 @@ class Tile_Output {
         bool increment_production();
         bool increment_gold();
         bool increment_food();
-        bool decrement_production();
-        bool decrement_gold();
-        bool decrement_food();
-        bool check_building(Building_Name::names nm);
+		bool check_building(Building::names nm);
 
     public:
         Tile_Output();
         Tile_Output(const Tile_Output & output_cpy);
         Tile_Output(Tile_Resource::names res, Tile_Terrain::names ter);
-        Tile_Output(Tile_Resource::names res, Tile_Terrain::names ter, Building_Name::names bld);
+        Tile_Output(Tile_Resource::names res, Tile_Terrain::names ter, Building::names bld);
         Tile_Output(int production,int food, int gold);
 
         void add_production(int to_add);

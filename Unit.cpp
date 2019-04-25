@@ -89,16 +89,16 @@ int Unit::get_max_movement(Unit::Unit_Type tp) {
             return(2);
         }
         case(BOAT) : {
-            return(3);
+            return(5);
         }
         case(SETTLER) : {
-            return(1);
+            return(4);
         }
         case (SCOUT) : {
-            return(3);
+            return(5);
         }
         case (HORSEMAN) : {
-            return(4);
+            return(6);
         }
     }
 }
@@ -133,26 +133,6 @@ int Unit::get_gold_cost(Unit::Unit_Type tp) {
         }
         case (HORSEMAN) : {
             return 30;
-        }
-        case (BOAT) : {
-            return 20;
-        }
-        default : {
-            return 0;
-        }
-    }
-}
-
-int Unit::get_production_cost(Unit_Type tp) {
-    switch (tp) {
-        case (ARCHER) : {
-            return 40;
-        }
-        case (WARRIOR) : {
-            return 30;
-        }
-        case (HORSEMAN) : {
-            return 50;
         }
         case (BOAT) : {
             return 20;
@@ -229,7 +209,6 @@ Unit::Unit() {
     health = -1; damage = -1; movement = -1;
     unit_type = NONE;
     this->set_type(Piece_Type::UNIT);
-    set_range();
 }
 
 Unit::Unit(int  loc, Unit_Type tp) {
@@ -240,7 +219,6 @@ Unit::Unit(int  loc, Unit_Type tp) {
     full_heal();
     set_damage();
     reset_movement();
-    set_range();
 }
 
 Unit::Unit(int loc, Civilization_Name::Names own, Unit_Type tp) {
@@ -254,7 +232,6 @@ Unit::Unit(int loc, Civilization_Name::Names own, Unit_Type tp) {
     full_heal();
     set_damage();
     reset_movement();
-    set_range();
 }
 
 Unit::Unit(int loc, Coordinate cnt, Civilization_Name::Names own, Unit_Type tp) {
@@ -268,7 +245,6 @@ Unit::Unit(int loc, Coordinate cnt, Civilization_Name::Names own, Unit_Type tp) 
     full_heal();
     set_damage();
     reset_movement();
-    set_range();
 }
 
 Unit::Unit(Unit const & cp) {
@@ -290,7 +266,6 @@ Unit::Unit(Unit const & cp) {
     health = cp.get_current_health();
     set_damage();
     movement = cp.get_current_movement();
-    set_range();
 }
 
 Unit::Unit(Unit const * cpy) {
@@ -312,7 +287,6 @@ Unit::Unit(Unit const * cpy) {
     health = cpy->get_current_health();
     set_damage();
     movement = cpy->get_current_movement();
-    set_range();
 }
 
 int Unit::get_location_id() const {
@@ -348,11 +322,11 @@ Unit::Unit_Type Unit::get_unit_type() const {
 }
 
 void Unit::set_location(int newl) {
-    if (newl>=0&newl<1000) {
+    if (newl>=0&newl<65) {
         tile_id = newl;
     }
     else {
-        tile_id = -1;
+        tile_id = 64;
     }
 }
 
@@ -388,50 +362,52 @@ void Unit::draw_on_viewport(Square base) {
     base.set_fill(Colors::WHITE);
     base.draw();
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(base.get_center().x-20*base.get_width()/64,base.get_center().y - 5*base.get_height()/16);
-    std::string line =  unit_type_to_string(get_unit_type());
+    glRasterPos2i(base.get_center().x-3*base.get_width()/8,base.get_center().y - 3*base.get_height()/8);
+    std::string line = "TYPE: " + unit_type_to_string(get_unit_type());
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
     glRasterPos2i(base.get_center().x-3*base.get_width()/8,base.get_center().y - base.get_height()/8);
     line = "OWNER: " + Civilization_Name::civ_name_to_string(get_owner());
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
     glRasterPos2i(base.get_center().x-3*base.get_width()/8,base.get_center().y + base.get_height()/8);
     line = "MOVEMENT LEFT: " + std::to_string(get_current_movement());
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
     glRasterPos2i(base.get_center().x-3*base.get_width()/8,base.get_center().y + 3*base.get_height()/8);
     line = "MAX MOVEMENT: " + std::to_string(get_max_movement(get_unit_type()));
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
     glRasterPos2i(base.get_center().x+base.get_width()/8,base.get_center().y -3* base.get_height()/8);
     line = "HEALTH LEFT: " + std::to_string(get_current_health());
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
     glRasterPos2i(base.get_center().x+base.get_width()/8,base.get_center().y - base.get_height()/8);
     line = "MAX HEALTH: " + std::to_string(get_max_health());
     for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,c);
     }
 }
 
 int Unit::cause_damage(Unit_Type attacking) {
-    set_health(health -get_damage(attacking));
+	int curHealth = health - get_damage(attacking);
+    set_health(curHealth);
+	return curHealth;
 }
 
 void Unit::full_heal() {
@@ -471,58 +447,7 @@ Unit & Unit::operator=(Unit const &rhs) {
     reset_health();
     set_damage();
     set_location(rhs.get_location_id());
-}
-
-bool Unit::operator!=(Unit const & rhs) {
-    if (!(*this == rhs)) {
-        return true;
-    }
-    return false;
-}
-
-std::ostream & operator<<(std::ostream & outs, const Unit & print) {
-    try {
-        std::string line =
-                "UNIT\n" + Civilization_Name::civ_name_to_string(print.owner) + "\n" + std::to_string(print.tile_id) +
-                "\n" + Unit::unit_type_to_string(print.unit_type) + "\n" + std::to_string(print.health) + ',' +
-                std::to_string(print.movement);
-        outs << line << std::endl;
-    }
-    catch (std::exception &e) {
-        std::cout << e.what() << std::endl;
-    }
-    return outs;
-
-}
-
-std::istream & operator>>(std::istream & ins, Unit & fill) {
-    //NOTE: ASSUME "UNIT\n" ALREADY READ FROM ISTREAM
-    try {
-        std::string line = "";
-        std::getline(ins, line);
-        std::string tok = "";
-
-        fill.owner = Civilization_Name::string_to_civ_name(line);
-
-        std::getline(ins, line);
-        fill.tile_id = std::stoi(line);
-
-        std::getline(ins, line);
-        fill.unit_type = Unit::string_to_unit_type(line);
-
-        std::getline(ins, line);
-        tok = line.substr(0, line.find(',') + 1);
-        line.erase(0, line.find(',') + 1);
-        fill.health = std::stoi(tok);
-
-        fill.movement = std::stoi(line);
-        fill.set_range();
-        fill.set_damage();
-    }
-    catch (std::exception &e) {
-        std::cout <<e.what() << std::endl;
-    }
-    return ins;
+	return *this;
 }
 
 Unit::~Unit() {

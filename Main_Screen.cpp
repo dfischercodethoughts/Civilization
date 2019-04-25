@@ -9,24 +9,11 @@ Main_Screen::Main_Screen() {
     game = Game();
     next_turn = Square();
     next_phase = Square();
-
-    build_city_button = Square();
-    buildmenu = Build_Menu();
-
     //build_view_port = Square();
-//    build_square_1 = Square();
-//    build_square_2 = Square();
-//    build_square_3 = Square();
-//    build_square_4 = Square();
-//    build_square_5 = Square();
-//
-//    unit_square_1 = Square();
-//    unit_square_2 = Square();
-//    unit_square_3 = Square();
-//    unit_square_4 = Square();
-//    unit_square_5 = Square();
-//    unit_square_6 = Square();
-
+    build_square_1 = Square();
+    build_square_2 = Square();
+    build_square_3 = Square();
+    build_square_4 = Square();
 
     game_view_port = Square();
     piece_view_port = Square();
@@ -38,7 +25,7 @@ Main_Screen::Main_Screen(int h, int w, int vecx, int vecy) {
 }
 
 void Main_Screen::init(int h, int w) {
-    init(h,w,10,10);
+    init(h,w,8,8);
 }
 
 void Main_Screen::init(int h, int w,int x, int y) {
@@ -47,40 +34,23 @@ void Main_Screen::init(int h, int w,int x, int y) {
     set_center({w/2,h/2});
     game = Game(3*w/4,3*h/4,x,y);
 
-    next_phase = Square({7*w/8,22*h/32},Colors::WHITE,Colors::BLACK,h/12,w/5, "NEXT PHASE",true);
-
-    build_city_button = Square({w/16+Tile::TILE_WIDTH/2,15*h/16-Tile::TILE_HEIGHT/2},Colors::WHITE,Colors::BLACK,h/8,w/8,"Build City",false);
-
+    next_phase = Square({7*w/8,22*h/32},Colors::WHITE,Colors::BLACK,h/12,w/5, "NEXT PHASE",true);//TODO::create a next phase button, update button text with the turn we are on
 
     //build_view_port = Square({3*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/3,"BUILDING MENU place holder",true);
-    //follow same logic for unit squares
-//    build_square_1 = Square({10*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"FARM",true);
-//    build_square_2 = Square({10*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"MINE",true);
-//    build_square_3 = Square({16*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"HUNTING LODGE",true);
-//    build_square_4 = Square({16*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"LOGGING CAMP",true);
-//    build_square_5 = Square({22*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"MARKET",true);
-//
-//    unit_square_1 = Square({34*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 1",true);
-//    unit_square_2 = Square({34*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 2",true);
-//    unit_square_3 = Square({40*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 3",true);
-//    unit_square_4 = Square({40*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 4",true);
-//    unit_square_5 = Square({46*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 5",true);
-//    unit_square_6 = Square({46*w/72,68*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"unit 6",true);
+    build_square_1 = Square({2*w/9,15*h/18},Colors::WHITE,Colors::BLACK,h/12,w/12,"BUILD Sq 1",true);
+    build_square_2 = Square({2*w/9,11*h/12},Colors::WHITE,Colors::BLACK,h/12,w/12,"BUILD Sq 2",true);
 
-    next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/4,"Next Turn",true);
-    next_turn.set_x_offset(2*next_turn.get_x_offset());
-    next_turn.set_y_offset(-15);
-    next_turn.set_text_size(Square::LARGE);
-    game_view_port = Square({3*w/8,3*h/8},Colors::WHITE,3*h/4,3*w/4,false);
+    build_square_3 = Square({11*w/36,15*h/18},Colors::WHITE,Colors::BLACK,h/12,w/12,"BUILD Sq 3",true);
+    build_square_4 = Square({11*w/36,11*h/12},Colors::WHITE,Colors::BLACK,h/12,w/12,"BUILD Sq 4",true);
+
+    next_turn = Square({7*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/5,"Next Turn",true);
+    next_turn.set_x_offset(-25);
+    next_turn.set_y_offset(-25);
+    game_view_port = Square({3*w/8 + Game::MAP_X_OFF,3*h/8+Game::MAP_Y_OFF},Colors::WHITE,3*h/4,3*w/4,false);
     piece_view_port = Square({7*w/8,1*h/8},Colors::WHITE,Colors::BLACK,2*h/8,w/4,"Unit Info",true);
     piece_view_port.set_y_offset(-3*h/16);
-    tile_view_port = Square({11*w/16-5,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/8,"TILE INFO",true);
-    tile_view_port.set_y_offset(-6*h/64);
-    tile_view_port.set_x_offset(tile_view_port.get_x_offset()-20);
-    tile_view_port.set_text_size(Square::MEDIUM);
-    city_view_port = Square();
-  
-    buildmenu = Build_Menu(62*h/72, 10*w/72);
+    tile_view_port = Square({7*w/8,4*h/8},Colors::WHITE,Colors::BLACK,3*h/16,w/8,"TILE INFO",true);
+    tile_view_port.set_y_offset(-3*h/16);
 }
 
 void Main_Screen::draw() {
@@ -91,7 +61,6 @@ void Main_Screen::draw() {
     next_turn.draw();
     next_phase.draw();
     game.phase_on_button(next_phase);
-    build_city_button.draw();
 
     if (game.has_active_unit()) {
         game.get_active_unit()->draw_on_viewport(piece_view_port);
@@ -99,34 +68,19 @@ void Main_Screen::draw() {
     if (game.has_active_tile()) {
         game.get_active_tile()->draw_on_viewport(tile_view_port);
     }
-    if (game.has_active_city()) {
-        game.get_active_city()->draw_on_viewport(city_view_port);
+    if (game.get_phase() == "BUILD"){
+        build_square_1.draw();
+        build_square_2.draw();
+        build_square_3.draw();
+        build_square_4.draw();
     }
-    //&& game.has_active_city()
-    if (game.get_phase() == "BUILD" ) {
-//grey (beige) out works
-//TODO:: figure out how to get player production
-//TODO:: figure out how to get an active city after it's clicked on
-        buildmenu.grey_out(35);
-        buildmenu.draw();
-    }
-//    }else if (game.get_phase() == "BUILD" && (!game.has_active_city())){
-//            buildmenu.no_active_city_draw();
-//
-//        }
-
-
-    }
-
+}
 
 Screen::names Main_Screen::get_type() const {
     return Screen::MAIN_GAME;
 }
 
 void Main_Screen::clear_active() {
-    if (game.has_active_unit() && game.get_active_unit()->get_unit_type() == Unit::SETTLER) {
-        build_city_button.hide();
-    }
     game.clear_active_unit();
     game.clear_active_tile();
     piece_view_port.hide();
@@ -143,53 +97,38 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
     else {
         switch (Turn_Phase::string_to_turn_phase(game.get_phase())) {
             case (Turn_Phase::MOVE): {
-                if (game.has_active_unit() && game.get_active_unit()->get_unit_type() == Unit::SETTLER) {
-                    if (build_city_button.check_click(click)) {
-                        Tile * settler_tile = game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id());
-                        game.build_city(Civilization_Name::WESTEROS,*settler_tile);//building a city destroys the settler
-                    }
+                if (game_view_port.check_click(click)) {
+                    process_move(click);
                 }
-
-                process_move(click);
-
                 break;
             }
+
             case (Turn_Phase::BUILD): {
                 if (game_view_port.check_click(click)) {
                     process_build(click);
                 }
-                //TODO:: implement check click options for the build squares
-//                else if (build_view_port.check_click(click)) {
-//                    /*
-//                     * in pseudo code: we are going to have a build menu that will have a function that
-//                     *                  returns the piece type of the click, which we assign to a piece_type
-//                     *                  variable
-//                     *                 then we switch on the piece type and call the appropriate change_city_production
-//                     *                  method in main_screen.
-//                     */
-//                    //change_active_city_build(Building::names );
-//                }
+                else if (true/*build_view_port.check_click(click)*/) {
+                    /*
+                     * in pseudo code: we are going to have a build menu that will have a function that
+                     *                  returns the piece type of the click, which we assign to a piece_type
+                     *                  variable
+                     *                 then we switch on the piece type and call the appropriate change_city_production
+                     *                  method in main_screen.
+                     */
+                    //change_active_city_build(Building::names );
+                }
                 break;
             }
         }
     }
-
-}
-
-std::string Main_Screen::check_winner() {
-    if (game.get_player().lost()) {
-        return game.get_ai().get_name_str();
-    }
-    if (game.get_ai().lost()) {
-        return game.get_player().get_name_str();
-    }
-    return "NONE";
+	return Screen::NONE;
 }
 
 void Main_Screen::process_move(Coordinate click) {
 
     Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
-    if (tile_clicked!= nullptr && tile_clicked->is_visible()) {
+
+    if (tile_clicked->is_visible()) {
 
         if (game.has_active_unit()) {
             Unit *unit = &*game.get_active_unit();
@@ -226,13 +165,8 @@ void Main_Screen::process_move(Coordinate click) {
 
                         }
                     }//end unit type cases
-                    clear_active();
                 }//end if unit has movement
-
                 clear_active();
-                select_tile(tile_clicked);
-
-
             } else if (unit->get_owner() == Civilization_Name::NIGHT_KING) {
                 clear_active();
                 select_tile(tile_clicked);
@@ -245,22 +179,12 @@ void Main_Screen::process_move(Coordinate click) {
             select_tile(tile_clicked);
         }
     }//do nothing if tile selected is not visible
-    else {
-
-        clear_active();
-    }
 }
 
+
+
 void Main_Screen::process_build(Coordinate click) {
-
-    Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
-
-    if (tile_clicked!= nullptr && tile_clicked->is_visible()) {
-        clear_active();
-        select_tile(tile_clicked);
-    } else {
-        clear_active();
-    }
+    //TODO:: get game view port to show up on board clicks as well
     /**
      * logic to come
      * in pseudo code
@@ -285,9 +209,6 @@ void Main_Screen::select_tile(Tile * tile) {
     tile_view_port.reveal();
     if (game.get_active_tile_const()->has_unit()) {
         game.set_active_unit(*tile->get_unit());
-        if (game.get_active_unit()->get_unit_type() == Unit::SETTLER) {
-            build_city_button.reveal();
-        }
         piece_view_port.reveal();
     }
 }
@@ -296,29 +217,15 @@ Game* Main_Screen::get_game() {
     return &game;
 }
 
-void Main_Screen::new_game() {
-    game.load("new_civs.save","new_map.save","new_tm.save");
-}
-
 Main_Screen::~Main_Screen() {
     game = Game();
     next_turn = Square();
     next_phase = Square();
-    buildmenu = Build_Menu();
-
     //build_view_port = Square();
-//    build_square_1 = Square();
-//    build_square_2 = Square();
-//    build_square_3 = Square();
-//    build_square_4 = Square();
-//    build_square_5 = Square();
-//
-//    unit_square_1 = Square();
-//    unit_square_2 = Square();
-//    unit_square_3 = Square();
-//    unit_square_4 = Square();
-//    unit_square_5 = Square();
-//    unit_square_6 = Square();
+    build_square_1 = Square();
+    build_square_2 = Square();
+    build_square_3 = Square();
+    build_square_4 = Square();
 
     game_view_port = Square();
     piece_view_port = Square();

@@ -3,7 +3,6 @@
 #define TURN_MANAGER_H
 
 #include "Turn_Phase.h"
-#include <iostream>
 
 /**
 turn manager has a bunch of methods that change a civilization and map object
@@ -23,27 +22,16 @@ public:
 
     std::string get_current_phase_str() const;
 
-    int get_num_turns() const;
-
     void set_current_phase(Turn_Phase::names new_phase);
 
     void next_phase();
 
     void next_turn();
 
-    /**
-     * prints TURN MANAGER:turns,cur_phase\n
-     * @param outs
-     * @param print
-     * @return
-     */
-    friend std::ostream & operator<<(std::ostream & outs, const Turn_Manager & print);
-    friend std::istream & operator>>(std::istream & ins, Turn_Manager & fill);
+    static std::string to_string(Turn_Phase::names nm);
 
 
     ~Turn_Manager();
 };
-
-bool operator==(const Turn_Manager & lhs, const Turn_Manager & rhs);
 
 #endif

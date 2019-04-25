@@ -17,7 +17,6 @@ struct Turn_Phase {
     };
 
 static Turn_Phase::names string_to_turn_phase(std::string phs);
-static std::string turn_phase_to_string(Turn_Phase::names nm);
 };
 
 

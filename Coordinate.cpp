@@ -3,6 +3,7 @@
 //
 
 #include "Coordinate.h"
+#include <string>
 
 Coordinate::Coordinate() {
     x = 0;
@@ -26,13 +27,6 @@ Coordinate::Coordinate(int xn, int ny) {
 
 bool Coordinate::operator==(Coordinate const &rhs) {
     if (x==rhs.x & y == rhs.y) {
-        return true;
-    }
-    return false;
-}
-
-bool Coordinate::operator!=(const Coordinate & rhs) {
-    if (!(*this==rhs)) {
         return true;
     }
     return false;

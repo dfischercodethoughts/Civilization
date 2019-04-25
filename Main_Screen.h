@@ -24,30 +24,15 @@ private:
     Game game;
     Square next_turn;
     Square next_phase;
-
-    Square build_city_button;
-
-    Build_Menu buildmenu;
-
     //Square build_view_port;
-//    Square build_square_1;
-//    Square build_square_2;
-//    Square build_square_3;
-//    Square build_square_4;
-//    Square build_square_5;
-//
-//    Square unit_square_1;
-//    Square unit_square_2;
-//    Square unit_square_3;
-//    Square unit_square_4;
-//    Square unit_square_5;
-//    Square unit_square_6;
-
+    Square build_square_1;
+    Square build_square_2;
+    Square build_square_3;
+    Square build_square_4;
 
     Square game_view_port;
     Square piece_view_port;
     Square tile_view_port;
-    Square city_view_port;
 
 public:
     Main_Screen();
@@ -64,8 +49,6 @@ public:
 
     menu_options check_click(Coordinate click) override;
 
-    std::string check_winner();
-
     void process_move(Coordinate click);
     void process_build(Coordinate click);//todo: add process_build logic
 
@@ -77,7 +60,6 @@ public:
     void select_tile(Tile * tile);//todo: add active city pointer
 
     Game * get_game();
-    void new_game();
 
     ~Main_Screen();
 };

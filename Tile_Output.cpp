@@ -33,50 +33,27 @@ bool Tile_Output::increment_gold() {
     return true;
 }
 
-bool Tile_Output::decrement_production() {
-    int old = get_production();
-    production -> decrement_number();
-    if (get_production() == old) {
-        return false;
-    }
-    return true;
-}
-
-bool Tile_Output::decrement_food() {
-    int old = get_food();
-    food -> decrement_number();
-    if (get_food() == old) {
-        return false;
-    }
-    return true;
-}
-
-bool Tile_Output::decrement_gold() {
-    int old = get_gold();
-    gold -> decrement_number();
-    if (old == get_gold()) {
-        return false;
-    }
-    return true;
-}
-
-bool Tile_Output::check_building(Building_Name::names nm) {
+bool Tile_Output::check_building(Building::names nm) {
     switch (nm) {
-        case (Building_Name::names::FARM ) : {
+        case (Building::names::FARM ) : {
+            if (increment_food()) {
+                return true;
+            } else return false;
+        } case (Building::names::HUNTING_LODGE) : {
             if (increment_food()) {
                 return true;
             } else return false;
         }
-        case (Building_Name::names::MARKET) : {
+        case (Building::names::MARKET) : {
             if (increment_gold()) {
                 return true;
             } else return false;
-        } case (Building_Name::names::LOGGING_CAMP) : {
+        } case (Building::names::LOGGING_CAMP) : {
             if (increment_production()) {
                 return true;
             } else return false;
         }
-        case (Building_Name::names::MINE) : {
+        case (Building::names::MINE) : {
             if (increment_production()) {
                 return true;
             } else return false;
@@ -150,7 +127,7 @@ Tile_Output::Tile_Output(Tile_Resource::names res, Tile_Terrain::names terr) : T
     }
 }
 
-Tile_Output::Tile_Output(Tile_Resource::names res, Tile_Terrain::names terr, Building_Name::names bld) : Tile_Output(res,terr) {
+Tile_Output::Tile_Output(Tile_Resource::names res, Tile_Terrain::names terr, Building::names bld) : Tile_Output(res,terr) {
     check_building(bld);
 }
 

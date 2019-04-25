@@ -46,36 +46,29 @@ void Draw_Manager::draw() {
     }
 }
 
-void Draw_Manager::check_win() {
-    if (main.check_winner() == main.get_game()->get_player().get_name_str()) {
-        end.win();
-        set_screen(Screen::END_SCREEN);
-    }
-    else if (main.check_winner() == main.get_game()->get_ai().get_name_str()) {
-        end.lose();
-        set_screen(Screen::END_SCREEN);
-    }
-}
-
 int Draw_Manager::process_click(Coordinate click) {
     switch (cur_screen->get_type()) {
         case(Screen::START_SCREEN) : {
             Start_Screen::menu_options result = start.check_click(click);
             switch (result) {
                 case(Screen::START_GAME) : {
-                    //main.new_game();
+                    //game = new Game();
                     set_screen(Screen::MAIN_GAME);
                     return 0;
-
+                    break;
                 }
                 case (Screen::EXIT_GAME) : {
                     return -1;
-
+                    break;
+                }
+                case (Screen::SAVE_GAME) : {
+                    //todo: implement game save/load
+                    //game.save();
+                    break;
                 }
                 case (Screen::LOAD_GAME) : {
-                    //filenames are hardcoded into game class
-                    main.get_game()->load();
-                    set_screen(Screen::MAIN_GAME);
+                    //todo: get text input, or do it hardcoded in load
+                    //game.load();
                     break;
                 }
 
@@ -84,8 +77,8 @@ int Draw_Manager::process_click(Coordinate click) {
         }
         case (Screen::MAIN_GAME) : {
             main.check_click(click);
-            check_win();
             break;
+
         }
                 /**
                  * build functionality to come
@@ -111,6 +104,16 @@ int Draw_Manager::process_click(Coordinate click) {
                     return -1;
                     break;
                 }
+                case (Screen::SAVE_GAME) : {
+                    //todo: implement game save/load
+                    //game.save();
+                    break;
+                }
+                case (Screen::LOAD_GAME) : {
+                    //todo: get text input, or do it hardcoded in load
+                    //game.load();
+                    break;
+                }
 
             }
             break;
@@ -119,10 +122,6 @@ int Draw_Manager::process_click(Coordinate click) {
         case (Screen::PAUSE_SCREEN) : {
             Screen::menu_options  ch = pause.check_click(click);
             switch(ch) {
-                case (Screen::RETURN_TO_START) : {
-                    set_screen(Screen::START_SCREEN);
-                    break;
-                }
                 case (Screen::RETURN_TO_GAME) : {
                     set_screen(Screen::MAIN_GAME);
                     break;
@@ -130,13 +129,8 @@ int Draw_Manager::process_click(Coordinate click) {
                 case ( Screen::EXIT_GAME) : {
                     return -1;
                 }
-                case (Screen::SAVE_GAME) : {
-                    main.get_game()->save();
-                    set_screen(Screen::MAIN_GAME);
-                }
                 case ( Screen::LOAD_GAME) : {
-                    main.get_game()->load();
-                    set_screen(Screen::MAIN_GAME);
+                    //todo:implement load game logic
                     break;
                 }
             }
