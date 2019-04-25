@@ -3,6 +3,7 @@
 //
 
 #include "Tile.h"
+#include "Texture.h"
 
 int Tile::num_tiles = 0;
 
@@ -522,81 +523,75 @@ void Tile::draw() const {
     //     R: resource
     //     U: unit_type
     if (is_visible()) {
-        std::string line;
+
+        //draw texture in background map
+        TextureManager::GetTexture(Tile_Terrain::terrain_to_string(this->get_terrain()).c_str()).Draw(
+                get_center().x - get_width() / 2,
+                get_center().y - get_height() / 2,
+                get_center().x + get_width() / 2,
+                get_center().y + get_height() / 2
+        );
+
+
+        //if there'are units exist, then put units parallel to the resource
         if (this->has_unit()) {
-            Color tmp;
-            if (unit->get_owner()==Civilization_Name::WESTEROS) {
-                tmp = Colors::YELLOW;
-            }
-            else {
-                tmp = Colors::RED;
-            }
-            Square(get_center(), tmp, Colors::BLACK, get_height(), get_width(), "", true).draw();
-            glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
-            glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8),
-                          this->get_center().y -this->get_height()/2 + 4*get_height()/5);
+            Texture &resourceTex = TextureManager::GetTexture(Tile_Resource::resource_to_string(this->get_resource()).c_str());
 
-            Unit::Unit_Type type = get_const_unit()->get_unit_type();
-            line = "U: " + Unit::unit_type_to_string(type);
-            for (char c: line) {
-                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
-            }
-        } else {
-            Color tmp;
-            if (has_owner()) {
-                if (owner == Civilization_Name::WESTEROS) {
-                    tmp = Colors::YELLOW;
-                }
-                else {
-                    tmp = Colors::RED;
-                }
-            }
-            else {
-                tmp = Colors::WHITE;
-            }
-            Square(get_center(), tmp, Colors::BLACK, get_height(), get_width(), "", true).draw();
+            int resourceTexCenterX = get_center().x - get_width() / 4;
+            int resourceTexCenterY = get_center().y;
+
+            float ratio = (get_width() / 6) / (float)resourceTex.Width();
+
+            //draw texture of resources
+            resourceTex.Draw(
+                    resourceTexCenterX - resourceTex.Width()*ratio,
+                    resourceTexCenterY - resourceTex.Height()*ratio,
+                    resourceTexCenterX + resourceTex.Width()*ratio,
+                    resourceTexCenterY + resourceTex.Height()*ratio
+            );
+
+
+            Texture &unitTex = TextureManager::GetTexture(Unit::unit_type_to_string(get_const_unit()->get_unit_type()).c_str());
+
+            int unitTexCenterX = get_center().x + get_width() / 4;
+            int unitTexCenterY = get_center().y;
+
+            ratio = (get_width() / 3) / (float)unitTex.Width();
+
+
+            //draw textures of units
+            unitTex.Draw(
+                    unitTexCenterX - unitTex.Width()*ratio,
+                    unitTexCenterY - unitTex.Height()*ratio,
+                    unitTexCenterX + unitTex.Width()*ratio,
+                    unitTexCenterY + unitTex.Height()*ratio
+            );
+        }
+        else
+        {
+            //if no units, then put the pictures of resources on center
+            Texture &resourceTex = TextureManager::GetTexture(Tile_Resource::resource_to_string(this->get_resource()).c_str());
+
+            int resourceTexCenterX = get_center().x ;
+            int resourceTexCenterY = get_center().y ;
+
+            float ratio = (get_width() / 6) / (float)resourceTex.Width();
+
+
+            //draw textures of resources
+            resourceTex.Draw(
+                    resourceTexCenterX - resourceTex.Width()*ratio,
+                    resourceTexCenterY - resourceTex.Height()*ratio,
+                    resourceTexCenterX + resourceTex.Width()*ratio,
+                    resourceTexCenterY + resourceTex.Height()*ratio
+            );
+
         }
 
-        line = "T: ";
-        glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
-        glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8),
-                      this->get_center().y - get_height() / 2 + get_height()/5);
-        line += Tile_Terrain::terrain_to_string(this->get_terrain());
-        for (char c: line) {
-            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
-        }
-
-        glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
-        glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8),
-                this->get_center().y - get_height()/2 + get_height()*2/5);
-        line = "R: " + Tile_Resource::resource_to_string(this->get_resource());
-        for (char c: line) {
-            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
-        }
-
-        glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
-        glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8),
-                this->get_center().y - get_height()/2 + 3*get_height()/5);
-        line = "B: " + Building_Name::building_name_to_string(building.get_name());
-        for (char c: line) {
-            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
-        }
-
-        if (has_city()) {
-            glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
-            glRasterPos2i(this->get_center().x + (3 * this->get_width() / 8),
-                          this->get_center().y);
-            char c = 'C';
-
-            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
-
-        }
     }
-
-    //if not visible print black square
+        //if not visible print black square
     else {
-
-        Square(get_center(),Colors::BLACK,Colors::WHITE,get_height(),get_width(),"",true).draw();
+        Square(get_center(),Colors::BLACK,Colors::WHITE,get_height(),get_width(),"INVISIBLE",true).draw();
     }
 }
 
