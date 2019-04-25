@@ -225,7 +225,7 @@ void Tile::set_owner(Civilization_Name::Names nm) {
 }
 
 bool Tile::has_owner() const {
-    return !owner==Civilization_Name::NONE;
+    return owner!=Civilization_Name::NONE;
 }
 
 Building Tile::get_building() const {
@@ -252,7 +252,7 @@ void Tile::build_city(City & newc) {
 }
 
 bool Tile::has_city() const {
-    return !(city==nullptr);
+    return (city!=nullptr);
 }
 
 void Tile::set_base_square(Square set) {
@@ -289,10 +289,7 @@ void Tile::clear_unit() {
 }
 
 bool Tile::has_unit() const {
-    if (unit != nullptr) {
-        return true;
-    }
-    return false;
+    return unit != nullptr;
 }
 
 Unit* Tile::get_const_unit() const {
@@ -326,6 +323,10 @@ void Tile::set_background_square(Square set) {
     }
     this->set_height(set.get_height());
     this->set_width(set.get_width());
+}
+
+bool Tile::has_building() const {
+    return (building.get_name() != Building_Name::NONE);
 }
 
 bool Tile::add_building(Building_Name::names bld) {
@@ -502,12 +503,7 @@ bool Tile::add_building(Building_Name::names bld) {
         }
     }
 
-    if (built) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return built;
 }
 
 Tile_Output Tile::get_output() const {
@@ -535,7 +531,41 @@ void Tile::draw() const {
 
         //if there'are units exist, then put units parallel to the resource
         if (this->has_unit()) {
+
             Texture &resourceTex = TextureManager::GetTexture(Tile_Resource::resource_to_string(this->get_resource()).c_str());
+/*
+            Color tmp;
+            if (unit->get_owner()==Civilization_Name::WESTEROS) {
+                tmp = Colors::YELLOW;
+            }
+            else {
+                tmp = Colors::RED;
+            }
+            Square(get_center(), tmp, Colors::BLACK, get_height(), get_width(), "", true).draw();
+            glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
+            glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8),
+                          this->get_center().y -this->get_height()/2 + 4*get_height()/5);
+
+            Unit::Unit_Type type = get_const_unit()->get_unit_type();
+            line = "U: " + Unit::unit_type_to_string(type);
+            for (char c: line) {
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+            }
+        } else {
+            Color tmp;
+            if (has_owner()) {
+                if (owner == Civilization_Name::WESTEROS) {
+                    tmp = Colors::TEAL;
+                }
+                else {
+                    tmp = Colors::RED;
+                }
+            }
+            else {
+                tmp = Colors::WHITE;
+            }
+            Square(get_center(), tmp, Colors::BLACK, get_height(), get_width(), "", true).draw();
+        }*/
 
             int resourceTexCenterX = get_center().x - get_width() / 4;
             int resourceTexCenterY = get_center().y;
@@ -684,19 +714,12 @@ Tile & Tile::operator=(const Tile & rhs) {
 }
 
 bool Tile::operator==(Tile const & rhs) const {
-    //todo: add building to tile equality
-    if ((get_id() == rhs.get_id()) && (terrain == rhs.get_terrain()) &&
-            (resource == rhs.get_resource())&& building == rhs.get_building()) {
-        return true;
-    }
-    return false;
+    return ((get_id() == rhs.get_id()) && (terrain == rhs.get_terrain()) &&
+            (resource == rhs.get_resource())&& building == rhs.get_building());
 }
 
 bool Tile::operator!=(Tile const & rhs) const {
-    if (!(*this == rhs)) {
-        return true;
-    }
-    return false;
+    return (!(*this == rhs));
 }
 
 bool Tile::operator<(const Tile & rhs) const {
