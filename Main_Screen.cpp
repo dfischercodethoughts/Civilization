@@ -121,21 +121,20 @@ void Main_Screen::draw() {
 
     }
     //&& game.has_active_city()
-    if (game.get_phase() == "BUILD" ) {
+    //if (game.get_phase() == "BUILD" ) {
 //grey (beige) out works
 //TODO:: figure out how to get player production
 //TODO:: figure out how to get an active city after it's clicked on
-        buildmenu.grey_out(35);
-        buildmenu.draw();
-    }
-//    }else if (game.get_phase() == "BUILD" && (!game.has_active_city())){
+        //buildmenu.grey_out(35);
+        //buildmenu.draw();
+    //}
+   //}else if (game.get_phase() == "BUILD" && (!game.has_active_city())){
 //            buildmenu.no_active_city_draw();
 
 //
-//        }
+        //}
 
 
-}
 
 
 
@@ -197,7 +196,7 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
         process_move(click);
     }
 
-
+    return Screen::NONE;
 }
 
 std::string Main_Screen::check_winner() {

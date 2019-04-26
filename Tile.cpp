@@ -25,6 +25,8 @@ void Tile::init_output() {
             output.increment_production();
             break;
         }
+        default:
+            break;
     }
 }
 
@@ -64,8 +66,8 @@ void Tile::clear_resource() {
             resource = Tile_Resource::DEFAULT;
             break;
         }
-
-
+        default:
+            break;
     }
 }
 
@@ -501,6 +503,8 @@ bool Tile::add_building(Building_Name::names bld) {
             }
             break;
         }
+        default:
+            break;
     }
 
     return built;

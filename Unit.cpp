@@ -77,7 +77,10 @@ int Unit::get_max_health(Unit_Type tp) {
         case(SETTLER) : {
             return(10);
         }
+        default:
+            break;
     }
+    return 0;
 }
 
 int Unit::get_max_movement(Unit::Unit_Type tp) {
@@ -100,7 +103,10 @@ int Unit::get_max_movement(Unit::Unit_Type tp) {
         case (HORSEMAN) : {
             return(4);
         }
+        default:
+            break;
     }
+    return 0;
 }
 
 int Unit::get_upkeep(Unit_Type ty) {
@@ -183,7 +189,10 @@ int Unit::get_damage(Unit_Type tp) {
         case (SETTLER) : {
             return  1;
         }
+        default:
+            break;
     }
+    return 0;
 }
 
 int Unit::get_range(Unit_Type tp) {
@@ -432,6 +441,7 @@ void Unit::draw_on_viewport(Square base) {
 
 int Unit::cause_damage(Unit_Type attacking) {
     set_health(health -get_damage(attacking));
+    return 0;
 }
 
 void Unit::full_heal() {
@@ -471,6 +481,7 @@ Unit & Unit::operator=(Unit const &rhs) {
     reset_health();
     set_damage();
     set_location(rhs.get_location_id());
+    return *this;
 }
 
 bool Unit::operator!=(Unit const & rhs) {

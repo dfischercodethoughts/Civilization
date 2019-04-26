@@ -160,6 +160,8 @@ Tile_Output City::collect_resources() {
             }
             break;
         }
+        default:
+            break;
     }
 
     if (food > (population^2+40)) {
@@ -283,6 +285,7 @@ City & City::operator=(const City & rhs) {
     for (auto t = rhs.tiles.begin();t != rhs.tiles.end();t++) {
         tiles.emplace(new Tile(*t));
     }
+    return *this;
 }
 
 //todo:implement city input output
