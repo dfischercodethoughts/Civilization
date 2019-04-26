@@ -12,7 +12,7 @@ Building::Building(Building_Name::names nm) {
     name = nm;
 }
 
-Building_Name::names Building::get_name() const {
+Building_Name::names Building::get_name() const{
     return name;
 }
 

@@ -121,6 +121,7 @@ std::vector<Tile *> City::get_tiles() {
     return ret;
 }
 
+
 void City::add_tiles(std::vector<Tile *> & to_add) {
     for (Tile * add : to_add) {
         tiles.emplace(&*add);

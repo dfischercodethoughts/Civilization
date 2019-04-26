@@ -40,6 +40,8 @@ public:
     std::string get_name() const;
     void set_name(std::string newname);
 
+
+    void clear_build_settings();
     bool is_ready_to_produce() const;
     bool get_ready_to_produce() const;
     bool is_ready_to_grow() const;

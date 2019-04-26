@@ -328,6 +328,14 @@ void Game::clear_active_city() {
     active_city = nullptr;
 }
 
+void Game::clear_build_building(){
+    building_to_build = nullptr;
+}
+
+void Game::clear_build_unit() {
+    unit_to_build = nullptr;
+}
+
 void Game::reveal_unit(Unit * to_rev) {
     map.reveal_unit(to_rev);
 

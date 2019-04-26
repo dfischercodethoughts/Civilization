@@ -156,6 +156,8 @@ void Main_Screen::clear_active() {
     game.clear_active_unit();
     game.clear_active_tile();
     game.clear_active_city();
+    game.clear_build_unit();
+    game.clear_build_building();
     piece_view_port.hide();
     tile_view_port.hide();
     city_view_port.hide();
@@ -163,9 +165,7 @@ void Main_Screen::clear_active() {
 }
 
 Screen::menu_options Main_Screen::check_click(Coordinate click) {
-    std::string to_build;
-    Building_Name::names blding;
-    Unit::Unit_Type unit;
+
 
     if (next_turn.check_click(click)) {
         game.next_turn();
@@ -178,36 +178,57 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
     else if (game.has_active_city()) {
         //if click is on the build menu
         if (buildmenu.check_click(click)) {
-//TODO::write function that takes in a square and a game function that draws it a different color if it is selected
             //returns the string of the build_menu sqaure clicked
-            to_build = buildmenu.ret_build_name(click);
-//            blding = Building_Name::string_to_building_name(to_build);
-//            unit = Unit::string_to_unit_type(to_build);
+            //also colors the squares based on the selected one
+            std::string to_build = buildmenu.ret_build_name(click);
+            Building_Name::names blding = Building_Name::string_to_building_name(to_build);
+            Unit::Unit_Type unit = Unit::string_to_unit_type(to_build);
 
             //if the blding in the menu selected is a unit (aka == none when run against the string to building name)
-//            if(blding == Building_Name::NONE){
-//                Unit new_unit = Unit();
-//                new_unit.set_unit_type(unit);
-//                game.set_build_unit(new_unit);
-//                //otherwise it's a building name
-//            }else{
-//                Building new_building = Building(blding);
-//                game.set_build_building(new_building);
-//            }
+            if(blding == Building_Name::NONE){
+                Unit new_unit = Unit();
+                new_unit.set_unit_type(unit);
+                game.set_build_unit(new_unit);
+                //otherwise it's a building name
+            }else{
+                Building new_building = Building(blding);
+                game.set_build_building(new_building);
+            }
 
 
 
             //if the cost of the square clicked is less than the amount of production the active city has
             //make the appropriate unit or building (internally), and set it to the appropriate build pointer in game
+
+            /*#####################################################################################################3###
+             * TODO::VERY IMPORTANT: right in between this part of the code is where building to build gets changed from
+             * X to FARM. need to figure out what exactly is making it change
+             * #######################################################################################################*/
         }
         else if (game_view_port.check_click(click) && game.has_build_piece()) {
-            //buildmenu.all_squares_white();
+            Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
+
+            std::vector<Tile *> city_tiles;
+           city_tiles = game.get_active_city()->get_tiles();
+            for(int i = 0; i < city_tiles.size(); i++){
+                if(*tile_clicked == *city_tiles[i]){
+                    if(game.has_build_unit()){
+                        //game.get_player().add_unit(game.get_build_unit(), *tile_clicked);
+                    }else{
+                        tile_clicked->add_building(game.get_build_building().get_name());
+                    }
+               }
+            }
+            buildmenu.all_squares_white();
+            clear_active();
+            //clear_active();
             //else if click is on the game viewport and there's a building or unit to build
             //if tile clicked is within the tiles that the city controls, try to build the building or
             //unit selected on the tile clicked
             //clear all active
         }
         else if (game_view_port.check_click(click)) {
+            buildmenu.all_squares_white();
             //else if click is on game viewport and there is no building or unit to build
             //go to move unit/select tile logic
             process_move(click);
