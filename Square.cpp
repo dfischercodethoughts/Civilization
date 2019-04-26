@@ -15,7 +15,7 @@ Square::Square() :center(Coordinate(0,0)) {
 }
 
 Square::Square(Coordinate cnt, Color fll, int h, int w, bool vis):
-center(cnt), text_size(Text_Size::MEDIUM)
+center(cnt), text_size(Text_Size::MEDIUM), translucent(false)
 {
     fill = fll;
     text_color = Color(0,0,0);
@@ -28,7 +28,7 @@ center(cnt), text_size(Text_Size::MEDIUM)
 }
 
 Square::Square(Coordinate cnt, Color fll, Color text, int h, int w, std::string mesg, bool vis):
-center(cnt),text_size(Text_Size::MEDIUM)
+center(cnt),text_size(Text_Size::MEDIUM), translucent(false)
 {
     fill = fll;
     text_color = text;
@@ -38,6 +38,20 @@ center(cnt),text_size(Text_Size::MEDIUM)
     visible = vis;
     xoff =  -msg.size()*4;
     yoff = 0;
+}
+
+Square::Square(Coordinate cnt, Color fll, Color text, int h, int w, std::string mesg, bool vis,bool translct):
+        center(cnt),text_size(Text_Size::MEDIUM)
+{
+    fill = fll;
+    text_color = text;
+    height = h;
+    width = w;
+    msg = mesg;
+    visible = vis;
+    xoff =  -msg.size()*4;
+    yoff = 0;
+    translucent = translct;
 }
 
 Square::Text_Size Square::get_text_size() const{

@@ -621,7 +621,7 @@ void Tile::draw() const {
     }
         //if not visible print black square
     else {
-        Square(get_center(),Colors::BLACK,Colors::WHITE,get_height(),get_width(),"INVISIBLE",true).draw();
+        Square(get_center(),Colors::BLACK,Colors::WHITE,get_height(),get_width(),"",true).draw();
     }
 }
 
