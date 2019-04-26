@@ -27,7 +27,7 @@ int Building_Name::get_production_cost(names n) {
             break;
         }
         case (LOGGING_CAMP) : {
-            return 30;
+            return 30   ;
             break;
         }
         case (MARKET) : {

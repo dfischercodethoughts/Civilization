@@ -33,6 +33,7 @@ private:
     Unit * active_unit;
     Building * building_to_build;
     Unit * unit_to_build;
+
     //std::shared_ptr<Building> active_building;
 
     Map map;
@@ -97,6 +98,8 @@ public:
     bool has_build_piece() const;
     bool has_build_building() const;
     bool has_build_unit() const;
+    Building get_build_building();
+    Unit get_build_unit();
     void clear_active_tile();
     void clear_active_unit();
     void clear_active_city();

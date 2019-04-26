@@ -85,6 +85,7 @@ void Main_Screen::init(int h, int w,int x, int y) {
 }
 
 void Main_Screen::draw() {
+
     //TODO:: build draw boxes for other phases
 
     game_view_port.draw();
@@ -106,10 +107,15 @@ void Main_Screen::draw() {
     if (game.has_active_city()) {
         game.get_active_city()->draw_on_viewport(city_view_port);
 
-  //TODO:: figure out how to get player production
-//TODO:: figure out how to get an active city after it's clicked on
-        buildmenu.grey_out(35);
+  //TODO:: figure out how to get player production (it works with hard coded values but not game.act city -> get prod or any forms of that)
+        //buildmenu.grey_out(35);
+        //buildmenu.selected_build_color(game);
+     //   buildmenu.change_active_color(buildmenu.get_selected_square());
+//        buildmenu.compare_selected_square(buildmenu.get_selected_square());
+//        buildmenu.grey_out(game.get_active_city()->get_production());
+        //buildmenu.grey_out(game.get_active_city()->get_production());
         buildmenu.draw();
+
     }
 
 
@@ -121,13 +127,13 @@ void Main_Screen::draw() {
 
     }
     //&& game.has_active_city()
-    if (game.get_phase() == "BUILD" ) {
-//grey (beige) out works
-//TODO:: figure out how to get player production
-//TODO:: figure out how to get an active city after it's clicked on
-        buildmenu.grey_out(35);
-        buildmenu.draw();
-    }
+//    if (game.get_phase() == "BUILD" ) {
+////grey (beige) out works
+////TODO:: figure out how to get player production
+////TODO:: figure out how to get an active city after it's clicked on
+//        buildmenu.grey_out(35);
+//        buildmenu.draw();
+//    }
 //    }else if (game.get_phase() == "BUILD" && (!game.has_active_city())){
 //            buildmenu.no_active_city_draw();
 
@@ -135,7 +141,7 @@ void Main_Screen::draw() {
 //        }
 
 
-}
+
 
 
 
@@ -157,6 +163,10 @@ void Main_Screen::clear_active() {
 }
 
 Screen::menu_options Main_Screen::check_click(Coordinate click) {
+    std::string to_build;
+    Building_Name::names blding;
+    Unit::Unit_Type unit;
+
     if (next_turn.check_click(click)) {
         game.next_turn();
 
@@ -168,10 +178,30 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
     else if (game.has_active_city()) {
         //if click is on the build menu
         if (buildmenu.check_click(click)) {
+//TODO::write function that takes in a square and a game function that draws it a different color if it is selected
+            //returns the string of the build_menu sqaure clicked
+            to_build = buildmenu.ret_build_name(click);
+//            blding = Building_Name::string_to_building_name(to_build);
+//            unit = Unit::string_to_unit_type(to_build);
+
+            //if the blding in the menu selected is a unit (aka == none when run against the string to building name)
+//            if(blding == Building_Name::NONE){
+//                Unit new_unit = Unit();
+//                new_unit.set_unit_type(unit);
+//                game.set_build_unit(new_unit);
+//                //otherwise it's a building name
+//            }else{
+//                Building new_building = Building(blding);
+//                game.set_build_building(new_building);
+//            }
+
+
+
             //if the cost of the square clicked is less than the amount of production the active city has
             //make the appropriate unit or building (internally), and set it to the appropriate build pointer in game
         }
         else if (game_view_port.check_click(click) && game.has_build_piece()) {
+            //buildmenu.all_squares_white();
             //else if click is on the game viewport and there's a building or unit to build
             //if tile clicked is within the tiles that the city controls, try to build the building or
             //unit selected on the tile clicked

@@ -71,6 +71,10 @@ std::string City::get_production_item() const {
     }
 }
 
+int City::get_production(){
+    return production;
+}
+
 int City::get_production_output() const {
     int sum = 0;
     for (Tile * tile : tiles) {

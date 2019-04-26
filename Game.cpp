@@ -275,6 +275,14 @@ void Game::set_active_city(City &c) {
     active_city = &c;
 }
 
+void Game::set_build_building(Building &p) {
+    building_to_build = &p;
+}
+
+void Game::set_build_unit(Unit &u) {
+    unit_to_build = &u;
+}
+
 bool Game::has_active_unit() const {
     return active_unit != nullptr;
 }
@@ -298,6 +306,14 @@ bool Game::has_build_unit() const {
 
 bool Game::has_build_building() const {
     return (building_to_build != nullptr);
+}
+
+Building Game::get_build_building(){
+    return *building_to_build;
+}
+
+Unit Game::get_build_unit(){
+    return *unit_to_build;
 }
 
 void Game::clear_active_tile() {
