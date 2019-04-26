@@ -87,6 +87,7 @@ std::istream & operator>>(std::istream & ins, Turn_Manager & fill) {
 
     line.erase(0,line.find(',')+1);
     fill.current_phase = Turn_Phase::string_to_turn_phase(line.substr(0,line.length()));
+    return ins;
 }
 
 Turn_Manager::~Turn_Manager() {

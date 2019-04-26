@@ -46,6 +46,7 @@ bool operator==(const Building & lhs, const Building & rhs) {
 
 Building & Building::operator=(const Building & cp) {
     name = cp.get_name();
+    return *this;
 }
 
 
@@ -65,8 +66,10 @@ std::string Building::building_to_string(Building_Name::names nm){
         case(Building_Name::NONE):
             return "NONE";
 
-
+        default:
+            break;
     }
+    return 0;
 }
 
 int Building::get_upkeep(Building_Name::names nm){

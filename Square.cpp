@@ -201,6 +201,7 @@ Square & Square::operator=(const Square & cp) {
     text_color = cp.get_text_color();
     msg = cp.get_message();
     visible = cp.visible;
+    return *this;
 }
 
 bool Square::operator==(const Square & rhs) {

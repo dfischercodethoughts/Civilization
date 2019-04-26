@@ -68,6 +68,7 @@ Start_Screen& Start_Screen::operator=(const Start_Screen &cp) {
     load_game = cp.load_game;
     width = cp.width;
     height = cp.height;
+    return *this;
 }
 
 Start_Screen::~Start_Screen() {

@@ -78,7 +78,8 @@ int Draw_Manager::process_click(Coordinate click) {
                     set_screen(Screen::MAIN_GAME);
                     break;
                 }
-
+                default:
+                    break;
             }
             break;
         }
@@ -111,7 +112,8 @@ int Draw_Manager::process_click(Coordinate click) {
                     return -1;
                     break;
                 }
-
+                default:
+                    break;
             }
             break;
         }
@@ -139,8 +141,12 @@ int Draw_Manager::process_click(Coordinate click) {
                     set_screen(Screen::MAIN_GAME);
                     break;
                 }
+                default:
+                    break;
             }
         }
+        default:
+            break;
     }
     return 0;
 }

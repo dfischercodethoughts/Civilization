@@ -38,8 +38,11 @@ int Building_Name::get_production_cost(names n) {
             return 60;
             break;
         }
+        default:
+            break;
 
     }
+    return 0;
 }
 
 std::string Building_Name::building_name_to_string(Building_Name::names nm) {
