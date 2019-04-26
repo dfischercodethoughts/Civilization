@@ -106,6 +106,9 @@ void Main_Screen::draw() {
     if (game.has_active_city()) {
         game.get_active_city()->draw_on_viewport(city_view_port);
 
+        //draw translucent overlay of tiles in command
+
+
   //TODO:: figure out how to get player production
 //TODO:: figure out how to get an active city after it's clicked on
         buildmenu.grey_out(35);
@@ -119,22 +122,14 @@ void Main_Screen::draw() {
 //        build_square_4.draw();
 //        build_square_5.draw();
 
-    }
-    //&& game.has_active_city()
-    //if (game.get_phase() == "BUILD" ) {
-//grey (beige) out works
-//TODO:: figure out how to get player production
-//TODO:: figure out how to get an active city after it's clicked on
-        //buildmenu.grey_out(35);
-        //buildmenu.draw();
-    //}
-   //}else if (game.get_phase() == "BUILD" && (!game.has_active_city())){
+//    }else if (game.get_phase() == "BUILD" && (!game.has_active_city())){
 //            buildmenu.no_active_city_draw();
 
 //
-        //}
+//        }
 
 
+}
 
 
 
@@ -196,7 +191,7 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
         process_move(click);
     }
 
-    return Screen::NONE;
+
 }
 
 std::string Main_Screen::check_winner() {
@@ -236,8 +231,8 @@ void Main_Screen::process_move(Coordinate click) {
                         //implement boat move/attack
                     } else {
                         //only do stuff if tile selected is right next to tile of unit
-                        if (game.get_map().is_adjacent(*tile_clicked,
-                                                       *game.get_map().get_tile_from_id(unit->get_location_id()))) {
+                        //if (game.get_map().is_adjacent(*tile_clicked,
+                          //                             *game.get_map().get_tile_from_id(unit->get_location_id()))) {
                             //call game move unit method
                             if (game.move_active_unit(*tile_clicked)) {
                                 //clear unit from active tile
@@ -247,7 +242,7 @@ void Main_Screen::process_move(Coordinate click) {
 
                             }
 
-                        }
+                        //}
                     }//end unit type cases
                     clear_active();
                 }//end if unit has movement

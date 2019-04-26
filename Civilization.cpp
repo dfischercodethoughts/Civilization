@@ -261,18 +261,21 @@ bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
 
     Tile * move_from = &*map->get_tile_from_id(tilefrom);
     Tile * move_to = &*map->get_tile_from_id(tileto);
-    if (map->is_adjacent(*move_from, *move_to)) {
-        Unit * unit = get_unit(name,move_from->get_id());
-        unit->use_movement(Tile_Terrain::get_movement_cost(move_to->get_terrain()));
-        unit->set_location(move_to->get_id());
-        unit->set_center(move_to->get_center());
-        //set move to tile unit; use move to's id since we already updated unit's location
-        move_to->set_unit(*unit);
-        move_from->clear_unit();
-        move_from->draw();
-        move_to->draw();
+    std::vector<Tile *> *possible_tiles = map->get_tiles_within_range(move_from,get_unit(name,tilefrom)->get_current_movement());
+    for (Tile * t : *possible_tiles) {
+        if (*move_to == *t) {//tile selected is within movement range of the unit
+            Unit *unit = get_unit(name, move_from->get_id());
+            unit->use_movement(map->get_move_cost(move_from,move_to));
+            unit->set_location(move_to->get_id());
+            unit->set_center(move_to->get_center());
+            //set move to tile unit; use move to's id since we already updated unit's location
+            move_to->set_unit(*unit);
+            move_from->clear_unit();
+            move_from->draw();
+            move_to->draw();
 
-        return true;
+            return true;
+        }
     }
 
     return false;
