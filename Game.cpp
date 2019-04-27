@@ -12,44 +12,28 @@ const std::string Game::TM_FILENAME = "tm.save";
 void Game::play_ai() {
     manager.set_current_phase(Turn_Phase::AI_TURN);
     for (Unit * unit : ai.get_units()) {
-        set_active_unit(*unit);
         bool moved=  false;
         int unit_id = unit->get_location_id();
         Tile * start_tile = map.get_tile_from_id(unit_id);
-        while (active_unit->get_current_movement() > 0) {
-            std::vector<Tile *> *possible_moves = map.get_tiles_within_range(start_tile, unit->get_current_movement());
-            for (Tile *tile : *possible_moves) {
-                //if there's a tile with an enemy unit on it: attack
-                if (tile->get_unit() != nullptr && tile->get_unit()->get_owner() == Civilization_Name::WESTEROS) {
-                    if (map.is_adjacent(*tile,*start_tile)) {
-
-                        move_active_unit(*tile);
-                    }
-                    else {
-                        //enemy in range, but not on a tile adjacent to the warrior
-                        //set active unit and move to tile closest to enemy
-
-                        move_active_unit(*map.get_closest_tile(start_tile,tile));
-                        //if there's movement left (which there should be), attack the enemy
-                        if (active_unit -> get_current_movement() > 0) {
-                            move_active_unit(*tile);
-                        }
-                    }
-                    moved = true;
-                    break;
-                }
-
+        std::vector<Tile *>* possible_moves = map.get_tiles_within_range(start_tile,unit->get_current_movement());
+        for (Tile *tile : *possible_moves) {
+            //if there's a tile with an enemy unit on it, attack that enemy
+            if (tile->get_unit() != nullptr && tile->get_unit()->get_owner()== Civilization_Name::WESTEROS) {
+                set_active_unit(*unit);
+                move_active_unit(*tile);
+                moved = true;
+                break;
             }
-            if (!moved) {
-                //if it hasn't attacked, then move randomly
-                unsigned time_stamp = std::chrono::system_clock::now().time_since_epoch().count();
-                std::mt19937 generator(time_stamp);
-                int ind_to_move = generator() % (possible_moves->size());
-                move_active_unit(*possible_moves->at(ind_to_move));
-            }
-           // set_active_unit()
+
         }
-
+        if (!moved) {
+            //if it hasn't attacked, then move randomly
+            unsigned time_stamp = std::chrono::system_clock::now().time_since_epoch().count();
+            std::mt19937 generator(time_stamp);
+            int ind_to_move = generator() % (possible_moves->size() - 1);
+            set_active_unit(*unit);
+            move_active_unit(*(*possible_moves)[ind_to_move]);
+        }
     }
 }
 
@@ -328,8 +312,8 @@ Building Game::get_build_building(){
     return *building_to_build;
 }
 
-Unit Game::get_build_unit(){
-    return *unit_to_build;
+Unit *Game::get_build_unit(){
+    return unit_to_build;
 }
 
 void Game::clear_active_tile() {
@@ -350,6 +334,16 @@ void Game::clear_build_building(){
 
 void Game::clear_build_unit() {
     unit_to_build = nullptr;
+}
+
+void Game::add_unit(Civilization_Name::Names n, Unit * to_add, Tile * place) {
+    //in future builds we will iterate through all civilizations in game
+    if (n == Civilization_Name::WESTEROS) {
+        player.add_unit(*to_add,*place);
+    }
+    else if (n == Civilization_Name::NIGHT_KING) {
+        ai.add_unit(*to_add,*place);
+    }
 }
 
 void Game::reveal_unit(Unit * to_rev) {
@@ -442,7 +436,7 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
                 to_move_to.set_unit(player.get_unit(Civilization_Name::WESTEROS, to_move_to.get_id()));
                 Unit *aiu = ai.get_unit(Civilization_Name::NIGHT_KING, active_unit->get_location_id());
                 aiu->cause_damage(to_move_to.get_unit()->get_unit_type());
-                //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::play_ai)
+                //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::process click)
                 if (to_move_to.get_unit()->get_current_health() <= 0) {
                     to_move_to.clear_unit();
                     player.destroy_units();
@@ -451,20 +445,17 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
                     map.get_tile_from_id(active_unit->get_location_id())->clear_unit();
                     ai.destroy_units();
                 } else {
-                    aiu->use_movement(Unit::get_max_movement(active_unit->get_unit_type()));
-                    set_active_unit(*ai.get_unit(ai.get_name(),active_unit->get_location_id()));
+                    active_unit->use_movement(Unit::get_max_movement(active_unit->get_unit_type()));
                 }
 
-            }//do nothing if ai unit on square
+
+                //do nothing if ai unit on square
+
+            }
             return false;//unit on tile to move to means unit didn't actually move (even if it did attack)
-        } else /*if (map.is_adjacent(*map.get_tile_from_id(active_unit->get_location_id()),to_move_to))*/ {
-            //tile to move to does not have a unit on it
-                if(ai.move_unit(&map, active_unit->get_location_id(), to_move_to.get_id())) {
-                    //reveal_unit(to_move_to.get_unit());
-                    set_active_unit(*ai.get_unit(ai.get_name(),to_move_to.get_id()));
-                    return true;
-                }
-
+        } else if (ai.move_unit(&map, active_unit->get_location_id(), to_move_to.get_id())) {
+            reveal_unit(to_move_to.get_unit());
+            return true;
         }
     }//end ai move
 
@@ -529,9 +520,8 @@ void Game::next_turn() {
     play_ai();
     player.next_turn(map);
     update_map();
-    clear_active_unit();
     clear_active_tile();
-    clear_active_city();
+    clear_active_unit();
     map.reveal_units(player.get_units());
     map.reveal_cities(player.get_cities());
     manager.next_turn();
@@ -596,7 +586,6 @@ Game& Game::operator=(const Game &cp) {
     } else {
         active_tile = nullptr;
     }
-    return *this;
 }
 
 bool Game::operator==(const Game & rhs) {
