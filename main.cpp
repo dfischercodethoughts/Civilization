@@ -13,9 +13,9 @@ static Draw_Manager *dm = nullptr;
 
 void init() {
     width = 1920;
-    height = 1066;
+    height = 1000;
 
-    dm = (new Draw_Manager(height,width,8,8));
+    dm = (new Draw_Manager(height,width,10,10));
 
     //do map things to game here
     TextureManager::Register(Tile_Terrain::terrain_to_string(Tile_Terrain::GRASSLAND).c_str(), Texture("assets\\grassland.png"));

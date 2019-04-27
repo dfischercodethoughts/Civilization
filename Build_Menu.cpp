@@ -6,6 +6,8 @@
 
 
 Build_Menu::Build_Menu(){
+    selected_square = nullptr;
+
     build_square_1 = Square();
     build_square_2 = Square();
     build_square_3 = Square();
@@ -26,7 +28,7 @@ Build_Menu::Build_Menu(){
 
 
 Build_Menu::Build_Menu(int h, int w) : Square({6*w/2, 83*h/80}, Colors::WHITE, Colors::WHITE, h/4,3*w, "", true){
-
+    selected_square = nullptr;
 
     build_square_1 = Square({4*w/2,77*h/80},Colors::WHITE,Colors::BLACK,h/20,w/2,"HARBOR",true);
     build_square_2 = Square({4*w/2,81*h/80},Colors::WHITE,Colors::BLACK,h/20,w/2,"LOGGING CAMP",true);
@@ -71,7 +73,7 @@ void Build_Menu::no_active_city_draw(){
 
 void Build_Menu::change_active_color(Square sq){
     if(sq == *selected_square){
-sq.set_fill(Colors::YELLOW);
+        sq.set_fill(Colors::YELLOW);
 
     }else if (sq != *selected_square){
         selected_square->set_fill(Colors::WHITE);
@@ -160,77 +162,101 @@ sq.set_fill(Colors::YELLOW);
 
 std::string Build_Menu::ret_build_name(Coordinate click){
     if(build_square_1.check_click(click)){
-        selected_square->set_fill(Colors::WHITE);
+        if (selected_square != nullptr) {
+            selected_square->set_fill(Colors::WHITE);
+        }
         build_square_1.set_fill(Colors::YELLOW);
         selected_square = &build_square_1;
         return "HARBOR";
     }
     else if (build_square_2.check_click(click)){
-        selected_square->set_fill(Colors::WHITE);
+        if (selected_square != nullptr) {
+            selected_square->set_fill(Colors::WHITE);
+        }
         build_square_2.set_fill(Colors::YELLOW);
         selected_square = &build_square_2;
 
         return "LOGGING_CAMP";
     }
     else if (build_square_3.check_click(click)){
-        selected_square->set_fill(Colors::WHITE);
+        if (selected_square != nullptr) {
+            selected_square->set_fill(Colors::WHITE);
+        }
         build_square_3.set_fill(Colors::YELLOW);
         selected_square = &build_square_3;
 
         return "FARM";
     }
     else if (build_square_4.check_click(click)){
-        selected_square->set_fill(Colors::WHITE);
+        if (selected_square != nullptr) {
+            selected_square->set_fill(Colors::WHITE);
+        }
         build_square_4.set_fill(Colors::YELLOW);
         selected_square = &build_square_4;
 
         return "MINE";
     }
     else if(build_square_5.check_click(click)){
-        selected_square->set_fill(Colors::WHITE);
+        if (selected_square != nullptr) {
+            selected_square->set_fill(Colors::WHITE);
+        }
         build_square_5.set_fill(Colors::YELLOW);
         selected_square = &build_square_5;
 
         return "TRADING POST";
     }
     else if (build_square_6.check_click(click)){
-        selected_square->set_fill(Colors::WHITE);
+        if (selected_square != nullptr) {
+            selected_square->set_fill(Colors::WHITE);
+        }
         build_square_6.set_fill(Colors::YELLOW);
         selected_square = &build_square_6;
         return "WORKSHOP";
     }
     else if (build_square_7.check_click(click)){
-        selected_square->set_fill(Colors::WHITE);
+        if (selected_square != nullptr) {
+            selected_square->set_fill(Colors::WHITE);
+        }
         build_square_7.set_fill(Colors::YELLOW);
         selected_square = &build_square_7;
         return "MARKET";
     }
     else if (build_square_8.check_click(click)){
-        selected_square->set_fill(Colors::WHITE);
+        if (selected_square != nullptr) {
+            selected_square->set_fill(Colors::WHITE);
+        }
         build_square_8.set_fill(Colors::YELLOW);
         selected_square = &build_square_8;
         return "BARRACKS";
     }
     else if (unit_square_1.check_click(click)){
-        selected_square->set_fill(Colors::WHITE);
+        if (selected_square != nullptr) {
+            selected_square->set_fill(Colors::WHITE);
+        }
         unit_square_1.set_fill(Colors::YELLOW);
         selected_square = &unit_square_1;
         return "BOAT";
     }
     else if (unit_square_2.check_click(click)){
-        selected_square->set_fill(Colors::WHITE);
+        if (selected_square != nullptr) {
+            selected_square->set_fill(Colors::WHITE);
+        }
         unit_square_2.set_fill(Colors::YELLOW);
         selected_square = &unit_square_2;
         return "WARRIOR";
     }
     else if (unit_square_3.check_click(click)){
-        selected_square->set_fill(Colors::WHITE);
+        if (selected_square != nullptr) {
+            selected_square->set_fill(Colors::WHITE);
+        }
         unit_square_3.set_fill(Colors::YELLOW);
         selected_square = &unit_square_3;
         return "ARCHER";
     }
     else if (unit_square_4.check_click(click)){
-        selected_square->set_fill(Colors::WHITE);
+        if (selected_square != nullptr) {
+            selected_square->set_fill(Colors::WHITE);
+        }
         unit_square_4.set_fill(Colors::YELLOW);
         selected_square = &unit_square_4;
         return "HORSEMAN";

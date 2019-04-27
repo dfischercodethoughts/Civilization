@@ -312,8 +312,8 @@ Building Game::get_build_building(){
     return *building_to_build;
 }
 
-Unit Game::get_build_unit(){
-    return *unit_to_build;
+Unit *Game::get_build_unit(){
+    return unit_to_build;
 }
 
 void Game::clear_active_tile() {
@@ -334,6 +334,16 @@ void Game::clear_build_building(){
 
 void Game::clear_build_unit() {
     unit_to_build = nullptr;
+}
+
+void Game::add_unit(Civilization_Name::Names n, Unit * to_add, Tile * place) {
+    //in future builds we will iterate through all civilizations in game
+    if (n == Civilization_Name::WESTEROS) {
+        player.add_unit(*to_add,*place);
+    }
+    else if (n == Civilization_Name::NIGHT_KING) {
+        ai.add_unit(*to_add,*place);
+    }
 }
 
 void Game::reveal_unit(Unit * to_rev) {
@@ -439,7 +449,7 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
                 }
 
 
-                //do nothing if player unit on square
+                //do nothing if ai unit on square
 
             }
             return false;//unit on tile to move to means unit didn't actually move (even if it did attack)

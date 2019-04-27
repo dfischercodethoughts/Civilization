@@ -154,6 +154,8 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
     else if (game.has_active_city()) {
         //if click is on the build menu
         if (buildmenu.check_click(click)) {
+            game.clear_build_building();
+            game.clear_build_unit();
             //returns the string of the build_menu sqaure clicked
             //also colors the squares based on the selected one
             std::string to_build = buildmenu.ret_build_name(click);
@@ -161,15 +163,15 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
             Unit::Unit_Type unit = Unit::string_to_unit_type(to_build);
 
             //if the blding in the menu selected is a unit (aka == none when run against the string to building name)
-            if(blding == Building_Name::NONE){
-                Unit new_unit = Unit();
-                new_unit.set_unit_type(unit);
-                game.set_build_unit(new_unit);
+            if(unit != Unit::NONE){
+                Unit *  new_unit = new Unit();
+                new_unit->set_unit_type(unit);
+                game.set_build_unit(*new_unit);
                 //otherwise it's a building name
-            }else{
-                Building new_building = Building(blding);
-                game.set_build_building(new_building);
-                std::cout << game.get_build_building().building_to_string(game.get_build_building().get_name()) << std::endl;
+            }else if (blding != Building_Name::NONE) {
+                Building * new_building =  new Building(blding);
+                game.set_build_building(*new_building);
+               // std::cout << game.get_build_building().building_to_string(game.get_build_building().get_name()) << std::endl;
             }
 
 
@@ -181,7 +183,7 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
              * TODO::VERY IMPORTANT: right in between this part of the code is where building to build gets changed from
              * X to FARM. need to figure out what exactly is making it change
              * #######################################################################################################*/
-            std::cout << game.get_build_building().building_to_string(game.get_build_building().get_name()) << std::endl;
+            //std::cout << game.get_build_building().building_to_string(game.get_build_building().get_name()) << std::endl;
 
         }
         else if (game_view_port.check_click(click) && game.has_build_piece()) {
@@ -198,7 +200,8 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
                     if(game.has_build_unit()){
                         //TODO::Theres an error with this code, it doesn't like the add_unit call at all
                         //game.get_player().add_unit(game.get_build_unit(), *tile_clicked);
-                    }else{
+                        game.add_unit(Civilization_Name::WESTEROS,&*game.get_build_unit(),tile_clicked);
+                    }else if (game.has_build_building()) {
                         tile_clicked->add_building(game.get_build_building().get_name());
                     }
                }

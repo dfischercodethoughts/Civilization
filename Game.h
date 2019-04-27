@@ -99,15 +99,20 @@ public:
     bool has_build_building() const;
     bool has_build_unit() const;
     Building get_build_building();
-    Unit get_build_unit();
+    Unit * get_build_unit();
     void clear_active_tile();
     void clear_active_unit();
     void clear_active_city();
     void clear_build_building();
     void clear_build_unit();
 
+    void add_unit(Civilization_Name::Names n, Unit * to_add, Tile * place);
+    //add building is done directly on the tile
+
     void reveal_unit(Unit * to_rev);
     void reveal_city(City * rev);
+
+
 
     /**
      * reveals all tiles within visible range (max movement range) of all units in players civ
