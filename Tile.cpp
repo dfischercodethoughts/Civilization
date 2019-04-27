@@ -4,6 +4,7 @@
 
 #include "Tile.h"
 #include "Texture.h"
+#include <vector>
 
 int Tile::num_tiles = 0;
 
@@ -227,7 +228,7 @@ void Tile::set_owner(Civilization_Name::Names nm) {
 }
 
 bool Tile::has_owner() const {
-    return !owner==Civilization_Name::NONE;
+    return owner!=Civilization_Name::NONE;
 }
 
 Building Tile::get_building() const {
@@ -254,7 +255,7 @@ void Tile::build_city(City & newc) {
 }
 
 bool Tile::has_city() const {
-    return !(city==nullptr);
+    return (city!=nullptr);
 }
 
 void Tile::set_base_square(Square set) {
@@ -291,10 +292,7 @@ void Tile::clear_unit() {
 }
 
 bool Tile::has_unit() const {
-    if (unit != nullptr) {
-        return true;
-    }
-    return false;
+    return unit != nullptr;
 }
 
 Unit* Tile::get_const_unit() const {
@@ -328,6 +326,10 @@ void Tile::set_background_square(Square set) {
     }
     this->set_height(set.get_height());
     this->set_width(set.get_width());
+}
+
+bool Tile::has_building() const {
+    return (building.get_name() != Building_Name::NONE);
 }
 
 bool Tile::add_building(Building_Name::names bld) {
@@ -506,12 +508,7 @@ bool Tile::add_building(Building_Name::names bld) {
             break;
     }
 
-    if (built) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return built;
 }
 
 Tile_Output Tile::get_output() const {
@@ -536,60 +533,106 @@ void Tile::draw() const {
                 get_center().y + get_height() / 2
         );
 
-
-        //if there'are units exist, then put units parallel to the resource
+        std::vector<std::string> drawItems;
+        drawItems.push_back(Tile_Resource::resource_to_string(this->get_resource()));
         if (this->has_unit()) {
-            Texture &resourceTex = TextureManager::GetTexture(Tile_Resource::resource_to_string(this->get_resource()).c_str());
-
-            int resourceTexCenterX = get_center().x - get_width() / 4;
-            int resourceTexCenterY = get_center().y;
-
-            float ratio = (get_width() / 6) / (float)resourceTex.Width();
-
-            //draw texture of resources
-            resourceTex.Draw(
-                    resourceTexCenterX - resourceTex.Width()*ratio,
-                    resourceTexCenterY - resourceTex.Height()*ratio,
-                    resourceTexCenterX + resourceTex.Width()*ratio,
-                    resourceTexCenterY + resourceTex.Height()*ratio
-            );
-
-
-            Texture &unitTex = TextureManager::GetTexture(Unit::unit_type_to_string(get_const_unit()->get_unit_type()).c_str());
-
-            int unitTexCenterX = get_center().x + get_width() / 4;
-            int unitTexCenterY = get_center().y;
-
-            ratio = (get_width() / 3) / (float)unitTex.Width();
-
-
-            //draw textures of units
-            unitTex.Draw(
-                    unitTexCenterX - unitTex.Width()*ratio,
-                    unitTexCenterY - unitTex.Height()*ratio,
-                    unitTexCenterX + unitTex.Width()*ratio,
-                    unitTexCenterY + unitTex.Height()*ratio
-            );
+            drawItems.push_back(Unit::unit_type_to_string(get_const_unit()->get_unit_type()));
         }
-        else
+
+        if (this->has_city())
         {
-            //if no units, then put the pictures of resources on center
-            Texture &resourceTex = TextureManager::GetTexture(Tile_Resource::resource_to_string(this->get_resource()).c_str());
+            drawItems.push_back("city");
+        }
 
-            int resourceTexCenterX = get_center().x ;
-            int resourceTexCenterY = get_center().y ;
+        //arrage images according to the number of elements to be drawn
+        switch (drawItems.size())
+        {
+            case 1:
+            {
+                int centers[][2] = {
+                        {get_center().x,get_center().y},
+                };
+                for (int i=0;i<drawItems.size();++i)
+                {
 
-            float ratio = (get_width() / 6) / (float)resourceTex.Width();
+                    Texture &resourceTex = TextureManager::GetTexture(drawItems[i].c_str());
+                    float ratio = std::min(get_width()*0.5 / resourceTex.Width(), get_height()*0.5 / resourceTex.Height());
+                    auto& center = centers[i];
+                    resourceTex.Draw(
+                            center[0] - resourceTex.Width()*ratio,
+                            center[1] - resourceTex.Height()*ratio,
+                            center[0] + resourceTex.Width()*ratio,
+                            center[1] + resourceTex.Height()*ratio
+                    );
+                }
+            }
+                break;
+            case 2:
+            {
+                int centers[][2] = {
+                        { get_center().x - get_width() / 4,get_center().y },
+                        { get_center().x + get_width() / 4,get_center().y },
+                };
+                for (int i = 0; i < drawItems.size(); ++i)
+                {
 
+                    Texture &resourceTex = TextureManager::GetTexture(drawItems[i].c_str());
+                    float ratio = std::min(get_width()*0.25 / resourceTex.Width(), get_height()*0.5 / resourceTex.Height());
+                    auto& center = centers[i];
+                    resourceTex.Draw(
+                            center[0] - resourceTex.Width()*ratio,
+                            center[1] - resourceTex.Height()*ratio,
+                            center[0] + resourceTex.Width()*ratio,
+                            center[1] + resourceTex.Height()*ratio
+                    );
+                }
+            }
+                break;
+            case 3:
+            {
+                int centers[][2] = {
+                        { get_center().x - get_width() / 4,get_center().y + get_height() / 4 },
+                        { get_center().x + get_width() / 4,get_center().y + get_height() / 4 },
+                        { get_center().x,get_center().y - get_height() / 4 },
+                };
+                for (int i = 0; i < drawItems.size(); ++i)
+                {
 
-            //draw textures of resources
-            resourceTex.Draw(
-                    resourceTexCenterX - resourceTex.Width()*ratio,
-                    resourceTexCenterY - resourceTex.Height()*ratio,
-                    resourceTexCenterX + resourceTex.Width()*ratio,
-                    resourceTexCenterY + resourceTex.Height()*ratio
-            );
+                    Texture &resourceTex = TextureManager::GetTexture(drawItems[i].c_str());
+                    float ratio = std::min(get_width()*0.25 / resourceTex.Width(), get_height()*0.25 / resourceTex.Height());
+                    auto& center = centers[i];
+                    resourceTex.Draw(
+                            center[0] - resourceTex.Width()*ratio,
+                            center[1] - resourceTex.Height()*ratio,
+                            center[0] + resourceTex.Width()*ratio,
+                            center[1] + resourceTex.Height()*ratio
+                    );
+                }
+            }
+                break;
+            case 4:
+            {
+                int centers[][2] = {
+                        { get_center().x - get_width() / 4,get_center().y + get_height() / 4 },
+                        { get_center().x + get_width() / 4,get_center().y + get_height() / 4 },
+                        { get_center().x - get_width() / 4,get_center().y - get_height() / 4 },
+                        { get_center().x + get_width() / 4,get_center().y - get_height() / 4 },
+                };
+                for (int i = 0; i < drawItems.size(); ++i)
+                {
 
+                    Texture &resourceTex = TextureManager::GetTexture(drawItems[i].c_str());
+                    float ratio = std::min(get_width()*0.25 / resourceTex.Width(), get_height()*0.25 / resourceTex.Height());
+                    auto& center = centers[i];
+                    resourceTex.Draw(
+                            center[0] - resourceTex.Width()*ratio,
+                            center[1] - resourceTex.Height()*ratio,
+                            center[0] + resourceTex.Width()*ratio,
+                            center[1] + resourceTex.Height()*ratio
+                    );
+                }
+            }
+                break;
         }
 
     }
@@ -688,19 +731,12 @@ Tile & Tile::operator=(const Tile & rhs) {
 }
 
 bool Tile::operator==(Tile const & rhs) const {
-    //todo: add building to tile equality
-    if ((get_id() == rhs.get_id()) && (terrain == rhs.get_terrain()) &&
-            (resource == rhs.get_resource())&& building == rhs.get_building()) {
-        return true;
-    }
-    return false;
+    return ((get_id() == rhs.get_id()) && (terrain == rhs.get_terrain()) &&
+            (resource == rhs.get_resource())&& building == rhs.get_building());
 }
 
 bool Tile::operator!=(Tile const & rhs) const {
-    if (!(*this == rhs)) {
-        return true;
-    }
-    return false;
+    return (!(*this == rhs));
 }
 
 bool Tile::operator<(const Tile & rhs) const {
