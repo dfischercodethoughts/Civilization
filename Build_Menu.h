@@ -51,7 +51,7 @@ public:
     void all_squares_white();
     void grey_out(int prod_val);
     Square return_square(std::string str);
-    std::string ret_build_name(Coordinate click);
+    std::string ret_build_name(Coordinate click, int prod);
 
 //        if ()
 //    }

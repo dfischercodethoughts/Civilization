@@ -300,7 +300,7 @@ Unit* Tile::get_const_unit() const {
 }
 
 Unit* Tile::get_unit() {
-    return unit;
+    return &*unit;
 }
 
 void Tile::set_unit(Unit &newu) {

@@ -18,7 +18,7 @@ void Game::play_ai() {
         std::vector<Tile *>* possible_moves = map.get_tiles_within_range(start_tile,unit->get_current_movement());
         for (Tile *tile : *possible_moves) {
             //if there's a tile with an enemy unit on it, attack that enemy
-            if (tile->get_unit() != nullptr && tile->get_unit()->get_owner()== Civilization_Name::WESTEROS) {
+            if (*player.get_unit(Civilization_Name::WESTEROS,tile->get_id())!= *new Unit() && tile->get_id() != start_tile->get_id()) {
                 set_active_unit(*unit);
                 move_active_unit(*tile);
                 moved = true;
@@ -426,7 +426,7 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
             return true;
         }
     }
-    else {//AI MOVE
+    else if (active_unit->get_location_id() != to_move_to.get_id()) {//AI MOVE only if not trying to move onto the same tile its already on
         if (to_move_to.has_unit()) {
             if (to_move_to.get_unit()->get_owner() == Civilization_Name::WESTEROS) {
                 //attack
