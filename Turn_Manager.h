@@ -6,7 +6,8 @@
 #include <iostream>
 
 /**
-turn manager has a bunch of methods that change a civilization and map object
+turn manager keeps track of the number of turns played, and the current turn phase (it turns into the ai turn)
+ at a certain point)
 */
 class Turn_Manager {
 private:
@@ -14,8 +15,6 @@ private:
     Turn_Phase::names current_phase;
 	
 public:
-
-    //todo: implement
 
     Turn_Manager();
 

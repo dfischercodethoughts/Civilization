@@ -7,6 +7,10 @@
 #include "Square.h"
 #include "Validator.h"
 
+/**
+ * base class for tile, city, unit and building - has a type
+ *      useful for building pieces from the city
+ */
 class Piece : public Square{
 public:
     enum Piece_Type {
@@ -18,7 +22,6 @@ public:
     };
     static std::string piece_type_to_string(Piece_Type type);
     static Piece_Type string_to_piece_type(std::string type);
-
 
 private:
     Piece_Type type;
