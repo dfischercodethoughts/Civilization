@@ -22,6 +22,9 @@ public:
     Map(int h, int w, int numx, int numy,int xoff, int yoff);
     Map();
 
+    //random init creates tiles randomly
+    void random_init(int h, int w, int numx, int numy);
+
     int get_x() const;
     int get_y() const;
 
@@ -44,8 +47,23 @@ public:
     static void remove_duplicates(std::vector<Tile*>& list);
 
     std::vector<Tile &> & get_tiles_driver(std::vector<std::unique_ptr<Tile>> & cur_list, Tile &cur_tile, int move_left);
-    std::vector<Tile *> & get_tiles_driver(std::vector<Tile*> & cur_list, Tile & cur_tile, int move_left);
+    std::set<Tile *> & get_tiles_driver(std::set<Tile*> & cur_list, Tile & cur_tile, int move_left);
     std::vector<Tile *>* get_tiles_within_range(Tile *start, int movement);
+
+    /**
+ * returns the cost of moving between two tiles
+ * @param s
+ * @param e
+ * @return
+ */
+    int get_move_cost(Tile * start, Tile * end);
+    /**
+ * returns the tile cloasest to the tile e, when starting from the tile s
+ * @param s
+ * @param e
+ * @return
+ */
+    Tile * get_closest_tile(Tile * start, Tile * end);
 
     bool is_adjacent(Tile & first, Tile & second);
 

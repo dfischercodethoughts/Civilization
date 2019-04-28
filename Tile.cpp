@@ -165,7 +165,7 @@ Tile::Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::n
         Piece(cnt,h,w,fill,text,Piece::TILE), building(Building())
 {
     num_tiles++;
-    init(ter,res,nullptr,false);
+    init(ter,res,nullptr,false,i);
 }
 
 Tile::Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::names ter,Tile_Resource::names res,bool vis):
@@ -300,7 +300,7 @@ Unit* Tile::get_const_unit() const {
 }
 
 Unit* Tile::get_unit() {
-    return unit;
+    return &*unit;
 }
 
 void Tile::set_unit(Unit &newu) {
@@ -638,7 +638,7 @@ void Tile::draw() const {
     }
         //if not visible print black square
     else {
-        Square(get_center(),Colors::BLACK,Colors::WHITE,get_height(),get_width(),"INVISIBLE",true).draw();
+        Square(get_center(),Colors::BLACK,Colors::WHITE,get_height(),get_width(),"",true).draw();
     }
 }
 
@@ -655,24 +655,34 @@ void Tile::draw_on_viewport(Square viewport_base) {
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3+viewport_base.get_height()/6);
+    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3+viewport_base.get_height()/12);
     line = "RESOURCE TYPE: " + Tile_Resource::resource_to_string(resource);
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3 + viewport_base.get_height()/3);
+    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3 + viewport_base.get_height()/6);
     line = "MOVEMENT COST: "+std::to_string(Tile_Terrain::get_movement_cost(terrain));
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3+viewport_base.get_height()/2);
+    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3+viewport_base.get_height()/4);
     line = "BUILDING: "+Building_Name::building_name_to_string(building.get_name());
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+    }
+
+    if (has_owner()) {
+        glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
+        glRasterPos2i(tl.x + viewport_base.get_width() / 28,
+                      tl.y + viewport_base.get_height() / 3 + viewport_base.get_height() / 3);
+        line = "OWNER: " + Civilization_Name::civ_name_to_string(get_owner());
+        for (char c : line) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+        }
     }
 }
 
@@ -682,8 +692,8 @@ std::ostream & operator<<(std::ostream & outs, const Tile & print) {
     outs << print.get_base_square();
 
     line =Tile_Terrain::terrain_to_string(print.terrain) + "\n" + Tile_Resource::resource_to_string(print.resource) +
+            "\n" + Building_Name::building_name_to_string(print.get_building().get_name()) +
             "\n" + std::to_string(print.id);
-    //todo: add building to tile output (before id output)
     outs << line << std::endl;
     return outs;
 }
@@ -706,7 +716,8 @@ std::istream & operator>>(std::istream & ins, Tile & fill) {
         std::getline(ins,line);
         fill.resource = Tile_Resource::string_to_resource(line);
 
-        //todo:add building input to tile
+        std::getline(ins,line);
+        fill.building = Building(Building_Name::string_to_building_name(line));
 
         std::getline(ins,line);
         fill.id = std::stoi(line);
@@ -719,13 +730,13 @@ std::istream & operator>>(std::istream & ins, Tile & fill) {
 }
 
 Tile & Tile::operator=(const Tile & rhs) {
-    //todo:add set building to tile overloaded equals operator
     set_center(rhs.get_center());
     set_height(rhs.get_height());
     set_width(rhs.get_width());
     set_text_color(rhs.get_text_color());
     set_fill(rhs.get_fill());
     set_message(rhs.get_message());
+    add_building(rhs.get_building().get_name());
     init(rhs.get_terrain(),rhs.get_resource(),rhs.get_const_unit(),rhs.is_visible(),rhs.get_id());
     return *this;
 }

@@ -32,6 +32,7 @@ private:
     std::string msg;
     bool visible;
     Text_Size text_size;
+    bool translucent;
 
 
 public:
@@ -47,6 +48,7 @@ public:
     Square();
     Square(Coordinate cnt, Color fill, int h, int w, bool vis);
     Square(Coordinate cnt, Color fill, Color text, int h, int w, std::string msg, bool vis);
+    Square(Coordinate cnt, Color fill, Color text, int h, int w, std::string msg, bool vis,bool trnlucent);
 
     Text_Size get_text_size() const;
     void set_text_size(Text_Size size);

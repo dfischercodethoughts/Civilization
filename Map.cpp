@@ -49,6 +49,48 @@ Map::Map()
     tiles = std::vector<std::vector<Tile>>();
 }
 
+void Map::random_init(int h, int w, int numx, int numy)
+{
+    set_center(Coordinate(w/2,h/2));
+    set_fill(Color(150,150,25));
+    set_text_color(Color(0,0,0));
+    set_height(h);
+    set_width(w);
+    set_message("");
+    reveal();
+    int tile_width = w/numx;
+    int tile_height = h/numy;
+    int count = 0;
+    //seed random num generator
+    std::mt19937 rand_gen;
+    uint64_t seed = std::chrono::system_clock::now().time_since_epoch().count();
+    rand_gen.seed(seed);
+
+    for (int i = 0; i < numx; i++) {
+        tiles.emplace_back( std::vector<Tile>());
+        for (int j = 0; j < numy; j++) {
+            count +=1;
+            //randomly generate tile
+
+            float rand = float(rand_gen())/std::mt19937::max();
+            Tile_Terrain::names ter;
+            Tile_Resource::names res;
+            if (rand >0 && rand <=.1) {
+                ter = Tile_Terrain::WATER;
+            }
+            else if ( rand <= .5) {
+                ter = Tile_Terrain::GRASSLAND;
+            }
+            else if (rand <.8) {
+                ter = Tile_Terrain::HILL;
+            }
+            else if (rand)
+
+            tiles[i].emplace_back( Tile({i*tile_width+tile_width/2+this->get_x_offset(),j*tile_height+tile_height/2+this->get_y_offset()},tile_height,tile_width,Color(255,255,255),Color(0,0,0),Tile_Terrain::GRASSLAND,Tile_Resource::WHEAT,count));
+        }
+    }
+}
+
 int Map::get_x() const {
     return tiles.size();
 }
@@ -124,7 +166,8 @@ Tile * Map::get_tile_from_id(int id) {
             }
         }
     }
-    return 0;
+    return nullptr;
+
 }
 
 void Map::set_background_square(Square set) {
@@ -158,10 +201,11 @@ void Map::remove_duplicates(std::vector<Tile *> & list) {
 
 }
 
-std::vector<Tile *>& Map::get_tiles_driver(std::vector<Tile*> &cur_list,Tile & start, int move_left) {
+std::set<Tile *>& Map::get_tiles_driver(std::set<Tile*> &cur_list,Tile & start, int move_left) {
     Coordinate vec = get_vector_coordinates_from_click(start.get_center());
+    cur_list.emplace(&start);
     if (move_left > 0) {
-        cur_list.emplace_back(&start);
+
         Tile * btm_lf = get_tile_from_vector_coordinates({vec.x-1,vec.y-1});
         Tile * left = get_tile_from_vector_coordinates({vec.x-1,vec.y});
         Tile * top_lf = get_tile_from_vector_coordinates({vec.x-1,vec.y+1});
@@ -265,8 +309,97 @@ std::vector<Tile *>& Map::get_tiles_driver(std::vector<Tile*> &cur_list,Tile & s
 
 std::vector<Tile *>* Map::get_tiles_within_range(Tile * start, int movement) {
     auto ret = new std::vector<Tile*>();
-    auto holder = &get_tiles_driver(*ret,*start,movement);
+    auto holder  = new std::set<Tile *>();
+    auto tmp = &get_tiles_driver(*holder,*start,movement);
+    for (Tile * t : *holder) {
+        ret->emplace_back(&*t);
+    }
    // remove_duplicates(to_ret);
+    return ret;
+}
+
+
+int Map::get_move_cost(Tile * s, Tile * e) {
+    //gets the smallest possible cost of moving between two tiles
+    int ret = 0;
+
+    Coordinate start = get_vector_coordinates_from_click(s->get_center());
+    Coordinate end = get_vector_coordinates_from_click(e->get_center());
+    while (start.x < end.x && start.y < end.y) {
+        start.x +=1;
+        start.y += 1;
+        ret += Tile_Terrain::get_movement_cost(get_tile_from_vector_coordinates(start)->get_terrain());
+    }
+    while (start.x < end.x && start.y > end.y) {
+        start.x += 1;
+        start.y -= 1;
+        ret += Tile_Terrain::get_movement_cost(get_tile_from_vector_coordinates(start)->get_terrain());
+    }
+    while (start.x > end.x && start.y < end.y) {
+        start.x -= 1;
+        start.y += 1;
+        ret += Tile_Terrain::get_movement_cost(get_tile_from_vector_coordinates(start)->get_terrain());
+    }
+    while (start.x > end.x && start.y > end.y) {
+        start.x -= 1;
+        start.y -= 1;
+        ret += Tile_Terrain::get_movement_cost(get_tile_from_vector_coordinates(start)->get_terrain());
+    }
+    while (start.x > end.x) {
+        start.x -= 1;
+        ret += Tile_Terrain::get_movement_cost(get_tile_from_vector_coordinates(start)->get_terrain());
+    }
+    while (start.x <end.x) {
+        start.x += 1;
+        ret += Tile_Terrain::get_movement_cost(get_tile_from_vector_coordinates(start)->get_terrain());
+    }
+    while (start.y > end.y) {
+        start.y -= 1;
+        ret += Tile_Terrain::get_movement_cost(get_tile_from_vector_coordinates(start)->get_terrain());
+    }
+    while (start.y < end.y) {
+        start.y += 1;
+        ret += Tile_Terrain::get_movement_cost(get_tile_from_vector_coordinates(start)->get_terrain());
+    }
+    return ret;
+}
+
+Tile * Map::get_closest_tile(Tile * s, Tile * e) {
+    //gets the smallest possible cost of moving between two tiles
+    Tile * ret;
+
+    Coordinate start = get_vector_coordinates_from_click(s->get_center());
+    Coordinate end = get_vector_coordinates_from_click(e->get_center());
+    while (start.x < end.x-1 && start.y < end.y-1) {
+        start.x +=1;
+        start.y += 1;
+
+    }
+    while (start.x < end.x-1 && start.y > end.y+1) {
+        start.x += 1;
+        start.y -= 1;
+    }
+    while (start.x > end.x+1 && start.y < end.y-1) {
+        start.x -= 1;
+        start.y += 1;
+    }
+    while (start.x > end.x+1 && start.y > end.y+1) {
+        start.x -= 1;
+        start.y -= 1;
+    }
+    while (start.x > end.x+1) {
+        start.x -= 1;
+    }
+    while (start.x <end.x-1) {
+        start.x += 1;
+    }
+    while (start.y > end.y+1) {
+        start.y -= 1;
+    }
+    while (start.y < end.y-1) {
+        start.y += 1;
+    }
+    ret = get_tile_from_vector_coordinates(start);
     return ret;
 }
 

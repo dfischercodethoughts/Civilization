@@ -27,7 +27,7 @@ int Building_Name::get_production_cost(names n) {
             break;
         }
         case (LOGGING_CAMP) : {
-            return 30;
+            return 30   ;
             break;
         }
         case (MARKET) : {
@@ -91,7 +91,7 @@ Building_Name::names Building_Name::string_to_building_name(std::string nm) {
     else if (name == "HARBOR") {
         return HARBOR;
     }
-    else if (name == "TRADING_PORT" || name == "TRADING_POST") {
+    else if (name == "TRADING_PORT" || name == "TRADING_POST" || name == "TRADING POST") {
         return TRADING_POST;
     }
     else if (name == "WORKSHOP") {

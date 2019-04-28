@@ -7,15 +7,20 @@
 #include "Tile.h"
 #include <vector>
 #include "Square.h"
+#include "Unit.h"
+#include "City.h"
+//#include "Game.h"
 
 
 
 class Build_Menu : public Square {
 private:
-    int w = 1920;
-    int h = 1000;
+//    int w = 1920;
+//    int h = 1000;
 
-    std::vector<std::vector<Square>> build_menu;
+    Square *selected_square;
+
+    //std::vector<std::vector<Square>> build_menu;
 
 
     Square build_square_1;
@@ -36,9 +41,18 @@ private:
 public:
     Build_Menu();
     Build_Menu(int h, int w);
+    void set_selected_square(Square sq);
+    Square get_selected_square();
     void draw() const override;
     void no_active_city_draw();
+    void change_active_color(Square sq);
+//    void compare_selected_square(Square sq);
+//    void selected_build_color(Game &game);
+    void all_squares_white();
     void grey_out(int prod_val);
+    Square return_square(std::string str);
+    std::string ret_build_name(Coordinate click, int prod);
+
 //        if ()
 //    }
 

@@ -13,9 +13,9 @@ static Draw_Manager *dm = nullptr;
 
 void init() {
     width = 1920;
-    height = 1066;
+    height = 1000;
 
-    dm = (new Draw_Manager(height,width,8,8));
+    dm = (new Draw_Manager(height,width,10,10));
 
     //do map things to game here
     TextureManager::Register(Tile_Terrain::terrain_to_string(Tile_Terrain::GRASSLAND).c_str(), Texture("assets//grassland.png"));
@@ -67,6 +67,7 @@ void display() {
     /*
      * Draw here
      */
+
     dm->draw();
 
 
@@ -146,7 +147,9 @@ void timer(int extra) {
     glutTimerFunc(30, timer, 0);
 }
 
+
 /* Main function: GLUT runs as a console application starting at main()  */
+
 int main(int argc, char** argv) {
 
     init();
@@ -157,8 +160,8 @@ int main(int argc, char** argv) {
 
     glutInitWindowSize((int)width, (int)height);
     glutInitWindowPosition(0, 0); // Position the window relative to top-left corner
-    /* create the window and store the handle to it */
-    wd = glutCreateWindow("Civilization!" /* title */ );
+    // create the window and store the handle to it /
+    wd = glutCreateWindow("Civilization!");//title
 
     // Register callback handler for window re-paint event
     glutDisplayFunc(display);
