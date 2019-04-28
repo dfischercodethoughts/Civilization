@@ -148,23 +148,60 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
     else if (next_phase.check_click(click) && Turn_Phase::string_to_turn_phase(game.get_phase()) != Turn_Phase::AI_TURN) {
         game.next_phase();
     }
+    else if (build_city_button.check_click(click)) {
+        if (game.has_active_unit() && game.get_active_unit()->get_unit_type() == Unit::SETTLER && game.get_active_unit()->get_owner() == Civilization_Name::WESTEROS) {
 
-    else if (game.has_active_city()) {
-        process_build(click);
+            Tile *settler_tile = game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id());
+            game.build_city(Civilization_Name::WESTEROS, *settler_tile);//building a city destroys the settler
+            game.reveal();
+            build_city_button.hide();
+            clear_active();
 
+        }
     }
-    else if(game_view_port.check_click(click) || build_city_button.check_click(click)) {//there is no active city and click is on game port
+    else if (game.has_active_city() && buildmenu.check_click(click)) {
+        game.clear_build_building();
+        game.clear_build_unit();
+        //returns the string of the build_menu sqaure clicked
+        //also colors the squares based on the selected one
+        //also checks production value and does nothing if active city does not have enough production
+        std::string to_build = buildmenu.ret_build_name(click,game.get_active_city()->get_production());
+        Building_Name::names blding = Building_Name::string_to_building_name(to_build);
+        Unit::Unit_Type unit = Unit::string_to_unit_type(to_build);
 
-        if (game.has_active_unit() && game.get_active_unit()->get_unit_type() == Unit::SETTLER) {
-            if (build_city_button.check_click(click)) {
-                Tile *settler_tile = game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id());
-                game.build_city(Civilization_Name::WESTEROS, *settler_tile);//building a city destroys the settler
-                game.reveal();
-                build_city_button.hide();
-            }
+        //cost to city is deducted when unit or building is placed
+
+        //if the blding in the menu selected is a unit (aka == none when run against the string to building name)
+        if(unit != Unit::NONE && game.get_active_city()->get_production() >= Unit::get_production_cost(unit)){
+            Unit *  new_unit = new Unit();
+            new_unit->set_unit_type(unit);
+            new_unit->refresh();
+            game.set_build_unit(*new_unit);
+
+            //otherwise it's a building name
+        }else if (blding != Building_Name::NONE && game.get_active_city()->get_production() >= Building_Name::get_production_cost(blding) ) {
+
+            Building *new_building = new Building(blding);
+            game.set_build_building(*new_building);
+
+            // std::cout << game.get_build_building().building_to_string(game.get_build_building().get_name()) << std::endl;
         }
 
-        process_move(click);
+    }
+    else if(game_view_port.check_click(click)) {//click is on game port
+
+        if (game.has_active_city()) {
+            if (game.get_active_city()->get_home_tile()->get_owner() == Civilization_Name::WESTEROS) {
+                process_build(click);
+            }
+            else {//a night king city is selected
+                clear_active();
+                select_tile(game.get_map().get_tile_from_click(click));
+            }
+        }
+        else {
+            process_move(click);
+        }
     }
 
     return Screen::NONE;
@@ -199,7 +236,6 @@ void Main_Screen::process_move(Coordinate click) {
 
                     }
 
-                    clear_active();
                 }//end if unit has movement
 
                 clear_active();
@@ -217,7 +253,7 @@ void Main_Screen::process_move(Coordinate click) {
         else {
             select_tile(tile_clicked);
         }
-    }//do nothing if tile selected is not visible
+    }//do nothing if tile selected is not visible (or a nullptr)
     else {
 
         clear_active();
@@ -226,37 +262,7 @@ void Main_Screen::process_move(Coordinate click) {
 
 void Main_Screen::process_build(Coordinate click) {
     //if click is on the build menu
-    if (buildmenu.check_click(click)) {
-        game.clear_build_building();
-        game.clear_build_unit();
-        //returns the string of the build_menu sqaure clicked
-        //also colors the squares based on the selected one
-        //also checks production value and does nothing if active city does not have enough production
-        std::string to_build = buildmenu.ret_build_name(click,game.get_active_city()->get_production());
-        Building_Name::names blding = Building_Name::string_to_building_name(to_build);
-        Unit::Unit_Type unit = Unit::string_to_unit_type(to_build);
-
-        //if the blding in the menu selected is a unit (aka == none when run against the string to building name)
-        if(unit != Unit::NONE){
-            Unit *  new_unit = new Unit();
-            new_unit->set_unit_type(unit);
-            new_unit->refresh();
-            game.set_build_unit(*new_unit);
-
-            //otherwise it's a building name
-        }else if (blding != Building_Name::NONE) {
-
-            Building *new_building = new Building(blding);
-            game.set_build_building(*new_building);
-
-            // std::cout << game.get_build_building().building_to_string(game.get_build_building().get_name()) << std::endl;
-        }
-
-        //if the cost of the square clicked is less than the amount of production the active city has
-        //make the appropriate unit or building (internally), and set it to the appropriate build pointer in game
-
-    }
-    else if (game_view_port.check_click(click) && game.has_build_piece()) {
+    if (game_view_port.check_click(click) && game.has_build_piece()) {
         //it seg faults with the cout on line 172 and the one below both being called. The one in the middle shows a change
         //uncomment this one and comment the one on 172 out or it will seg fault
         //std::cout << game.get_build_building().building_to_string(game.get_build_building().get_name()) << std::endl;
@@ -268,11 +274,16 @@ void Main_Screen::process_build(Coordinate click) {
         for(int i = 0; i < city_tiles.size(); i++){
             if(*tile_clicked == *city_tiles[i]){
                 if(game.has_build_unit()) {
+                    //games add unit uses production
                     game.add_unit(Civilization_Name::WESTEROS,&*game.get_build_unit(),tile_clicked);
+                    game.clear_build_unit();
+                    break;
                 }
                 else if (game.has_build_building()) {
                     game.get_active_city()->use_production(Building_Name::get_production_cost(game.get_build_building().get_name()));
                     tile_clicked->add_building(game.get_build_building().get_name());
+                    game.clear_build_building();
+                    break;
                 }
             }
         }
@@ -288,7 +299,8 @@ void Main_Screen::process_build(Coordinate click) {
         buildmenu.all_squares_white();
         //else if click is on game viewport and there is no building or unit to build
         //go to move unit/select tile logic
-        process_move(click);
+        clear_active();
+        select_tile(game.get_map().get_tile_from_click(click));
     }
 /*
     Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
@@ -319,24 +331,28 @@ void Main_Screen::process_build(Coordinate click) {
 }
 
 void Main_Screen::select_tile(Tile * tile) {
-    game.set_active_tile(*tile);
-    tile_view_port.reveal();
-    if (game.get_active_tile_const()->has_unit()) {
-        game.set_active_unit(*tile->get_unit());
-        if (game.get_active_unit()->get_unit_type() == Unit::SETTLER) {
-            build_city_button.reveal();
+    if (tile != nullptr) {
+        game.set_active_tile(*tile);
+        tile_view_port.reveal();
+        if (game.get_active_tile_const()->has_unit()) {
+            if (game.has_active_unit() && game.get_active_unit()->get_unit_type() == Unit::SETTLER) {
+                build_city_button.hide();
+            }
+            game.set_active_unit(*tile->get_unit());
+            if (game.get_active_unit()->get_unit_type() == Unit::SETTLER) {
+                build_city_button.reveal();
+            }
+            piece_view_port.reveal();
         }
-        piece_view_port.reveal();
-    }
-    if (game.get_active_tile()->has_city()) {
-        if (game.get_active_tile()->get_owner() == Civilization_Name::WESTEROS) {
-            game.set_active_city(*game.get_player().get_city(game.get_active_tile()->get_id()));
+        if (game.get_active_tile()->has_city()) {
+            if (game.get_active_tile()->get_owner() == Civilization_Name::WESTEROS) {
+                game.set_active_city(*game.get_player().get_city(game.get_active_tile()->get_id()));
+            } else if (game.get_active_tile()->get_owner() == Civilization_Name::NIGHT_KING) {
+                game.set_active_city(*game.get_ai().get_city(game.get_active_tile()->get_id()));
+            }
+            buildmenu.reveal();
+            city_view_port.reveal();
         }
-        else if (game.get_active_tile()->get_owner() == Civilization_Name::NIGHT_KING) {
-            game.set_active_city(*game.get_ai().get_city(game.get_active_tile()->get_id()));
-        }
-        buildmenu.reveal();
-        city_view_port.reveal();
     }
 }
 

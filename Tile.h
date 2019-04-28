@@ -82,6 +82,7 @@ public:
     void set_city(City & newc);
     void build_city(City & newc);
     bool has_city() const;
+    void remove_city();
 
     Tile_Terrain::names get_terrain() const;
     Tile_Resource::names get_resource() const;

@@ -73,6 +73,7 @@ public:
      * @param newh
      */
     void add_city(Map & m,Tile & newh);
+    void remove_city(Tile * to_change);
 
     //removes a unit that matches the one given. Used by destroy units method
     void remove_unit(const Unit & re);

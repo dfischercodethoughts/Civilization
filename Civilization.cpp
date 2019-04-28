@@ -89,6 +89,16 @@ void Civilization::add_city(Map & m,Tile & newh) {
     newh.build_city(cities[cities.size()-1]);
 }
 
+void Civilization::remove_city(Tile * to_change) {
+    for (auto c = cities.begin(); c != cities.end(); c++) {
+        if (*c == *get_city(to_change->get_id())) {
+            cities.erase(c);
+            break;
+        }
+    }
+    to_change->remove_city();
+}
+
 void Civilization::remove_unit(const Unit & to_rem) {
     for (auto u = units.begin(); u < units.end();u++) {
         if (*u == to_rem) {
@@ -262,7 +272,7 @@ bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
 
     Tile * move_from = &*map->get_tile_from_id(tilefrom);
     Tile * move_to = &*map->get_tile_from_id(tileto);
-    std::vector<Tile *> *possible_tiles = map->get_tiles_within_range(move_from,get_unit(name,tilefrom)->get_current_movement());
+    std::vector<Tile *> *possible_tiles = map->get_tiles_in_range_ignore_center(move_from,get_unit(name,tilefrom)->get_current_movement());
     for (Tile * t : *possible_tiles) {
         if (*move_to == *t) {//tile selected is within movement range of the unit
             Unit *unit = get_unit(name, move_from->get_id());

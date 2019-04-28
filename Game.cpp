@@ -530,6 +530,15 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
                 //do nothing if player unit on square
 
             }//end tile to move to has enemy unit
+
+            else if (to_move_to.has_city() && to_move_to.get_owner() != active_unit->get_owner()) {
+                //tile to move to has no enemy unit but has enemy city
+                //destroy the city and move the unit
+                //todo:when moving active unit onto enemy city, destroy city from appropriate enemy by looping through civs vector
+                ai.remove_city(&to_move_to);
+                player.move_unit(&map,active_unit->get_location_id(),to_move_to.get_id());
+                return true;
+            }
             return false;//unit on tile to move to means unit didn't actually move (even if it did attack)
         }//end tile to move to has unit
         else if (player.move_unit(&map, active_unit->get_location_id(), to_move_to.get_id())) {
@@ -564,8 +573,17 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
                 }
 
 
-                //do nothing if player unit on square
+                //do nothing if ai unit on square
 
+            }//end tile to move to has enemy (player) unit
+
+            else if (to_move_to.has_city() && to_move_to.get_owner() != active_unit->get_owner()) {
+                //tile to move to has no enemy unit but has enemy city
+                //destroy the city and move the unit
+                //todo:when moving active unit onto enemy city, destroy city from appropriate enemy by looping through civs vector
+                player.remove_city(&to_move_to);
+                ai.move_unit(&map,active_unit->get_location_id(),to_move_to.get_id());
+                return true;
             }
             return false;//unit on tile to move to means unit didn't actually move (even if it did attack)
         } else /*if (map.is_adjacent(*map.get_tile_from_id(active_unit->get_location_id()),to_move_to))*/ {
