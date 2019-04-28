@@ -116,6 +116,27 @@ public:
     //equals operator checks name only
     bool operator==(Civilization const &);
 
+    /**
+     * outputs CIVILIZATION
+     *             name
+     *             gold, production, food
+     *             bool ai
+     *             UNIT
+     *              ...
+     *             UNIT
+     *              ...
+     *             ...
+     *             END\n
+     *             CITY
+     *             ...
+     *             City
+     *             ...
+     *             ...
+     *             END
+     * @param outs
+     * @param print
+     * @return
+     */
     friend std::ostream & operator<<(std::ostream & outs, const Civilization & print);
     friend std::istream & operator>>(std::istream & ins, Civilization & fill);
 

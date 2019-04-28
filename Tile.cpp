@@ -162,7 +162,7 @@ Tile::Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::n
         Piece(cnt,h,w,fill,text,Piece::TILE), building(Building())
 {
     num_tiles++;
-    init(ter,res,nullptr,false);
+    init(ter,res,nullptr,false,i);
 }
 
 Tile::Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::names ter,Tile_Resource::names res,bool vis):
@@ -675,8 +675,8 @@ std::ostream & operator<<(std::ostream & outs, const Tile & print) {
     outs << print.get_base_square();
 
     line =Tile_Terrain::terrain_to_string(print.terrain) + "\n" + Tile_Resource::resource_to_string(print.resource) +
+            "\n" + Building_Name::building_name_to_string(print.get_building().get_name()) +
             "\n" + std::to_string(print.id);
-    //todo: add building to tile output (before id output)
     outs << line << std::endl;
     return outs;
 }
@@ -699,7 +699,8 @@ std::istream & operator>>(std::istream & ins, Tile & fill) {
         std::getline(ins,line);
         fill.resource = Tile_Resource::string_to_resource(line);
 
-        //todo:add building input to tile
+        std::getline(ins,line);
+        fill.building = Building(Building_Name::string_to_building_name(line));
 
         std::getline(ins,line);
         fill.id = std::stoi(line);
@@ -712,13 +713,13 @@ std::istream & operator>>(std::istream & ins, Tile & fill) {
 }
 
 Tile & Tile::operator=(const Tile & rhs) {
-    //todo:add set building to tile overloaded equals operator
     set_center(rhs.get_center());
     set_height(rhs.get_height());
     set_width(rhs.get_width());
     set_text_color(rhs.get_text_color());
     set_fill(rhs.get_fill());
     set_message(rhs.get_message());
+    add_building(rhs.get_building().get_name());
     init(rhs.get_terrain(),rhs.get_resource(),rhs.get_const_unit(),rhs.is_visible(),rhs.get_id());
     return *this;
 }
