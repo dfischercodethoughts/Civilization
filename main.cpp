@@ -13,7 +13,7 @@ static Draw_Manager *dm = nullptr;
 
 void init() {
     width = 1920;
-    height = 1066;
+    height = 1000;
 
     dm = (new Draw_Manager(height,width,10,10));
 

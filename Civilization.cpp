@@ -313,7 +313,7 @@ void Civilization::collect_resources() {
 void Civilization::grow_cities(Map & m) {
     for (int i = 0; i < cities.size();i++) {
         if (cities[i].is_ready_to_grow())  {
-            std::vector<Tile *> tl = *m.get_tiles_within_range(cities[i].get_home_tile(),cities[i].get_population()+1);
+            std::vector<Tile *> tl = *m.get_tiles_within_range(cities[i].get_home_tile(),cities[i].get_population());
             //update civ
             for (Tile * t : tl) {
                 t -> set_owner(name);
