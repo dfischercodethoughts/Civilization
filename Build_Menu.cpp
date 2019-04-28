@@ -160,8 +160,8 @@ void Build_Menu::change_active_color(Square sq){
 //    }
 //}
 
-std::string Build_Menu::ret_build_name(Coordinate click){
-    if(build_square_1.check_click(click)){
+std::string Build_Menu::ret_build_name(Coordinate click, int prod){
+    if(build_square_1.check_click(click) && prod >= Building_Name::get_production_cost(Building_Name::HARBOR)){
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
@@ -169,7 +169,7 @@ std::string Build_Menu::ret_build_name(Coordinate click){
         selected_square = &build_square_1;
         return "HARBOR";
     }
-    else if (build_square_2.check_click(click)){
+    else if (build_square_2.check_click(click)&& prod >= Building_Name::get_production_cost(Building_Name::LOGGING_CAMP)){
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
@@ -178,7 +178,7 @@ std::string Build_Menu::ret_build_name(Coordinate click){
 
         return "LOGGING_CAMP";
     }
-    else if (build_square_3.check_click(click)){
+    else if (build_square_3.check_click(click)&& prod >= Building_Name::get_production_cost(Building_Name::FARM)){
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
@@ -187,7 +187,7 @@ std::string Build_Menu::ret_build_name(Coordinate click){
 
         return "FARM";
     }
-    else if (build_square_4.check_click(click)){
+    else if (build_square_4.check_click(click)&& prod >= Building_Name::get_production_cost(Building_Name::MINE)){
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
@@ -196,7 +196,7 @@ std::string Build_Menu::ret_build_name(Coordinate click){
 
         return "MINE";
     }
-    else if(build_square_5.check_click(click)){
+    else if(build_square_5.check_click(click)&& prod >= Building_Name::get_production_cost(Building_Name::TRADING_POST)){
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
@@ -205,7 +205,7 @@ std::string Build_Menu::ret_build_name(Coordinate click){
 
         return "TRADING POST";
     }
-    else if (build_square_6.check_click(click)){
+    else if (build_square_6.check_click(click)&& prod >= Building_Name::get_production_cost(Building_Name::WORKSHOP)){
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
@@ -213,7 +213,7 @@ std::string Build_Menu::ret_build_name(Coordinate click){
         selected_square = &build_square_6;
         return "WORKSHOP";
     }
-    else if (build_square_7.check_click(click)){
+    else if (build_square_7.check_click(click)&& prod >= Building_Name::get_production_cost(Building_Name::MARKET)){
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
@@ -221,7 +221,7 @@ std::string Build_Menu::ret_build_name(Coordinate click){
         selected_square = &build_square_7;
         return "MARKET";
     }
-    else if (build_square_8.check_click(click)){
+    else if (build_square_8.check_click(click)&& prod >= Building_Name::get_production_cost(Building_Name::BARRACKS)){
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
@@ -229,7 +229,7 @@ std::string Build_Menu::ret_build_name(Coordinate click){
         selected_square = &build_square_8;
         return "BARRACKS";
     }
-    else if (unit_square_1.check_click(click)){
+    else if (unit_square_1.check_click(click)&& prod >= Unit::get_production_cost(Unit::BOAT)){
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
@@ -237,7 +237,7 @@ std::string Build_Menu::ret_build_name(Coordinate click){
         selected_square = &unit_square_1;
         return "BOAT";
     }
-    else if (unit_square_2.check_click(click)){
+    else if (unit_square_2.check_click(click)&& prod >= Unit::get_production_cost(Unit::WARRIOR)){
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
@@ -245,7 +245,7 @@ std::string Build_Menu::ret_build_name(Coordinate click){
         selected_square = &unit_square_2;
         return "WARRIOR";
     }
-    else if (unit_square_3.check_click(click)){
+    else if (unit_square_3.check_click(click)&& prod >= Unit::get_production_cost(Unit::ARCHER)){
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
@@ -253,7 +253,7 @@ std::string Build_Menu::ret_build_name(Coordinate click){
         selected_square = &unit_square_3;
         return "ARCHER";
     }
-    else if (unit_square_4.check_click(click)){
+    else if (unit_square_4.check_click(click)&& prod >= Unit::get_production_cost(Unit::HORSEMAN)){
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }

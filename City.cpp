@@ -167,7 +167,7 @@ Tile_Output City::collect_resources() {
         }
     }
 
-    if (food > (population^2+40)) {
+    if (food > (population^3)) {
         ready_to_grow = true;
     }
 

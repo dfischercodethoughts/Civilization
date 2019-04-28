@@ -158,7 +158,8 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
             game.clear_build_unit();
             //returns the string of the build_menu sqaure clicked
             //also colors the squares based on the selected one
-            std::string to_build = buildmenu.ret_build_name(click);
+            //also checks production value and does nothing if active city does not have enough production
+            std::string to_build = buildmenu.ret_build_name(click,game.get_active_city()->get_production());
             Building_Name::names blding = Building_Name::string_to_building_name(to_build);
             Unit::Unit_Type unit = Unit::string_to_unit_type(to_build);
 
@@ -166,11 +167,15 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
             if(unit != Unit::NONE){
                 Unit *  new_unit = new Unit();
                 new_unit->set_unit_type(unit);
+                new_unit->refresh();
                 game.set_build_unit(*new_unit);
+
                 //otherwise it's a building name
             }else if (blding != Building_Name::NONE) {
-                Building * new_building =  new Building(blding);
+
+                Building *new_building = new Building(blding);
                 game.set_build_building(*new_building);
+
                // std::cout << game.get_build_building().building_to_string(game.get_build_building().get_name()) << std::endl;
             }
 
