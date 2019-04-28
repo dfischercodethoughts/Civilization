@@ -167,6 +167,7 @@ Tile * Map::get_tile_from_id(int id) {
         }
     }
 
+    return nullptr;
 }
 
 void Map::set_background_square(Square set) {

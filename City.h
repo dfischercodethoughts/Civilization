@@ -40,6 +40,8 @@ public:
     std::string get_name() const;
     void set_name(std::string newname);
 
+
+    void clear_build_settings();
     bool is_ready_to_produce() const;
     bool get_ready_to_produce() const;
     bool is_ready_to_grow() const;
@@ -72,7 +74,7 @@ public:
      * @return false if new production is not a unit or building (does nothing in that case), true else
      */
     bool set_production(std::string new_production);
-
+    int get_production();
     //actual building of unit or building done by civilization
 
 

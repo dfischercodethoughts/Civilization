@@ -142,6 +142,7 @@ int Draw_Manager::process_click(Coordinate click) {
             }
         }
     }
+    return 0;
 }
 
 void Draw_Manager::set_screen(Screen::names s) {

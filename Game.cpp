@@ -16,7 +16,7 @@ void Game::play_ai() {
         bool moved=  false;
         int unit_id = unit->get_location_id();
         Tile * start_tile = map.get_tile_from_id(unit_id);
-        while (active_unit->get_current_movement() > 0) {
+        while (active_unit != nullptr && active_unit->get_current_movement() > 0) {
             std::vector<Tile *> *possible_moves = map.get_tiles_within_range(start_tile, unit->get_current_movement());
             for (Tile *tile : *possible_moves) {
                 //if there's a tile with an enemy unit on it: attack
@@ -451,6 +451,8 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
                 to_move_to.set_unit(player.get_unit(Civilization_Name::WESTEROS, to_move_to.get_id()));
                 Unit *aiu = ai.get_unit(Civilization_Name::NIGHT_KING, active_unit->get_location_id());
                 aiu->cause_damage(to_move_to.get_unit()->get_unit_type());
+                map.get_tile_from_id(active_unit->get_location_id())->set_unit(&*aiu);
+                set_active_unit(*aiu);
                 //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::play_ai)
                 if (to_move_to.get_unit()->get_current_health() <= 0) {
                     to_move_to.clear_unit();
@@ -459,6 +461,7 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
                 if (aiu->get_current_health() <= 0) {
                     map.get_tile_from_id(active_unit->get_location_id())->clear_unit();
                     ai.destroy_units();
+                    active_unit = nullptr;
                 } else {
                     aiu->use_movement(Unit::get_max_movement(active_unit->get_unit_type()));
                     set_active_unit(*ai.get_unit(ai.get_name(),active_unit->get_location_id()));

@@ -71,6 +71,10 @@ std::string City::get_production_item() const {
     }
 }
 
+int City::get_production(){
+    return production;
+}
+
 int City::get_production_output() const {
     int sum = 0;
     for (Tile * tile : tiles) {
@@ -117,6 +121,7 @@ std::vector<Tile *> City::get_tiles() {
     return ret;
 }
 
+
 void City::add_tiles(std::vector<Tile *> & to_add) {
     for (Tile * add : to_add) {
         tiles.emplace(&*add);
@@ -162,7 +167,7 @@ Tile_Output City::collect_resources() {
         }
     }
 
-    if (food > (population^2+40)) {
+    if (food > (population^3)) {
         ready_to_grow = true;
     }
 
