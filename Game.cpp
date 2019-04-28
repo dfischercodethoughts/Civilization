@@ -452,9 +452,8 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
                     ai.destroy_units();
                 } else {
                     active_unit->use_movement(Unit::get_max_movement(active_unit->get_unit_type()));
+                    set_active_unit(*ai.get_unit(ai.get_name(),active_unit->get_location_id()));
                 }
-
-
 
             }//do nothing if ai unit on square
             return false;//unit on tile to move to means unit didn't actually move (even if it did attack)

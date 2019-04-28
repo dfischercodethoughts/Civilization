@@ -5,7 +5,8 @@
 //
 
 #include "Main_Screen.h"
-Main_Screen::Main_Screen() {
+Main_Screen::Main_Screen()
+{
     game = Game();
     next_turn = Square();
     next_phase = Square();
@@ -26,7 +27,6 @@ Main_Screen::Main_Screen() {
 //    unit_square_4 = Square();
 //    unit_square_5 = Square();
 //    unit_square_6 = Square();
-
 
     game_view_port = Square();
     piece_view_port = Square();
@@ -52,7 +52,6 @@ void Main_Screen::init(int h, int w,int x, int y) {
 
     build_city_button = Square({w/16+Tile::TILE_WIDTH/2,15*h/16-Tile::TILE_HEIGHT/2},Colors::WHITE,Colors::BLACK,h/8,w/8,"Build City",false);
 
-
     //build_view_port = Square({3*w/8,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/3,"BUILDING MENU place holder",true);
     //follow same logic for unit squares
 //    build_square_1 = Square({10*w/72,62*h/72},Colors::WHITE,Colors::BLACK,h/12,w/12,"FARM",true);
@@ -75,7 +74,7 @@ void Main_Screen::init(int h, int w,int x, int y) {
     game_view_port = Square({3*w/8,3*h/8},Colors::WHITE,3*h/4,3*w/4,false);
     piece_view_port = Square({7*w/8,1*h/8},Colors::WHITE,Colors::BLACK,2*h/8,w/4,"UNIT INFO",true);
     piece_view_port.set_y_offset(-3*h/16);
-    tile_view_port = Square({11*w/16-5,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/8,"TILE INFO",true);
+    tile_view_port = Square({11*w/16-5,7*h/8},Colors::WHITE,Colors::BLACK,h/5,w/8,"TILE INFO",true);
     tile_view_port.set_y_offset(-6*h/64);
     tile_view_port.set_x_offset(tile_view_port.get_x_offset()-20);
     tile_view_port.set_text_size(Square::MEDIUM);

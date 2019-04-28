@@ -655,24 +655,34 @@ void Tile::draw_on_viewport(Square viewport_base) {
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3+viewport_base.get_height()/6);
+    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3+viewport_base.get_height()/12);
     line = "RESOURCE TYPE: " + Tile_Resource::resource_to_string(resource);
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3 + viewport_base.get_height()/3);
+    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3 + viewport_base.get_height()/6);
     line = "MOVEMENT COST: "+std::to_string(Tile_Terrain::get_movement_cost(terrain));
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
     }
 
     glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3+viewport_base.get_height()/2);
+    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3+viewport_base.get_height()/4);
     line = "BUILDING: "+Building_Name::building_name_to_string(building.get_name());
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+    }
+
+    if (has_owner()) {
+        glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
+        glRasterPos2i(tl.x + viewport_base.get_width() / 28,
+                      tl.y + viewport_base.get_height() / 3 + viewport_base.get_height() / 3);
+        line = "OWNER: " + Civilization_Name::civ_name_to_string(get_owner());
+        for (char c : line) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+        }
     }
 }
 
