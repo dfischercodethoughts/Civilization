@@ -22,6 +22,8 @@ struct Tile_Resource {
     static std::string resource_to_string(Tile_Resource::names res);
 
     static names string_to_resource(std::string res);
+
+    static float get_resource_probability(Tile_Resource::names res);
 };
 
 #endif //CIV_TILE_RESOURCE_H

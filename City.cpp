@@ -323,6 +323,7 @@ std::ostream & operator<<(std::ostream & outs, const City & rhs) {
 
 
     outs <<  std::to_string(rhs.get_home_tile()->get_id()) << std::endl << std::to_string(rhs.is_ready_to_grow()) << std::endl;
+    return outs;
 }
 
 std::istream & operator>>(std::istream & ins, City & fill) {
@@ -346,7 +347,7 @@ std::istream & operator>>(std::istream & ins, City & fill) {
     else {
         fill.ready_to_grow = false;
     }
-
+    return ins;
 }
 
 bool operator==(const City & lhs, const City & rhs) {
