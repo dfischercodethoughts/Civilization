@@ -665,6 +665,7 @@ Game& Game::operator=(const Game &cp) {
     } else {
         active_tile = nullptr;
     }
+    return *this;
 }
 
 bool Game::operator==(const Game & rhs) {

@@ -136,6 +136,8 @@ Tile_Output::Tile_Output(Tile_Resource::names res, Tile_Terrain::names terr) : T
         case(Tile_Resource::SILVER) : {
             increment_gold();
         }
+        default:
+            break;
     }
 
     switch(terr) {
@@ -148,6 +150,8 @@ Tile_Output::Tile_Output(Tile_Resource::names res, Tile_Terrain::names terr) : T
         case (Tile_Terrain::MOUNTAIN) : {
             increment_gold();
         }
+        default:
+            break;
     }
 }
 

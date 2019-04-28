@@ -119,9 +119,6 @@ void Main_Screen::draw() {
 
 
 
-
-
-
 Screen::names Main_Screen::get_type() const {
     return Screen::MAIN_GAME;
 }
@@ -241,7 +238,7 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
         process_move(click);
     }
 
-
+    return Screen::NONE;
 }
 
 std::string Main_Screen::check_winner() {

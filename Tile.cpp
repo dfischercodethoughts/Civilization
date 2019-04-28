@@ -4,6 +4,7 @@
 
 #include "Tile.h"
 #include "Texture.h"
+#include <vector>
 
 int Tile::num_tiles = 0;
 
@@ -25,6 +26,8 @@ void Tile::init_output() {
             output.increment_production();
             break;
         }
+        default:
+            break;
     }
 }
 
@@ -64,8 +67,8 @@ void Tile::clear_resource() {
             resource = Tile_Resource::DEFAULT;
             break;
         }
-
-
+        default:
+            break;
     }
 }
 
@@ -501,6 +504,8 @@ bool Tile::add_building(Building_Name::names bld) {
             }
             break;
         }
+        default:
+            break;
     }
 
     return built;
@@ -528,94 +533,106 @@ void Tile::draw() const {
                 get_center().y + get_height() / 2
         );
 
-
-        //if there'are units exist, then put units parallel to the resource
+        std::vector<std::string> drawItems;
+        drawItems.push_back(Tile_Resource::resource_to_string(this->get_resource()));
         if (this->has_unit()) {
-
-            Texture &resourceTex = TextureManager::GetTexture(Tile_Resource::resource_to_string(this->get_resource()).c_str());
-/*
-            Color tmp;
-            if (unit->get_owner()==Civilization_Name::WESTEROS) {
-                tmp = Colors::YELLOW;
-            }
-            else {
-                tmp = Colors::RED;
-            }
-            Square(get_center(), tmp, Colors::BLACK, get_height(), get_width(), "", true).draw();
-            glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
-            glRasterPos2i(this->get_center().x - (3 * this->get_width() / 8),
-                          this->get_center().y -this->get_height()/2 + 4*get_height()/5);
-
-            Unit::Unit_Type type = get_const_unit()->get_unit_type();
-            line = "U: " + Unit::unit_type_to_string(type);
-            for (char c: line) {
-                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
-            }
-        } else {
-            Color tmp;
-            if (has_owner()) {
-                if (owner == Civilization_Name::WESTEROS) {
-                    tmp = Colors::TEAL;
-                }
-                else {
-                    tmp = Colors::RED;
-                }
-            }
-            else {
-                tmp = Colors::WHITE;
-            }
-            Square(get_center(), tmp, Colors::BLACK, get_height(), get_width(), "", true).draw();
-        }*/
-
-            int resourceTexCenterX = get_center().x - get_width() / 4;
-            int resourceTexCenterY = get_center().y;
-
-            float ratio = (get_width() / 6) / (float)resourceTex.Width();
-
-            //draw texture of resources
-            resourceTex.Draw(
-                    resourceTexCenterX - resourceTex.Width()*ratio,
-                    resourceTexCenterY - resourceTex.Height()*ratio,
-                    resourceTexCenterX + resourceTex.Width()*ratio,
-                    resourceTexCenterY + resourceTex.Height()*ratio
-            );
-
-
-            Texture &unitTex = TextureManager::GetTexture(Unit::unit_type_to_string(get_const_unit()->get_unit_type()).c_str());
-
-            int unitTexCenterX = get_center().x + get_width() / 4;
-            int unitTexCenterY = get_center().y;
-
-            ratio = (get_width() / 3) / (float)unitTex.Width();
-
-
-            //draw textures of units
-            unitTex.Draw(
-                    unitTexCenterX - unitTex.Width()*ratio,
-                    unitTexCenterY - unitTex.Height()*ratio,
-                    unitTexCenterX + unitTex.Width()*ratio,
-                    unitTexCenterY + unitTex.Height()*ratio
-            );
+            drawItems.push_back(Unit::unit_type_to_string(get_const_unit()->get_unit_type()));
         }
-        else
+
+        if (this->has_city())
         {
-            //if no units, then put the pictures of resources on center
-            Texture &resourceTex = TextureManager::GetTexture(Tile_Resource::resource_to_string(this->get_resource()).c_str());
+            drawItems.push_back("city");
+        }
 
-            int resourceTexCenterX = get_center().x ;
-            int resourceTexCenterY = get_center().y ;
+        //arrage images according to the number of elements to be drawn
+        switch (drawItems.size())
+        {
+            case 1:
+            {
+                int centers[][2] = {
+                        {get_center().x,get_center().y},
+                };
+                for (int i=0;i<drawItems.size();++i)
+                {
 
-            float ratio = (get_width() / 6) / (float)resourceTex.Width();
+                    Texture &resourceTex = TextureManager::GetTexture(drawItems[i].c_str());
+                    float ratio = std::min(get_width()*0.5 / resourceTex.Width(), get_height()*0.5 / resourceTex.Height());
+                    auto& center = centers[i];
+                    resourceTex.Draw(
+                            center[0] - resourceTex.Width()*ratio,
+                            center[1] - resourceTex.Height()*ratio,
+                            center[0] + resourceTex.Width()*ratio,
+                            center[1] + resourceTex.Height()*ratio
+                    );
+                }
+            }
+                break;
+            case 2:
+            {
+                int centers[][2] = {
+                        { get_center().x - get_width() / 4,get_center().y },
+                        { get_center().x + get_width() / 4,get_center().y },
+                };
+                for (int i = 0; i < drawItems.size(); ++i)
+                {
 
+                    Texture &resourceTex = TextureManager::GetTexture(drawItems[i].c_str());
+                    float ratio = std::min(get_width()*0.25 / resourceTex.Width(), get_height()*0.5 / resourceTex.Height());
+                    auto& center = centers[i];
+                    resourceTex.Draw(
+                            center[0] - resourceTex.Width()*ratio,
+                            center[1] - resourceTex.Height()*ratio,
+                            center[0] + resourceTex.Width()*ratio,
+                            center[1] + resourceTex.Height()*ratio
+                    );
+                }
+            }
+                break;
+            case 3:
+            {
+                int centers[][2] = {
+                        { get_center().x - get_width() / 4,get_center().y + get_height() / 4 },
+                        { get_center().x + get_width() / 4,get_center().y + get_height() / 4 },
+                        { get_center().x,get_center().y - get_height() / 4 },
+                };
+                for (int i = 0; i < drawItems.size(); ++i)
+                {
 
-            //draw textures of resources
-            resourceTex.Draw(
-                    resourceTexCenterX - resourceTex.Width()*ratio,
-                    resourceTexCenterY - resourceTex.Height()*ratio,
-                    resourceTexCenterX + resourceTex.Width()*ratio,
-                    resourceTexCenterY + resourceTex.Height()*ratio
-            );
+                    Texture &resourceTex = TextureManager::GetTexture(drawItems[i].c_str());
+                    float ratio = std::min(get_width()*0.25 / resourceTex.Width(), get_height()*0.25 / resourceTex.Height());
+                    auto& center = centers[i];
+                    resourceTex.Draw(
+                            center[0] - resourceTex.Width()*ratio,
+                            center[1] - resourceTex.Height()*ratio,
+                            center[0] + resourceTex.Width()*ratio,
+                            center[1] + resourceTex.Height()*ratio
+                    );
+                }
+            }
+                break;
+            case 4:
+            {
+                int centers[][2] = {
+                        { get_center().x - get_width() / 4,get_center().y + get_height() / 4 },
+                        { get_center().x + get_width() / 4,get_center().y + get_height() / 4 },
+                        { get_center().x - get_width() / 4,get_center().y - get_height() / 4 },
+                        { get_center().x + get_width() / 4,get_center().y - get_height() / 4 },
+                };
+                for (int i = 0; i < drawItems.size(); ++i)
+                {
 
+                    Texture &resourceTex = TextureManager::GetTexture(drawItems[i].c_str());
+                    float ratio = std::min(get_width()*0.25 / resourceTex.Width(), get_height()*0.25 / resourceTex.Height());
+                    auto& center = centers[i];
+                    resourceTex.Draw(
+                            center[0] - resourceTex.Width()*ratio,
+                            center[1] - resourceTex.Height()*ratio,
+                            center[0] + resourceTex.Width()*ratio,
+                            center[1] + resourceTex.Height()*ratio
+                    );
+                }
+            }
+                break;
         }
 
     }

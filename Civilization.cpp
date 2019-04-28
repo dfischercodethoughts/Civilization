@@ -64,6 +64,7 @@ City * Civilization::get_city(int home_id) {
             return &cities[i];
         }
     }
+    return 0;
 }
 
 const City * Civilization::get_city_const(int home_id) const {
@@ -72,6 +73,7 @@ const City * Civilization::get_city_const(int home_id) const {
             return &cities[i];
         }
     }
+    return 0;
 }
 
 void Civilization::add_city(Map & m,Tile & newh) {
@@ -387,6 +389,7 @@ Civilization & Civilization::operator=(Civilization const &rh) {
     }
     name = rh.get_name();
     ai = rh.is_ai();
+    return *this;
 }
 
 bool Civilization::operator==(Civilization const & rh) {
@@ -490,7 +493,7 @@ std::istream & operator>>(std::istream & ins, Civilization & fill) {
     catch (std::exception & e) {
         std::cout << e.what() << std::endl;
     }
-
+    return ins;
 }
 
 Civilization::~Civilization() {
