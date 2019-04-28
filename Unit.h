@@ -33,6 +33,7 @@ public:
     static int get_production_cost(Unit_Type tp);
     static int get_damage(Unit_Type type);
     static int get_range(Unit_Type type);
+    static int get_visibility(Unit_Type type);
 
 private:
     int tile_id;

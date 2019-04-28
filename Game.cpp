@@ -356,7 +356,10 @@ void Game::clear_build_unit() {
 void Game::add_unit(Civilization_Name::Names n, Unit * to_add, Tile * place) {
     //in future builds we will iterate through all civilizations in game
     if (n == Civilization_Name::WESTEROS) {
-        player.add_unit(*to_add,*place);
+        if (active_city != nullptr) {
+            active_city->use_production(Unit::get_production_cost(to_add->get_unit_type()));
+        }
+        player.add_unit(new Unit(place->get_id(),place->get_center(),n,to_add->get_unit_type()),*place);
     }
     else if (n == Civilization_Name::NIGHT_KING) {
         ai.add_unit(*to_add,*place);
@@ -438,7 +441,7 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
 
                 //do nothing if player unit on square
 
-            }
+            }//end tile to move to has enemy unit
             return false;//unit on tile to move to means unit didn't actually move (even if it did attack)
         }//end tile to move to has unit
         else if (player.move_unit(&map, active_unit->get_location_id(), to_move_to.get_id())) {

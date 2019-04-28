@@ -6,7 +6,7 @@
 #define CIV_BASE_RESOURCE_H
 
 #include<string>
-//base resources are production, gold, and food
+//base resources holds an enum with values production, gold, and food
 struct Base_Resource {
     enum names {
         DEFAULT,
@@ -15,6 +15,7 @@ struct Base_Resource {
         GOLD
     };
 
+    //functions to turn from string to base resource and back again
     static std::string to_string(names resource);
 
 

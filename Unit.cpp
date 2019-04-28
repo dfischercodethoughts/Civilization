@@ -205,6 +205,22 @@ int Unit::get_range(Unit_Type tp) {
         }
     }
 }
+int Unit::get_visibility(Unit_Type type) {
+    switch (type) {
+        case (Unit_Type::HORSEMAN): {
+            return 3;
+        }
+        case (Unit_Type::SCOUT): {
+            return 3;
+        }
+        case (Unit_Type::BOAT): {
+            return 4;
+        }
+        default :{
+            return 2;
+        }
+    }
+}
 
 void Unit::set_movement(int newm) {
     if (abs(newm) < 10) {

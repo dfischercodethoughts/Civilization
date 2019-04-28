@@ -44,16 +44,8 @@ public:
     std::string get_name() const;
     void set_name(std::string newname);
 
-    /*
-    void clear_build_settings();
-    bool is_ready_to_produce() const;
-    bool get_ready_to_produce() const;
-     */
     bool is_ready_to_grow() const;
     bool get_ready_to_grow() const;
-
-     //std::string get_production_item() const;
-
 
     int get_production_output() const;
     int get_food_output() const;
@@ -61,6 +53,7 @@ public:
 
     int get_population() const;
     int get_production() const;
+    void use_production(int to_use);
     int get_food() const;
 
     Tile_Output get_output() const;
@@ -78,7 +71,6 @@ public:
     bool has_barracks()const;
 
     //actual building of unit or building done by civilization
-
 
     //flips is ready to grow, sets food to zero, and adds given tiles
     void grow(std::vector<Tile *> tiles);

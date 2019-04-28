@@ -177,16 +177,8 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
                // std::cout << game.get_build_building().building_to_string(game.get_build_building().get_name()) << std::endl;
             }
 
-
-
             //if the cost of the square clicked is less than the amount of production the active city has
             //make the appropriate unit or building (internally), and set it to the appropriate build pointer in game
-
-            /*#####################################################################################################3###
-             * TODO::VERY IMPORTANT: right in between this part of the code is where building to build gets changed from
-             * X to FARM. need to figure out what exactly is making it change
-             * #######################################################################################################*/
-            //std::cout << game.get_build_building().building_to_string(game.get_build_building().get_name()) << std::endl;
 
         }
         else if (game_view_port.check_click(click) && game.has_build_piece()) {
@@ -200,11 +192,11 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
            city_tiles = game.get_active_city()->get_tiles();
             for(int i = 0; i < city_tiles.size(); i++){
                 if(*tile_clicked == *city_tiles[i]){
-                    if(game.has_build_unit()){
-                        //TODO::Theres an error with this code, it doesn't like the add_unit call at all
-                        //game.get_player().add_unit(game.get_build_unit(), *tile_clicked);
+                    if(game.has_build_unit()) {
                         game.add_unit(Civilization_Name::WESTEROS,&*game.get_build_unit(),tile_clicked);
-                    }else if (game.has_build_building()) {
+                    }
+                    else if (game.has_build_building()) {
+                        game.get_active_city()->use_production(Building_Name::get_production_cost(game.get_build_building().get_name()));
                         tile_clicked->add_building(game.get_build_building().get_name());
                     }
                }
@@ -262,21 +254,15 @@ void Main_Screen::process_move(Coordinate click) {
 
             if (unit->get_owner() == Civilization_Name::WESTEROS) {
                 if (unit->get_current_movement() > 0) {
-                    if (unit->get_unit_type() == Unit::BOAT) {//todo: implement boat movement
-                        //implement boat move/attack
-                    } else {
 
-                        //call game move unit method, which causes damage, and handles terrain type
-                        if (game.move_active_unit(*tile_clicked)) {
-                            //clear unit from active tile
-                            game.get_active_tile()->clear_unit();
-                            //redraw active tile
-                            game.get_active_tile()->draw();
+                    if (game.move_active_unit(*tile_clicked)) {
+                        //clear unit from active tile
+                        game.get_active_tile()->clear_unit();
+                        //redraw active tile
+                        game.get_active_tile()->draw();
 
-                        }
+                    }
 
-
-                    }//end unit type cases
                     clear_active();
                 }//end if unit has movement
 

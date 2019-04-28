@@ -114,6 +114,10 @@ int City::get_production() const{
     return production;
 }
 
+void City::use_production(int to_use) {
+    production = std::max(0,production - to_use);
+}
+
 int City::get_food() const {
     return food;
 }

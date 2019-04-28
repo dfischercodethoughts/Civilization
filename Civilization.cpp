@@ -123,10 +123,11 @@ bool Civilization::add_unit(Unit * un ) {
 
 bool Civilization::add_unit(Unit& newu, Tile & place) {
     if (place.get_unit() == nullptr) {
-        newu.set_center(place.get_center());
-        newu.set_location(place.get_id());
-        place.set_unit(newu);
-        units.emplace_back(&(newu));
+        Unit * u = new Unit(newu);
+        u->set_center(place.get_center());
+        u->set_location(place.get_id());
+        place.set_unit(*u);
+        units.emplace_back(*u);
 
         return true;
     }
@@ -479,7 +480,7 @@ std::istream & operator>>(std::istream & ins, Civilization & fill) {
         while (line == "UNIT") {
             Unit *nu = new Unit();
             ins >> *nu;
-            fill.add_unit(&*nu);
+            fill.add_unit(nu);
             getline(ins,line);
         }//while loop burns END
 

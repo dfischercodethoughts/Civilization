@@ -72,6 +72,12 @@ public:
     bool add_unit(Unit*un,Tile& place);
     bool add_unit(Unit::Unit_Type type,Tile& place);
 
+    /**
+     * getters for units
+     * @param owner
+     * @param tileid
+     * @return
+     */
     Unit * get_unit(Civilization_Name::Names owner, int tileid);
     Unit * get_unit_const(Civilization_Name::Names owner, int tileid) const;
     Unit * get_unit(Civilization_Name::Names owner, Tile & loc);
@@ -84,8 +90,17 @@ public:
      * additional methods
      */
 
+    //returns true if the civ has no units in it
     bool lost();
 
+    /**
+     * methods to move units -- handles unit and terrain types
+     *  does not cause damage
+     * @param map
+     * @param to_move
+     * @param move_to
+     * @return
+     */
     bool move_unit(Map& map,Unit& to_move, Tile& move_to);
     bool move_unit(Map * map, Unit * to_move, Tile * move_to);
     bool move_unit(Map * map, int fromid, int toid);
