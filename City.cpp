@@ -8,27 +8,35 @@ void City::increment_population() {
 }
 
 City::City() {
+    /*
     ready_to_produce = false;
     ready_to_grow = false;
     building_in_production = Building_Name::NONE;
     unit_in_production = Unit::NONE;
+     */
     name = "Default";
     production = 0;
     food = 0;
     population = 0;
-    prod_type = production_type::NONE;
+    //prod_type = production_type::NONE;
+}
+
+City::City(City * cp) {
+    *this = *cp;
 }
 
 City::City(Tile & home) {
+    /*
     ready_to_produce = false;
     ready_to_grow = false;
     building_in_production = Building_Name::NONE;
     unit_in_production = Unit::NONE;
+     */
     name = "Default";
     production = 0;
     food = 0;
     population = 0;
-    prod_type = production_type::NONE;
+    //prod_type = production_type::NONE;
     home_tile = &home;
 }
 
@@ -40,6 +48,7 @@ void City::set_name(std::string nme) {
         name = nme;
     }
 }
+/*
 
 bool City::is_ready_to_produce() const {
     return ready_to_produce;
@@ -48,7 +57,7 @@ bool City::is_ready_to_produce() const {
 bool City::get_ready_to_produce() const {
     return ready_to_produce;
 }
-
+*/
 bool City::is_ready_to_grow() const {
     return ready_to_grow;
 }
@@ -56,7 +65,7 @@ bool City::is_ready_to_grow() const {
 bool City::get_ready_to_grow() const {
     return ready_to_grow;
 }
-
+/*
 std::string City::get_production_item() const {
     switch (prod_type) {
         case (BUILDING) : {
@@ -70,6 +79,7 @@ std::string City::get_production_item() const {
         }
     }
 }
+*/
 
 int City::get_production_output() const {
     int sum = 0;
@@ -99,6 +109,15 @@ int City::get_population() const {
     return population;
 }
 
+
+int City::get_production() const{
+    return production;
+}
+
+int City::get_food() const {
+    return food;
+}
+
 Tile_Output City::get_output() const {
     Tile_Output ret;
     for (Tile * t : tiles) {
@@ -116,6 +135,7 @@ std::vector<Tile *> City::get_tiles() {
     }
     return ret;
 }
+
 
 void City::add_tiles(std::vector<Tile *> & to_add) {
     for (Tile * add : to_add) {
@@ -147,6 +167,7 @@ Tile_Output City::collect_resources() {
     }
     production += tmp_production;
     food += tmp_food;
+    /*
     switch (prod_type) {
         case (BUILDING) : {
             if (production > Building_Name::get_production_cost(building_in_production)) {
@@ -160,9 +181,9 @@ Tile_Output City::collect_resources() {
             }
             break;
         }
-    }
+    }*/
 
-    if (food > (population^2+40)) {
+    if (food > (population^3)) {
         ready_to_grow = true;
     }
 
@@ -186,6 +207,7 @@ bool City::has_barracks() const {
     return false;
 }
 
+/*
 bool City::set_production(std::string new_production) {
 
     Building_Name::names building_attempt = Building_Name::string_to_building_name(new_production);
@@ -206,6 +228,7 @@ bool City::set_production(std::string new_production) {
     }
     return false;
 }
+*/
 
 void City::grow(std::vector<Tile *> tl) {
     if (population < 6) {
@@ -265,11 +288,13 @@ void City::draw_on_viewport(Square sq) {
 }
 
 City & City::operator=(const City & rhs) {
+    /*
     ready_to_grow = rhs.ready_to_grow;
     ready_to_produce = rhs.ready_to_produce;
     prod_type = rhs.prod_type;
+
     building_in_production = rhs.building_in_production;
-    unit_in_production = rhs.unit_in_production;
+    unit_in_production = rhs.unit_in_production;*/
     if (rhs.name.size() < 25) {
         name = rhs.name;
     }
@@ -285,14 +310,46 @@ City & City::operator=(const City & rhs) {
     }
 }
 
-//todo:implement city input output
+std::ostream & operator<<(std::ostream & outs, const City & rhs) {
+    std::string line = "CITY\n" +
+                            rhs.get_name() + "\n" +
+                            std::to_string(rhs.get_production()) + "\n" +
+                            std::to_string(rhs.get_food()) + "\n" +
+                            std::to_string(rhs.get_population()) + "\n";
+    outs <<line;
+
+
+    outs <<  std::to_string(rhs.get_home_tile()->get_id()) << std::endl << std::to_string(rhs.is_ready_to_grow()) << std::endl;
+}
+
+std::istream & operator>>(std::istream & ins, City & fill) {
+    std::string line = "";
+    //assume "CITY\n" already read
+    std::getline(ins,line);
+    fill.set_name(line);
+    std::getline(ins,line);
+    fill.production = std::stoi(line);
+    std::getline(ins,line);
+    fill.food = std::stoi(line);
+    std::getline(ins,line);
+    fill.population = std::stoi(line);
+
+    std::getline(ins,line);
+    fill.home_tile = new Tile(Coordinate(),0,0,Color(),Color(),Tile_Terrain::DEFAULT,Tile_Resource::DEFAULT,std::stoi(line));
+    std::getline(ins,line);
+    if (line == "1") {
+        fill.ready_to_grow = true;
+    }
+    else {
+        fill.ready_to_grow = false;
+    }
+
+}
 
 bool operator==(const City & lhs, const City & rhs) {
-    if (lhs.is_ready_to_produce() == rhs.is_ready_to_produce() &&
-        lhs.get_production_item() == rhs.get_production_item() &&
-        lhs.get_name() == rhs.get_name() && *lhs.get_home_tile() == *rhs.get_home_tile()) {
-        return true;
-    }
-    return false;
+    return(lhs.get_name() == rhs.get_name() && *lhs.get_home_tile() == *rhs.get_home_tile());
+}
 
+bool operator!=(const City & lhs, const City & rhs) {
+    return (!(lhs == rhs));
 }

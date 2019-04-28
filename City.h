@@ -17,11 +17,15 @@ private:
         UNIT,
         NONE
     };
-    bool ready_to_produce;
+
     bool ready_to_grow;
+    /*
+    bool ready_to_produce;
     production_type prod_type;
+
     Building_Name::names building_in_production;
     Unit::Unit_Type unit_in_production;
+     */
     std::string name;
     int production;
     int food;
@@ -31,27 +35,33 @@ private:
 
     void increment_population();
 
-
 public:
     //default city does not init tiles or home tile
     City();
+    City(City * c);
     explicit City(Tile & home);
 
     std::string get_name() const;
     void set_name(std::string newname);
 
+    /*
+    void clear_build_settings();
     bool is_ready_to_produce() const;
     bool get_ready_to_produce() const;
+     */
     bool is_ready_to_grow() const;
     bool get_ready_to_grow() const;
 
-    std::string get_production_item() const;
+     //std::string get_production_item() const;
+
 
     int get_production_output() const;
     int get_food_output() const;
     int get_gold_output() const;
 
     int get_population() const;
+    int get_production() const;
+    int get_food() const;
 
     Tile_Output get_output() const;
 
@@ -67,12 +77,6 @@ public:
 
     bool has_barracks()const;
 
-    /**
-     * @param new_production string of unit or building name
-     * @return false if new production is not a unit or building (does nothing in that case), true else
-     */
-    bool set_production(std::string new_production);
-
     //actual building of unit or building done by civilization
 
 
@@ -87,9 +91,24 @@ public:
      */
      City & operator=(const City & rhs);
 
+     /**
+      * outputs CITY
+      *             name
+      *             production
+      *             food
+      *             population
+      *             home_tile_id
+      *             is_ready_to_grow
+      *      Note that this does not populate the cities tiles, but fills it with placeholders (with the proper id)
+      *      game will need to iterate through a civ's cities, and tie them to the map tiles
+      * @param outs
+      * @param city to print or city to fill
+      * @return
+      */
      friend std::ostream & operator<<(std::ostream & outs, const City & ct);
      friend std::istream & operator>>(std::istream & ins, City & fill);
 };
 
 bool operator==(const City & lhs, const City & rhs);
+bool operator!=(const City & lhs, const City & rhs);
 #endif //CIV_CITY_H

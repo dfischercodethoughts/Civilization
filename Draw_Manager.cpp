@@ -133,6 +133,7 @@ int Draw_Manager::process_click(Coordinate click) {
                 case (Screen::SAVE_GAME) : {
                     main.get_game()->save();
                     set_screen(Screen::MAIN_GAME);
+                    break;
                 }
                 case ( Screen::LOAD_GAME) : {
                     main.get_game()->load();
@@ -142,6 +143,7 @@ int Draw_Manager::process_click(Coordinate click) {
             }
         }
     }
+    return 0;
 }
 
 void Draw_Manager::set_screen(Screen::names s) {

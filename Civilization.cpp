@@ -259,18 +259,21 @@ bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
 
     Tile * move_from = &*map->get_tile_from_id(tilefrom);
     Tile * move_to = &*map->get_tile_from_id(tileto);
-    if (map->is_adjacent(*move_from, *move_to)) {
-        Unit * unit = get_unit(name,move_from->get_id());
-        unit->use_movement(Tile_Terrain::get_movement_cost(move_to->get_terrain()));
-        unit->set_location(move_to->get_id());
-        unit->set_center(move_to->get_center());
-        //set move to tile unit; use move to's id since we already updated unit's location
-        move_to->set_unit(*unit);
-        move_from->clear_unit();
-        move_from->draw();
-        move_to->draw();
+    std::vector<Tile *> *possible_tiles = map->get_tiles_within_range(move_from,get_unit(name,tilefrom)->get_current_movement());
+    for (Tile * t : *possible_tiles) {
+        if (*move_to == *t) {//tile selected is within movement range of the unit
+            Unit *unit = get_unit(name, move_from->get_id());
+            unit->use_movement(map->get_move_cost(move_from,move_to));
+            unit->set_location(move_to->get_id());
+            unit->set_center(move_to->get_center());
+            //set move to tile unit; use move to's id since we already updated unit's location
+            move_to->set_unit(*unit);
+            move_from->clear_unit();
+            move_from->draw();
+            move_to->draw();
 
-        return true;
+            return true;
+        }
     }
 
     return false;
@@ -310,7 +313,7 @@ void Civilization::collect_resources() {
 void Civilization::grow_cities(Map & m) {
     for (int i = 0; i < cities.size();i++) {
         if (cities[i].is_ready_to_grow())  {
-            std::vector<Tile *> tl = *m.get_tiles_within_range(cities[i].get_home_tile(),cities[i].get_population()+1);
+            std::vector<Tile *> tl = *m.get_tiles_within_range(cities[i].get_home_tile(),cities[i].get_population()-1);
             //update civ
             for (Tile * t : tl) {
                 t -> set_owner(name);
@@ -396,6 +399,14 @@ bool Civilization::operator==(Civilization const & rh) {
             return false;
         }
     }
+    if (get_cities().size() != rh.get_cities_const().size()) {
+        return false;
+    }
+    for (int  i =0; i < cities.size() && i < rh.get_cities_const().size(); i++) {
+        if (cities[i] != *rh.get_cities_const()[i]) {
+            return false;
+        }
+    }
     if (ai != rh.is_ai()) {
         return false;
     }
@@ -421,6 +432,10 @@ std::ostream & operator<<(std::ostream & outs, const Civilization & print) {
         outs << print.units[i];
     }
     outs << "END"<<std::endl;//end marker because input burns line at end of for loop
+    for (int i = 0; i < print.cities.size(); i++) {
+        outs << print.cities[i];
+    }
+    outs << "END" <<std::endl;
     return outs;
 }
 
@@ -460,7 +475,16 @@ std::istream & operator>>(std::istream & ins, Civilization & fill) {
             ins >> *nu;
             fill.add_unit(&*nu);
             getline(ins,line);
+        }//while loop burns END
+
+        getline(ins,line);//read CITY
+        while (line == "CITY") {
+            City * c = new City();
+            ins >> *c;
+            fill.cities.emplace_back(&*c);
+            getline(ins, line);
         }
+
 
     }
     catch (std::exception & e) {
