@@ -577,6 +577,33 @@ void Game::load() {
         Tile * to_set = map.get_tile_from_id(ai.get_units()[i]->get_location_id());
         to_set->set_unit(ai.get_units()[i]);
     }
+    //todo: add multi ai functionality by looping through civilizations vector
+    for (int i = 0; i < player.get_cities().size();i++) {
+        City * c = &*player.get_cities()[i];
+        //set home tile
+        Tile * home_tile = map.get_tile_from_id(c->get_home_tile()->get_id());
+        c->set_home_tile(*home_tile);
+
+        //add tiles gotten from map
+        std::vector<Tile *> city_tiles = *map.get_tiles_within_range(c->get_home_tile(),c->get_population()-1);
+        for (Tile * t : city_tiles ) {
+            t->set_owner(player.get_name());
+        }
+        c->add_tiles(city_tiles);
+        home_tile -> set_city(*c);
+    }
+    for (int i = 0; i < ai.get_cities().size();i++) {
+        City * c = ai.get_cities()[i];
+        //set home tile
+        Tile * home_tile = map.get_tile_from_id(c->get_home_tile()->get_id());
+        c->set_home_tile(*home_tile);
+        //add tiles gotten from map
+        std::vector<Tile *> city_tiles = *map.get_tiles_within_range(c->get_home_tile(),c->get_population()-1);
+        for (Tile * t : city_tiles ) {
+            t->set_owner(ai.get_name());
+        }
+        c->add_tiles(city_tiles);
+    }
 }
 
 void Game::load(std::string civs_filename, std::string map_filename,std::string tm_filename) {
@@ -592,6 +619,33 @@ void Game::load(std::string civs_filename, std::string map_filename,std::string 
     for (int i = 0; i < ai.get_units().size();i++) {
         Tile * to_set = map.get_tile_from_id(ai.get_units()[i]->get_location_id());
         to_set->set_unit(ai.get_units()[i]);
+    }
+
+    //add tiles for player and ai cities
+    //todo: add multi ai functionality by looping through civilizations vector
+    for (int i = 0; i < player.get_cities().size();i++) {
+        City * c = player.get_cities()[i];
+        //set home tile
+        Tile * home_tile = map.get_tile_from_id(c->get_home_tile()->get_id());
+        c->set_home_tile(*home_tile);
+        //add tiles gotten from map
+        std::vector<Tile *> city_tiles = *map.get_tiles_within_range(c->get_home_tile(),c->get_population()-1);
+        for (Tile * t : city_tiles ) {
+            t->set_owner(player.get_name());
+        }
+        c->add_tiles(city_tiles);
+    }
+    for (int i = 0; i < ai.get_cities().size();i++) {
+        City * c = ai.get_cities()[i];
+        //set home tile
+        Tile * home_tile = map.get_tile_from_id(c->get_home_tile()->get_id());
+        c->set_home_tile(*home_tile);
+        //add tiles gotten from map
+        std::vector<Tile *> city_tiles = *map.get_tiles_within_range(c->get_home_tile(),c->get_population()-1);
+        for (Tile * t : city_tiles ) {
+            t->set_owner(ai.get_name());
+        }
+        c->add_tiles(city_tiles);
     }
 }
 
