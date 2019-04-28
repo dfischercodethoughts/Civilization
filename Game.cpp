@@ -49,7 +49,6 @@ void Game::play_ai() {
             }
            // set_active_unit()
         }
-
     }
 }
 
@@ -291,6 +290,14 @@ void Game::set_active_city(City &c) {
     active_city = &c;
 }
 
+void Game::set_build_building(Building &p) {
+    building_to_build = &p;
+}
+
+void Game::set_build_unit(Unit &u) {
+    unit_to_build = &u;
+}
+
 bool Game::has_active_unit() const {
     return active_unit != nullptr;
 }
@@ -316,6 +323,14 @@ bool Game::has_build_building() const {
     return (building_to_build != nullptr);
 }
 
+Building Game::get_build_building(){
+    return *building_to_build;
+}
+
+Unit *Game::get_build_unit(){
+    return unit_to_build;
+}
+
 void Game::clear_active_tile() {
     active_tile = nullptr;
 }
@@ -326,6 +341,24 @@ void Game::clear_active_unit() {
 
 void Game::clear_active_city() {
     active_city = nullptr;
+}
+
+void Game::clear_build_building(){
+    building_to_build = nullptr;
+}
+
+void Game::clear_build_unit() {
+    unit_to_build = nullptr;
+}
+
+void Game::add_unit(Civilization_Name::Names n, Unit * to_add, Tile * place) {
+    //in future builds we will iterate through all civilizations in game
+    if (n == Civilization_Name::WESTEROS) {
+        player.add_unit(*to_add,*place);
+    }
+    else if (n == Civilization_Name::NIGHT_KING) {
+        ai.add_unit(*to_add,*place);
+    }
 }
 
 void Game::reveal_unit(Unit * to_rev) {
@@ -431,7 +464,10 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
                     set_active_unit(*ai.get_unit(ai.get_name(),active_unit->get_location_id()));
                 }
 
-            }//do nothing if ai unit on square
+
+                //do nothing if player unit on square
+
+            }
             return false;//unit on tile to move to means unit didn't actually move (even if it did attack)
         } else /*if (map.is_adjacent(*map.get_tile_from_id(active_unit->get_location_id()),to_move_to))*/ {
             //tile to move to does not have a unit on it
@@ -505,8 +541,8 @@ void Game::next_turn() {
     play_ai();
     player.next_turn(map);
     update_map();
-    clear_active_unit();
     clear_active_tile();
+    clear_active_unit();
     clear_active_city();
     map.reveal_units(player.get_units());
     map.reveal_cities(player.get_cities());
