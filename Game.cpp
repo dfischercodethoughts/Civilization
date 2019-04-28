@@ -442,7 +442,7 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
                 to_move_to.set_unit(player.get_unit(Civilization_Name::WESTEROS, to_move_to.get_id()));
                 Unit *aiu = ai.get_unit(Civilization_Name::NIGHT_KING, active_unit->get_location_id());
                 aiu->cause_damage(to_move_to.get_unit()->get_unit_type());
-                //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::process click)
+                //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::play_ai)
                 if (to_move_to.get_unit()->get_current_health() <= 0) {
                     to_move_to.clear_unit();
                     player.destroy_units();
@@ -451,7 +451,7 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
                     map.get_tile_from_id(active_unit->get_location_id())->clear_unit();
                     ai.destroy_units();
                 } else {
-                    active_unit->use_movement(Unit::get_max_movement(active_unit->get_unit_type()));
+                    aiu->use_movement(Unit::get_max_movement(active_unit->get_unit_type()));
                     set_active_unit(*ai.get_unit(ai.get_name(),active_unit->get_location_id()));
                 }
 
