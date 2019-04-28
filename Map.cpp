@@ -166,7 +166,8 @@ Tile * Map::get_tile_from_id(int id) {
             }
         }
     }
-    return 0;
+
+    return nullptr;
 }
 
 void Map::set_background_square(Square set) {
@@ -473,7 +474,7 @@ Map & Map::operator=(const Map & cp ) {
     set_x_offset(cp.get_x_offset());
     set_y_offset(cp.get_y_offset());
 
-    return *this;
+
 }
 
 std::ostream & operator<<(std::ostream & outs, const Map & print) {

@@ -12,27 +12,42 @@ const std::string Game::TM_FILENAME = "tm.save";
 void Game::play_ai() {
     manager.set_current_phase(Turn_Phase::AI_TURN);
     for (Unit * unit : ai.get_units()) {
+        set_active_unit(*unit);
         bool moved=  false;
         int unit_id = unit->get_location_id();
         Tile * start_tile = map.get_tile_from_id(unit_id);
-        std::vector<Tile *>* possible_moves = map.get_tiles_within_range(start_tile,unit->get_current_movement());
-        for (Tile *tile : *possible_moves) {
-            //if there's a tile with an enemy unit on it, attack that enemy
-            if (*player.get_unit(Civilization_Name::WESTEROS,tile->get_id())!= *new Unit() && tile->get_id() != start_tile->get_id()) {
-                set_active_unit(*unit);
-                move_active_unit(*tile);
-                moved = true;
-                break;
-            }
+        while (active_unit != nullptr && active_unit->get_current_movement() > 0) {
+            std::vector<Tile *> *possible_moves = map.get_tiles_within_range(start_tile, unit->get_current_movement());
+            for (Tile *tile : *possible_moves) {
+                //if there's a tile with an enemy unit on it: attack
+                if (tile->get_unit() != nullptr && tile->get_unit()->get_owner() == Civilization_Name::WESTEROS) {
+                    if (map.is_adjacent(*tile,*start_tile)) {
 
-        }
-        if (!moved) {
-            //if it hasn't attacked, then move randomly
-            unsigned time_stamp = std::chrono::system_clock::now().time_since_epoch().count();
-            std::mt19937 generator(time_stamp);
-            int ind_to_move = generator() % (possible_moves->size() - 1);
-            set_active_unit(*unit);
-            move_active_unit(*(*possible_moves)[ind_to_move]);
+                        move_active_unit(*tile);
+                    }
+                    else {
+                        //enemy in range, but not on a tile adjacent to the warrior
+                        //set active unit and move to tile closest to enemy
+
+                        move_active_unit(*map.get_closest_tile(start_tile,tile));
+                        //if there's movement left (which there should be), attack the enemy
+                        if (active_unit -> get_current_movement() > 0) {
+                            move_active_unit(*tile);
+                        }
+                    }
+                    moved = true;
+                    break;
+                }
+
+            }
+            if (!moved) {
+                //if it hasn't attacked, then move randomly
+                unsigned time_stamp = std::chrono::system_clock::now().time_since_epoch().count();
+                std::mt19937 generator(time_stamp);
+                int ind_to_move = generator() % (possible_moves->size());
+                move_active_unit(*possible_moves->at(ind_to_move));
+            }
+           // set_active_unit()
         }
     }
 }
@@ -426,7 +441,7 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
             return true;
         }
     }
-    else if (active_unit->get_location_id() != to_move_to.get_id()) {//AI MOVE only if not trying to move onto the same tile its already on
+    else {//AI MOVE
         if (to_move_to.has_unit()) {
             if (to_move_to.get_unit()->get_owner() == Civilization_Name::WESTEROS) {
                 //attack
@@ -436,7 +451,9 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
                 to_move_to.set_unit(player.get_unit(Civilization_Name::WESTEROS, to_move_to.get_id()));
                 Unit *aiu = ai.get_unit(Civilization_Name::NIGHT_KING, active_unit->get_location_id());
                 aiu->cause_damage(to_move_to.get_unit()->get_unit_type());
-                //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::process click)
+                map.get_tile_from_id(active_unit->get_location_id())->set_unit(&*aiu);
+                set_active_unit(*aiu);
+                //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::play_ai)
                 if (to_move_to.get_unit()->get_current_health() <= 0) {
                     to_move_to.clear_unit();
                     player.destroy_units();
@@ -444,18 +461,25 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
                 if (aiu->get_current_health() <= 0) {
                     map.get_tile_from_id(active_unit->get_location_id())->clear_unit();
                     ai.destroy_units();
+                    active_unit = nullptr;
                 } else {
-                    active_unit->use_movement(Unit::get_max_movement(active_unit->get_unit_type()));
+                    aiu->use_movement(Unit::get_max_movement(active_unit->get_unit_type()));
+                    set_active_unit(*ai.get_unit(ai.get_name(),active_unit->get_location_id()));
                 }
 
 
-                //do nothing if ai unit on square
+                //do nothing if player unit on square
 
             }
             return false;//unit on tile to move to means unit didn't actually move (even if it did attack)
-        } else if (ai.move_unit(&map, active_unit->get_location_id(), to_move_to.get_id())) {
-            reveal_unit(to_move_to.get_unit());
-            return true;
+        } else /*if (map.is_adjacent(*map.get_tile_from_id(active_unit->get_location_id()),to_move_to))*/ {
+            //tile to move to does not have a unit on it
+                if(ai.move_unit(&map, active_unit->get_location_id(), to_move_to.get_id())) {
+                    //reveal_unit(to_move_to.get_unit());
+                    set_active_unit(*ai.get_unit(ai.get_name(),to_move_to.get_id()));
+                    return true;
+                }
+
         }
     }//end ai move
 
@@ -522,6 +546,7 @@ void Game::next_turn() {
     update_map();
     clear_active_tile();
     clear_active_unit();
+    clear_active_city();
     map.reveal_units(player.get_units());
     map.reveal_cities(player.get_cities());
     manager.next_turn();
