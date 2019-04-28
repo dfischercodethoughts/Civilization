@@ -4,7 +4,6 @@
 
 #include "Build_Menu.h"
 
-//default build menu creator
 Build_Menu::Build_Menu(){
     selected_square = nullptr;
 
@@ -25,8 +24,6 @@ Build_Menu::Build_Menu(){
     unit_square_6 = Square();
 }
 
-
-//lets youspecify all the good stuff about it
 Build_Menu::Build_Menu(int h, int w) : Square({6*w/2, 83*h/80}, Colors::WHITE, Colors::WHITE, h/4,3*w, "", true){
     selected_square = nullptr;
 
@@ -62,20 +59,15 @@ Build_Menu::Build_Menu(int h, int w) : Square({6*w/2, 83*h/80}, Colors::WHITE, C
 
 }
 
-//ould set the selectged square
 void Build_Menu::set_selected_square(Square sq){
     selected_square = &sq;
 
 }
 
-//returns selected square
 Square Build_Menu::get_selected_square(){
     return *selected_square;
 }
 
-
-//used this with the phase-manager, don't really need to anymore
-//just told the people to select a city
 void Build_Menu::no_active_city_draw(){
     glColor3f(Colors::WHITE.get_red(),Colors::WHITE.get_green(),Colors::WHITE.get_blue());
     glRasterPos2i(525,875);
@@ -85,7 +77,6 @@ void Build_Menu::no_active_city_draw(){
     }
 }
 
-//og change to yellow function, now it's part of the ret_build_name
 void Build_Menu::change_active_color(Square sq){
     if(sq == *selected_square){
         sq.set_fill(Colors::YELLOW);
@@ -97,7 +88,6 @@ void Build_Menu::change_active_color(Square sq){
     }
 }
 
-//returns the build name along with changing the color of the selected square to yellow
 std::string Build_Menu::ret_build_name(Coordinate click, int prod){
     if(build_square_1.check_click(click) && prod >= Building_Name::get_production_cost(Building_Name::HARBOR)){
         if (selected_square != nullptr) {
@@ -209,8 +199,6 @@ std::string Build_Menu::ret_build_name(Coordinate click, int prod){
     }
 }
 
-
-//returns the square from a passed in string
 Square Build_Menu::return_square(std::string str){
     if(str == "HARBOR"){
         return build_square_1;
@@ -241,8 +229,6 @@ Square Build_Menu::return_square(std::string str){
     }
 }
 
-
-//reset all sauares to white
 void Build_Menu::all_squares_white(){
     build_square_1.set_fill(Colors::WHITE);
     build_square_2.set_fill(Colors::WHITE);
@@ -261,8 +247,6 @@ void Build_Menu::all_squares_white(){
     unit_square_6.set_fill(Colors::WHITE);
 }
 
-
-//print the production cost of a building onto a square
 void Build_Menu::print_production_cost_building(Square sq, Building_Name::names nm) const{
     std::string line = "Cost: " + std::to_string(Building_Name::get_production_cost(nm));
     glColor3f(Colors::RED.get_red(),Colors::RED.get_green(),Colors::RED.get_blue());
@@ -272,7 +256,6 @@ void Build_Menu::print_production_cost_building(Square sq, Building_Name::names 
     }
 }
 
-//print the production cost of a unit onto a square (exact same thing as above)
 void Build_Menu::print_production_cost_unit(Square sq, Unit::Unit_Type type) const{
     std::string line = "Cost: " + std::to_string(Unit::get_production_cost(type));
     glColor3f(Colors::RED.get_red(),Colors::RED.get_green(),Colors::RED.get_blue());
@@ -282,12 +265,7 @@ void Build_Menu::print_production_cost_unit(Square sq, Unit::Unit_Type type) con
     }
 }
 
-//go through, compare the prod_val (how much production the city has)
-//against the values of all of the squares
-//this would work better as an array/vector but for the sake of not messing anything up we hard coding
-//beige for now until I can figure out what grey is
 int Build_Menu::grey_out(int prod_val) {
-    //if production is less than 20, set all grey
     if(prod_val < 20){
 
         build_square_1.set_fill(Colors::BEIGE);
@@ -308,7 +286,6 @@ int Build_Menu::grey_out(int prod_val) {
 
         return 0;
 
-        //else if production is between 20-29
     }else if(prod_val > 19 && prod_val < 30){
 
         build_square_2.set_fill(Colors::BEIGE);
@@ -326,7 +303,6 @@ int Build_Menu::grey_out(int prod_val) {
         unit_square_6.set_fill(Colors::BEIGE);
 
         return 0;
-        //else if production is between 30-39
     }else if(prod_val > 29 && prod_val < 40){
 
         build_square_3.set_fill(Colors::BEIGE);
@@ -343,7 +319,6 @@ int Build_Menu::grey_out(int prod_val) {
 
         return 0;
 
-        //else if production is between 40-49
     }else if(prod_val > 39 && prod_val < 50){
 
         build_square_6.set_fill(Colors::BEIGE);
@@ -355,22 +330,18 @@ int Build_Menu::grey_out(int prod_val) {
         unit_square_6.set_fill(Colors::BEIGE);
 
         return 0;
-    }
-        //else if production is between 50-59
-    else if(prod_val > 49 && prod_val < 60){
+    }else if(prod_val > 49 && prod_val < 60){
         build_square_8.set_fill(Colors::BEIGE);
 
         unit_square_5.set_fill(Colors::BEIGE);
         unit_square_6.set_fill(Colors::BEIGE);
 
         return 0;
-        //else production is greater than 60, all units are white
     }else{
         return 0;
     }
 }
 
-//draws the build menu and the cost on top of the square
 void Build_Menu::draw() const {
     build_square_1.draw();
     build_square_2.draw();

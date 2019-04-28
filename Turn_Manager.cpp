@@ -5,23 +5,20 @@
     return the value of turn phase enum to decide what the view port displays
     ie. move shows unit info when clicked on, BUILD phase only displays buildings that can be built
 */
-//base turn manager constructor
+
 Turn_Manager::Turn_Manager() {
     count = 0;
     current_phase = Turn_Phase::MOVE;
 }
 
-//returns current phase
 Turn_Phase::names Turn_Manager::get_current_phase() const {
     return current_phase;
 }
 
-//set the current phase
 void Turn_Manager::set_current_phase(Turn_Phase::names new_phase) {
     current_phase = new_phase;
 }
 
-//go to the next ohase
 void Turn_Manager::next_phase() {
     //todo: test turn manager next phase logic
     int c = current_phase;
@@ -30,7 +27,6 @@ void Turn_Manager::next_phase() {
     current_phase = Turn_Phase::names(c);
 }
 
-//get current phase as a string
 std::string Turn_Manager::get_current_phase_str() const {
     switch (current_phase) {
 
@@ -49,12 +45,10 @@ std::string Turn_Manager::get_current_phase_str() const {
     }
 }
 
-//returns number of turns
 int Turn_Manager::get_num_turns() const {
     return count;
 }
 
-//turns a turn phase name into a string
 std::string to_string(Turn_Phase::names nm) {
     switch (nm) {
 
@@ -73,7 +67,6 @@ std::string to_string(Turn_Phase::names nm) {
     }
 }
 
-//gores to next turn
 void Turn_Manager::next_turn(){
     current_phase = Turn_Phase::MOVE;
     count++;

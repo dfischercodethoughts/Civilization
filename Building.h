@@ -13,20 +13,38 @@
 class Building {
 
 private:
+    //name of the building
     Building_Name::names name;
+
+    //hwether it's pillaged or not
     bool pillaged;
 
 public:
+    //basic building constructor
     Building();
+
+    //create a building with a specified name
     Building(Building_Name::names nm);
 
+    //returns the buidling name
     Building_Name::names get_name() const;
+
+    //set the building name with a BUILDING NAME::names
+    //not used
     void set_name(Building_Name::names);
+
+    //set the building name with a building name as a string
     void set_name(std::string nm);
 
+    //returns pillaged
     bool is_pillaged() const;
+    //returns pillaged
     bool get_pillaged() const;
+
+    //function to pillage a building
     void pillage();
+
+    //function to repair a pillaged building
     void repair();
 
     /*

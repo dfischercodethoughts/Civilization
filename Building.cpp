@@ -4,47 +4,39 @@
 
 #include "Building.h"
 
-//base constructor for building
 Building::Building() {
     name = Building_Name::NONE;
 }
 
-//specified building
 Building::Building(Building_Name::names nm) {
     name = nm;
 }
 
-//returns building name
 Building_Name::names Building::get_name() const {
     return name;
 }
 
-//set building name
 void Building::set_name(Building_Name::names nm) {
     name = nm;
 }
 
-//set name from a string
 void Building::set_name(std::string nm) {
     name = Building_Name::string_to_building_name(nm);
 }
 
-//returns whether or not a building has been pillaged
 bool Building::is_pillaged() const {
     return pillaged;
 }
 
-//has a building been pillaged
 bool Building::get_pillaged() const {
     return pillaged;
 }
 
-//pillage a building
 void Building::pillage() {
     pillaged = true;
 }
 
-//unpillage a building
+
 void Building::repair() {
     pillaged= false;
 }
@@ -85,7 +77,7 @@ std::string Building::building_to_string(Building_Name::names nm){
 }
 
 
-//returns the upkeep of a building
+
 int Building::get_upkeep(Building_Name::names nm){
     //mine or farms require 1 production
     if(nm == Building_Name::FARM or nm == Building_Name::MINE){

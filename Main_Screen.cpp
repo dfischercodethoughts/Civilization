@@ -59,14 +59,15 @@ void Main_Screen::draw() {
     game.get_map().draw();//tiles have references to units, and will draw if visible
 
     next_turn.draw();
+
     //next_phase.draw();
+
     std::string line = "Turn: " + std::to_string(game.get_turn_manager().get_num_turns());
     Square({next_turn.get_center().x - 5, next_turn.get_center().y - 50}, Colors::WHITE, Colors::BLACK, 15, 50, line,
            true).draw();
     game.phase_on_button(next_phase);
     build_city_button.draw();
 
-//    buildmenu.grey_out(game.get_player().get_production())
     if (game.has_active_unit()) {
         game.get_active_unit()->draw_on_viewport(piece_view_port);
     }
@@ -77,9 +78,6 @@ void Main_Screen::draw() {
     if (game.has_active_city()) {
         //this returns the production value from draw on viewport function, keeps everything the same
        game.get_active_city()->draw_on_viewport(city_view_port);
-//        std::cout << "player.prod: " << game.get_player().get_production() << std::endl;
-
-
         //buildmenu.grey_out(production);
         //draw the build menu and the cost
         buildmenu.draw();
@@ -253,12 +251,12 @@ void Main_Screen::process_move(Coordinate click) {
             }
 
 
-        }//end if has active player unit, so has no active unit, so set active tile and active unit
+        }
 
         else {
             select_tile(tile_clicked);
         }
-    }//do nothing if tile selected is not visible
+    }
     else {
 
         clear_active();
