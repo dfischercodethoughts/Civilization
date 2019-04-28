@@ -9,8 +9,47 @@ const std::string Game::MAP_FILENAME = "map.save";
 const std::string Game::CIVS_FILENAME = "civs.save";
 const std::string Game::TM_FILENAME = "tm.save";
 
+void Game::ai_build_building(City * c,Building_Name::names nm,std::mt19937 rand_gen) {
+    if (c->get_production() < Building_Name::get_production_cost(nm)) {
+        return;
+    }
+    else {
+        //pick a random tile that doesn't have a building on it
+        int ind_to_try = rand_gen() % c->get_tiles().size();
+        while (c->get_tiles()[ind_to_try]->has_building()) {
+            ind_to_try = rand_gen() % c->get_tiles().size();
+        }
+        //and build the given building there
+        c->get_tiles()[ind_to_try]->add_building(nm);
+        c->use_production(Building_Name::get_production_cost(nm));
+    }
+}
+
+void Game::ai_build_unit(City * c, Unit::Unit_Type un,std::mt19937 rand_gen) {
+    if (c->get_production() < Unit::get_production_cost(un)) {
+        return;
+    }
+    else {
+        //pick a random tile that doesn't have a unit on it
+        int ind_to_try = rand_gen() % c->get_tiles().size();
+        while (c->get_tiles()[ind_to_try]->has_unit()) {
+            ind_to_try = rand_gen() % c->get_tiles().size();
+        }
+        //and build the given unit there (add new unit to civilization, and to tile
+        Unit * u = new Unit(c->get_tiles()[ind_to_try]->get_id(),c->get_tiles()[ind_to_try]->get_center(),ai.get_name(),un);
+        u->refresh();
+        ai.add_unit(u);
+        c->get_tiles()[ind_to_try]->set_unit(ai.get_unit(ai.get_name(),c->get_tiles()[ind_to_try]->get_id()));
+        c->use_production(Unit::get_production_cost(un));
+    }
+}
+
 void Game::play_ai() {
     manager.set_current_phase(Turn_Phase::AI_TURN);
+
+    unsigned time_stamp = std::chrono::system_clock::now().time_since_epoch().count();
+    std::mt19937 generator(time_stamp);
+
     for (Unit * unit : ai.get_units()) {
         set_active_unit(*unit);
         bool moved=  false;
@@ -19,37 +58,84 @@ void Game::play_ai() {
         while (active_unit != nullptr && active_unit->get_current_movement() > 0) {
             std::vector<Tile *> *possible_moves = map.get_tiles_within_range(start_tile, unit->get_current_movement());
             for (Tile *tile : *possible_moves) {
-                //if there's a tile with an enemy unit on it: attack
-                if (tile->get_unit() != nullptr && tile->get_unit()->get_owner() == Civilization_Name::WESTEROS) {
-                    if (map.is_adjacent(*tile,*start_tile)) {
-
+                //if there's a tile with an enemy unit on it: attack, and the active unit is not a settler
+                if (active_unit->get_unit_type() != Unit::SETTLER && tile->get_unit() != nullptr &&
+                    tile->get_unit()->get_owner() == Civilization_Name::WESTEROS) {
+                    if (map.is_adjacent(*tile, *start_tile)) {
                         move_active_unit(*tile);
-                    }
-                    else {
+
+                    } else {
                         //enemy in range, but not on a tile adjacent to the warrior
                         //set active unit and move to tile closest to enemy
 
-                        move_active_unit(*map.get_closest_tile(start_tile,tile));
+                        move_active_unit(*map.get_closest_tile(start_tile, tile));
                         //if there's movement left (which there should be), attack the enemy
-                        if (active_unit -> get_current_movement() > 0) {
+                        if (active_unit->get_current_movement() > 0) {
                             move_active_unit(*tile);
                         }
                     }
                     moved = true;
                     break;
                 }
-
+            }
+             if (active_unit->get_unit_type() == Unit::SETTLER) {
+                //make sure there's not a city in range
+                bool settle = true;
+                std::vector<Tile *>* to_check = map.get_tiles_within_range(start_tile,SETTLE_AREA);
+                for (Tile * t : *to_check) {
+                    if (t->has_city()) {
+                        //if a tile in range has a city, move randomly to get away from it
+                        settle = false;
+                        break;
+                    }
+                }
+                if (settle) {
+                    //if there's no city within range, build a city
+                    ai.add_city(map, *map.get_tile_from_id(active_unit->get_location_id()));
+                    ai.remove_unit(&*active_unit);
+                    start_tile->clear_unit();
+                    moved = true;
+                    clear_active_unit();
+                }
             }
             if (!moved) {
-                //if it hasn't attacked, then move randomly
-                unsigned time_stamp = std::chrono::system_clock::now().time_since_epoch().count();
-                std::mt19937 generator(time_stamp);
+                //if it hasn't attacked or settled, then move randomly
+
                 int ind_to_move = generator() % (possible_moves->size());
                 move_active_unit(*possible_moves->at(ind_to_move));
             }
-           // set_active_unit()
+        }//end active unit movement
+    }//end ai unit loop
+
+    //loop through ai cities
+    for (City * c : ai.get_cities()) {
+        set_active_city(*c);
+        // if the city has less than five food gold or production output, save up until we can
+        //buy the appropriate building
+        if (c->get_food_output() <= 5) {
+            ai_build_building(c,Building_Name::FARM,generator);
         }
+        else if (c->get_production_output() <= 5) {
+            ai_build_building(c,Building_Name::MINE,generator);
+        }
+        else if (c->get_gold_output() <= 5) {
+            ai_build_building(c,Building_Name::MARKET,generator);
+        }
+        //else if the ai has fewer than (numcities^2) units, save to buy units
+        else if (ai.get_units().size() < (ai.get_cities().size()^2)) {
+            //for now, just build warriors
+            ai_build_unit(c,Unit::WARRIOR,generator);
+        }
+        else {
+            //else save up for settler
+            ai_build_unit(c,Unit::SETTLER,generator);
+        }
+
     }
+
+
+
+
 }
 
 void Game::save_map() {
@@ -224,7 +310,9 @@ Game::Game(long width, long height, long vecw, long vech) {
 
     ai = Civilization("Night King",true);
 
-    to_add = new Unit(map.get_tile_from_vector_coordinates(Coordinate(vecw-1,vech-1))->get_id(),ai.get_name(),Unit::WARRIOR);
+    to_add = new Unit(map.get_tile_from_vector_coordinates(Coordinate(vecw-1,vech-2))->get_id(),ai.get_name(),Unit::WARRIOR);
+    ai.add_unit(&*to_add);
+    to_add = new Unit(map.get_tile_from_vector_coordinates(Coordinate(vecw-1,vech-1))->get_id(),ai.get_name(),Unit::SETTLER);
     ai.add_unit(&*to_add);
     map.get_tile_from_id(to_add->get_location_id())->set_unit(ai.get_unit(Civilization_Name::NIGHT_KING,to_add->get_location_id()));
     //player.add_unit(Unit::WARRIOR,*map.get_tile_from_vector_coordinates({0,0}));

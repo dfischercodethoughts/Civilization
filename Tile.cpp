@@ -668,11 +668,14 @@ void Tile::draw_on_viewport(Square viewport_base) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
     }
 
-    glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3+viewport_base.get_height()/4);
-    line = "BUILDING: "+Building_Name::building_name_to_string(building.get_name());
-    for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+    if (has_building()) {
+        glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
+        glRasterPos2i(tl.x + viewport_base.get_width() / 28,
+                      tl.y + viewport_base.get_height() / 3 + viewport_base.get_height() / 4);
+        line = "BUILDING: " + Building_Name::building_name_to_string(building.get_name());
+        for (char c : line) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+        }
     }
 
     if (has_owner()) {

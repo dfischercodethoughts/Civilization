@@ -150,71 +150,7 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
     }
 
     else if (game.has_active_city()) {
-        //if click is on the build menu
-        if (buildmenu.check_click(click)) {
-            game.clear_build_building();
-            game.clear_build_unit();
-            //returns the string of the build_menu sqaure clicked
-            //also colors the squares based on the selected one
-            //also checks production value and does nothing if active city does not have enough production
-            std::string to_build = buildmenu.ret_build_name(click,game.get_active_city()->get_production());
-            Building_Name::names blding = Building_Name::string_to_building_name(to_build);
-            Unit::Unit_Type unit = Unit::string_to_unit_type(to_build);
-
-            //if the blding in the menu selected is a unit (aka == none when run against the string to building name)
-            if(unit != Unit::NONE){
-                Unit *  new_unit = new Unit();
-                new_unit->set_unit_type(unit);
-                new_unit->refresh();
-                game.set_build_unit(*new_unit);
-
-                //otherwise it's a building name
-            }else if (blding != Building_Name::NONE) {
-
-                Building *new_building = new Building(blding);
-                game.set_build_building(*new_building);
-
-               // std::cout << game.get_build_building().building_to_string(game.get_build_building().get_name()) << std::endl;
-            }
-
-            //if the cost of the square clicked is less than the amount of production the active city has
-            //make the appropriate unit or building (internally), and set it to the appropriate build pointer in game
-
-        }
-        else if (game_view_port.check_click(click) && game.has_build_piece()) {
-            //it seg faults with the cout on line 172 and the one below both being called. The one in the middle shows a change
-            //uncomment this one and comment the one on 172 out or it will seg fault
-            //std::cout << game.get_build_building().building_to_string(game.get_build_building().get_name()) << std::endl;
-
-            Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
-
-            std::vector<Tile *> city_tiles;
-           city_tiles = game.get_active_city()->get_tiles();
-            for(int i = 0; i < city_tiles.size(); i++){
-                if(*tile_clicked == *city_tiles[i]){
-                    if(game.has_build_unit()) {
-                        game.add_unit(Civilization_Name::WESTEROS,&*game.get_build_unit(),tile_clicked);
-                    }
-                    else if (game.has_build_building()) {
-                        game.get_active_city()->use_production(Building_Name::get_production_cost(game.get_build_building().get_name()));
-                        tile_clicked->add_building(game.get_build_building().get_name());
-                    }
-               }
-            }
-            buildmenu.all_squares_white();
-            clear_active();
-            //clear_active();
-            //else if click is on the game viewport and there's a building or unit to build
-            //if tile clicked is within the tiles that the city controls, try to build the building or
-            //unit selected on the tile clicked
-            //clear all active
-        }
-        else if (game_view_port.check_click(click)) {
-            buildmenu.all_squares_white();
-            //else if click is on game viewport and there is no building or unit to build
-            //go to move unit/select tile logic
-            process_move(click);
-        }
+        process_build(click);
 
     }
     else if(game_view_port.check_click(click) || build_city_button.check_click(click)) {//there is no active city and click is on game port
@@ -289,7 +225,72 @@ void Main_Screen::process_move(Coordinate click) {
 }
 
 void Main_Screen::process_build(Coordinate click) {
+    //if click is on the build menu
+    if (buildmenu.check_click(click)) {
+        game.clear_build_building();
+        game.clear_build_unit();
+        //returns the string of the build_menu sqaure clicked
+        //also colors the squares based on the selected one
+        //also checks production value and does nothing if active city does not have enough production
+        std::string to_build = buildmenu.ret_build_name(click,game.get_active_city()->get_production());
+        Building_Name::names blding = Building_Name::string_to_building_name(to_build);
+        Unit::Unit_Type unit = Unit::string_to_unit_type(to_build);
 
+        //if the blding in the menu selected is a unit (aka == none when run against the string to building name)
+        if(unit != Unit::NONE){
+            Unit *  new_unit = new Unit();
+            new_unit->set_unit_type(unit);
+            new_unit->refresh();
+            game.set_build_unit(*new_unit);
+
+            //otherwise it's a building name
+        }else if (blding != Building_Name::NONE) {
+
+            Building *new_building = new Building(blding);
+            game.set_build_building(*new_building);
+
+            // std::cout << game.get_build_building().building_to_string(game.get_build_building().get_name()) << std::endl;
+        }
+
+        //if the cost of the square clicked is less than the amount of production the active city has
+        //make the appropriate unit or building (internally), and set it to the appropriate build pointer in game
+
+    }
+    else if (game_view_port.check_click(click) && game.has_build_piece()) {
+        //it seg faults with the cout on line 172 and the one below both being called. The one in the middle shows a change
+        //uncomment this one and comment the one on 172 out or it will seg fault
+        //std::cout << game.get_build_building().building_to_string(game.get_build_building().get_name()) << std::endl;
+
+        Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
+
+        std::vector<Tile *> city_tiles;
+        city_tiles = game.get_active_city()->get_tiles();
+        for(int i = 0; i < city_tiles.size(); i++){
+            if(*tile_clicked == *city_tiles[i]){
+                if(game.has_build_unit()) {
+                    game.add_unit(Civilization_Name::WESTEROS,&*game.get_build_unit(),tile_clicked);
+                }
+                else if (game.has_build_building()) {
+                    game.get_active_city()->use_production(Building_Name::get_production_cost(game.get_build_building().get_name()));
+                    tile_clicked->add_building(game.get_build_building().get_name());
+                }
+            }
+        }
+        buildmenu.all_squares_white();
+        clear_active();
+        //clear_active();
+        //else if click is on the game viewport and there's a building or unit to build
+        //if tile clicked is within the tiles that the city controls, try to build the building or
+        //unit selected on the tile clicked
+        //clear all active
+    }
+    else if (game_view_port.check_click(click)) {
+        buildmenu.all_squares_white();
+        //else if click is on game viewport and there is no building or unit to build
+        //go to move unit/select tile logic
+        process_move(click);
+    }
+/*
     Tile *tile_clicked = &*game.get_map().get_tile_from_click(click);
 
     if (tile_clicked!= nullptr && tile_clicked->is_visible()) {
@@ -298,7 +299,7 @@ void Main_Screen::process_build(Coordinate click) {
     } else {
         clear_active();
     }
-    /**
+
      * logic to come
      * in pseudo code
      * if a city is selected and has something to place, then if the click is on the game viewport

@@ -10,6 +10,13 @@
 #include <vector>
 #include <set>
 
+/**
+ * city class is owned by civilization
+ * can grow, and has a production pool as well as a food pool, as well as a population level. It has a vector of tile pointers to tiles
+ *      under its influence. has a pointer to its home tile
+ * previous functionality included a production type, so the city had a production, and would work on it until it was completed,
+ *      similar to the video game
+ */
 class City {
 private:
     enum production_type {
@@ -33,6 +40,7 @@ private:
     std::set<Tile *> tiles;
     Tile * home_tile;
 
+    //increases population by one
     void increment_population();
 
 public:
@@ -41,30 +49,50 @@ public:
     City(City * c);
     explicit City(Tile & home);
 
+    //name getters and setters
     std::string get_name() const;
     void set_name(std::string newname);
 
+    //ready to grow getters
     bool is_ready_to_grow() const;
     bool get_ready_to_grow() const;
 
+    /*
+     * @return amount the city makes of each resource per turn
+     */
     int get_production_output() const;
     int get_food_output() const;
     int get_gold_output() const;
 
+    //property pool getters
     int get_population() const;
     int get_production() const;
+    //uses a certain amount of production; does not set production less than 0
     void use_production(int to_use);
     int get_food() const;
 
+    //returns essentially a tuple structure with the amount of food, gold and production produced by the city
     Tile_Output get_output() const;
 
+    /**
+     * tiles under city's control getters
+     * @return tiles
+     */
     std::vector<Tile *> get_tiles();
     void add_tiles(std::vector<Tile*> & to_add);
 
     std::vector<const Tile *> get_tiles_const() const;
 
+    /**
+     * iterates through tiles in control and updates resource pools based on tile attributes
+     *      uses tile::get_output()
+     * @return tile output with total amount of city's
+     */
     Tile_Output collect_resources();
 
+    /**
+     * home tile getter and setter
+     */
     Tile * get_home_tile() const;
     void set_home_tile(Tile & newt);
 
@@ -75,6 +103,7 @@ public:
     //flips is ready to grow, sets food to zero, and adds given tiles
     void grow(std::vector<Tile *> tiles);
 
+    //draws city information on top of white square copied from square given
     void draw_on_viewport(Square sq);
 
 

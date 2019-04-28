@@ -12,7 +12,9 @@
 
 
 
-//todo: fix seg fault (game view port edges diff from actual map edges)
+/**
+ * main screen is the screen that holds the main game
+ */
 class Main_Screen : public Screen {
 public:
     enum Main_Options {
@@ -52,24 +54,55 @@ private:
     Square city_view_port;
 
 public:
+    /**
+     * constructors call init
+     */
     Main_Screen();
     Main_Screen(int h, int w, int vecx, int vecy);
 
+    /**
+     * sets all the squares used in the main game based on input height and width
+     *  giving vector x and vector y coordinates allows you to choose how many tiles the game board has
+     * @param h
+     * @param w
+     */
     void init(int h, int w) override;
     void init(int h, int w,int vecx, int vecy);
 
-
+    /**
+     *
+     */
     void draw() override;
+
+    /**
+     * @return screen type::main
+     */
     names get_type() const override;
 
+    /**
+     * clears active pointers in game (sets to nullptr)
+     */
     void clear_active();
 
+    /**
+     * processes a click
+     * rather complex logic
+     * @param click
+     * @return
+     */
     menu_options check_click(Coordinate click) override;
 
+    /**
+     * @returns the string name of the winner or NONE
+     */
     std::string check_winner();
 
+    /**
+     * process click and process build logic
+     * @param click
+     */
     void process_move(Coordinate click);
-    void process_build(Coordinate click);//todo: add process_build logic
+    void process_build(Coordinate click);
 
     /**
      * sets active tile, and unit if applicable.

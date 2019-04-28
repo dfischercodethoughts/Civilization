@@ -7,6 +7,9 @@
 
 #include <string>
 
+/**
+ * basic enum holder for civilization names
+ */
 struct Civilization_Name {
     enum Names {
         WESTEROS,

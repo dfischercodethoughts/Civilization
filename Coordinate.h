@@ -7,6 +7,9 @@
 
 #include <iostream>
 
+/**
+ * low level coordinate structure has public x and y values
+ */
 struct Coordinate {
 public:
     int x,y;

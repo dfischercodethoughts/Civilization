@@ -7,6 +7,9 @@
 
 #include <fstream>
 
+/**
+ * low level color structure. Not used as much, now that textures are working
+ */
 class Color {
 private:
     int r, g, b;

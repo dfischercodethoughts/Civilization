@@ -331,57 +331,6 @@ void Civilization::grow_cities(Map & m) {
     }
 }
 
-bool Civilization::produce_building(Tile &to_build_upon, Building_Name::names blding) {
-    for (City c : cities) {
-        for (Tile *tmp : c.get_tiles()) {
-            if (*tmp == to_build_upon) {
-                to_build_upon.add_building(blding);
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-bool Civilization::produce_building(Tile * to_build_upon, Building_Name::names blding) {
-    for (City c : cities) {
-        for (Tile *tmp : c.get_tiles()) {
-            if (*tmp == to_build_upon) {
-                to_build_upon->add_building(blding);
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-bool Civilization::produce_unit(Tile & to_build_upon,Unit::Unit_Type u) {
-    for (City c : cities) {
-        for (Tile *tmp : c.get_tiles()) {
-            if (*tmp == to_build_upon) {
-                units.emplace_back(Unit(to_build_upon.get_id(),to_build_upon.get_center(),name,u));
-                to_build_upon.set_unit(&*get_unit(name,to_build_upon.get_id()));
-                return true;
-            }
-        }
-    }
-    return false;
-
-}
-
-bool Civilization::produce_unit(Tile *to_build_upon, Unit::Unit_Type unit) {
-    for (City c : cities) {
-        for (Tile *tmp : c.get_tiles()) {
-            if (*tmp == to_build_upon) {
-                units.emplace_back(Unit(to_build_upon->get_id(),to_build_upon->get_center(),name,unit));
-                to_build_upon->set_unit(&*get_unit(name,to_build_upon->get_id()));
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
 Civilization & Civilization::operator=(Civilization const &rh) {
     gold = rh.get_gold();
     production = rh.get_production();

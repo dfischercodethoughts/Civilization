@@ -288,70 +288,7 @@ std::set<Tile *>& Map::get_tiles_driver(std::set<Tile*> &cur_list,Tile & start, 
         if (btm_rt != nullptr) {
             get_tiles_driver(cur_list,*btm_rt,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
         }
-/** old logic
-        if (vec. x > 0 && vec.y > 0) {
-            if(btm_lf != nullptr) {
-                get_tiles_driver(cur_list, *btm_lf, move_left - Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-            if (left != nullptr) {
-                get_tiles_driver(cur_list, *left, move_left - Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-            if (top_lf != nullptr) {
-                get_tiles_driver(cur_list,*top_lf,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-            if (btm != nullptr) {
-                get_tiles_driver(cur_list,*btm,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-            if (top != nullptr) {
-                get_tiles_driver(cur_list,*top,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-            if (top_rt != nullptr) {
-                get_tiles_driver(cur_list,*top_rt,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-            if (rt != nullptr) {
-                get_tiles_driver(cur_list,*rt,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-            if (btm_rt != nullptr) {
-                get_tiles_driver(cur_list,*btm_rt,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-        }
-        else if (vec.x > 0 ) {
-            if (left != nullptr) {
-                get_tiles_driver(cur_list,*left,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-            if (top_lf != nullptr) {
-                get_tiles_driver(cur_list,*top_lf,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-            if (top != nullptr) {
-                get_tiles_driver(cur_list,*top,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-            if (top_rt != nullptr) {
-                get_tiles_driver(cur_list,*top_rt,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-            if (rt != nullptr) {
-                get_tiles_driver(cur_list,*rt,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
 
-        }
-        else if (vec.y > 0 ) {
-
-            if (btm != nullptr) {
-                get_tiles_driver(cur_list,*btm,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-            if (top != nullptr) {
-                get_tiles_driver(cur_list,*top,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-            if (top_rt != nullptr) {
-                get_tiles_driver(cur_list,*top_rt,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-            if (rt != nullptr) {
-                get_tiles_driver(cur_list,*rt,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-            if (btm_rt != nullptr) {
-                get_tiles_driver(cur_list,*btm_rt,move_left-Tile_Terrain::get_movement_cost(start.get_terrain()));
-            }
-
-        }*/
     }
     return cur_list;
 }
