@@ -265,16 +265,19 @@ bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
     for (Tile * t : *possible_tiles) {
         if (*move_to == *t) {//tile selected is within movement range of the unit
             Unit *unit = get_unit(name, move_from->get_id());
-            unit->use_movement(map->get_move_cost(move_from,move_to));
-            unit->set_location(move_to->get_id());
-            unit->set_center(move_to->get_center());
-            //set move to tile unit; use move to's id since we already updated unit's location
-            move_to->set_unit(*unit);
-            move_from->clear_unit();
-            move_from->draw();
-            move_to->draw();
+            if ((t->get_terrain() == Tile_Terrain::WATER && unit->get_unit_type() == Unit::BOAT) ||
+                    (t->get_terrain() != Tile_Terrain::WATER && unit->get_unit_type() != Unit::BOAT)) {
+                unit->use_movement(map->get_move_cost(move_from, move_to));
+                unit->set_location(move_to->get_id());
+                unit->set_center(move_to->get_center());
+                //set move to tile unit; use move to's id since we already updated unit's location
+                move_to->set_unit(*unit);
+                move_from->clear_unit();
+                move_from->draw();
+                move_to->draw();
 
-            return true;
+                return true;
+            }
         }
     }
 
