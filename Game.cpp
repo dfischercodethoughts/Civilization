@@ -204,7 +204,9 @@ Game::Game() {
 
 Game::Game(long width, long height, long vecw, long vech) {
 
-    map = Map(height,width,vecw,vech,MAP_X_OFF,MAP_Y_OFF);
+   // map = Map(height,width,vecw,vech,MAP_X_OFF,MAP_Y_OFF); //default constructor
+    map = Map();
+    map.random_init(height, width,vecw,vech);
     buildmenu = Build_Menu(height, width);
     player = Civilization("Westeros",false);
     Unit * to_add = new Unit(map.get_tile_from_vector_coordinates(Coordinate(0,1))->get_id(),player.get_name(),Unit::WARRIOR);
@@ -418,7 +420,9 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
                         active_unit->get_unit_type());
                 to_move_to.set_unit(ai.get_unit(Civilization_Name::NIGHT_KING, to_move_to.get_id()));
                 Unit *pu = player.get_unit(Civilization_Name::WESTEROS, active_unit->get_location_id());
-                pu->cause_damage(to_move_to.get_unit()->get_unit_type());
+                if (pu->get_unit_type() != Unit::ARCHER) {
+                    pu->cause_damage(to_move_to.get_unit()->get_unit_type());
+                }
                 //if attack destroys defender, remove it from tile (still need to remove from civilization, done in game::process click)
                 if (to_move_to.get_unit()->get_current_health() <= 0) {
                     to_move_to.clear_unit();
@@ -436,7 +440,8 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
 
             }
             return false;//unit on tile to move to means unit didn't actually move (even if it did attack)
-        } else if (player.move_unit(&map, active_unit->get_location_id(), to_move_to.get_id())) {
+        }//end tile to move to has unit
+        else if (player.move_unit(&map, active_unit->get_location_id(), to_move_to.get_id())) {
             reveal_unit(to_move_to.get_unit());
             return true;
         }

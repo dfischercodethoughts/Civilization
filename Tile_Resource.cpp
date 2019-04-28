@@ -45,3 +45,33 @@ Tile_Resource::names Tile_Resource::string_to_resource(std::string res) {
     }
 }
 
+float Tile_Resource::get_resource_probability(Tile_Resource::names res) {
+    switch (res) {
+        case (Tile_Resource::SILVER): {
+            return .05;
+        }
+        case (Tile_Resource::GOLD): {
+            return .05;
+        }
+        case (Tile_Resource::STONE): {
+            return .1;
+        }
+        case (Tile_Resource::WHEAT): {
+            return .25;
+        }
+        case (Tile_Resource::GAZELLE): {
+            return .15;
+        }
+        case (Tile_Resource::WOODS): {
+            return .2;
+        }
+        case (Tile_Resource::IRON): {
+            return .1;
+        }
+        case (Tile_Resource::FISH): {
+            return .1;
+        }
+        default:
+            return 0;
+    }
+}

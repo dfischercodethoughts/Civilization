@@ -5,7 +5,8 @@
 //
 
 #include "Main_Screen.h"
-Main_Screen::Main_Screen() {
+Main_Screen::Main_Screen()
+{
     game = Game();
     next_turn = Square();
     next_phase = Square();
@@ -75,7 +76,7 @@ void Main_Screen::init(int h, int w,int x, int y) {
     game_view_port = Square({3*w/8,3*h/8},Colors::WHITE,3*h/4,3*w/4,false);
     piece_view_port = Square({7*w/8,1*h/8},Colors::WHITE,Colors::BLACK,2*h/8,w/4,"UNIT INFO",true);
     piece_view_port.set_y_offset(-3*h/16);
-    tile_view_port = Square({11*w/16-5,7*h/8},Colors::WHITE,Colors::BLACK,h/4,w/8,"TILE INFO",true);
+    tile_view_port = Square({11*w/16-5,7*h/8},Colors::WHITE,Colors::BLACK,h/5,w/8,"TILE INFO",true);
     tile_view_port.set_y_offset(-6*h/64);
     tile_view_port.set_x_offset(tile_view_port.get_x_offset()-20);
     tile_view_port.set_text_size(Square::MEDIUM);
@@ -113,9 +114,6 @@ void Main_Screen::draw() {
 
     }
 }
-
-
-
 
 
 
@@ -234,13 +232,14 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
                 Tile *settler_tile = game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id());
                 game.build_city(Civilization_Name::WESTEROS, *settler_tile);//building a city destroys the settler
                 game.reveal();
+                build_city_button.hide();
             }
         }
 
         process_move(click);
     }
 
-
+    return Screen::NONE;
 }
 
 std::string Main_Screen::check_winner() {
@@ -263,35 +262,20 @@ void Main_Screen::process_move(Coordinate click) {
 
             if (unit->get_owner() == Civilization_Name::WESTEROS) {
                 if (unit->get_current_movement() > 0) {
-                    if (unit->get_unit_type() == Unit::ARCHER) {
-                        //get tile and get tiles available to move to with a range of 2
-                        if (tile_clicked->has_unit()) {
-                            std::vector<Tile *> *tiles_in_range = game.get_map().get_tiles_within_range(
-                                    game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id()), 2);
-                            for (int i = 0; i < tiles_in_range->size(); i++) {
-                                if (*((*tiles_in_range)[i]) == *tile_clicked) {
-                                    //cause archer damage on unit
-                                    tile_clicked->get_unit()->cause_damage(Unit::ARCHER);
-                                    break;
-                                }
-                            }
-                        }
-                    } else if (unit->get_unit_type() == Unit::BOAT) {//is a non archer unit
+                    if (unit->get_unit_type() == Unit::BOAT) {//todo: implement boat movement
                         //implement boat move/attack
                     } else {
-                        //only do stuff if tile selected is right next to tile of unit
-                        if (game.get_map().is_adjacent(*tile_clicked,
-                                                       *game.get_map().get_tile_from_id(unit->get_location_id()))) {
-                            //call game move unit method
-                            if (game.move_active_unit(*tile_clicked)) {
-                                //clear unit from active tile
-                                game.get_active_tile()->clear_unit();
-                                //redraw active tile
-                                game.get_active_tile()->draw();
 
-                            }
+                        //call game move unit method, which causes damage, and handles terrain type
+                        if (game.move_active_unit(*tile_clicked)) {
+                            //clear unit from active tile
+                            game.get_active_tile()->clear_unit();
+                            //redraw active tile
+                            game.get_active_tile()->draw();
 
                         }
+
+
                     }//end unit type cases
                     clear_active();
                 }//end if unit has movement

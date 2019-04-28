@@ -72,21 +72,70 @@ void Map::random_init(int h, int w, int numx, int numy)
             count +=1;
             //randomly generate tile
 
-            float rand = float(rand_gen())/std::mt19937::max();
+            float rand1 = float(rand_gen())/std::mt19937::max();
+            float rand2 = float(rand_gen())/std::mt19937::max();
             Tile_Terrain::names ter;
             Tile_Resource::names res;
-            if (rand >0 && rand <=.1) {
+            if (rand1 >0 && rand1 <=.1) {
                 ter = Tile_Terrain::WATER;
+                if (rand2 > 0 && rand2 < 0.5) {
+                    res = Tile_Resource::FISH;
+                }
             }
-            else if ( rand <= .5) {
+            else if ( rand1 <= .5) {
                 ter = Tile_Terrain::GRASSLAND;
-            }
-            else if (rand <.8) {
-                ter = Tile_Terrain::HILL;
-            }
-            else if (rand)
+                if (rand2 > 0.0 && rand2 < 0.2) {
+                    res = Tile_Resource::GAZELLE;
+                }
+                else if (rand2 < .5) {
+                    res = Tile_Resource::WOODS;
+                }
+                else if (rand2 < .7) {
+                    res = Tile_Resource::STONE;
+                }
+                else {
+                    res = Tile_Resource::WHEAT;
+                }
 
-            tiles[i].emplace_back( Tile({i*tile_width+tile_width/2+this->get_x_offset(),j*tile_height+tile_height/2+this->get_y_offset()},tile_height,tile_width,Color(255,255,255),Color(0,0,0),Tile_Terrain::GRASSLAND,Tile_Resource::WHEAT,count));
+            }
+            else if (rand1 <.8) {
+                ter = Tile_Terrain::HILL;
+                if (rand2 > 0.0 && rand2 < 0.05) {
+                    res = Tile_Resource::GOLD;
+                }
+                else if (rand2 < 0.15) {
+                    res = Tile_Resource::SILVER;
+                }
+                else if (rand2 < 0.2) {
+                    res = Tile_Resource::GAZELLE;
+                }
+                else if (rand2 < .5) {
+                    res = Tile_Resource::STONE;
+                }
+                else if (rand2 < .7) {
+                    res = Tile_Resource::IRON;
+                }
+                else {
+                    res = Tile_Resource::WOODS;
+                }
+            }
+            else {
+                ter = Tile_Terrain::MOUNTAIN;
+                if (rand2 >0.0 && rand2 < .2) {
+                    res = Tile_Resource::SILVER;
+                }
+                else if (rand2 < .4) {
+                    res = Tile_Resource::GOLD;
+                }
+                else if (rand2 < .7) {
+                    res = Tile_Resource::IRON;
+                }
+                else {
+                    res = Tile_Resource::STONE;
+                }
+            }
+
+            tiles[i].emplace_back( Tile({i*tile_width+tile_width/2+this->get_x_offset(),j*tile_height+tile_height/2+this->get_y_offset()},tile_height,tile_width,Color(255,255,255),Color(0,0,0),ter,res,count));
         }
     }
 }
@@ -425,7 +474,7 @@ void Map::reveal_units(std::vector<Unit *> units) {
 
 void Map::reveal_unit(Unit * unit) {
     std::vector<Tile *> *rev = get_tiles_within_range(get_tile_from_id(unit->get_location_id()),
-                                                      unit->get_max_movement(unit->get_unit_type()));
+                                                      unit->get_max_movement(unit->get_unit_type())-1);
     make_visible(*rev);
 }
 
