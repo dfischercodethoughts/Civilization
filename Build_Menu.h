@@ -39,7 +39,9 @@ private:
     Square unit_square_5;
     Square unit_square_6;
 public:
+    //base buildmenu
     Build_Menu();
+    //specifiied build menu
     Build_Menu(int h, int w);
     void set_selected_square(Square sq);
     Square get_selected_square();
@@ -49,12 +51,11 @@ public:
 //    void compare_selected_square(Square sq);
 //    void selected_build_color(Game &game);
     void all_squares_white();
-    void grey_out(int prod_val);
+    void print_production_cost_building(Square sq, Building_Name::names nm) const;
+    void print_production_cost_unit(Square sq, Unit::Unit_Type type) const;
+    int grey_out(int prod_val);
     Square return_square(std::string str);
     std::string ret_build_name(Coordinate click, int prod);
-
-//        if ()
-//    }
 
 
 };

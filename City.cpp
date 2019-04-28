@@ -65,6 +65,10 @@ bool City::is_ready_to_grow() const {
 bool City::get_ready_to_grow() const {
     return ready_to_grow;
 }
+void City::set_production(int prod) {
+    production = prod;
+}
+
 /*
 std::string City::get_production_item() const {
     switch (prod_type) {
@@ -270,6 +274,7 @@ void City::draw_on_viewport(Square sq) {
     for (char c : line) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
     }
+
 
     /**alternate production method
      *

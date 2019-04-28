@@ -37,6 +37,8 @@ public:
     friend std::ostream & operator<<(std::ostream & outs, const Building & print);
     friend std::istream & operator>>(std::istream & ins, Building & fill);
 
+    int get_building_prod_cost();
+
     std::string building_to_string(Building_Name::names nm);
 
     int get_upkeep(Building_Name::names nm);

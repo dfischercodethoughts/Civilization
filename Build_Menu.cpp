@@ -4,7 +4,7 @@
 
 #include "Build_Menu.h"
 
-
+//default build menu creator
 Build_Menu::Build_Menu(){
     selected_square = nullptr;
 
@@ -26,36 +26,56 @@ Build_Menu::Build_Menu(){
 }
 
 
-
+//lets youspecify all the good stuff about it
 Build_Menu::Build_Menu(int h, int w) : Square({6*w/2, 83*h/80}, Colors::WHITE, Colors::WHITE, h/4,3*w, "", true){
     selected_square = nullptr;
 
     build_square_1 = Square({4*w/2,77*h/80},Colors::WHITE,Colors::BLACK,h/20,w/2,"HARBOR",true);
+
     build_square_2 = Square({4*w/2,81*h/80},Colors::WHITE,Colors::BLACK,h/20,w/2,"LOGGING CAMP",true);
+
     build_square_3 = Square({4*w/2,85*h/80},Colors::WHITE,Colors::BLACK,h/20,w/2,"FARM",true);
+
     build_square_4 = Square({4*w/2,89*h/80},Colors::WHITE,Colors::BLACK,h/20,w/2,"MINE",true);
+
     build_square_5 = Square({5*w/2,77*h/80},Colors::WHITE,Colors::BLACK,h/20,w/2,"TRADING POST",true);
+
     build_square_6 = Square({5*w/2,81*h/80},Colors::WHITE,Colors::BLACK,h/20,w/2,"WORKSHOP",true);
+
     build_square_7 = Square({5*w/2,85*h/80},Colors::WHITE,Colors::BLACK,h/20,w/2,"MARKET",true);
+
     build_square_8 = Square({5*w/2,89*h/80},Colors::WHITE,Colors::BLACK,h/20,w/2,"BARRACKS",true);
 
+
     unit_square_1 = Square({7*w/2,77*h/80},Colors::WHITE,Colors::BLACK,h/15,w/2,"BOAT",true);
+
     unit_square_2 = Square({7*w/2,83*h/80},Colors::WHITE,Colors::BLACK,h/15,w/2,"WARRIOR",true);
+
     unit_square_3 = Square({7*w/2,89*h/80},Colors::WHITE,Colors::BLACK,h/15,w/2,"ARCHER",true);
+
     unit_square_4 = Square({8*w/2,77*h/80},Colors::WHITE,Colors::BLACK,h/15,w/2,"HORSEMAN",true);
+
     unit_square_5 = Square({8*w/2,83*h/80},Colors::WHITE,Colors::BLACK,h/15,w/2,"PLACE HOLD",true);
+
     unit_square_6 = Square({8*w/2,89*h/80},Colors::WHITE,Colors::BLACK,h/15,w/2,"PLACE HOLD",true);
+
 
 }
 
+//ould set the selectged square
 void Build_Menu::set_selected_square(Square sq){
     selected_square = &sq;
 
 }
+
+//returns selected square
 Square Build_Menu::get_selected_square(){
     return *selected_square;
 }
 
+
+//used this with the phase-manager, don't really need to anymore
+//just told the people to select a city
 void Build_Menu::no_active_city_draw(){
     glColor3f(Colors::WHITE.get_red(),Colors::WHITE.get_green(),Colors::WHITE.get_blue());
     glRasterPos2i(525,875);
@@ -65,12 +85,7 @@ void Build_Menu::no_active_city_draw(){
     }
 }
 
-//void Build_Menu::compare_selected_square(Square sq){
-//    if (sq == *selected_square){
-//        selected_square->set_fill(Colors::WHITE);
-//    }
-//}
-
+//og change to yellow function, now it's part of the ret_build_name
 void Build_Menu::change_active_color(Square sq){
     if(sq == *selected_square){
         sq.set_fill(Colors::YELLOW);
@@ -81,85 +96,8 @@ void Build_Menu::change_active_color(Square sq){
         selected_square = &sq;
     }
 }
-//void Build_Menu::selected_build_color(Game &game){
-//    if(game.has_build_piece()){
-//        if(game.has_build_unit()){
-//            Unit::Unit_Type type;
-//            type = game.get_build_unit().get_unit_type();
-//
-//            switch(type){
-//                case(Unit::Unit_Type::BOAT) : {
-//                    unit_square_1.set_fill(Colors::YELLOW);
-//                    break;
-//                }
-//                case(Unit::Unit_Type::WARRIOR) : {
-//                    unit_square_2.set_fill(Colors::YELLOW);
-//                    break;
-//                }
-//                case(Unit::Unit_Type::ARCHER) : {
-//                    unit_square_3.set_fill(Colors::YELLOW);
-//                    break;
-//                }
-//                case(Unit::Unit_Type::HORSEMAN) : {
-//                    unit_square_4.set_fill(Colors::YELLOW);
-//                    break;
-//                }
-//                case(Unit::Unit_Type::SETTLER) : {
-//                    break;
-//                }
-//                case(Unit::Unit_Type::SCOUT) : {
-//                    break;
-//                }
-//                case(Unit::Unit_Type::NONE) : {
-//                    break;
-//                }
-//            }
-//
-//        }else if(game.has_build_building()){
-//            Building_Name::names nm;
-//            nm = game.get_build_building().get_name();
-//            switch(nm){
-//                case(Building_Name::HARBOR) : {
-//                    build_square_1.set_fill(Colors::YELLOW);
-//                    break;
-//                }
-//                case(Building_Name::LOGGING_CAMP) : {
-//                    build_square_2.set_fill(Colors::YELLOW);
-//                    break;
-//                }
-//                case(Building_Name::FARM) : {
-//                    build_square_3.set_fill(Colors::YELLOW);
-//                    break;
-//                }
-//                case(Building_Name::MINE) : {
-//                    build_square_4.set_fill(Colors::YELLOW);
-//                    break;
-//                }
-//                case(Building_Name::TRADING_POST) : {
-//                    build_square_5.set_fill(Colors::YELLOW);
-//                    break;
-//                }
-//                case(Building_Name::WORKSHOP) : {
-//                    build_square_6.set_fill(Colors::YELLOW);
-//                    break;
-//                }
-//                case(Building_Name::MARKET) : {
-//                    build_square_7.set_fill(Colors::YELLOW);
-//                    break;
-//                }
-//                case(Building_Name::BARRACKS) : {
-//                    build_square_8.set_fill(Colors::YELLOW);
-//                    break;
-//                }
-//                case(Building_Name::NONE) : {
-//                    break;
-//                }
-//            }
-//
-//        }
-//    }
-//}
 
+//returns the build name along with changing the color of the selected square to yellow
 std::string Build_Menu::ret_build_name(Coordinate click, int prod){
     if(build_square_1.check_click(click) && prod >= Building_Name::get_production_cost(Building_Name::HARBOR)){
         if (selected_square != nullptr) {
@@ -271,6 +209,8 @@ std::string Build_Menu::ret_build_name(Coordinate click, int prod){
     }
 }
 
+
+//returns the square from a passed in string
 Square Build_Menu::return_square(std::string str){
     if(str == "HARBOR"){
         return build_square_1;
@@ -302,6 +242,7 @@ Square Build_Menu::return_square(std::string str){
 }
 
 
+//reset all sauares to white
 void Build_Menu::all_squares_white(){
     build_square_1.set_fill(Colors::WHITE);
     build_square_2.set_fill(Colors::WHITE);
@@ -320,58 +261,34 @@ void Build_Menu::all_squares_white(){
     unit_square_6.set_fill(Colors::WHITE);
 }
 
+
+//print the production cost of a building onto a square
+void Build_Menu::print_production_cost_building(Square sq, Building_Name::names nm) const{
+    std::string line = "Cost: " + std::to_string(Building_Name::get_production_cost(nm));
+    glColor3f(Colors::RED.get_red(),Colors::RED.get_green(),Colors::RED.get_blue());
+    glRasterPos2i(sq.get_center().x-sq.get_width()/2+sq.get_width()/7,sq.get_center().y-19*sq.get_height()/64);
+    for (char c : line) {
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,c);
+    }
+}
+
+//print the production cost of a unit onto a square (exact same thing as above)
+void Build_Menu::print_production_cost_unit(Square sq, Unit::Unit_Type type) const{
+    std::string line = "Cost: " + std::to_string(Unit::get_production_cost(type));
+    glColor3f(Colors::RED.get_red(),Colors::RED.get_green(),Colors::RED.get_blue());
+    glRasterPos2i(sq.get_center().x-sq.get_width()/2+sq.get_width()/7,sq.get_center().y-5*sq.get_height()/16);
+    for (char c : line) {
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10,c);
+    }
+}
+
 //go through, compare the prod_val (how much production the city has)
 //against the values of all of the squares
 //this would work better as an array/vector but for the sake of not messing anything up we hard coding
 //beige for now until I can figure out what grey is
-void Build_Menu::grey_out(int prod_val) {
-    //greater than 60 notihing needs to happen
-    if(prod_val >= 50 && prod_val < 60){
-        build_square_8.set_fill(Colors::BEIGE);
-
-        unit_square_5.set_fill(Colors::BEIGE);
-        unit_square_6.set_fill(Colors::BEIGE);
-    }else if(prod_val >= 40 && prod_val < 50){
-
-        build_square_6.set_fill(Colors::BEIGE);
-        build_square_7.set_fill(Colors::BEIGE);
-        build_square_8.set_fill(Colors::BEIGE);
-
-        unit_square_4.set_fill(Colors::BEIGE);
-        unit_square_5.set_fill(Colors::BEIGE);
-        unit_square_6.set_fill(Colors::BEIGE);
-    }else if(prod_val >= 30 && prod_val < 40){
-
-        build_square_3.set_fill(Colors::BEIGE);
-        build_square_4.set_fill(Colors::BEIGE);
-        build_square_5.set_fill(Colors::BEIGE);
-        build_square_6.set_fill(Colors::BEIGE);
-        build_square_7.set_fill(Colors::BEIGE);
-        build_square_8.set_fill(Colors::BEIGE);
-
-        unit_square_3.set_fill(Colors::BEIGE);
-        unit_square_4.set_fill(Colors::BEIGE);
-        unit_square_5.set_fill(Colors::BEIGE);
-        unit_square_6.set_fill(Colors::BEIGE);
-
-    }else if(prod_val >= 20 && prod_val < 30){
-
-        build_square_2.set_fill(Colors::BEIGE);
-        build_square_3.set_fill(Colors::BEIGE);
-        build_square_4.set_fill(Colors::BEIGE);
-        build_square_5.set_fill(Colors::BEIGE);
-        build_square_6.set_fill(Colors::BEIGE);
-        build_square_7.set_fill(Colors::BEIGE);
-        build_square_8.set_fill(Colors::BEIGE);
-
-        unit_square_2.set_fill(Colors::BEIGE);
-        unit_square_3.set_fill(Colors::BEIGE);
-        unit_square_4.set_fill(Colors::BEIGE);
-        unit_square_5.set_fill(Colors::BEIGE);
-        unit_square_6.set_fill(Colors::BEIGE);
-
-        //else it's less than 20 and nothing can be built
-    }else if(prod_val > 20){
+int Build_Menu::grey_out(int prod_val) {
+    //if production is less than 20, set all grey
+    if(prod_val < 20){
 
         build_square_1.set_fill(Colors::BEIGE);
         build_square_2.set_fill(Colors::BEIGE);
@@ -389,13 +306,71 @@ void Build_Menu::grey_out(int prod_val) {
         unit_square_5.set_fill(Colors::BEIGE);
         unit_square_6.set_fill(Colors::BEIGE);
 
+        return 0;
+
+        //else if production is between 20-29
+    }else if(prod_val > 19 && prod_val < 30){
+
+        build_square_2.set_fill(Colors::BEIGE);
+        build_square_3.set_fill(Colors::BEIGE);
+        build_square_4.set_fill(Colors::BEIGE);
+        build_square_5.set_fill(Colors::BEIGE);
+        build_square_6.set_fill(Colors::BEIGE);
+        build_square_7.set_fill(Colors::BEIGE);
+        build_square_8.set_fill(Colors::BEIGE);
+
+        unit_square_2.set_fill(Colors::BEIGE);
+        unit_square_3.set_fill(Colors::BEIGE);
+        unit_square_4.set_fill(Colors::BEIGE);
+        unit_square_5.set_fill(Colors::BEIGE);
+        unit_square_6.set_fill(Colors::BEIGE);
+
+        return 0;
+        //else if production is between 30-39
+    }else if(prod_val > 29 && prod_val < 40){
+
+        build_square_3.set_fill(Colors::BEIGE);
+        build_square_4.set_fill(Colors::BEIGE);
+        build_square_5.set_fill(Colors::BEIGE);
+        build_square_6.set_fill(Colors::BEIGE);
+        build_square_7.set_fill(Colors::BEIGE);
+        build_square_8.set_fill(Colors::BEIGE);
+
+        unit_square_3.set_fill(Colors::BEIGE);
+        unit_square_4.set_fill(Colors::BEIGE);
+        unit_square_5.set_fill(Colors::BEIGE);
+        unit_square_6.set_fill(Colors::BEIGE);
+
+        return 0;
+
+        //else if production is between 40-49
+    }else if(prod_val > 39 && prod_val < 50){
+
+        build_square_6.set_fill(Colors::BEIGE);
+        build_square_7.set_fill(Colors::BEIGE);
+        build_square_8.set_fill(Colors::BEIGE);
+
+        unit_square_4.set_fill(Colors::BEIGE);
+        unit_square_5.set_fill(Colors::BEIGE);
+        unit_square_6.set_fill(Colors::BEIGE);
+
+        return 0;
     }
+        //else if production is between 50-59
+    else if(prod_val > 49 && prod_val < 60){
+        build_square_8.set_fill(Colors::BEIGE);
 
+        unit_square_5.set_fill(Colors::BEIGE);
+        unit_square_6.set_fill(Colors::BEIGE);
 
-
-
+        return 0;
+        //else production is greater than 60, all units are white
+    }else{
+        return 0;
+    }
 }
 
+//draws the build menu and the cost on top of the square
 void Build_Menu::draw() const {
     build_square_1.draw();
     build_square_2.draw();
@@ -412,5 +387,26 @@ void Build_Menu::draw() const {
     unit_square_4.draw();
     unit_square_5.draw();
     unit_square_6.draw();
+
+    print_production_cost_building(build_square_1, Building_Name::HARBOR);
+    print_production_cost_building(build_square_2, Building_Name::LOGGING_CAMP);
+    print_production_cost_building(build_square_3, Building_Name::FARM);
+    print_production_cost_building(build_square_4, Building_Name::MINE);
+    print_production_cost_building(build_square_5, Building_Name::TRADING_POST);
+    print_production_cost_building(build_square_6, Building_Name::WORKSHOP);
+    print_production_cost_building(build_square_7, Building_Name::MARKET);
+    print_production_cost_building(build_square_8, Building_Name::BARRACKS);
+
+    print_production_cost_unit(unit_square_1, Unit::BOAT);
+    print_production_cost_unit(unit_square_2, Unit::WARRIOR);
+    print_production_cost_unit(unit_square_3, Unit::ARCHER);
+    print_production_cost_unit(unit_square_4, Unit::HORSEMAN);
+
+
+
+
+
+
+
 }
 

@@ -53,7 +53,7 @@ public:
     bool get_ready_to_grow() const;
 
      //std::string get_production_item() const;
-
+     void set_production(int prod);
 
     int get_production_output() const;
     int get_food_output() const;

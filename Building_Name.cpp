@@ -4,6 +4,7 @@
 
 #include "Building_Name.h"
 
+//returns the production cost of a specific building
 int Building_Name::get_production_cost(names n) {
     switch (n) {
         case (FARM) : {
@@ -45,6 +46,7 @@ int Building_Name::get_production_cost(names n) {
     return 0;
 }
 
+//takes in a building name and returns it as a string
 std::string Building_Name::building_name_to_string(Building_Name::names nm) {
     switch (nm) {
         case (FARM) : {
@@ -77,6 +79,7 @@ std::string Building_Name::building_name_to_string(Building_Name::names nm) {
     }
 }
 
+//returns the name of a building from a string of that building name
 Building_Name::names Building_Name::string_to_building_name(std::string nm) {
     std::string name = "";
     for (int i = 0; i < nm.size();i++) {
