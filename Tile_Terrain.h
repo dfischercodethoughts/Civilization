@@ -6,7 +6,9 @@
 
 #include <string>
 #include <algorithm>
-
+/**
+ * low level tile terrain struct holds the tile terrain names enum and helper methods
+ */
 struct Tile_Terrain{
 
 

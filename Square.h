@@ -14,6 +14,10 @@
 #include <GL/glut.h>
 #endif
 
+/**
+ * square is the base class for pieces, and all buttons on different screens
+ */
+
 class Square {
 public:
     enum Text_Size {
@@ -60,6 +64,7 @@ public:
     Color get_text_color() const;
     std::string get_message() const;
     bool is_visible() const;
+    //x and y offset are for text drawing
     int get_x_offset() const;
     int get_y_offset() const;
 
@@ -71,6 +76,7 @@ public:
     void set_message(std::string newm);
     void set_x_offset(int newxoff);
     void set_y_offset(int newyoff);
+    //is_visible setters
     void reveal();
     void hide();
 

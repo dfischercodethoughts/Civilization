@@ -258,6 +258,10 @@ bool Tile::has_city() const {
     return (city!=nullptr);
 }
 
+void Tile::remove_city() {
+    city = nullptr;
+}
+
 void Tile::set_base_square(Square set) {
     this->set_center(set.get_center());
     this->set_y_offset(set.get_y_offset());
@@ -354,6 +358,13 @@ bool Tile::add_building(Building_Name::names bld) {
                     built = true;
                     break;
                 }
+                case ( Tile_Terrain::MOUNTAIN) : {
+                    building = Building(bld);
+                    output.increment_production();
+                    output.increment_gold();
+                    built = true;
+                    break;
+                }
                 default : {
                     return false;
                 }
@@ -400,8 +411,10 @@ bool Tile::add_building(Building_Name::names bld) {
         }
         case (Building_Name::LOGGING_CAMP) : {
             if (resource == Tile_Resource::WOODS) {
+                building = Building(bld);
                 output.increment_production();
                 output.increment_production();
+                built = true;
             }
             else {
                 return false;
@@ -485,7 +498,6 @@ bool Tile::add_building(Building_Name::names bld) {
                 case (Tile_Terrain::HILL) : {
                     building = Building(bld);
                     output.increment_production();
-                    output.increment_production();
                     built = true;
                     break;
                 }
@@ -512,8 +524,8 @@ bool Tile::add_building(Building_Name::names bld) {
 }
 
 Tile_Output Tile::get_output() const {
-    if (has_unit() && unit->get_owner() != Civilization_Name::WESTEROS) {
-        return Tile_Output();
+    if (has_owner() && has_unit() && unit->get_owner() != owner) {
+        return *new Tile_Output();
     }
 
     return output;
@@ -668,11 +680,14 @@ void Tile::draw_on_viewport(Square viewport_base) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
     }
 
-    glColor3f(Colors::BLACK.get_red(),Colors::BLACK.get_green(),Colors::BLACK.get_blue());
-    glRasterPos2i(tl.x+viewport_base.get_width()/28,tl.y+viewport_base.get_height()/3+viewport_base.get_height()/4);
-    line = "BUILDING: "+Building_Name::building_name_to_string(building.get_name());
-    for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,c);
+    if (has_building()) {
+        glColor3f(Colors::BLACK.get_red(), Colors::BLACK.get_green(), Colors::BLACK.get_blue());
+        glRasterPos2i(tl.x + viewport_base.get_width() / 28,
+                      tl.y + viewport_base.get_height() / 3 + viewport_base.get_height() / 4);
+        line = "BUILDING: " + Building_Name::building_name_to_string(building.get_name());
+        for (char c : line) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+        }
     }
 
     if (has_owner()) {

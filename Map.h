@@ -48,6 +48,7 @@ public:
 
     std::vector<Tile &> & get_tiles_driver(std::vector<std::unique_ptr<Tile>> & cur_list, Tile &cur_tile, int move_left);
     std::set<Tile *> & get_tiles_driver(std::set<Tile*> & cur_list, Tile & cur_tile, int move_left);
+    std::vector<Tile *> *get_tiles_in_range_ignore_center(Tile * start, int move);
     std::vector<Tile *>* get_tiles_within_range(Tile *start, int movement);
 
     /**

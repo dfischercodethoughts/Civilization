@@ -118,6 +118,10 @@ int City::get_production() const{
     return production;
 }
 
+void City::use_production(int to_use) {
+    production = std::max(0,production - to_use);
+}
+
 int City::get_food() const {
     return food;
 }
@@ -251,30 +255,37 @@ void City::draw_on_viewport(Square sq) {
         glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,c);
     }
 
-    line = "PROD: " + std::to_string(production);
-    glRasterPos2i(sq.get_center().x-sq.get_width()/2+sq.get_width()/16,sq.get_center().y-sq.get_height()/8);
-    for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
-    }
+    if (home_tile->get_owner() == Civilization_Name::WESTEROS) {
 
-    line = "FOOD: " + std::to_string(food);
-    glRasterPos2i(sq.get_center().x-sq.get_width()/2+sq.get_width()/16,sq.get_center().y+sq.get_height()/8);
-    for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
-    }
 
-    line = "GOLD: " + std::to_string(get_gold_output());
-    glRasterPos2i(sq.get_center().x-sq.get_width()/2+sq.get_width()/16,sq.get_center().y+3*sq.get_height()/8);
-    for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
-    }
+        line = "PROD: " + std::to_string(production);
+        glRasterPos2i(sq.get_center().x - sq.get_width() / 2 + sq.get_width() / 16,
+                      sq.get_center().y - sq.get_height() / 8);
+        for (char c : line) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+        }
 
-    line = "POP: " + std::to_string(population);
-    glRasterPos2i(sq.get_center().x+sq.get_width()/16,sq.get_center().y-sq.get_height()/8);
-    for (char c : line) {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
-    }
+        line = "FOOD: " + std::to_string(food);
+        glRasterPos2i(sq.get_center().x - sq.get_width() / 2 + sq.get_width() / 16,
+                      sq.get_center().y + sq.get_height() / 8);
+        for (char c : line) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+        }
 
+        line = "GOLD: " + std::to_string(get_gold_output());
+        glRasterPos2i(sq.get_center().x - sq.get_width() / 2 + sq.get_width() / 16,
+                      sq.get_center().y + 3 * sq.get_height() / 8);
+        for (char c : line) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+        }
+
+
+        line = "POP: " + std::to_string(population);
+        glRasterPos2i(sq.get_center().x + sq.get_width() / 16, sq.get_center().y - sq.get_height() / 8);
+        for (char c : line) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+        }
+    }
 
     /**alternate production method
      *

@@ -14,7 +14,9 @@
 #include "Building_Name.h"
 #include "Tile_Resource.h"
 #include "Tile_Terrain.h"
-
+/**
+ * low level tuple structure to hold production food and gold output of a tile
+ */
 class Tile_Output {
 
     private:

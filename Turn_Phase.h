@@ -6,7 +6,9 @@
 #define CIV_TURN_PHASE_H
 
 #include <string>
-
+/**
+ * low level turn phase struct holds the turn phase names enum and helper methods
+ */
 struct Turn_Phase {
     enum names {
         MOVE,

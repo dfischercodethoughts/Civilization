@@ -11,7 +11,14 @@
 #include <iostream>
 
 /**
- * Note the enum Civilization_Name in Unit.h
+ * Civilization class holds all information about a given civilization
+ * Civilizations are owned by game
+ * Civilizations are identified by name
+ * holds a vector of cities, and a vector of units
+ * has an overall gold production and food gathered statistic but at present does not use them
+ * has a boolean to tell if it is ai or not
+ *      (aside: currently we don't have this functionality, but it would be relatively trivial to modify game to have a vector
+ *          of civilizations)
  */
 class Civilization {
 
@@ -44,20 +51,39 @@ public:
     Civilization_Name::Names get_name() const;
     std::string get_name_str() const;
 
+    /**
+     * civ statistics getters and setters
+     * @return
+     */
     int get_gold() const;
     int get_production() const;
     int get_food() const;
 
+    /**
+     * civilization cities getters
+     * @return
+     */
     std::vector<City *> get_cities();
     std::vector<const City *> get_cities_const() const;
     City * get_city(int home_id);
     const City * get_city_const(int homeid) const;
+    /**
+     * adds a city to the civilization. Uses map to add the city to the home tile as well
+     * @param m
+     * @param newh
+     */
     void add_city(Map & m,Tile & newh);
+    void remove_city(Tile * to_change);
 
+    //removes a unit that matches the one given. Used by destroy units method
     void remove_unit(const Unit & re);
 
+    //ai boolean getter
     bool is_ai() const;
 
+    /**
+     * resets all civilization's properties. For use in loading
+     */
     void clear();
 
     /**
@@ -72,6 +98,12 @@ public:
     bool add_unit(Unit*un,Tile& place);
     bool add_unit(Unit::Unit_Type type,Tile& place);
 
+    /**
+     * getters for units
+     * @param owner
+     * @param tileid
+     * @return
+     */
     Unit * get_unit(Civilization_Name::Names owner, int tileid);
     Unit * get_unit_const(Civilization_Name::Names owner, int tileid) const;
     Unit * get_unit(Civilization_Name::Names owner, Tile & loc);
@@ -84,8 +116,17 @@ public:
      * additional methods
      */
 
+    //returns true if the civ has no units in it
     bool lost();
 
+    /**
+     * methods to move units -- handles unit and terrain types
+     *  does not cause damage
+     * @param map
+     * @param to_move
+     * @param move_to
+     * @return
+     */
     bool move_unit(Map& map,Unit& to_move, Tile& move_to);
     bool move_unit(Map * map, Unit * to_move, Tile * move_to);
     bool move_unit(Map * map, int fromid, int toid);
@@ -98,17 +139,16 @@ public:
     //refresh at end of turn
     void refresh();
 
+    //refreshes units and collects resources from cities
+    //uses map to grow cities
     void next_turn(Map & m);
 
+    //iterates through tiles and updates resources based on tile get output
+    //if a cities food is greater than population ^3, switch ready_to_grow flag
     void collect_resources();
 
+    //if a city is ready to grow, grow it based on the map
     void grow_cities(Map & m);
-
-    bool produce_building(Tile & to_build_upon, Building_Name::names blding);
-    bool produce_building(Tile * to_build_upon, Building_Name::names blding);
-
-    bool produce_unit(Tile & to_build_upon, Unit::Unit_Type unit);
-    bool produce_unit(Tile * to_build_upon, Unit::Unit_Type unit);
 
 
     //operators

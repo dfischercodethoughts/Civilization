@@ -7,6 +7,10 @@
 
 #include "Screen.h"
 
+/**
+ * pause screen is used in game and allows returning to start screen to start a new game, and exiting
+ *  or saving and loading the game
+ */
 class Pause_Screen : public Screen {
 private:
     Square return_to_start;

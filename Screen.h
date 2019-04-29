@@ -8,6 +8,10 @@
 #include "Square.h"
 #include <vector>
 
+/**
+ * screen is the base class for all screens
+ *      provides virtual methods, and some methods similar to the square methods
+ */
 class Screen {
 private:
     Coordinate cnt;

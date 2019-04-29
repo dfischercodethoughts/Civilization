@@ -5,7 +5,9 @@
 #ifndef CIV_START_SCREEN_H
 #define CIV_START_SCREEN_H
 #include "Screen.h"
-
+/**
+ * Screen the user is presented with on first starting the game
+ */
 class Start_Screen : public Screen {
 
 private:

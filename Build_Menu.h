@@ -9,10 +9,10 @@
 #include "Square.h"
 #include "Unit.h"
 #include "City.h"
-//#include "Game.h"
 
-
-
+/**
+ * Build menu is used in the main screen to display build options
+ */
 class Build_Menu : public Square {
 private:
 //    int w = 1920;
@@ -21,7 +21,6 @@ private:
     Square *selected_square;
 
     //std::vector<std::vector<Square>> build_menu;
-
 
     Square build_square_1;
     Square build_square_2;
@@ -38,6 +37,8 @@ private:
     Square unit_square_4;
     Square unit_square_5;
     Square unit_square_6;
+
+
 public:
     //base buildmenu
     Build_Menu();
@@ -64,10 +65,6 @@ public:
     //changed the color of the active square to yellow, this was moved elsewhere
     //not used
     void change_active_color(Square sq);
-
-
-//    void compare_selected_square(Square sq);
-//    void selected_build_color(Game &game);
 
     //changes all squares of the menu back to the color white
     void all_squares_white();

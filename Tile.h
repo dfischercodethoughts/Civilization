@@ -17,7 +17,11 @@
 
 class City;
 
-
+/**
+ * tile class has a pointer to a city or unit (which are owned by civilization)
+ * also has a terrain, resource, and building
+ * the building defaults to a building name of none
+ */
 class Tile : public Piece {
 private:
     int id;
@@ -35,7 +39,11 @@ private:
 
     Tile_Output output;
 
+    /**
+     * increments tile ouput based on type of terrain and resource
+     */
     void init_output();
+    //destroys the resource on the tile
     void clear_resource();
 
 public:
@@ -59,35 +67,47 @@ public:
     Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::names ter,Tile_Resource::names res,int id);
     Tile(Coordinate cnt, int h, int w, Color fill, Color text, Tile_Terrain::names ter,Tile_Resource::names res,bool vis);
 
-
+    //constructors use basic init functions
     void init(Tile_Terrain::names ter, Tile_Resource::names res, Unit * newu,bool visible);
+    //allows setting of id for file IO
     void init(Tile_Terrain::names ter, Tile_Resource::names res, Unit * newu,bool visible,int id);
 
+    //upon creating a new map, tiles will set their own id in an incremental fashion in the order
+    //in which they are created
     static int get_num_tiles();
     static void increment_num_tiles();
-    static void init_id();//called in map class
+    static void init_id();
 
+    //if the tile is owned by a city, it will have its owner property set
     Civilization_Name::Names get_owner() const;
     void set_owner(Civilization_Name::Names no);
     bool has_owner() const;
 
+    //building getters and setters (creates a new building to add to the tile)
     Building get_building() const;
     bool add_building(Building_Name::names bld);
     bool has_building() const;
 
+    //allows interacting with a shallow copy of the base square
     Square get_base_square() const;
     void set_base_square(Square set);
 
+    //allows interacting with cities on the tile
     City * get_city();
+    //set city and build city are the same
     void set_city(City & newc);
     void build_city(City & newc);
     bool has_city() const;
+    void remove_city();//destroys city
 
     Tile_Terrain::names get_terrain() const;
     Tile_Resource::names get_resource() const;
 
     int get_id() const;
 
+    /**clears the unit pointer
+     * does not remove the unit from the civilization class
+     */
     void clear_unit();
     bool has_unit() const;
     //returns pointer to original unit, hopefully (units are owned by civilizations)
@@ -98,7 +118,10 @@ public:
 
     void set_background_square(Square set);
 
-
+    /**
+     * returns shallow copy of tile output property
+     * @return
+     */
     Tile_Output get_output() const;
 
     void draw() const override;

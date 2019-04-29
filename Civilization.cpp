@@ -89,6 +89,16 @@ void Civilization::add_city(Map & m,Tile & newh) {
     newh.build_city(cities[cities.size()-1]);
 }
 
+void Civilization::remove_city(Tile * to_change) {
+    for (auto c = cities.begin(); c != cities.end(); c++) {
+        if (*c == *get_city(to_change->get_id())) {
+            cities.erase(c);
+            break;
+        }
+    }
+    to_change->remove_city();
+}
+
 void Civilization::remove_unit(const Unit & to_rem) {
     for (auto u = units.begin(); u < units.end();u++) {
         if (*u == to_rem) {
@@ -123,10 +133,11 @@ bool Civilization::add_unit(Unit * un ) {
 
 bool Civilization::add_unit(Unit& newu, Tile & place) {
     if (place.get_unit() == nullptr) {
-        newu.set_center(place.get_center());
-        newu.set_location(place.get_id());
-        place.set_unit(newu);
-        units.emplace_back(&(newu));
+        Unit * u = new Unit(newu);
+        u->set_center(place.get_center());
+        u->set_location(place.get_id());
+        place.set_unit(*u);
+        units.emplace_back(*u);
 
         return true;
     }
@@ -219,11 +230,7 @@ std::vector<Unit *> Civilization::get_units_const()  const{
 }
 
 bool Civilization::lost() {
-    //todo: change to check if cities vector is empty
-    if (units.empty()) {
-        return true;
-    }
-    return false;
+    return (cities.empty() && units.empty());
 }
 
 bool Civilization::move_unit(Map & map, Unit & to_move, Tile & move_to) {
@@ -261,7 +268,7 @@ bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
 
     Tile * move_from = &*map->get_tile_from_id(tilefrom);
     Tile * move_to = &*map->get_tile_from_id(tileto);
-    std::vector<Tile *> *possible_tiles = map->get_tiles_within_range(move_from,get_unit(name,tilefrom)->get_current_movement());
+    std::vector<Tile *> *possible_tiles = map->get_tiles_in_range_ignore_center(move_from,get_unit(name,tilefrom)->get_current_movement());
     for (Tile * t : *possible_tiles) {
         if (*move_to == *t) {//tile selected is within movement range of the unit
             Unit *unit = get_unit(name, move_from->get_id());
@@ -328,57 +335,6 @@ void Civilization::grow_cities(Map & m) {
             m.get_tile_from_id(cities[i].get_home_tile()->get_id())->build_city(cities[i]);
         }
     }
-}
-
-bool Civilization::produce_building(Tile &to_build_upon, Building_Name::names blding) {
-    for (City c : cities) {
-        for (Tile *tmp : c.get_tiles()) {
-            if (*tmp == to_build_upon) {
-                to_build_upon.add_building(blding);
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-bool Civilization::produce_building(Tile * to_build_upon, Building_Name::names blding) {
-    for (City c : cities) {
-        for (Tile *tmp : c.get_tiles()) {
-            if (*tmp == to_build_upon) {
-                to_build_upon->add_building(blding);
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-bool Civilization::produce_unit(Tile & to_build_upon,Unit::Unit_Type u) {
-    for (City c : cities) {
-        for (Tile *tmp : c.get_tiles()) {
-            if (*tmp == to_build_upon) {
-                units.emplace_back(Unit(to_build_upon.get_id(),to_build_upon.get_center(),name,u));
-                to_build_upon.set_unit(&*get_unit(name,to_build_upon.get_id()));
-                return true;
-            }
-        }
-    }
-    return false;
-
-}
-
-bool Civilization::produce_unit(Tile *to_build_upon, Unit::Unit_Type unit) {
-    for (City c : cities) {
-        for (Tile *tmp : c.get_tiles()) {
-            if (*tmp == to_build_upon) {
-                units.emplace_back(Unit(to_build_upon->get_id(),to_build_upon->get_center(),name,unit));
-                to_build_upon->set_unit(&*get_unit(name,to_build_upon->get_id()));
-                return true;
-            }
-        }
-    }
-    return false;
 }
 
 Civilization & Civilization::operator=(Civilization const &rh) {
@@ -479,7 +435,7 @@ std::istream & operator>>(std::istream & ins, Civilization & fill) {
         while (line == "UNIT") {
             Unit *nu = new Unit();
             ins >> *nu;
-            fill.add_unit(&*nu);
+            fill.add_unit(nu);
             getline(ins,line);
         }//while loop burns END
 

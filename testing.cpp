@@ -5,6 +5,8 @@
 #include "Game.h"
 #include "iostream"
 
+//***********************************************************************************************8
+//testing file
 
 void test_get_vec_coordinates_from_click(Map & m) {
     std::cout << "TESTING GET VEC COORDINATES FROM CLICK" << std::endl;

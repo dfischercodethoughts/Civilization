@@ -7,6 +7,9 @@
 
 #include <string>
 
+/**
+ * basic enum to hold building names, and static methods related to buildings
+ */
 struct Building_Name {
     enum names {
         FARM,

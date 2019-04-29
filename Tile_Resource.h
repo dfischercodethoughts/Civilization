@@ -5,7 +5,9 @@
 #ifndef CIV_TILE_RESOURCE_H
 #define CIV_TILE_RESOURCE_H
 #include <string>
-
+/**
+ * low level tile resource struct holds the resource names enum and static helper methods
+ */
 struct Tile_Resource {
     enum names {
         DEFAULT,
@@ -23,7 +25,6 @@ struct Tile_Resource {
 
     static names string_to_resource(std::string res);
 
-    static float get_resource_probability(Tile_Resource::names res);
 };
 
 #endif //CIV_TILE_RESOURCE_H
