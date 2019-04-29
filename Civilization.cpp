@@ -289,7 +289,6 @@ bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
     }
 
     return false;
-
 }
 
 void Civilization::refresh() {

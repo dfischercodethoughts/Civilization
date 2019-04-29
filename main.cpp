@@ -38,6 +38,8 @@ void init() {
     TextureManager::Register(Unit::unit_type_to_string(Unit::SETTLER).c_str(), Texture("assets\\settler.png"));
     TextureManager::Register(Unit::unit_type_to_string(Unit::BOAT).c_str(), Texture("assets\\boat.png"));
     TextureManager::Register(Unit::unit_type_to_string(Unit::HORSEMAN).c_str(), Texture("assets\\horseman.png"));
+
+    TextureManager::Register("city", Texture("assets\\city.png"));
 }
 
 /* Initialize OpenGL Graphics */

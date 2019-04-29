@@ -324,6 +324,7 @@ City & City::operator=(const City & rhs) {
     for (auto t = rhs.tiles.begin();t != rhs.tiles.end();t++) {
         tiles.emplace(new Tile(*t));
     }
+    return *this;
 }
 
 std::ostream & operator<<(std::ostream & outs, const City & rhs) {
