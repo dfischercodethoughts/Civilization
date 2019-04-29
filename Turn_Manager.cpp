@@ -5,6 +5,7 @@
     return the value of turn phase enum to decide what the view port displays
     ie. move shows unit info when clicked on, BUILD phase only displays buildings that can be built
 */
+
 Turn_Manager::Turn_Manager() {
     count = 0;
     current_phase = Turn_Phase::MOVE;
@@ -70,6 +71,7 @@ void Turn_Manager::next_turn(){
     current_phase = Turn_Phase::MOVE;
     count++;
 }
+
 
 std::ostream & operator<<(std::ostream &outs, const Turn_Manager & print) {
     std::string line = "TURN MANAGER:" + std::to_string(print.count) + "," + Turn_Phase::turn_phase_to_string(print.current_phase);

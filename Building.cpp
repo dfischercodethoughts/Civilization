@@ -36,6 +36,7 @@ void Building::pillage() {
     pillaged = true;
 }
 
+
 void Building::repair() {
     pillaged= false;
 }
@@ -49,16 +50,19 @@ Building & Building::operator=(const Building & cp) {
     return *this;
 }
 
+//returns the prouction cost from the building name
+//made for testing purposes
+int Building::get_building_prod_cost(){
+    return Building_Name::get_production_cost(name);
+}
 
-
+//turns a BUILDINGNAME into a string
 std::string Building::building_to_string(Building_Name::names nm){
     switch(nm){
         case(Building_Name::FARM):
             return "FARM";
         case(Building_Name::MINE):
             return "MINE";
-        //case(Building_Name::HUNTING_LODGE):
-        //    return "HUNTING_LODGE";
         case(Building_Name::LOGGING_CAMP):
             return "LOGGING_CAMP";
         case(Building_Name::MARKET):
@@ -71,6 +75,8 @@ std::string Building::building_to_string(Building_Name::names nm){
     }
     return 0;
 }
+
+
 
 int Building::get_upkeep(Building_Name::names nm){
     //mine or farms require 1 production
@@ -88,7 +94,6 @@ int Building::get_upkeep(Building_Name::names nm){
         return 0;
     }
 }
-
 
 
 Building::~Building() {

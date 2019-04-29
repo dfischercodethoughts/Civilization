@@ -15,20 +15,26 @@ private:
 	
 public:
 
-    //todo: implement
-
+    //turn mamnager constructor
     Turn_Manager();
 
+    //returns the current phase
     Turn_Phase::names get_current_phase() const;
 
+    //returns the current phase as a string
     std::string get_current_phase_str() const;
 
+
+    //returns the number of turns that has passed
     int get_num_turns() const;
 
+    //sets the current phase
     void set_current_phase(Turn_Phase::names new_phase);
 
+    //go to the next phase
     void next_phase();
 
+    //go to the next turn
     void next_turn();
 
     /**

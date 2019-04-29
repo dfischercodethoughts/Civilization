@@ -65,6 +65,10 @@ bool City::is_ready_to_grow() const {
 bool City::get_ready_to_grow() const {
     return ready_to_grow;
 }
+void City::set_production(int prod) {
+    production = prod;
+}
+
 /*
 std::string City::get_production_item() const {
     switch (prod_type) {
@@ -181,9 +185,7 @@ Tile_Output City::collect_resources() {
             }
             break;
         }
-
     }*/
-
 
     if (food > (population^3)) {
         ready_to_grow = true;
@@ -273,6 +275,7 @@ void City::draw_on_viewport(Square sq) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,c);
     }
 
+
     /**alternate production method
      *
     line = "PRODUCING";
@@ -310,7 +313,6 @@ City & City::operator=(const City & rhs) {
     for (auto t = rhs.tiles.begin();t != rhs.tiles.end();t++) {
         tiles.emplace(new Tile(*t));
     }
-    return *this;
 }
 
 std::ostream & operator<<(std::ostream & outs, const City & rhs) {
