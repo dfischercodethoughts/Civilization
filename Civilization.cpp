@@ -230,11 +230,7 @@ std::vector<Unit *> Civilization::get_units_const()  const{
 }
 
 bool Civilization::lost() {
-    //todo: change to check if cities vector is empty
-    if (units.empty()) {
-        return true;
-    }
-    return false;
+    return (cities.empty() && units.empty());
 }
 
 bool Civilization::move_unit(Map & map, Unit & to_move, Tile & move_to) {

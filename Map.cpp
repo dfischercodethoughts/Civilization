@@ -432,6 +432,7 @@ Tile * Map::get_closest_tile(Tile * s, Tile * e) {
         start.y += 1;
     }
     ret = get_tile_from_vector_coordinates(start);
+    std::cout << ret << std::endl;
     return ret;
 }
 
