@@ -23,8 +23,13 @@ struct Building_Name {
         NONE
     };
 
+    //returns production cost of building n
     static int get_production_cost(names n);
+
+    //returns a string from the specified building name
     static std::string building_name_to_string(names);
+
+    //returns a Building_Name from the string of a building name
     static names string_to_building_name(std::string name);
 };
 

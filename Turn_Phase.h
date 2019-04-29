@@ -18,7 +18,10 @@ struct Turn_Phase {
         DEFAULT
     };
 
+    //returns a phase from a phase as a string
 static Turn_Phase::names string_to_turn_phase(std::string phs);
+
+//returns a string from a given phase
 static std::string turn_phase_to_string(Turn_Phase::names nm);
 };
 

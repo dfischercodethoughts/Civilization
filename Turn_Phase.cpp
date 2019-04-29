@@ -2,8 +2,9 @@
 // Created by david on 3/29/2019.
 //
 
-#include "Turn_Phase.h"
+//Alot of this
 
+#include "Turn_Phase.h"
 Turn_Phase::names Turn_Phase::string_to_turn_phase(std::string phs){
     if (phs == "MOVE") {
         return Turn_Phase::MOVE;
@@ -20,7 +21,6 @@ Turn_Phase::names Turn_Phase::string_to_turn_phase(std::string phs){
     }
     else return Turn_Phase::DEFAULT;
 }
-
 
 std::string Turn_Phase::turn_phase_to_string(Turn_Phase::names nm) {
     switch(nm) {

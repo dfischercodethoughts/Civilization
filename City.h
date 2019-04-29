@@ -57,7 +57,10 @@ public:
     bool is_ready_to_grow() const;
     bool get_ready_to_grow() const;
 
-    /*
+     //std::string get_production_item() const;
+     void set_production(int prod);
+
+   /*
      * @return amount the city makes of each resource per turn
      */
     int get_production_output() const;

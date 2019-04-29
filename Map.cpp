@@ -24,7 +24,7 @@ Square(Coordinate(w/2,h/2),Color(150,150,25),Color(0,0,0),h,w,"",true)
         tiles.emplace_back( std::vector<Tile>());
         for (int j = 0; j < numy; j++) {
             count +=1;
-            tiles[i].emplace_back( Tile({i*tile_width+tile_width/2,j*tile_height+tile_height/2},tile_height,tile_width,Color(255,255,255),Color(0,0,0),Tile_Terrain::GRASSLAND,Tile_Resource::WHEAT,count));
+            tiles[i].emplace_back( Tile({i*tile_width+tile_width/2,j*tile_height+tile_height/2},tile_height,tile_width,Color(255,255,255),Color(0,0,0),Tile_Terrain::GRASSLAND,Tile_Resource::GOLD,count));
         }
     }
 }
@@ -39,7 +39,7 @@ Map::Map(int h, int w, int numx, int numy,int xoff, int yoff):
         tiles.emplace_back( std::vector<Tile>());
         for (int j = 0; j < numy; j++) {
             count +=1;
-            tiles[i].emplace_back( Tile({i*tile_width+tile_width/2+xoff,j*tile_height+tile_height/2+yoff},tile_height,tile_width,Color(255,255,255),Color(0,0,0),Tile_Terrain::GRASSLAND,Tile_Resource::WHEAT,count));
+            tiles[i].emplace_back( Tile({i*tile_width+tile_width/2+xoff,j*tile_height+tile_height/2+yoff},tile_height,tile_width,Color(255,255,255),Color(0,0,0),Tile_Terrain::GRASSLAND,Tile_Resource::GOLD,count));
         }
     }
 }
