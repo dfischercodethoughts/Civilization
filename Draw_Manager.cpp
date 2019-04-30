@@ -13,7 +13,6 @@ Draw_Manager::Draw_Manager() {
 }
 
 Draw_Manager::Draw_Manager(int h, int w, int vech, int vecw) {
-    //todo: change main screen piece and tile view panels to correct place
     start.init(h,w);
     main.init(h,w,vech,vecw);
     pause.init(h,w);
@@ -63,7 +62,8 @@ int Draw_Manager::process_click(Coordinate click) {
             Start_Screen::menu_options result = start.check_click(click);
             switch (result) {
                 case(Screen::START_GAME) : {
-                    //main.new_game();
+                    //main.new_game(main.get_screen_height(),main.get_screen_width(),10,10);
+                    //main = Main_Screen(main.get_screen_height(),main.get_screen_width(),10,10);
                     set_screen(Screen::MAIN_GAME);
                     return 0;
 
@@ -88,16 +88,6 @@ int Draw_Manager::process_click(Coordinate click) {
             check_win();
             break;
         }
-                /**
-                 * build functionality to come
-                case (Main_Screen::BUILD) : {
-                    std::shared_ptr<Game> temp_game = main.get_game();
-                    if (temp_game->get_active_tile() != nullptr) {
-
-                    }
-                    break;
-                }
-                 */
 
         case (Screen::END_SCREEN) : {
             Screen::menu_options choice = end.check_click(click);
@@ -180,7 +170,6 @@ Screen * Draw_Manager::get_current_screen() {
     return cur_screen;
 }
 
-//perhaps bad coding practice
 void Draw_Manager::clear_active() {
     if (cur_screen->get_type() == Screen::MAIN_GAME) {
         main.clear_active();

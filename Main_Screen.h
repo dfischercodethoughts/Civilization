@@ -97,7 +97,8 @@ public:
     void select_tile(Tile * tile);//todo: add active city pointer
 
     Game * get_game();
-    void new_game();
+    //creates new game with given vals and sets game equal to it
+    void new_game(int h, int w, int vh, int vw);
 
     ~Main_Screen();
 };

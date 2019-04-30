@@ -325,7 +325,7 @@ Game* Main_Screen::get_game() {
     return &game;
 }
 
-void Main_Screen::new_game() {
+void Main_Screen::new_game(int h, int w, int vecx, int vecy) {
     game.load("new_civs.save","new_map.save","new_tm.save");
 }
 
