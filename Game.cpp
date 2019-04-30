@@ -102,6 +102,17 @@ void Game::play_ai() {
                 //if it hasn't attacked or settled, then move randomly
 
                 int ind_to_move = generator() % (possible_moves->size());
+                if (active_unit!= nullptr && active_unit -> get_unit_type() != Unit::BOAT) {
+                    while (possible_moves->at(ind_to_move)->get_terrain() == Tile_Terrain::WATER) {
+                        ind_to_move = generator() % (possible_moves->size());
+                    }
+                }
+                else {
+                    //unit is a boat
+                    while (possible_moves->at(ind_to_move)->get_terrain() != Tile_Terrain::WATER) {
+                        ind_to_move = generator() % (possible_moves->size());
+                    }
+                }
                 move_active_unit(*possible_moves->at(ind_to_move));
             }
         }//end active unit movement
@@ -554,7 +565,7 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
             return true;
         }
     }
-    else {//AI MOVE
+    else {//AI MOVE********************************************************************************************************************************
         if (to_move_to.has_unit()) {
             if (to_move_to.get_unit()->get_owner() == Civilization_Name::WESTEROS) {
                 //attack
@@ -604,6 +615,8 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
                     set_active_unit(*ai.get_unit(ai.get_name(), to_move_to.get_id()));
                 }
                 return true;
+
+            //normal move
             } else if(ai.move_unit(&map, active_unit->get_location_id(), to_move_to.get_id())) {
                 //reveal_unit(to_move_to.get_unit());
                 set_active_unit(*ai.get_unit(ai.get_name(),to_move_to.get_id()));
