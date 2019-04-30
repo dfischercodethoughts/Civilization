@@ -63,7 +63,6 @@ int Draw_Manager::process_click(Coordinate click) {
             switch (result) {
                 case(Screen::START_GAME) : {
                     //main.new_game(main.get_screen_height(),main.get_screen_width(),10,10);
-                    //main = Main_Screen(main.get_screen_height(),main.get_screen_width(),10,10);
                     set_screen(Screen::MAIN_GAME);
                     return 0;
 

@@ -96,7 +96,9 @@ void Civilization::remove_city(Tile * to_change) {
             break;
         }
     }
-    to_change->remove_city();
+    if (to_change->has_city()) {
+        to_change->remove_city();
+    }
 }
 
 void Civilization::remove_unit(const Unit & to_rem) {
@@ -272,8 +274,8 @@ bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
     for (Tile * t : *possible_tiles) {
         if (*move_to == *t) {//tile selected is within movement range of the unit
             Unit *unit = get_unit(name, move_from->get_id());
-            if ((t->get_terrain() == Tile_Terrain::WATER && unit->get_unit_type() == Unit::BOAT) ||
-                    (t->get_terrain() != Tile_Terrain::WATER && unit->get_unit_type() != Unit::BOAT)) {
+            if (((t->get_terrain() == Tile_Terrain::WATER )&&( unit->get_unit_type() == Unit::BOAT)) ||
+                    ((t->get_terrain() != Tile_Terrain::WATER) && (unit->get_unit_type() != Unit::BOAT))) {
                 unit->use_movement(map->get_move_cost(move_from, move_to));
                 unit->set_location(move_to->get_id());
                 unit->set_center(move_to->get_center());
@@ -327,7 +329,9 @@ void Civilization::grow_cities(Map & m) {
             std::vector<Tile *> tl = *m.get_tiles_in_range_ignore_center(cities[i].get_home_tile(),cities[i].get_population()-1);
             //update civ
             for (Tile * t : tl) {
-                t -> set_owner(name);
+                if (!t->has_owner()) {
+                    t->set_owner(name);
+                }
             }
             cities[i].grow(tl);
             //update tile city pointer

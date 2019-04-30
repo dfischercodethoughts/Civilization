@@ -292,6 +292,7 @@ int Tile::get_id() const {
 }
 
 void Tile::clear_unit() {
+
     unit = nullptr;
 }
 

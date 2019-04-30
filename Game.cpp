@@ -271,17 +271,6 @@ void Game::update_map() {
     }
 }
 
-void Game::clear() {
-    player.clear();
-    ai.clear();
-    manager = Turn_Manager();
-    buildmenu = Build_Menu();
-    active_unit = nullptr;
-    active_tile = nullptr;
-    active_city = nullptr;
-    map.clear();
-}
-
 Game::Game() {
     player = Civilization();
     ai = Civilization();
@@ -596,22 +585,30 @@ bool Game::move_active_unit(Tile &to_move_to) {//game must have active unit, and
 
             }//end tile to move to has enemy (player) unit
 
-            else if (to_move_to.has_city() && to_move_to.get_owner() != active_unit->get_owner()) {
+
+            return false;//unit on tile to move to means unit didn't actually move (even if it did attack)
+        } else {
+            //no unit on tile to move to
+
+            //tile to move to does not have a unit on it
+            if (to_move_to.has_city() && to_move_to.get_owner() != active_unit->get_owner()) {
                 //tile to move to has no enemy unit but has enemy city
                 //destroy the city and move the unit
                 //todo:when moving active unit onto enemy city, destroy city from appropriate enemy by looping through civs vector
                 player.remove_city(&to_move_to);
-                ai.move_unit(&map,active_unit->get_location_id(),to_move_to.get_id());
+                if (to_move_to.has_city()) {
+                    //better to be redundant than efficient in this case
+                    to_move_to.remove_city();
+                }
+                if (ai.move_unit(&map,active_unit->get_location_id(),to_move_to.get_id())) {
+                    set_active_unit(*ai.get_unit(ai.get_name(), to_move_to.get_id()));
+                }
+                return true;
+            } else if(ai.move_unit(&map, active_unit->get_location_id(), to_move_to.get_id())) {
+                //reveal_unit(to_move_to.get_unit());
+                set_active_unit(*ai.get_unit(ai.get_name(),to_move_to.get_id()));
                 return true;
             }
-            return false;//unit on tile to move to means unit didn't actually move (even if it did attack)
-        } else /*if (map.is_adjacent(*map.get_tile_from_id(active_unit->get_location_id()),to_move_to))*/ {
-            //tile to move to does not have a unit on it
-                if(ai.move_unit(&map, active_unit->get_location_id(), to_move_to.get_id())) {
-                    //reveal_unit(to_move_to.get_unit());
-                    set_active_unit(*ai.get_unit(ai.get_name(),to_move_to.get_id()));
-                    return true;
-                }
 
         }
     }//end ai move
@@ -780,6 +777,17 @@ void Game::load(std::string civs_filename, std::string map_filename,std::string 
         }
         c->add_tiles(city_tiles);
     }
+}
+
+void Game::clear() {
+    player.clear();
+    ai.clear();
+    manager = Turn_Manager();
+    buildmenu = Build_Menu();
+    active_unit = nullptr;
+    active_tile = nullptr;
+    active_city = nullptr;
+    map.clear();
 }
 
 Game& Game::operator=(const Game &cp) {
