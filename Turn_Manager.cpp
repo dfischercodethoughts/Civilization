@@ -72,6 +72,11 @@ void Turn_Manager::next_turn(){
     count++;
 }
 
+void Turn_Manager::clear() {
+    current_phase = Turn_Phase::MOVE;
+    count = 0;
+}
+
 
 std::ostream & operator<<(std::ostream &outs, const Turn_Manager & print) {
     std::string line = "TURN MANAGER:" + std::to_string(print.count) + "," + Turn_Phase::turn_phase_to_string(print.current_phase);

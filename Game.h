@@ -69,11 +69,6 @@ private:
     //updates map with latest unit info
     void update_map();
 
-    /**
-     * for use before load, clears all info from current game
-     */
-    void clear();
-
 public:
     const static int MAP_X_OFF = 25;
     const static int MAP_Y_OFF = 25;
@@ -224,6 +219,11 @@ public:
     void save();
     void load();
     void load(std::string civs_filename, std::string map_filename, std::string tm_filename);
+
+    /**
+     * for use before load, clears all info from current game
+     */
+    void clear();
 
     Game & operator=(const Game & cp);
     bool operator==(const Game & rhs);

@@ -31,6 +31,7 @@ void Main_Screen::init(int h, int w,int x, int y) {
     set_screen_height(h);
     set_screen_width(w);
     set_center({w/2,h/2});
+    game.clear();
     game = Game(3*w/4,3*h/4,x,y);
 
     //next_phase = Square({7*w/8,22*h/32},Colors::WHITE,Colors::BLACK,h/12,w/5, "NEXT PHASE",true);
@@ -119,11 +120,19 @@ Screen::menu_options Main_Screen::check_click(Coordinate click) {
     }
     else if (build_city_button.check_click(click)) {
         if (game.has_active_unit() && game.get_active_unit()->get_unit_type() == Unit::SETTLER && game.get_active_unit()->get_owner() == Civilization_Name::WESTEROS) {
-            Tile *settler_tile = game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id());
-            game.build_city(Civilization_Name::WESTEROS, *settler_tile);//building a city destroys the settler
-            game.reveal();
-            build_city_button.hide();
-            clear_active();
+            bool flag = true;
+            for( auto t :*game.get_map().get_tiles_within_range(game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id()),Game::SETTLE_AREA)) {
+                if (t->has_city()) {
+                    flag = false;
+                }
+            }
+            if (flag) {
+                Tile *settler_tile = game.get_map().get_tile_from_id(game.get_active_unit()->get_location_id());
+                game.build_city(Civilization_Name::WESTEROS, *settler_tile);//building a city destroys the settler
+                game.reveal();
+                build_city_button.hide();
+                clear_active();
+            }
 
         }
     }
@@ -325,8 +334,9 @@ Game* Main_Screen::get_game() {
     return &game;
 }
 
-void Main_Screen::new_game() {
-    game.load("new_civs.save","new_map.save","new_tm.save");
+void Main_Screen::new_game(int h, int w, int vecx, int vecy) {
+
+    this->init(h,w,vecx,vecy);
 }
 
 Main_Screen::~Main_Screen() {

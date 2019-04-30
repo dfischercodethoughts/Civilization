@@ -37,6 +37,8 @@ public:
     //go to the next turn
     void next_turn();
 
+    void clear();
+
     /**
      * prints TURN MANAGER:turns,cur_phase\n
      * @param outs

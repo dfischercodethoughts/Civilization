@@ -77,11 +77,14 @@ const City * Civilization::get_city_const(int home_id) const {
 }
 
 void Civilization::add_city(Map & m,Tile & newh) {
+    newh.set_owner(name);
     City newc(newh);
     std::string line = "CITY " + std::to_string(cities.size());
     newc.set_name(line);
     for (Tile * t : *m.get_tiles_within_range(&newh,2)) {
-        t->set_owner(name);
+        if (t->get_owner() == Civilization_Name::NONE) {
+            t->set_owner(name);
+        }
     }
     newc.add_tiles(*m.get_tiles_within_range(&newh, 2));
 
@@ -96,7 +99,9 @@ void Civilization::remove_city(Tile * to_change) {
             break;
         }
     }
-    to_change->remove_city();
+    if (to_change->has_city()) {
+        to_change->remove_city();
+    }
 }
 
 void Civilization::remove_unit(const Unit & to_rem) {
@@ -272,8 +277,8 @@ bool Civilization::move_unit(Map * map, int tilefrom, int tileto) {
     for (Tile * t : *possible_tiles) {
         if (*move_to == *t) {//tile selected is within movement range of the unit
             Unit *unit = get_unit(name, move_from->get_id());
-            if ((t->get_terrain() == Tile_Terrain::WATER && unit->get_unit_type() == Unit::BOAT) ||
-                    (t->get_terrain() != Tile_Terrain::WATER && unit->get_unit_type() != Unit::BOAT)) {
+            if (((t->get_terrain() == Tile_Terrain::WATER )&&( unit->get_unit_type() == Unit::BOAT)) ||
+                    ((t->get_terrain() != Tile_Terrain::WATER) && (unit->get_unit_type() != Unit::BOAT))) {
                 unit->use_movement(map->get_move_cost(move_from, move_to));
                 unit->set_location(move_to->get_id());
                 unit->set_center(move_to->get_center());
@@ -324,10 +329,12 @@ void Civilization::collect_resources() {
 void Civilization::grow_cities(Map & m) {
     for (int i = 0; i < cities.size();i++) {
         if (cities[i].is_ready_to_grow())  {
-            std::vector<Tile *> tl = *m.get_tiles_within_range(cities[i].get_home_tile(),cities[i].get_population()-1);
+            std::vector<Tile *> tl = *m.get_tiles_in_range_ignore_center(cities[i].get_home_tile(),cities[i].get_population()-1);
             //update civ
             for (Tile * t : tl) {
-                t -> set_owner(name);
+                if (!t->has_owner()) {
+                    t->set_owner(name);
+                }
             }
             cities[i].grow(tl);
             //update tile city pointer
