@@ -163,6 +163,12 @@ int Unit::get_production_cost(Unit_Type tp) {
         case (BOAT) : {
             return 20;
         }
+        case (SCOUT) :{
+            return 15;
+        }
+        case (SETTLER) : {
+            return 60;
+        }
         default : {
             return 0;
         }

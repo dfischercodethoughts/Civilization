@@ -52,9 +52,9 @@ Build_Menu::Build_Menu(int h, int w) : Square({6*w/2, 83*h/80}, Colors::WHITE, C
 
     unit_square_4 = Square({8*w/2,77*h/80},Colors::WHITE,Colors::BLACK,h/15,w/2,"HORSEMAN",true);
 
-    unit_square_5 = Square({8*w/2,83*h/80},Colors::WHITE,Colors::BLACK,h/15,w/2,"PLACE HOLD",true);
+    unit_square_5 = Square({8*w/2,83*h/80},Colors::WHITE,Colors::BLACK,h/15,w/2,"SETTLER",true);
 
-    unit_square_6 = Square({8*w/2,89*h/80},Colors::WHITE,Colors::BLACK,h/15,w/2,"PLACE HOLD",true);
+    unit_square_6 = Square({8*w/2,89*h/80},Colors::WHITE,Colors::BLACK,h/15,w/2,"SCOUT",true);
 
 
 }
@@ -88,16 +88,16 @@ void Build_Menu::change_active_color(Square sq){
     }
 }
 
-std::string Build_Menu::ret_build_name(Coordinate click, int prod){
-    if(build_square_1.check_click(click) && prod >= Building_Name::get_production_cost(Building_Name::HARBOR)){
+std::string Build_Menu::ret_build_name(Coordinate click, int prod) {
+    if (build_square_1.check_click(click) && prod >= Building_Name::get_production_cost(Building_Name::HARBOR)) {
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
         build_square_1.set_fill(Colors::YELLOW);
         selected_square = &build_square_1;
         return "HARBOR";
-    }
-    else if (build_square_2.check_click(click)&& prod >= Building_Name::get_production_cost(Building_Name::LOGGING_CAMP)){
+    } else if (build_square_2.check_click(click) &&
+               prod >= Building_Name::get_production_cost(Building_Name::LOGGING_CAMP)) {
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
@@ -105,8 +105,7 @@ std::string Build_Menu::ret_build_name(Coordinate click, int prod){
         selected_square = &build_square_2;
 
         return "LOGGING_CAMP";
-    }
-    else if (build_square_3.check_click(click)&& prod >= Building_Name::get_production_cost(Building_Name::FARM)){
+    } else if (build_square_3.check_click(click) && prod >= Building_Name::get_production_cost(Building_Name::FARM)) {
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
@@ -114,8 +113,7 @@ std::string Build_Menu::ret_build_name(Coordinate click, int prod){
         selected_square = &build_square_3;
 
         return "FARM";
-    }
-    else if (build_square_4.check_click(click)&& prod >= Building_Name::get_production_cost(Building_Name::MINE)){
+    } else if (build_square_4.check_click(click) && prod >= Building_Name::get_production_cost(Building_Name::MINE)) {
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
@@ -123,8 +121,8 @@ std::string Build_Menu::ret_build_name(Coordinate click, int prod){
         selected_square = &build_square_4;
 
         return "MINE";
-    }
-    else if(build_square_5.check_click(click)&& prod >= Building_Name::get_production_cost(Building_Name::TRADING_POST)){
+    } else if (build_square_5.check_click(click) &&
+               prod >= Building_Name::get_production_cost(Building_Name::TRADING_POST)) {
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
@@ -132,72 +130,76 @@ std::string Build_Menu::ret_build_name(Coordinate click, int prod){
         selected_square = &build_square_5;
 
         return "TRADING POST";
-    }
-    else if (build_square_6.check_click(click)&& prod >= Building_Name::get_production_cost(Building_Name::WORKSHOP)){
+    } else if (build_square_6.check_click(click) &&
+               prod >= Building_Name::get_production_cost(Building_Name::WORKSHOP)) {
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
         build_square_6.set_fill(Colors::YELLOW);
         selected_square = &build_square_6;
         return "WORKSHOP";
-    }
-    else if (build_square_7.check_click(click)&& prod >= Building_Name::get_production_cost(Building_Name::MARKET)){
+    } else if (build_square_7.check_click(click) && prod >= Building_Name::get_production_cost(Building_Name::MARKET)) {
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
         build_square_7.set_fill(Colors::YELLOW);
         selected_square = &build_square_7;
         return "MARKET";
-    }
-    else if (build_square_8.check_click(click)&& prod >= Building_Name::get_production_cost(Building_Name::BARRACKS)){
+    } else if (build_square_8.check_click(click) &&
+               prod >= Building_Name::get_production_cost(Building_Name::BARRACKS)) {
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
         build_square_8.set_fill(Colors::YELLOW);
         selected_square = &build_square_8;
         return "BARRACKS";
-    }
-    else if (unit_square_1.check_click(click)&& prod >= Unit::get_production_cost(Unit::BOAT)){
+    } else if (unit_square_1.check_click(click) && prod >= Unit::get_production_cost(Unit::BOAT)) {
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
         unit_square_1.set_fill(Colors::YELLOW);
         selected_square = &unit_square_1;
         return "BOAT";
-    }
-    else if (unit_square_2.check_click(click)&& prod >= Unit::get_production_cost(Unit::WARRIOR)){
+    } else if (unit_square_2.check_click(click) && prod >= Unit::get_production_cost(Unit::WARRIOR)) {
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
         unit_square_2.set_fill(Colors::YELLOW);
         selected_square = &unit_square_2;
         return "WARRIOR";
-    }
-    else if (unit_square_3.check_click(click)&& prod >= Unit::get_production_cost(Unit::ARCHER)){
+    } else if (unit_square_3.check_click(click) && prod >= Unit::get_production_cost(Unit::ARCHER)) {
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
         unit_square_3.set_fill(Colors::YELLOW);
         selected_square = &unit_square_3;
         return "ARCHER";
-    }
-    else if (unit_square_4.check_click(click)&& prod >= Unit::get_production_cost(Unit::HORSEMAN)){
+    } else if (unit_square_4.check_click(click) && prod >= Unit::get_production_cost(Unit::HORSEMAN)) {
         if (selected_square != nullptr) {
             selected_square->set_fill(Colors::WHITE);
         }
         unit_square_4.set_fill(Colors::YELLOW);
         selected_square = &unit_square_4;
         return "HORSEMAN";
+    } else if (unit_square_5.check_click(click) && prod >= Unit::get_production_cost(Unit::SETTLER)) {
+        if (selected_square != nullptr) {
+            selected_square->set_fill(Colors::WHITE);
+        }
+        unit_square_5.set_fill(Colors::YELLOW);
+        return "SETTLER";
+
+    } else if (unit_square_6.check_click(click) && prod >= Unit::get_production_cost(Unit::SCOUT)) {
+        if (selected_square != nullptr) {
+            selected_square->set_fill(Colors::WHITE);
+        }
+        unit_square_6.set_fill(Colors::YELLOW);
+        return "SCOUT";
+
     }
-    else if (unit_square_5.check_click(click)){
-        return "NONE";
-    }
-    else if (unit_square_6.check_click(click)){
-        return "NONE";
-    }else{
-        return "NONE";
-    }
+    return "NONE";
+
 }
+
 
 Square Build_Menu::return_square(std::string str){
     if(str == "HARBOR"){
@@ -224,8 +226,12 @@ Square Build_Menu::return_square(std::string str){
         return unit_square_3;
     }else if (str == "HORSEMAN"){
         return unit_square_4;
-    }else{
+    }else if (str == "SETTLER"){
         return unit_square_5;
+    }else if (str == "SCOUT"){
+        return unit_square_6;
+    }else{
+        return build_square_1;
     }
 }
 
@@ -372,6 +378,9 @@ void Build_Menu::draw() const {
     print_production_cost_unit(unit_square_2, Unit::WARRIOR);
     print_production_cost_unit(unit_square_3, Unit::ARCHER);
     print_production_cost_unit(unit_square_4, Unit::HORSEMAN);
+    print_production_cost_unit(unit_square_5, Unit::SETTLER);
+    print_production_cost_unit(unit_square_6, Unit::SCOUT);
+
 
 
 
