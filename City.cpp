@@ -165,13 +165,15 @@ Tile_Output City::collect_resources() {
     int tmp_gold = 0;
     Tile_Output to_ret;
     for (Tile * tile : tiles) {
-        Tile_Output temp = tile -> get_output();
-        tmp_food += temp.get_food();
-        tmp_gold += temp.get_gold();
-        tmp_production += temp.get_production();
-        to_ret.add_gold(temp.get_gold());
-        to_ret.add_food(temp.get_food());
-        to_ret.add_production(temp.get_production());
+        if (tile->get_owner() == home_tile->get_owner()) {
+            Tile_Output temp = tile->get_output();
+            tmp_food += temp.get_food();
+            tmp_gold += temp.get_gold();
+            tmp_production += temp.get_production();
+            to_ret.add_gold(temp.get_gold());
+            to_ret.add_food(temp.get_food());
+            to_ret.add_production(temp.get_production());
+        }
     }
     production += tmp_production;
     food += tmp_food;

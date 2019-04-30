@@ -77,11 +77,14 @@ const City * Civilization::get_city_const(int home_id) const {
 }
 
 void Civilization::add_city(Map & m,Tile & newh) {
+    newh.set_owner(name);
     City newc(newh);
     std::string line = "CITY " + std::to_string(cities.size());
     newc.set_name(line);
     for (Tile * t : *m.get_tiles_within_range(&newh,2)) {
-        t->set_owner(name);
+        if (t->get_owner() == Civilization_Name::NONE) {
+            t->set_owner(name);
+        }
     }
     newc.add_tiles(*m.get_tiles_within_range(&newh, 2));
 
