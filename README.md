@@ -18,7 +18,7 @@ Units can move across (but not onto) water, with a movement cost of one.
 
 With a unit selected, select a tile to move there if the unit has enough movement to get there, or to select the tile if the unit does not. With a unit selected, click on a tile occupied by the enemy (within movement range) to move to the tile closest to the enemy, and initiate an attack.
 
-There is a known bug in which the AI will move onto water tiles.
+There is a known bug in which the AI will move onto water tiles (FIXED 4/29).
 
 ATTACKING
 
